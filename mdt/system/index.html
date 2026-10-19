@@ -35,6 +35,9 @@ table.spec th{text-align:left;font:var(--t-caption);color:var(--c-text-3);paddin
 table.spec td{padding:10px 12px 10px 0;border-bottom:1px solid var(--c-line);vertical-align:top;color:var(--c-text-2)}
 table.spec td:first-child{color:var(--c-text-1);white-space:nowrap}
 table.spec .num{color:var(--c-text-1)}
+.grid2>*,.grid3>*{min-width:0}
+@media (max-width:767px){.grid2,.grid3{grid-template-columns:minmax(0,1fr)!important}}
+.stage.flush{overflow-x:auto}
 @media (max-width:767px){table.spec th{white-space:normal}table.spec{display:block;overflow-x:auto}}
 .hero-fact{display:flex;gap:var(--s-8);margin-top:var(--s-6);flex-wrap:wrap}
 .hero-fact div{font:var(--t-small);color:var(--c-text-2)}
@@ -73,7 +76,7 @@ table.spec .num{color:var(--c-text-1)}
 <div class="doc">
 <nav class="toc" aria-label="目录">
  <b>门店通设计规范</b>
- <a href="#rule">仪表盘法则</a><a href="#principles">设计原则</a><a href="#density">信息密度</a><a href="#metric">指标写法</a><a href="#type">字阶</a><a href="#color">色板</a><a href="#space">间距圆角阴影</a><a href="#comp">基础组件</a><a href="#biz">业务组件</a><a href="#copy">文案</a><a href="#demo-module">演示模块</a><a href="#pending">待确认状态</a><a href="#cross">跨端</a><a href="#quality">质量底线</a><a href="#refs">参照系</a>
+ <a href="#rule">仪表盘法则</a><a href="#principles">设计原则</a><a href="#density">信息密度</a><a href="#metric">指标写法</a><a href="#type">字阶</a><a href="#color">色板</a><a href="#space">间距圆角阴影</a><a href="#comp">基础组件</a><a href="#biz">业务组件</a><a href="#copy">文案</a><a href="#demo-module">演示模块</a><a href="#pending">空和失败状态</a><a href="#cross">跨端</a><a href="#quality">质量底线</a><a href="#refs">参照系</a>
  <button class="btn btn-secondary theme" id="themeBtn" type="button">预览浅色备选</button>
  <a href="../index.html" style="margin-top:var(--s-3)">回到汇总页</a>
 </nav>
@@ -219,7 +222,7 @@ table.spec .num{color:var(--c-text-1)}
  <h3 class="h3">平台色</h3>
  <p class="p">抖音、快手、小红书不用各家品牌色，统一灰底标签加文字。原因：三种品牌色会和语义色撞（小红书红 = 失败？），PRD 也要求不出现真实品牌素材。</p>
  <h3 class="h3">浅色备选「展厅白」（待确认）</h3>
- <p class="p">展厅灯光亮，手机在强光下看黑底容易反光。作为备选，可给手机工作台提供浅色主题（不在 10-20 的 PM 结论里，待确认）：琥珀做文字时压深到 #955700 才能过 4.5:1，主按钮改成黑底白字，品牌黑在这里反而最显眼。点左侧「预览浅色备选」可以整页切换。</p>
+ <p class="p">展厅灯光亮，手机在强光下看黑底容易反光。作为备选，可给手机工作台提供浅色主题（不在 10-20 的评审结论里，待确认）：琥珀做文字时压深到 #955700 才能过 4.5:1，主按钮改成黑底白字，品牌黑在这里反而最显眼。点左侧「预览浅色备选」可以整页切换。</p>
 </section>
 
 <section class="s" id="space">
@@ -307,7 +310,7 @@ table.spec .num{color:var(--c-text-1)}
  <h3 class="h3">指标条</h3>
  <p class="p">见本页顶部。状态：默认、悬停（可点时底色变 surface-2）、选中（下方 2px 白线，用于指标兼筛选）、加载（数字位置显示骨架）、无数据（显示 —）。</p>
  <div class="stage"><div class="mstrip" style="min-height:0"><div class="metric is-on"><span class="l">待发布</span><span class="v num">45</span></div><div class="metric"><span class="l">已发布</span><span class="v num">2</span></div><div class="metric"><span class="l">失败</span><span class="v num" style="color:var(--c-negative)">1</span></div><div class="metric"><span class="l">合计</span><span class="v num">48</span></div><div class="metric"><span class="l">加载中</span><span class="skel" style="width:56px;height:20px;margin:2px 0"></span></div><div class="metric"><span class="l">无数据</span><span class="v num t3" title="本店未接入该平台">—</span></div></div>
- <p class="cap">发布记录的统计条（PRD v1.2 第 1.3 节）：数字是当前筛选下的条数，点一项就按状态筛选。</p></div>
+ <p class="cap">发布记录的统计条（PRD v1.3 第 1.3 节）：数字是当前筛选下的条数，点一项就按状态筛选。</p></div>
 
  <h3 class="h3">表单</h3>
  <div class="stage">
@@ -324,10 +327,10 @@ table.spec .num{color:var(--c-text-1)}
 
  <h3 class="h3">提示</h3>
  <div class="stage" style="display:grid;gap:var(--s-4)">
-  <div class="row"><div class="toast">已向 27 家未完成门店发送催办</div><div class="toast">已创建 350 条定时发布任务<span class="act">查看记录</span></div></div>
+  <div class="row"><div class="toast">已向 30 家未完成门店发送催办</div><div class="toast">已创建 350 条定时发布任务<span class="act">查看记录</span></div></div>
   <div class="row"><div class="toast toast-err">没有发送成功：网络断开。<span class="act">重试</span></div></div>
   <div class="banner banner-warn" role="status"><b>本地存储不可用</b><span>刷新后操作记录会丢失。可能是浏览器开了无痕模式或禁用了存储。</span></div>
-  <div class="banner"><b>正在完成任务：</b><span>本周每店发 5 条新车视频（1/5）</span><a href="#" style="margin-left:auto">返回任务</a></div>
+  <div class="banner"><b>正在完成任务：</b><span>星驰 X5 30 秒口播视频（0/1）</span><a href="#" style="margin-left:auto">返回任务</a></div>
  </div>
  <p class="cap">轻提示 3 秒后自动消失，带操作的停留 6 秒；横条提示（本地存储不可用、正在完成任务）常驻顶部，不遮内容。提示文字和按钮同名：按钮「确认转交」→ 提示「已转交给销售顾问A」。</p>
 
@@ -341,10 +344,10 @@ table.spec .num{color:var(--c-text-1)}
 </section>
 
 <section class="s" id="biz">
- <h2 class="h">业务组件（覆盖 PRD v1.2 闭环补充）</h2>
- <p class="p">以下组件对应《PRD v1.2 闭环补充》（评审稿）。文案中引号里的字符串照 PRD 验收原文写，改动前先和 PM 对齐。</p>
+ <h2 class="h">业务组件（覆盖 PRD v1.3 闭环补充）</h2>
+ <p class="p">以下组件按 PRD v1.3 的需求编号（C-00 至 C-13，1.9、1.10）排列，每个组件给出各状态。引号里的文案照 PRD v1.3 写；和本规范「元信息不用圆点拼接」规则不同的地方，规范按新规则写，并在「文案」一节列出 PRD 原文，开发前对齐。示例数字都取自 PRD v1.3 种子数据。</p>
 
- <h3 class="h3">顶栏：铃铛、重置演示数据、演示角色</h3>
+ <h3 class="h3">C-00 重置、存储不可用、数据已更新</h3>
  <div class="stage">
   <div class="row" style="justify-content:flex-end">
    <button class="bell" aria-label="消息，没有未读"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 20h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></button>
@@ -354,205 +357,422 @@ table.spec .num{color:var(--c-text-1)}
    <button class="btn btn-secondary">总部管理员 ▾</button>
    <span class="t3" style="font:var(--t-caption)">演示数据 10-14 14:00</span>
   </div>
-  <p class="cap">顺序按 PRD 1.1：铃铛 → 重置演示数据 → 演示角色 → 演示数据标签。未读 0 不显示角标；1–99 显示数字；超过 99 显示「99+」。角标红底黑字（7.2:1）。手机工作台用底部标签「消息」代替铃铛（未读数显示在标签上）；其他页面在手机宽度下顶栏换行，「重置演示数据」和角色切换收进菜单按钮。</p>
+  <p class="cap">顶栏顺序：铃铛 → 重置演示数据 → 演示角色 → 演示数据标签，4 个角色都有。铃铛未读 0 不显示角标，1–99 显示数字，超过 99 显示「99+」，角标红底黑字（7.2:1）。手机工作台不放铃铛，未读数显示在底部「消息」标签上；其他页面在手机宽度下顶栏换行，「重置演示数据」和角色切换收进菜单按钮。</p>
  </div>
  <div class="grid2" style="margin-top:var(--s-4)">
-  <div class="overlay-demo"><div class="sheet" style="width:100%;max-width:420px"><div class="sheet-h"><h3>重置演示数据？</h3></div><div class="sheet-b"><p class="p" style="color:var(--c-text-2)">将清空本浏览器里的演示操作（消息、任务、发布记录、脚本领取、线索跟进和转交、成片、角色修改），恢复初始数据。</p></div><div class="sheet-f"><button class="btn btn-ghost">取消</button><button class="btn btn-danger">重置</button></div></div></div>
-  <div style="display:grid;align-content:center;gap:12px"><div class="toast">已重置演示数据</div><p class="cap">确认按钮写「重置」，不写「确定」。重置不可撤销，用危险样式。</p></div>
+  <div class="overlay-demo"><div class="sheet" style="width:100%;max-width:420px"><div class="sheet-h"><h3>重置演示数据？</h3></div><div class="sheet-b"><p class="p" style="color:var(--c-text-2)">将清空本演示数据（消息、任务、发布记录、脚本领取、线索跟进和转交、成片、角色修改），恢复初始数据。</p></div><div class="sheet-f"><button class="btn btn-ghost">取消</button><button class="btn btn-danger">重置</button></div></div></div>
+  <div style="display:grid;align-content:center;gap:12px"><div class="row"><div class="toast">已重置演示数据</div><div class="toast">演示数据已更新，已重置</div></div><p class="cap">确认按钮写「重置」，危险样式；重置后留在当前页面。打开带 ?reset=1 的链接效果相同、不弹确认框，提示「已重置演示数据」。存储版本对不上时整份丢弃，提示「演示数据已更新，已重置」。</p></div>
+ </div>
+ <div class="stage" style="display:grid;gap:var(--s-3);margin-top:var(--s-4)">
+  <div class="banner banner-warn" role="status"><b>本地存储不可用：</b><span>刷新后操作记录会丢失。可能是浏览器开了无痕模式或禁用了存储。</span></div>
+  <div class="banner" role="status"><span>数据已更新，</span><a href="#">点此刷新</a></div>
+  <p class="cap">两种横条都常驻页面顶部、不遮内容。「数据已更新，点此刷新」只在另一个标签页改了数据、而当前页开着弹层、抽屉或正在生成时出现（否则直接重绘，只刷铃铛数）；整条可点。</p>
  </div>
 
- <h3 class="h3">消息中心</h3>
+ <h3 class="h3">C-01 消息中心</h3>
  <div class="stage flush">
   <div class="panel-h" style="padding-top:8px"><div class="tabs" role="tablist" style="border:0"><button role="tab" aria-selected="true">全部</button><button role="tab">未读<span class="count">2</span></button><button role="tab">我发出的</button></div><div class="aside"><button class="btn btn-ghost">全部标为已读</button></div></div>
-  <div class="chips" style="padding:0 var(--s-5) var(--s-4)"><button class="chip" aria-pressed="true">全部</button><button class="chip">任务</button><button class="chip">催办</button><button class="chip">提醒</button><button class="chip">发布</button><button class="chip">脚本</button><button class="chip">线索</button><button class="chip">PK 结算</button></div>
-  <div class="msg" style="border-top:1px solid var(--c-line)"><span class="dot-unread" aria-label="未读"></span><div><div class="row" style="gap:8px"><span class="tag plain">催办</span><span class="t">总部催办：本周每店发 5 条新车视频（本店 1/5，截止 10-18）</span></div><div class="m">总部管理员　10-14 14:00</div></div><button class="btn btn-secondary go">去处理</button></div>
-  <div class="msg"><span class="dot-unread" aria-label="未读"></span><div><div class="row" style="gap:8px"><span class="tag plain">发布</span><span class="t">发布失败 1 条：杭州星驰西湖售后小助手（抖音）</span></div><div class="m">系统　10-13 19:32</div></div><button class="btn btn-secondary go">去处理</button></div>
-  <div class="msg is-read"><span class="dot-unread"></span><div><div class="row" style="gap:8px"><span class="tag plain">PK 结算</span><span class="t">国庆黄金周 PK 结算：本店全国第 4 名，获 5,000 元营销基金</span></div><div class="s" style="margin-top:4px">已读后展开正文：奖励将在 T+1 发放至门店营销账户。</div><div class="m">系统　10-08 10:00</div></div><button class="btn btn-ghost go">去处理</button></div>
+  <div class="chipbar" role="radiogroup" aria-label="消息类型" style="padding-bottom:var(--s-4)"><button class="chip" role="radio" aria-checked="true">全部</button><button class="chip" role="radio" aria-checked="false">任务</button><button class="chip" role="radio" aria-checked="false">催办</button><button class="chip" role="radio" aria-checked="false">门店提醒</button><button class="chip" role="radio" aria-checked="false">发布</button><button class="chip" role="radio" aria-checked="false">脚本下发</button><button class="chip" role="radio" aria-checked="false">线索</button><button class="chip" role="radio" aria-checked="false">PK 结算</button></div>
+  <div class="msg" style="border-top:1px solid var(--c-line)"><span class="dot-unread" aria-label="未读"></span><div><div class="row" style="gap:8px"><span class="tag plain">任务催办</span><span class="t">总部催办：星驰 X5 30 秒口播视频（本店 0/1，截止 10-20）</span></div><div class="meta" style="margin-top:4px"><span class="src">总部管理员</span><span class="num">10-14 14:00</span></div></div><button class="btn btn-secondary go">去处理</button></div>
+  <div class="msg"><span class="dot-unread" aria-label="未读"></span><div><div class="row" style="gap:8px"><span class="tag plain">线索转交</span><span class="t">店长转交线索：李女士，星驰 X5，抖音私信</span></div><div class="meta" style="margin-top:4px"><span class="src">杭州星驰西湖店<i>店长</i></span><span class="num">10-14 14:00</span></div></div><button class="btn btn-secondary go">去处理</button></div>
+  <div class="msg is-read"><span class="dot-unread"></span><div><div class="row" style="gap:8px"><span class="tag plain">PK 结算</span><span class="t">国庆黄金周 PK 结算：本店全国第 4 名，获 5,000 元营销基金</span></div><div class="s" style="margin-top:4px;white-space:normal">国庆黄金周 PK（10-01 至 10-07）已结算：全国第 4 名，获 5,000 元营销基金。奖励发放至门店营销账户。</div><div class="meta" style="margin-top:4px"><span>系统</span><span class="num">10-08 10:00</span></div></div><button class="btn btn-ghost go">去处理</button></div>
  </div>
- <p class="cap">未读：蓝点 + 标题 500 字重；已读：去掉蓝点、标题变次要色。点行内空白展开正文并标为已读；「去处理」跳转并标为已读。来源和时间分开排，不用圆点拼接。</p>
- <div class="stage flush" style="margin-top:var(--s-4)">
-  <div class="msg"><div style="flex:1"><div class="t">催办 · 27 家门店</div><div class="m">10-14 14:00</div></div><span class="num t2" style="align-self:center;font:var(--t-small)">已读 1 / 27</span></div>
-  <div class="msg" style="border-bottom:0"><div style="flex:1"><div class="t">提醒 长沙星驰星沙店：总部提醒：近 30 天直播仅 3 场</div><div class="m">10-14 14:00</div></div><span class="t3" style="align-self:center;font:var(--t-small)">未读</span></div>
- </div>
- <p class="cap">「我发出的」：一次发送一行，右侧写已读情况，数字等宽。</p>
+ <p class="cap">消息行：未读蓝点、类型标签、标题、来源、时间、「去处理」。未读标题 500 字重；已读去掉蓝点、标题变次要色。点行内空白展开正文并标为已读；「去处理」标为已读并跳转。来源和时间是两个独立文字元素，间距 12px；来源是门店时拆成门店名 + 8px + 灰色角色名（「杭州星驰西湖店」「店长」）；总部、大区和系统只写角色（「总部管理员」「华东大区经理」「系统」）。类型标签 11 种，按「对象 + 动作」写、不用括号：任务下发、任务抄送、任务完成、任务催办、门店提醒、发布排期、发布失败、脚本下发、线索转交、线索分配、PK 结算。sales 没有「我发出的」页签。消息中心不进左侧菜单，从铃铛进，不受「角色与权限」控制。</p>
  <div class="grid2" style="margin-top:var(--s-4)">
-  <div class="stage"><span class="tag plain" style="margin-bottom:8px">待 PM 在 v1.3 确认</span><div class="empty" style="padding:0"><h3>没有新消息</h3><p>总部下发的任务、催办、脚本，和转交给你的线索，会出现在这里。</p></div></div>
-  <div class="stage"><span class="tag plain" style="margin-bottom:8px">待 PM 在 v1.3 确认</span><div class="empty" style="padding:0"><h3>还没有发出过消息</h3><p>在任务中心催办、在驾驶舱提醒店长后，可以在这里看对方读没读。</p></div></div>
+  <div class="mobile-frame"><div class="chipbar" role="radiogroup" aria-label="消息类型（手机）" data-autoscroll style="padding-top:var(--s-3);padding-bottom:var(--s-3)"><button class="chip" role="radio" aria-checked="false">全部</button><button class="chip" role="radio" aria-checked="false">任务</button><button class="chip" role="radio" aria-checked="false">催办</button><button class="chip" role="radio" aria-checked="false">门店提醒</button><button class="chip" role="radio" aria-checked="true">发布</button><button class="chip" role="radio" aria-checked="false">脚本下发</button><button class="chip" role="radio" aria-checked="false">线索</button><button class="chip" role="radio" aria-checked="false">PK 结算</button></div></div>
+  <ul class="p">
+   <li><b>筛选条（.chipbar）：</b>单选，8 项：全部、任务（含任务下发、抄送、完成）、催办、门店提醒、发布（含发布排期、失败）、脚本下发、线索（含线索转交、分配）、PK 结算。筛选按大类，消息上的标签按小类。</li>
+   <li>PC 宽度换行排开，按钮高 32px；手机宽度单行横向滑动，按钮高 44px，露出下一项的一部分提示能滑。</li>
+   <li>选中项（左图「发布」）自动滚入可视区，用 <code>scrollIntoView({inline:"nearest"})</code>；减少动效时不做平滑滚动。</li>
+   <li>键盘：Tab 进入，左右方向键切换，选中即筛选；焦点环 2px 信息蓝，滚动时不被裁掉（容器上下各留 2px）。</li>
+  </ul>
+ </div>
+ <div class="stage flush" style="margin-top:var(--s-4)">
+  <div class="msg"><div style="flex:1"><div class="t" style="font:var(--t-body);color:var(--c-text-1)">催办 30 家门店，已读 <span class="num">1 / 30</span></div><div class="s" style="margin-top:2px">总部催办：星驰 X5 30 秒口播视频</div></div><span class="num t3" style="align-self:center;font:var(--t-caption)">10-14 14:00</span></div>
+  <div class="msg" style="border-bottom:0"><div style="flex:1"><div class="t" style="font:var(--t-body);color:var(--c-text-1)">提醒长沙星驰星沙店，已读 <span class="num">0 / 1</span></div><div class="s" style="margin-top:2px">总部提醒：近 30 天直播仅 3 场</div></div><span class="num t3" style="align-self:center;font:var(--t-caption)">10-14 14:00</span></div>
+ </div>
+ <p class="cap">「我发出的」：一次发送一行。第一行写成一句话「{动作}{接收方}，已读 x / N」（如「催办 30 家门店，已读 1 / 30」）；第二行是消息标题；右侧时间。动作词只用：催办、提醒、任务下发、发布排期、脚本下发、转交线索；多家门店写「30 家门店」。店长只列「转交线索」。</p>
+ <div class="grid3" style="margin-top:var(--s-4)">
+  <div class="stage"><div class="empty" style="padding:0"><h3>没有新消息</h3><p>总部下发的任务、催办、脚本，和转交给你的线索，会出现在这里。</p></div><p class="cap">「全部」为空，按角色换说明句（见「空和失败状态」）。</p></div>
+  <div class="stage"><div class="empty" style="padding:0"><h3>没有催办消息</h3><button class="btn btn-secondary">看全部消息</button></div><p class="cap">类型筛选后为空：「没有{类型}消息」（如「没有催办消息」）。「未读」为空：「没有未读消息」。</p></div>
+  <div class="stage"><div class="empty" style="padding:0"><h3>还没有发出过消息</h3><p>在任务中心催办、在驾驶舱提醒店长后，可以在这里看对方读没读。</p></div><p class="cap">店长说明句：「把线索转交给销售顾问后，可以在这里看对方读没读。」</p></div>
  </div>
 
- <h3 class="h3">发布记录</h3>
- <div class="stage flush">
-  <table class="tbl"><thead><tr><th>批次号</th><th>内容</th><th>门店账号</th><th>平台</th><th>计划发布</th><th>状态</th><th>关联任务</th><th></th></tr></thead>
+ <h3 class="h3">C-02 内容分发和发布记录</h3>
+ <div class="stage">
+  <div class="tabs" role="tablist"><button role="tab">新建发布</button><button role="tab" aria-selected="true">发布记录</button></div>
+  <p class="cap">「内容分发」页顶部页签「新建发布」「发布记录」。店长新增这个菜单，只看本店 7 个账号；sales 没有。</p>
+ </div>
+ <div class="grid2" style="margin-top:var(--s-4)">
+  <div class="stage">
+   <div class="field"><label>第 2 步 选择账号</label>
+    <div class="chips"><button class="chip" aria-pressed="true">抖音 <span class="n">3</span></button><button class="chip" aria-pressed="true">快手 <span class="n">3</span></button><button class="chip">小红书 <span class="n">1</span></button></div>
+    <div class="picker" style="margin-top:8px">
+     <div class="grp-h"><span>杭州星驰西湖店</span><span class="num t3">已选 6 个</span></div>
+     <label class="radio-row"><input type="checkbox" checked><span class="bd">杭州星驰西湖新车速递</span><span class="tag plain">抖音</span></label>
+     <label class="radio-row"><input type="checkbox" checked><span class="bd">杭州星驰西湖销售顾问B</span><span class="tag plain">抖音</span></label>
+     <label class="radio-row"><input type="checkbox" checked><span class="bd">杭州星驰西湖售后小助手</span><span class="tag plain">抖音</span></label>
+    </div></div>
+   <p class="cap">账号级选择：平台芯片能点，也参与计数（账号数 = 勾选范围内且属于勾选平台的账号）。hq 按大区分组，region 只有华东，store 只有本店 7 个账号，默认勾抖音、快手共 6 个。</p>
+  </div>
+  <div class="stage">
+   <div class="field"><label for="dt1">第 3 步 发布时间</label><input id="dt1" class="input num" type="datetime-local" value="2026-10-14T19:30"></div>
+   <div class="field" style="margin-top:var(--s-4)"><label for="dt2">发布时间（出错）</label><input id="dt2" class="input num" type="datetime-local" value="2026-10-14T13:30" aria-invalid="true" style="border-color:var(--c-negative)"><span class="help err">发布时间须晚于当前演示时间 10-14 14:00</span></div>
+   <p class="cap">日期时间选择器，精确到分钟，默认 2026-10-14 19:30。成功提示「已创建 6 条定时发布任务」，带「查看记录」，停留 6 秒。</p>
+  </div>
+ </div>
+ <div class="stage flush" style="margin-top:var(--s-4)">
+  <div class="mstrip" role="tablist" aria-label="按状态筛选">
+   <button class="metric" role="tab" aria-selected="false"><span class="l">待发布</span><span class="v num">3</span></button>
+   <button class="metric" role="tab" aria-selected="false"><span class="l">已发布</span><span class="v num">2</span></button>
+   <button class="metric is-on" role="tab" aria-selected="true"><span class="l">失败</span><span class="v num" style="color:var(--c-negative)">1</span></button>
+   <button class="metric" role="tab" aria-selected="false"><span class="l">合计</span><span class="v num">6</span></button>
+  </div>
+  <div class="row" style="padding:var(--s-3) var(--s-5);gap:var(--s-3);border-top:1px solid var(--c-line)"><div class="seg"><button>今日</button><button>近 7 天</button><button aria-selected="true">近 30 天</button></div><select class="input" style="width:auto"><option>全部平台</option></select><select class="input" style="width:auto"><option>状态：失败</option></select><select class="input" style="width:auto"><option>全部批次</option></select><button class="btn btn-ghost" style="margin-left:auto">清除筛选</button></div>
+  <div class="tblwrap" style="overflow-x:auto"><table class="tbl"><thead><tr><th>批次号</th><th>内容</th><th>账号</th><th>平台</th><th>计划发布</th><th>状态</th><th>关联任务</th><th></th></tr></thead>
    <tbody>
-    <tr><td class="sub num">PB-1014-01</td><td class="main">到店福利口播 0:19</td><td class="sub">杭州星驰西湖新车速递</td><td><span class="tag plain">抖音</span></td><td class="sub num">10-14 19:30</td><td><span class="tag tag-info">待发布</span></td><td class="sub">—</td><td class="r"><button class="btn btn-ghost">查看</button></td></tr>
-    <tr><td class="sub num">PB-1013-01</td><td class="main">星驰 E3 冬季续航 0:31</td><td class="sub">杭州星驰西湖销售顾问B</td><td><span class="tag plain">抖音</span></td><td class="sub num">10-13 19:30</td><td><span class="tag tag-pos">已发布</span></td><td class="sub">—</td><td class="r"><button class="btn btn-ghost">查看</button></td></tr>
+    <tr><td class="sub num">PB-1014-01</td><td class="main">到店福利口播 0:19</td><td class="sub">杭州星驰西湖新车速递</td><td><span class="tag plain">抖音</span></td><td class="sub num">10-14 19:30</td><td><span class="tag tag-info">待发布</span></td><td class="sub">—</td><td></td></tr>
+    <tr><td class="sub num">PB-1013-01</td><td class="main">星驰 E3 冬季续航 0:31</td><td class="sub">杭州星驰西湖销售顾问B</td><td><span class="tag plain">抖音</span></td><td class="sub num">10-13 19:30</td><td><span class="tag tag-pos">已发布</span></td><td class="sub">—</td><td></td></tr>
     <tr><td class="sub num">PB-1013-01</td><td class="main">星驰 E3 冬季续航 0:31</td><td class="sub">杭州星驰西湖售后小助手</td><td><span class="tag plain">抖音</span></td><td class="sub num">10-13 19:30</td><td><span class="tag tag-neg">失败</span></td><td class="sub">—</td><td class="r"><button class="btn btn-ghost">去授权</button> <button class="btn btn-secondary">重新发布</button></td></tr>
     <tr><td colspan="8" style="height:auto;padding:0 var(--s-5) var(--s-4);border-bottom:0"><div class="banner banner-err"><b>失败原因</b><span>账号授权已过期，请到直播间页重新扫码授权</span></div></td></tr>
-   </tbody></table>
+   </tbody></table></div>
+  <p class="pager" style="justify-content:flex-start">这里只列经「内容分发」排期的发布；门店发布量统计以门店数据为准</p>
+ </div>
+ <p class="cap">统计条兼筛选：待发布、已发布、失败、合计都是当前筛选下的条数，点一项等于按这个状态筛选（选中项底部描边）。表格每页 20 行。状态只有待发布（蓝）、已发布（绿）、失败（红，下方展开原因）。「去授权」跳到直播间页，记录状态不变；「重新发布」把这条改回待发布。只有 hq 和 store 显示这两个按钮，region 不显示（不是置灰）。「发布中」「审核中」「已取消」demo 不做，正式产品接入真实平台时再定。</p>
+ <div class="grid2" style="margin-top:var(--s-4)">
+  <div class="stage"><div class="empty" style="padding:0"><h3>没有符合筛选条件的发布记录</h3><p>换个日期、平台或状态试试。</p><button class="btn btn-secondary">清除筛选</button></div><p class="cap">筛选无结果：统计条全显示 0。</p></div>
+  <div class="stage"><div class="empty" style="padding:0"><h3>还没有定时发布</h3><p>在「新建发布」里选内容和账号，定时发布后会出现在这里。</p><button class="btn btn-secondary">去新建发布</button></div><p class="cap">从来没有记录：正式产品才会出现，demo 有种子数据。</p></div>
  </div>
  <div class="mobile-frame" style="margin-top:var(--s-4)"><div class="panel-h"><h2>今日待发布</h2><span class="aside t3 num" style="font:var(--t-caption)">3 条</span></div><ul class="list">
-  <li class="li"><span class="num t2" style="font:var(--t-small);width:40px">19:30</span><div class="bd"><div class="t"><span>到店福利口播 0:19</span></div><div class="s">杭州星驰西湖新车速递，抖音</div></div><span class="tag tag-info">待发布</span></li>
-  <li class="li"><span class="num t2" style="font:var(--t-small);width:40px">19:30</span><div class="bd"><div class="t"><span>到店福利口播 0:19</span></div><div class="s">杭州星驰西湖销售顾问B，抖音</div></div><span class="tag tag-info">待发布</span></li>
+  <li class="li"><div class="bd"><div class="meta" style="font:var(--t-small)"><b class="num">19:30</b><span>杭州星驰西湖新车速递</span></div><div class="t" style="margin-top:2px"><span>到店福利口播 0:19</span></div></div><span class="tag tag-info">待发布</span></li>
+  <li class="li"><div class="bd"><div class="meta" style="font:var(--t-small)"><b class="num">19:30</b><span>杭州星驰西湖销售顾问B</span></div><div class="t" style="margin-top:2px"><span>到店福利口播 0:19</span></div></div><span class="tag tag-info">待发布</span></li>
  </ul></div>
- <p class="cap">手机工作台「我的任务」页里的「今日待发布」卡片：每行写时间、账号、内容，点了进发布记录。发布记录页本身在手机宽度下按兼容写法显示表格。</p>
- <p class="cap">三种状态各有颜色和文字：待发布（蓝，带计划时间）、已发布（绿）、失败（红，下方展开原因和两个按钮）。「去授权」跳到直播间页，「重新发布」把这条改回待发布 10-14 19:30。sales 没有这个页面；无权限点「重新发布」的角色不显示按钮，而不是显示禁用。状态只有这三种；「发布中」「审核中」「已取消」等真实平台状态，正式产品以后再定，demo 不做。</p>
+ <p class="cap">手机工作台「我的任务」页的「今日待发布」卡：列本店今天 14:00 以后、待发布的记录，时间、账号、内容各占一个文字元素，整行点了进发布记录。</p>
 
- <h3 class="h3">新建任务（表单弹层）</h3>
+ <h3 class="h3">C-03 新建任务（表单弹层）</h3>
  <div class="grid2">
   <div class="overlay-demo" style="align-items:start">
    <div class="sheet" style="width:100%;max-width:520px">
     <div class="sheet-h"><h3>新建任务</h3><button class="btn btn-ghost" style="margin-left:auto" aria-label="关闭">✕</button></div>
     <div class="sheet-b">
      <div class="field"><label>任务类型</label><div class="chips"><button class="chip" aria-pressed="true">发视频</button><button class="chip">开直播</button><button class="chip">回私信</button></div></div>
-     <div class="field"><label for="t1">任务名称</label><input id="t1" class="input" value="星驰 E3 冬季实拍短视频"></div>
-     <div class="grid2" style="gap:12px"><div class="field"><label for="t2">每店数量（条）</label><input id="t2" class="input num" value="1" inputmode="numeric"></div><div class="field"><label for="t3">截止日期</label><input id="t3" class="input" value="10-18"></div></div>
-     <div class="field"><label>下发范围</label><div class="seg"><button>全国 48 店</button><button aria-selected="true">按大区</button><button>指定门店</button></div><div class="chips" style="margin-top:8px"><button class="chip" aria-pressed="true">华东</button><button class="chip">华北</button><button class="chip">华南</button><button class="chip">西南</button><button class="chip">华中</button></div></div>
+     <div class="field"><label for="t1">任务名称</label><input id="t1" class="input" value="星驰 E3 冬季实拍短视频"><span class="help">30 字以内；选类型后自动填「每店发视频1条」，可以改</span></div>
+     <div class="grid2" style="gap:12px"><div class="field"><label for="t2">每店数量（条）</label><input id="t2" class="input num" value="1" inputmode="numeric"></div><div class="field"><label for="t3">截止日期</label><input id="t3" class="input num" value="10-12" aria-invalid="true" style="border-color:var(--c-negative)"><span class="help err">截止日期不能早于 10-14</span></div></div>
+     <div class="field"><label>下发范围</label><div class="seg"><button>全国 48 店</button><button>按大区</button><button aria-selected="true">指定门店</button></div>
+      <input class="input" placeholder="搜索门店名" style="margin-top:8px" aria-label="搜索门店名">
+      <div class="meta" style="margin-top:8px"><span>已选 2 家</span></div>
+      <div class="picker" style="margin-top:4px">
+       <div class="grp-h"><span>华东（12）</span><button>全选本区</button></div>
+       <label class="radio-row"><input type="checkbox" checked><span class="bd">杭州星驰西湖店</span></label>
+       <label class="radio-row"><input type="checkbox" checked><span class="bd">杭州星驰滨江店</span></label>
+       <label class="radio-row"><input type="checkbox"><span class="bd">无锡星驰太湖店</span></label>
+       <div class="grp-h"><span>华北</span><button>全选本区</button></div>
+       <label class="radio-row"><input type="checkbox"><span class="bd">天津星驰滨海店</span></label>
+      </div></div>
      <div class="field"><label for="t4">负责人</label><select id="t4" class="input"><option>门店店长</option><option>新媒体专员</option></select></div>
     </div>
-    <div class="sheet-f"><span class="t2" style="margin-right:auto;align-self:center;font:var(--t-small)">将下发至 <b class="num" style="color:var(--c-text-1)">12</b> 家门店</span><button class="btn btn-ghost">取消</button><button class="btn btn-primary">确认下发</button></div>
+    <p class="err-line" role="alert">任务没有下发：网络断开。检查网络后再点「确认下发」，已填内容不会丢。</p>
+    <div class="sheet-f"><span class="t2" style="margin-right:auto;align-self:center;font:var(--t-small)">将下发至 <b class="num" style="color:var(--c-text-1)">2</b> 家门店</span><button class="btn btn-ghost">取消</button><button class="btn btn-primary">确认下发</button></div>
    </div>
   </div>
   <div>
    <ul class="p">
-    <li>居中弹层，宽 520px。手机宽度下按兼容写法：弹层占满屏宽、内容可滚动，不另做底部弹出。</li>
-    <li>预览「将下发至 N 家门店」放在底栏左侧，跟着范围实时变，用户点确认前就知道影响多大。</li>
-    <li>必填项没填：「确认下发」禁用；截止日期早于 10-14：输入框变红，下方写「截止日期不能早于 10-14」。</li>
-    <li>点确认后按钮进入加载态；成功后关闭弹层，提示「任务已下发至 12 家门店」，任务中心第一张卡片就是它。</li>
-    <li>大区经理打开时，范围只有「华东全部 12 店」「指定华东门店」。</li>
+    <li>居中弹层，宽 520px；手机宽度下占满屏宽、内容可滚动。</li>
+    <li>「指定门店」：按大区分组的勾选列表，组标题吸顶并带「全选本区」，顶部搜索框按门店名过滤，列表上方写「已选 N 家」。hq 范围有「全国 48 店」「按大区（多选）」「指定门店（多选）」；region 只有「华东全部 12 店」「指定华东门店」。</li>
+    <li>截止日期早于开始日期或 10-14：输入框变红，下方「截止日期不能早于 10-14」。必填没填时「确认下发」禁用。</li>
+    <li>预览「将下发至 N 家门店」在底栏左侧，跟着范围实时变。</li>
+    <li>点确认后按钮进入加载态：<button class="btn btn-primary is-loading" aria-busy="true">确认下发</button>　成功后关闭弹层，提示「任务已下发至 12 家门店」，任务中心第一张卡片就是它。</li>
+    <li>提交失败（正式产品才会出现）：弹层不关、已填内容保留，按钮恢复可点，底栏上方红字（示例中已显示）。不另放「重试」按钮，直接再点「确认下发」。</li>
    </ul>
   </div>
  </div>
 
- <h3 class="h3">选人列表（线索转交）</h3>
- <div class="grid2">
-  <div class="overlay-demo" style="align-items:start">
-   <div class="sheet" style="width:100%;max-width:420px">
-    <div class="sheet-h"><h3>转交给</h3></div>
-    <div style="max-height:none">
-     <label class="radio-row"><input type="radio" name="p" checked><span class="bd">销售顾问A</span><span class="t3 num" style="font:var(--t-small)">待跟进 4 条</span></label>
-     <label class="radio-row"><input type="radio" name="p"><span class="bd">销售顾问C</span><span class="t3 num" style="font:var(--t-small)">待跟进 2 条</span></label>
-     <label class="radio-row"><input type="radio" name="p"><span class="bd">销售顾问D</span><span class="t3 num" style="font:var(--t-small)">待跟进 1 条</span></label>
-     <label class="radio-row"><input type="radio" name="p"><span class="bd">销售顾问E</span><span class="t3 num" style="font:var(--t-small)">待跟进 0 条</span></label>
-    </div>
-    <div class="sheet-b" style="padding-top:var(--s-4)"><div class="field"><label for="r1">备注（选填）</label><input id="r1" class="input" value="客户指定"></div></div>
-    <div class="sheet-f"><button class="btn btn-ghost">取消</button><button class="btn btn-primary">确认转交</button></div>
-   </div>
-  </div>
-  <ul class="p">
-   <li>列表不含当前跟进人；每人后面写「待跟进 N 条」，让店长按负载分配。行高 52px，整行可点。</li>
-   <li>没选人时「确认转交」禁用。成功提示「已转交给 销售顾问A」，列表里跟进人立刻变，带「转交来自 店长」标签。</li>
-   <li>以上待跟进条数为示例，实际从线索数据算。</li>
-  </ul>
- </div>
-
- <h3 class="h3">门店任务卡（进度和去处按钮）</h3>
+ <h3 class="h3">C-04 门店任务：下发任务卡、任务详情、去处按钮</h3>
  <div class="grid3">
   <div class="panel" style="padding:var(--s-5);display:grid;gap:10px">
-   <div class="row" style="justify-content:space-between"><b style="font:var(--t-title-2)">本周每店发 5 条新车视频</b></div>
-   <div class="t2" style="font:var(--t-small)">总部，10-12 至 10-18</div>
+   <b style="font:var(--t-title-2)">星驰 X5 30 秒口播视频</b>
+   <div class="meta"><span>总部</span><span class="num">10-14 至 10-20</span><span>负责人 店长</span></div>
+   <div class="row" style="justify-content:space-between"><span class="num" style="font:var(--t-metric)">0/1</span><span class="tag tag-info">进行中</span></div>
+   <div class="prog"><b style="width:0"></b></div>
+   <div class="meta"><span class="warn">已被催办 1 次，最近 14:00</span></div>
+   <div class="row"><button class="btn btn-ghost">查看</button><button class="btn btn-primary">去发视频</button></div>
+  </div>
+  <div class="panel" style="padding:var(--s-5);display:grid;gap:10px">
+   <b style="font:var(--t-title-2)">本周每店发 5 条新车视频</b>
+   <div class="meta"><span>总部</span><span class="num">10-12 至 10-18</span><span>负责人 新媒体专员</span></div>
    <div class="row" style="justify-content:space-between"><span class="num" style="font:var(--t-metric)">5/5</span><span class="tag tag-pos">已完成</span></div>
    <div class="prog done"><b style="width:100%"></b></div>
    <button class="btn btn-ghost" style="justify-self:start">查看</button>
   </div>
   <div class="panel" style="padding:var(--s-5);display:grid;gap:10px">
-   <b style="font:var(--t-title-2)">星驰 E3 冬季实拍短视频</b>
-   <div class="t2" style="font:var(--t-small)">总部，10-14 至 10-18</div>
-   <div class="row" style="justify-content:space-between"><span class="num" style="font:var(--t-metric)">0/1</span><span class="tag tag-info">进行中</span></div>
-   <div class="prog"><b style="width:0"></b></div>
-   <div class="t3" style="font:var(--t-caption);color:var(--c-accent)">已被催办 2 次 · 最近 14:00</div>
-   <div class="row"><button class="btn btn-ghost">查看</button><button class="btn btn-primary">去发视频</button></div>
-  </div>
-  <div class="panel" style="padding:var(--s-5);display:grid;gap:10px">
    <b style="font:var(--t-title-2)">每店完成 2 场周末直播</b>
-   <div class="t2" style="font:var(--t-small)">总部，10-17 至 10-18</div>
+   <div class="meta"><span>总部</span><span class="num">10-17 至 10-18</span><span>负责人 店长</span></div>
    <div class="row" style="justify-content:space-between"><span class="num" style="font:var(--t-metric)">0/2</span><span class="tag">未开始</span></div>
    <div class="prog"><b style="width:0"></b></div>
    <div class="row"><button class="btn btn-ghost">查看</button><button class="btn btn-secondary" disabled>10-17 开始</button></div>
   </div>
  </div>
- <p class="cap">四种状态：未开始（灰，去处按钮禁用并写开始日期）、进行中（蓝）、已完成（绿，不显示去处按钮）、已逾期（琥珀，按钮保留）。按钮按任务类型写去处：「去发视频」「去开直播」「去回私信」（PM 10-20 已定），用户点之前就知道会去哪。</p>
- <div class="stage" style="margin-top:var(--s-4)">
-  <ol class="steps" aria-label="完成任务流程"><li class="done"><b>任务卡</b>点「去发视频」</li><li class="done"><b>AI 创作</b>顶部横条：正在完成任务（0/1）</li><li class="cur"><b>内容分发</b>定时发布到本店账号</li><li><b>回到任务</b>进度 1/1，已完成</li></ol>
-  <p class="cap">这是一个有先后的流程，所以用步骤条。每一步的页面顶部都有「正在完成任务」横条，随时能「返回任务」。</p>
+ <p class="cap">店长任务页「总部 / 大区下发」卡片，按创建时间倒序。字段：任务名、来源、周期、负责人、本店进度 m/N、状态、催办标记（没被催过不显示）、「查看」和去处按钮。状态只有 3 种：未开始（灰，去处按钮禁用并写「10-17 开始」）、进行中（蓝）、已完成（绿，不显示去处按钮）。v1.3 不做「已逾期」。去处按钮按类型叫「去发视频」「去开直播」「去回私信」；手机工作台「我的任务」也列负责人是新媒体专员、还没完成的下发任务，按钮相同。</p>
+ <div class="grid2" style="margin-top:var(--s-4)">
+  <div class="stage">
+   <p class="cap" style="margin-top:0">店长视角任务详情</p>
+   <div class="meta" style="font:var(--t-small)"><span>发视频，每店 1 条</span><span>总部</span><span class="num">10-14 至 10-20</span><span>负责人 店长</span></div>
+   <div class="row" style="justify-content:space-between;margin-top:var(--s-3)"><span class="num" style="font:var(--t-metric)">0/1</span><button class="btn btn-primary">去发视频</button></div>
+   <div class="prog" style="margin-top:8px"><b style="width:0"></b></div>
+   <div class="meta" style="margin-top:var(--s-3)"><span class="warn">已被催办 1 次，最近 14:00</span></div>
+   <p class="cap">下方依次列催办记录、本店为这个任务做过的记录（发布批次号、计入的直播间、跟进过的线索）。可选显示「相关脚本」链接。</p>
+  </div>
+  <div class="stage">
+   <p class="cap" style="margin-top:0">总部 / 大区视角任务详情（指标条）</p>
+   <div class="mstrip"><div class="metric metric--hero"><span class="l">完成率</span><span class="v num">38<small>%</small></span></div><div class="metric"><span class="l">已完成</span><span class="v num">18<small>家</small></span></div><div class="metric"><span class="l">未完成</span><span class="v num">30<small>家</small></span></div></div>
+   <p class="cap">完成率、已完成、未完成门店数是三个独立指标，不拼成一行文字。下面是门店进度表（C-06）。</p>
+  </div>
+ </div>
+ <div class="stage" style="margin-top:var(--s-4);display:grid;gap:var(--s-3)">
+  <div class="banner"><b>正在完成任务：</b><span>星驰 X5 30 秒口播视频（0/1）</span><a href="#" style="margin-left:auto">返回任务</a></div>
+  <ol class="steps" aria-label="完成任务流程"><li class="done"><b>任务卡</b>点「去发视频」</li><li class="done"><b>AI 创作</b>出成片，点「去分发」</li><li class="cur"><b>内容分发</b>定时发布到本店账号</li><li><b>回到任务</b>进度 1/1，已完成</li></ol>
+  <div class="row" style="gap:var(--s-3)"><button class="btn btn-secondary">去开直播</button><button class="btn btn-secondary">去回私信</button><button class="btn btn-secondary">去跟进</button><span class="t3" style="font:var(--t-caption)">直播详情页：</span><button class="btn btn-primary">计入任务</button><button class="btn btn-secondary" disabled>已计入任务</button></div>
+  <p class="cap">从任务进来的每个页面顶部都有「正在完成任务」横条，「返回任务」是独立链接。去开直播 → 直播间列表 → 本店「直播中」的直播详情点「计入任务」，进度加 1，按钮变「已计入任务」并禁用。去回私信 → 线索页自动筛私信来源的待跟进线索。全店今日任务「跟进超时线索」一项的按钮叫「去跟进」。做完的提示：「已创建 6 条定时发布任务，任务『星驰 X5 30 秒口播视频』已完成」。</p>
+ </div>
+
+ <div class="grid2" style="margin-top:var(--s-4)">
+  <div class="stage flush"><div class="panel-h"><h2>全店今日任务</h2><span class="aside t3 num" style="font:var(--t-caption)">2 / 4 已完成</span></div><ul class="list">
+   <li class="li"><div class="bd"><div class="t"><span>发一条新车视频</span></div><div class="meta"><span>新媒体专员</span><span class="num">播放 6,240 次，带来 4 条线索</span></div></div><span class="tag tag-pos">已完成</span></li>
+   <li class="li"><div class="bd"><div class="t"><span>开一场晚上的直播</span></div><div class="meta"><span>新媒体专员</span><span class="num">19:30 开始</span></div></div><span class="tag">未开始</span></li>
+   <li class="li"><div class="bd"><div class="t"><span>回完昨天的私信</span></div><div class="meta"><span>新媒体专员</span><span class="num">回复 23 条，约到店 3 组</span></div></div><span class="tag tag-pos">已完成</span></li>
+   <li class="li"><div class="bd"><div class="t"><span>跟进 2 条超时线索</span></div><div class="meta"><span>销售顾问</span></div></div><button class="btn btn-primary">去跟进</button></li>
+  </ul><p class="cap" style="padding:0 var(--s-5) var(--s-4)">店长任务页「全店今日任务」：完成说明是一行文字，用中文逗号（PRD v1.3 1.5）；负责人和说明是两个独立字段。</p></div>
+  <div class="stage flush"><div class="panel-h" style="flex-wrap:wrap"><h2 style="font:var(--t-title-1)">本周每店发 5 条新车视频</h2></div>
+   <div class="meta" style="padding:0 var(--s-5) var(--s-3)"><span>发视频，每店 5 条</span><span class="num">10-12 至 10-18</span><span>全国 48 店</span><span class="num">完成率 46%</span><span class="num">已完成 22 家</span><span class="num">未完成 26 家</span></div>
+   <div class="panel-h" style="border-top:1px solid var(--c-line)"><h3 style="font:var(--t-title-2)">门店进度</h3><div class="aside"><button class="btn btn-secondary">一键催办未完成门店</button></div></div>
+   <table class="tbl"><thead><tr><th>门店</th><th>区域</th><th class="r">进度</th><th></th></tr></thead><tbody>
+    <tr><td class="main">杭州星驰滨江店</td><td class="sub">华东</td><td class="r">5 / 5</td><td class="r"><span class="tag tag-pos">已完成</span></td></tr>
+    <tr><td class="main">杭州星驰西湖店</td><td class="sub">华东</td><td class="r">5 / 5</td><td class="r"><span class="tag tag-pos">已完成</span></td></tr>
+   </tbody></table>
+   <p class="cap" style="padding:0 var(--s-5) var(--s-4)">总部 / 大区任务中心默认详情（T-1012-01）：任务名做主标题，「门店进度」单独做表格标题，两者分开放，不用「·」连写（PRD v1.3 1.5）。表格写法同 C-06。</p></div>
+ </div>
+
+ <h3 class="h3">C-05 提醒店长</h3>
+ <div class="grid2">
+  <div class="stage flush"><table class="tbl"><thead><tr><th>门店</th><th class="r">健康分</th><th>主要问题</th><th></th></tr></thead><tbody>
+   <tr><td class="main">长沙星驰星沙店</td><td class="r"><span class="health bad">42<i><b style="width:42%"></b></i></span></td><td class="sub">近 30 天直播仅 3 场</td><td class="r"><button class="btn btn-secondary" disabled>已提醒 14:00</button></td></tr>
+   <tr><td class="main">太原星驰长风店</td><td class="r"><span class="health bad">44<i><b style="width:44%"></b></i></span></td><td class="sub">本周未发布内容</td><td class="r"><button class="btn btn-secondary">提醒店长</button></td></tr>
+  </tbody></table><p class="cap" style="padding:0 var(--s-5) var(--s-4)">驾驶舱预警列表：提醒内容就是这一行的主要问题，点了直接发，按钮变「已提醒 14:00」并禁用。提示「已提醒长沙星驰星沙店店长」。</p></div>
+  <div class="overlay-demo" style="align-items:start"><div class="sheet" style="width:100%;max-width:400px"><div class="sheet-h"><h3>提醒杭州星驰西湖店店长</h3></div>
+   <label class="radio-row"><input type="radio" name="rm" checked><span class="bd">本周发布量落后</span></label>
+   <label class="radio-row"><input type="radio" name="rm"><span class="bd">直播场次偏少</span></label>
+   <label class="radio-row"><input type="radio" name="rm"><span class="bd">线索跟进超时</span></label>
+   <div class="sheet-f"><button class="btn btn-ghost">取消</button><button class="btn btn-primary">发送提醒</button></div></div></div>
+ </div>
+ <div class="stage" style="margin-top:var(--s-4)"><div class="row" style="gap:var(--s-4)"><button class="btn btn-secondary">提醒店长</button><span class="t2" style="font:var(--t-small)">已提醒 2 次，最近 14:00</span></div><p class="cap">门店详情页：按钮一直能点，可以重复提醒，旁边写「已提醒 N 次，最近 14:00」。两个入口共用一份提醒记录。弹层按钮「取消」「发送提醒」（PRD v1.3 C-05）。</p></div>
+
+ <h3 class="h3">C-06 门店进度表和催办</h3>
+ <div class="stage flush">
+  <div class="tblwrap" style="overflow-x:auto"><table class="tbl"><thead><tr><th>门店</th><th>区域</th><th class="r">进度</th><th style="width:120px"></th><th>催办</th><th class="r"><button class="btn btn-secondary">一键催办未完成门店</button></th></tr></thead>
+  <tbody>
+   <tr><td class="main">杭州星驰滨江店</td><td class="sub">华东</td><td class="r">1 / 1</td><td><div class="prog done"><b style="width:100%"></b></div></td><td class="sub">—</td><td class="r"><span class="tag tag-pos">已完成</span></td></tr>
+   <tr><td class="main">杭州星驰西湖店</td><td class="sub">华东</td><td class="r">0 / 1</td><td><div class="prog"><b style="width:0"></b></div></td><td><span class="sub">已催办 1 次，最近 14:00</span></td><td class="r"><button class="btn btn-ghost">催办</button></td></tr>
+   <tr><td class="main">无锡星驰太湖店</td><td class="sub">华东</td><td class="r">0 / 1</td><td><div class="prog"><b style="width:0"></b></div></td><td class="sub">—</td><td class="r"><button class="btn btn-ghost">催办</button></td></tr>
+  </tbody></table></div>
+  <div class="pager"><span class="num">第 1–14 家，共 48 家</span><button class="btn btn-ghost" disabled>上一页</button><button class="btn btn-ghost">下一页</button></div>
  </div>
  <div class="stage flush" style="margin-top:var(--s-4)">
-  <table class="tbl"><thead><tr><th>门店</th><th>大区</th><th class="r">进度</th><th style="width:120px"></th><th>催办</th><th class="r"><button class="btn btn-secondary">一键催办未完成门店</button></th></tr></thead>
-  <tbody>
-   <tr><td class="main">杭州星驰西湖店</td><td class="sub">华东</td><td class="r">5 / 5</td><td><div class="prog done"><b style="width:100%"></b></div></td><td class="sub">—</td><td class="r"><span class="tag tag-pos">已完成</span></td></tr>
-   <tr><td class="main">无锡星驰太湖店</td><td class="sub">华东</td><td class="r">0 / 5</td><td><div class="prog"><b style="width:0"></b></div></td><td class="sub">已催办 1 次 · 最近 14:00</td><td class="r"><button class="btn btn-ghost">催办</button></td></tr>
-  </tbody></table>
+  <table class="tbl"><thead><tr><th>门店（每店完成 2 场周末直播）</th><th class="r">进度</th><th class="r"><button class="btn btn-secondary" disabled>未开始</button></th></tr></thead>
+  <tbody><tr><td class="main">杭州星驰西湖店</td><td class="r">0 / 2</td><td class="r"><button class="btn btn-ghost" disabled>未开始</button></td></tr></tbody></table>
  </div>
- <p class="cap">总部 / 大区看到的门店进度表。进度数字和进度条并排，已完成的门店不再给「催办」。</p>
+ <p class="cap">总部 / 大区任务详情里的门店进度表：范围内全部门店（region 只看华东），按门店编号排序，每页 14 行。已完成的门店给「已完成」标签不给「催办」。一键催办只催未完成门店，提示「已向 30 家未完成门店发送催办」（大区「已向 8 家未完成门店发送催办」）。任务未开始时每行「催办」和表头「一键催办未完成门店」都禁用，按钮上写「未开始」。</p>
 
- <h3 class="h3">脚本库</h3>
+ <h3 class="h3">C-07 脚本库</h3>
  <div class="grid2">
-  <div class="stage flush"><table class="tbl"><thead><tr><th>脚本（总部 / 大区视角）</th><th class="r">领取</th><th class="r">已拍摄</th></tr></thead><tbody>
-   <tr><td><div class="main">星驰 X5 · 30 秒口播</div><div class="sub" style="font:var(--t-caption)">总部，10-14 09:30，全国 48 店</div></td><td class="r">0/48</td><td class="r">0/48</td></tr>
-   <tr><td><div class="main">星驰 E3 冬季续航话题 · 短视频脚本</div><div class="sub" style="font:var(--t-caption)">总部，10-08 09:00，全国 48 店</div></td><td class="r">42/48</td><td class="r">41/48</td></tr>
-  </tbody></table></div>
+  <div class="stage flush"><div class="tblwrap" style="overflow-x:auto"><table class="tbl"><thead><tr><th>下发记录（总部 / 大区）</th><th class="r">范围</th><th class="r">领取</th><th class="r">已拍摄</th></tr></thead><tbody>
+   <tr><td><div class="main">星驰 X5 · 30 秒口播</div><div class="meta"><span>星驰 X5</span><span>短视频</span><span>总部管理员</span><span class="num">10-14 09:30</span></div></td><td class="r">48 家</td><td class="r">0/48</td><td class="r">0/48</td></tr>
+   <tr><td><div class="main">星驰 E3 冬季续航话题 · 短视频脚本</div><div class="meta"><span>星驰 E3</span><span>短视频</span><span>总部管理员</span><span class="num">10-08 09:00</span></div></td><td class="r">48 家</td><td class="r">42/48</td><td class="r">41/48</td></tr>
+  </tbody></table></div></div>
   <div class="stage flush"><ul class="list">
-   <li class="li"><div class="bd"><div class="t"><span>星驰 X5 · 30 秒口播</span></div><div class="s">总部下发，10-14 09:30</div></div><div class="row" style="gap:8px"><span class="tag">未领取</span><button class="btn btn-primary">领取</button></div></li>
-   <li class="li"><div class="bd"><div class="t"><span>星驰 X5 · 短视频脚本</span></div><div class="s">总部下发，10-14 14:00</div></div><div class="row" style="gap:8px"><span class="tag tag-info">已领取</span><button class="btn btn-secondary">标记已拍摄</button></div></li>
-   <li class="li"><div class="bd"><div class="t"><span>星驰 E3 冬季续航话题</span></div><div class="s">总部下发，10-08 09:00</div></div><span class="tag tag-pos">已拍摄</span></li>
+   <li class="li"><div class="bd"><div class="t"><span>星驰 X5 · 30 秒口播</span></div><div class="meta"><span>总部</span><span class="num">10-14 09:30</span></div></div><div class="row" style="gap:8px"><span class="tag">未领取</span><button class="btn btn-ghost">查看全文</button><button class="btn btn-ghost">复制</button><button class="btn btn-primary">领取</button></div></li>
+   <li class="li"><div class="bd"><div class="t"><span>星驰 X5 · 短视频脚本</span></div><div class="meta"><span>总部</span><span class="num">10-14 14:00</span></div></div><div class="row" style="gap:8px"><span class="tag tag-info">已领取</span><button class="btn btn-secondary">标记已拍摄</button></div></li>
+   <li class="li"><div class="bd"><div class="t"><span>星驰 E3 冬季续航话题 · 短视频脚本</span></div><div class="meta"><span>总部</span><span class="num">10-08 09:00</span></div></div><span class="tag tag-pos">已拍摄</span></li>
   </ul></div>
  </div>
- <p class="cap">门店视角状态按钮随状态变：领取 → 标记已拍摄 → 无按钮。没有可领的脚本时，手机工作台显示「暂无新下发脚本」和「去脚本库」按钮。</p>
+ <p class="cap">两种列表：总部 / 大区看「下发记录」（标题、车型、场景、下发人、下发时间、范围、领取 x/N、已拍摄 y/N；大区只算华东）；店长和销售顾问看「总部下发」（标题、来源、下发时间、本店状态和按钮：领取 → 标记已拍摄 → 无按钮）。脚本标题里的「·」是名称的一部分，照种子数据写。</p>
+ <div class="grid2" style="margin-top:var(--s-4)">
+  <div class="stage">
+   <a href="#" class="back" style="font:var(--t-small)">返回脚本库</a>
+   <h4 style="font:var(--t-title-1);margin-top:var(--s-3)">星驰 X5 · 30 秒口播</h4>
+   <div class="meta" style="margin-top:4px"><span>星驰 X5</span><span>短视频</span><span>总部管理员</span><span class="num">10-14 09:30</span><span class="tag">未领取</span></div>
+   <p class="p" style="margin-top:var(--s-3);color:var(--c-text-2)">15 万预算买 SUV，先别急着下定。……（脚本全文）</p>
+   <div class="row" style="gap:8px;margin-top:var(--s-3)"><button class="btn btn-ghost">复制</button><button class="btn btn-primary">领取</button></div>
+   <p class="cap">店长和销售顾问的脚本详情：只显示本店状态，不显示其他门店数据。</p>
+  </div>
+  <div class="mobile-frame">
+   <div class="panel-h"><h2>今日推荐脚本</h2></div>
+   <ul class="list">
+    <li class="li"><div class="bd"><div class="t"><span>星驰 X5 · 30 秒口播</span></div><div class="s">15 万预算买 SUV，先别急着下定</div></div><button class="btn btn-primary">领取脚本</button></li>
+    <li class="li"><div class="bd"><div class="t"><span>星驰 X5 · 30 秒口播</span></div><div class="s">领取后</div></div><div class="row" style="gap:8px"><span class="tag tag-info">已领取</span><button class="btn btn-secondary">标记已拍摄</button></div></li>
+    <li class="li"><div class="bd"><div class="t"><span>星驰 X5 · 30 秒口播</span></div><div class="s">本次页面里保留这一条</div></div><span class="tag">已拍摄</span></li>
+   </ul>
+   <div class="empty" style="padding:var(--s-5)"><h3>没有待领取的脚本</h3><button class="btn btn-secondary">去脚本库</button></div>
+  </div>
+ </div>
+ <p class="cap">手机「今日推荐脚本」卡 4 种状态：未领取「领取脚本」→ 已领取（标签 + 「标记已拍摄」）→ 已拍摄（灰标签，不能点）→ 重新进入时没有可领的脚本：「没有待领取的脚本」+「去脚本库」。</p>
+ <div class="grid2" style="margin-top:var(--s-4)">
+  <div class="stage"><div class="empty" style="padding:0"><h3>还没有下发的脚本</h3><p>总部或大区下发脚本后会出现在这里，领取后就能开拍。</p></div><p class="cap">店长、销售顾问。</p></div>
+  <div class="stage"><div class="empty" style="padding:0"><h3>还没有下发过脚本</h3><p>在 AI 创作中心生成脚本后，点「下发到门店」。</p><button class="btn btn-secondary">去 AI 创作</button></div><p class="cap">总部、大区。</p></div>
+ </div>
+
+ <h3 class="h3">C-08 线索转交</h3>
+ <div class="grid2">
+  <div class="overlay-demo" style="align-items:start">
+   <div class="sheet" style="width:100%;max-width:420px">
+    <div class="sheet-h"><h3>转交给</h3></div>
+    <label class="radio-row"><input type="radio" name="p" checked><span class="bd">销售顾问A</span><span class="t3 num" style="font:var(--t-small)">待跟进 2 条</span></label>
+    <label class="radio-row"><input type="radio" name="p"><span class="bd">销售顾问C</span><span class="t3 num" style="font:var(--t-small)">待跟进 1 条</span></label>
+    <label class="radio-row"><input type="radio" name="p"><span class="bd">销售顾问D</span><span class="t3 num" style="font:var(--t-small)">待跟进 1 条</span></label>
+    <label class="radio-row"><input type="radio" name="p"><span class="bd">销售顾问E</span><span class="t3 num" style="font:var(--t-small)">待跟进 1 条</span></label>
+    <label class="radio-row"><input type="radio" name="p"><span class="bd">销售顾问F</span><span class="t3 num" style="font:var(--t-small)">待跟进 1 条</span></label>
+    <div class="sheet-b" style="padding-top:var(--s-4)"><div class="field"><label for="r1">备注（选填）</label><input id="r1" class="input" value="客户指定"></div></div>
+    <div class="sheet-f"><button class="btn btn-ghost">取消</button><button class="btn btn-primary">确认转交</button></div>
+   </div>
+  </div>
+  <div style="display:grid;gap:var(--s-4);align-content:start">
+   <div class="overlay-demo" style="align-items:start"><div class="sheet" style="width:100%;max-width:420px"><div class="sheet-h"><h3>转交给</h3></div><div class="empty" style="padding:var(--s-5)"><h3>本店没有其他销售顾问</h3><p>当前跟进人是本店唯一的销售顾问，不能转交。</p></div><div class="sheet-f"><button class="btn btn-ghost">取消</button><button class="btn btn-primary" disabled>确认转交</button></div></div></div>
+   <div class="row" style="gap:8px"><span class="main">李女士</span><span class="tag tag-info">转交来自 店长</span></div>
+   <p class="cap">只有店长有「转交」。列表不含当前跟进人（示例为转交李女士，跟进人 B 不出现），每人后面写「待跟进 N 条」。没选人时「确认转交」禁用。提示「已转交给 销售顾问A」。再转交时「转交来自 店长」标签只保留一个。</p>
+  </div>
+ </div>
+
+ <h3 class="h3">C-09 保存跟进</h3>
+ <div class="stage" style="max-width:520px">
+  <div class="field"><label for="fu1">跟进内容</label><textarea id="fu1" class="input" placeholder="例如：已电话联系，约周六到店"></textarea><span class="help err">请填写跟进内容</span></div>
+  <div class="row" style="gap:var(--s-3);margin-top:var(--s-4);align-items:end"><div class="field" style="flex:1"><label for="fu2">状态</label><select id="fu2" class="input"><option>保持当前</option><option>跟进中</option><option>已到店</option><option>已成交</option><option>战败</option></select></div><button class="btn btn-primary">保存跟进</button></div>
+  <div class="meta" style="margin-top:var(--s-4);font:var(--t-small)"><span style="color:var(--c-text-1)">已电话联系，约周六到店</span><span class="num">10-14 14:00</span><span>销售顾问A</span></div>
+  <p class="cap">状态下拉 5 项：保持当前、跟进中、已到店、已成交、战败。内容为空点保存提示「请填写跟进内容」，不保存。保存后提示「已保存跟进」，时间线最后一条追加（内容、时间、操作人三个文字元素）。</p>
+ </div>
+
+ <h3 class="h3">C-10 最近成片</h3>
+ <div class="stage"><div class="row" style="gap:var(--s-4);align-items:start;overflow-x:auto">
+  <div class="film"><div class="cover"><span class="tag tag-info">新生成</span><span class="dur">00:30</span></div><div class="t">星驰 X5 · 数字人口播</div><button class="btn btn-secondary">去分发</button></div>
+  <div class="film"><div class="cover"><span class="tag tag-info">新生成</span><span class="dur">00:15</span></div><div class="t">星驰 X5 · 混剪 01</div><button class="btn btn-secondary">去分发</button></div>
+  <div class="film"><div class="cover"><span class="dur">00:28</span></div><div class="t">星驰 X5 空间实测</div></div>
+ </div><p class="cap">新成片插到最前，带「新生成」标签（在封面上，和标题分开）和「去分发」。最多 8 张。时长等宽数字。sales 没有成片工具。</p></div>
+
+ <h3 class="h3">C-11 PK 结算</h3>
+ <div class="grid2">
+  <div class="stage flush"><div class="panel-h"><h2>历史战报</h2><select class="input" style="width:auto;margin-left:auto" aria-label="选择活动"><option>国庆黄金周 PK</option><option>9 月新车上市 PK</option><option>8 月夏日试驾 PK</option></select></div>
+   <table class="tbl"><thead><tr><th class="r">名次</th><th>门店</th><th>奖励</th></tr></thead><tbody>
+    <tr><td class="r num">1</td><td class="main">上海星驰浦东店</td><td class="sub">5 万元，区域标杆门店授牌</td></tr>
+    <tr><td class="r num">2</td><td class="main">南京星驰河西店</td><td class="sub">2 万元</td></tr>
+    <tr><td class="r num">4</td><td class="main">杭州星驰西湖店</td><td class="sub">5,000 元营销基金</td></tr>
+    <tr><td class="r num">8</td><td class="main">唐山星驰路北店</td><td class="sub">5,000 元营销基金</td></tr>
+    <tr><td class="r num">8</td><td class="main">青岛星驰崂山店</td><td class="sub">5,000 元营销基金</td></tr>
+   </tbody></table><p class="cap" style="padding:0 var(--s-5) var(--s-4)">总部 / 大区：每场列前 10 名（并列都列，名次相同），每家写奖励。示例为节选。</p></div>
+  <div class="stage flush"><div class="panel-h"><h2>本店战报与奖励</h2></div>
+   <table class="tbl"><thead><tr><th>活动</th><th class="r">名次</th><th>奖励</th><th>结算</th></tr></thead><tbody>
+    <tr><td class="main">国庆黄金周 PK</td><td class="r num">4</td><td class="sub">5,000 元营销基金</td><td class="sub num">10-08 10:00</td></tr>
+    <tr><td class="main">9 月新车上市 PK</td><td class="r num">4</td><td class="sub">5,000 元营销基金</td><td class="sub num">09-24 10:00</td></tr>
+    <tr><td class="main">8 月夏日试驾 PK</td><td colspan="3" class="sub">未接入（9-01 接入门店通），不参与结算</td></tr>
+   </tbody></table><p class="cap" style="padding:0 var(--s-5) var(--s-4)">店长视角新卡片：每个活动一行。</p></div>
+ </div>
+
+ <h3 class="h3">C-13 角色与权限</h3>
+ <div class="grid2">
+  <div class="overlay-demo" style="align-items:start"><div class="sheet" style="width:100%;max-width:420px"><div class="sheet-h"><h3>新建角色</h3></div><div class="sheet-b">
+   <div class="field"><label for="rl1">角色名称</label><input id="rl1" class="input" value="华东区域内容运营专员甲" aria-invalid="true" style="border-color:var(--c-negative)"><span class="help err">角色名称不能超过 10 个字</span></div>
+   <div class="field"><label for="rl2">角色名称（重名）</label><input id="rl2" class="input" value="门店店长" aria-invalid="true" style="border-color:var(--c-negative)"><span class="help err">已有同名角色，换个名称</span></div>
+   <div class="field"><label>复制自</label><div class="seg"><button>总部管理员</button><button>大区经理</button><button aria-selected="true">门店店长</button><button>销售顾问</button></div></div>
+  </div><div class="sheet-f"><button class="btn btn-ghost">取消</button><button class="btn btn-primary" disabled>创建</button></div></div></div>
+  <div class="stage flush"><div class="tblwrap" style="overflow-x:auto"><table class="tbl perm"><thead><tr><th>菜单（门店店长）</th><th>查看</th><th>新增</th><th>编辑</th><th>导出</th><th>审批</th></tr></thead><tbody>
+   <tr><td class="main">AI 创作中心</td><td><input type="checkbox" checked aria-label="查看"></td><td><input type="checkbox" checked aria-label="新增"></td><td><input type="checkbox" aria-label="编辑"></td><td><input type="checkbox" aria-label="导出"></td><td><input type="checkbox" aria-label="审批"></td></tr>
+   <tr><td class="main">脚本库 <span class="tag tag-info">新增行</span></td><td><input type="checkbox" checked aria-label="查看"></td><td><input type="checkbox" aria-label="新增"></td><td><input type="checkbox" checked aria-label="编辑"></td><td><input type="checkbox" aria-label="导出"></td><td><input type="checkbox" aria-label="审批"></td></tr>
+   <tr><td class="main">线索管理</td><td><input type="checkbox" checked aria-label="查看"></td><td><input type="checkbox" aria-label="新增"></td><td><input type="checkbox" checked aria-label="编辑"></td><td><input type="checkbox" checked aria-label="导出"></td><td><input type="checkbox" aria-label="审批"></td></tr>
+  </tbody></table></div><p class="cap" style="padding:0 var(--s-5) var(--s-4)">「脚本库」行放在「AI 创作中心」后面。保存提示「『门店店长』权限已保存」；所有菜单都取消时不能保存，提示「至少保留一个可查看的菜单」。AI 创作中心一行的勾选为示意，以 PRD v1.3 默认勾选表为准。</p></div>
+ </div>
+ <p class="cap">名称 10 字以内、不能重名、不能为空，任一不满足时「创建」禁用，错误写在输入框下方。新角色在列表里显示：名称、人数、数据范围三个文字元素。</p>
+
+ <h3 class="h3">1.9 手机工作台底部标签栏和子页</h3>
+ <div class="grid3">
+  <div class="mobile-frame"><div class="panel-h"><h2>我的任务</h2></div><ul class="list"><li class="li"><div class="bd"><div class="t"><span>开一场晚上的直播</span></div><div class="meta"><span>新媒体专员</span><span class="num">19:30 开始</span></div></div><span class="tag">未开始</span></li></ul><nav class="wbbar" aria-label="手机工作台导航"><a href="#" aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4 10-10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>我的任务</a><a href="#"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>线索</a><a href="#"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 22h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>消息<span class="badge">3</span></a></nav></div>
+  <div class="mobile-frame"><div class="panel-h"><h2>线索</h2><span class="aside t3" style="font:var(--t-caption)">待跟进 8 条</span></div><ul class="list"><li class="li"><span class="lv lv-a">A</span><div class="bd"><div class="t"><span>张先生</span><span class="t2" style="font:var(--t-small)">星驰 S7</span></div><div class="q">“星驰 S7落地多少钱？本地有现车吗”</div><div class="meta"><span>抖音评论</span><span>销售顾问A</span></div></div><div class="end"><span class="ago hot">超时 5 小时</span></div></li></ul><nav class="wbbar" aria-label="手机工作台导航"><a href="#"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4 10-10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>我的任务</a><a href="#" aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>线索</a><a href="#"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 22h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>消息<span class="badge">3</span></a></nav></div>
+  <div class="mobile-frame"><div class="panel-h"><h2>消息</h2></div><div class="msg"><span class="dot-unread" aria-label="未读"></span><div><div class="t">总部催办：星驰 X5 30 秒口播视频（本店 0/1，截止 10-20）</div><div class="meta" style="margin-top:4px"><span>总部管理员</span><span class="num">10-14 14:00</span></div></div></div><nav class="wbbar" aria-label="手机工作台导航"><a href="#"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4 10-10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>我的任务</a><a href="#"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>线索</a><a href="#" aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 22h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>消息<span class="badge">99+</span></a></nav></div>
+ </div>
+ <p class="cap">只有手机工作台按手机设计。底部标签栏固定 3 项「我的任务」「线索」「消息」，4 个角色相同（取代旧稿按角色分的 4–5 项）。「线索」：店长列本店待跟进，销售顾问列我的线索，点行打开线索详情。「消息」：规则同消息中心，标签上显示未读数（0 不显示，超过 99 写「99+」）。高 56px 加底部安全区。</p>
 </section>
 
 <section class="s" id="demo-module">
- <h2 class="h">演示专用模块</h2>
- <p class="p">只为演示讲解存在、正式产品不做的内容（目前是店长驾驶舱的「加入门店通前 → 现在」），留在原位，用一处标识说明。不加底色、不加图标、不在模块里每张小卡上重复。</p>
+ <h2 class="h">演示专用模块（1.10）</h2>
+ <p class="p">只为演示讲解存在、正式产品不做的内容（目前是店长驾驶舱的「加入门店通前 → 现在」），留在原位，标题旁加一处标签「演示专用模块」。不加底色、不加图标、不在模块里每张小卡上重复。</p>
  <div class="stage">
   <section class="panel demo-only" aria-label="演示专用模块：加入门店通前到现在" style="border:1px dashed var(--c-line-strong);background:none">
-   <div class="panel-h"><h2>加入门店通前 → 现在</h2><span class="aside t3" style="font:var(--t-caption)">演示专用，正式产品不含</span></div>
+   <div class="panel-h"><h2>加入门店通前 → 现在</h2><span class="tag plain">演示专用模块</span></div>
    <div style="display:flex;flex-wrap:wrap;gap:0 var(--s-6);padding:0 var(--s-5) var(--s-4);font:var(--t-small);color:var(--c-text-2)"><span>每天线索 <span class="t3" style="text-decoration:line-through">7 条</span> <b class="num" style="color:var(--c-text-1)">15 条左右</b></span><span>直播 <span class="t3" style="text-decoration:line-through">一周 2 场</span> <b style="color:var(--c-text-1)">每天 1–3 场</b></span><span>区域 PK <span class="t3" style="text-decoration:line-through">第 9 名</span> <b style="color:var(--c-text-1)">第 4 名</b></span></div>
   </section>
-  <p class="cap">写法：面板改 1px 虚线描边、去掉底色；标题行右侧一处 12px 次要色文字「演示专用，正式产品不含」。模块内原来的「示意」徽标去掉，由这一处统一说明。数字为线上 demo 演示数据。</p>
+  <p class="cap">写法：面板改 1px 虚线描边、去掉底色；标题旁一个灰色标签「演示专用模块」（按 PRD v1.3 1.10 的文字）。模块内原来的「示意」徽标去掉。数字为线上 demo 演示数据。</p>
  </div>
 </section>
 
 <section class="s" id="pending">
- <h2 class="h">补充状态（待 PM 在 v1.3 确认）</h2>
- <p class="p">PRD v1.2 没写的 5 个状态，先按本规范写法给出文案，等 PM 在 v1.3 确认后再定稿。</p>
+ <h2 class="h">空和失败状态（PRD v1.3 定稿）</h2>
+ <p class="p">5 个补充状态的文案已在 PRD v1.3 定稿，下表照录；组件写法见上面各组件。</p>
  <table class="spec">
   <thead><tr><th>状态</th><th>标题</th><th>说明和按钮</th></tr></thead>
   <tbody>
-   <tr><td>消息中心空列表</td><td>没有新消息</td><td>总部下发的任务、催办、脚本，和转交给你的线索，会出现在这里。</td></tr>
-   <tr><td>发布记录筛选无结果</td><td>没有符合条件的发布记录</td><td>换个日期或状态再试。按钮「清除筛选」</td></tr>
-   <tr><td>脚本库没有下发</td><td>还没有下发的脚本</td><td>总部或大区下发脚本后会出现在这里。总部 / 大区视角按钮「去 AI 创作生成脚本」</td></tr>
-   <tr><td>转交时没有可选顾问</td><td>没有可以转交的销售顾问</td><td>本店除当前跟进人外没有其他顾问。「确认转交」保持禁用</td></tr>
-   <tr><td>新建任务提交失败</td><td>任务没有下发</td><td>弹层不关闭、已填内容保留，底栏上方红色横条：「网络中断，任务没有下发。检查网络后点『确认下发』重试。」</td></tr>
+   <tr><td>消息中心「全部」为空</td><td>没有新消息</td><td>店长：总部下发的任务、催办、脚本，和转交给你的线索，会出现在这里。<br>销售顾问：分配和转交给你的线索，会出现在这里。<br>总部：门店完成任务、发布失败和 PK 结算的通知，会出现在这里。<br>大区：总部抄送的任务、门店完成任务和 PK 结算的通知，会出现在这里。</td></tr>
+   <tr><td>消息中心其他空态</td><td>没有未读消息 / 没有{类型}消息 / 还没有发出过消息</td><td>类型筛选为空按钮「看全部消息」。「我发出的」为空：总部、大区「在任务中心催办、在驾驶舱提醒店长后，可以在这里看对方读没读。」；店长「把线索转交给销售顾问后，可以在这里看对方读没读。」</td></tr>
+   <tr><td>发布记录筛选无结果</td><td>没有符合筛选条件的发布记录</td><td>换个日期、平台或状态试试。按钮「清除筛选」；统计条显示 0</td></tr>
+   <tr><td>发布记录从来没有记录</td><td>还没有定时发布</td><td>在「新建发布」里选内容和账号，定时发布后会出现在这里。按钮「去新建发布」（正式产品才会出现）</td></tr>
+   <tr><td>脚本库没有下发</td><td>还没有下发的脚本 / 还没有下发过脚本</td><td>店长、销售顾问：总部或大区下发脚本后会出现在这里，领取后就能开拍。<br>总部、大区：在 AI 创作中心生成脚本后，点「下发到门店」。按钮「去 AI 创作」</td></tr>
+   <tr><td>手机今日推荐脚本为空</td><td>没有待领取的脚本</td><td>按钮「去脚本库」</td></tr>
+   <tr><td>转交时没有其他顾问</td><td>本店没有其他销售顾问</td><td>当前跟进人是本店唯一的销售顾问，不能转交。「确认转交」禁用</td></tr>
+   <tr><td>新建任务提交失败</td><td>（底栏上方红字）</td><td>任务没有下发：网络断开。检查网络后再点「确认下发」，已填内容不会丢。弹层不关，不另放「重试」</td></tr>
   </tbody>
  </table>
 </section>
 
 <section class="s" id="copy">
  <h2 class="h">文案</h2>
- <p class="p">界面文字也是设计。规则：写用户的话，按钮写「动词 + 对象」，同一个动作从按钮到提示到消息用同一个词；错误说清原因和办法；空状态告诉人下一步。</p>
+ <p class="p">界面文字也是设计。规则：写用户的话，按钮写「动词 + 对象」，同一个动作从按钮到提示到消息用同一个词；错误说清原因和办法；空状态告诉人下一步。示例照 PRD v1.3。</p>
  <table class="spec">
-  <thead><tr><th>动作</th><th>按钮</th><th>完成提示</th><th>对方收到</th></tr></thead>
+  <thead><tr><th>动作</th><th>按钮</th><th>完成提示</th><th>对方收到（消息标题）</th></tr></thead>
   <tbody>
-   <tr><td>提醒掉队门店</td><td>提醒店长</td><td>已提醒长沙星驰星沙店店长；按钮变「已提醒 14:00」</td><td>总部提醒：近 30 天直播仅 3 场</td></tr>
-   <tr><td>催办</td><td>催办 / 一键催办未完成门店</td><td>已向 27 家未完成门店发送催办</td><td>总部催办：{任务名}（本店 1/5，截止 10-18）</td></tr>
-   <tr><td>新建任务</td><td>新建任务 → 确认下发</td><td>任务已下发至 12 家门店</td><td>总部下发任务：{任务名}</td></tr>
-   <tr><td>定时发布</td><td>定时发布</td><td>已创建 350 条定时发布任务　查看记录</td><td>总部为本店 6 个账号排期 12 条发布（10-14 19:30）</td></tr>
-   <tr><td>转交线索</td><td>转交 → 确认转交</td><td>已转交给 销售顾问A</td><td>店长转交线索：李女士 · 星驰 X5 · 抖音私信</td></tr>
-   <tr><td>保存跟进</td><td>保存跟进</td><td>已保存跟进</td><td>（不发消息）</td></tr>
-   <tr><td>完成门店任务</td><td>去发视频 / 去开直播 / 去回私信</td><td>目标页顶部横条「正在完成任务：{任务名}（m/N）」；做完回到任务，进度加 1</td><td>门店完成时，发起人收到「{门店}已完成任务：{任务名}」</td></tr>
-   <tr><td>领取脚本</td><td>领取</td><td>已领取；按钮变「标记已拍摄」</td><td>（不发消息）</td></tr>
+   <tr><td>提醒掉队门店</td><td>提醒店长</td><td>已提醒长沙星驰星沙店店长；预警行按钮变「已提醒 14:00」</td><td>总部提醒：近 30 天直播仅 3 场</td></tr>
+   <tr><td>催办</td><td>催办 / 一键催办未完成门店；未开始时写「未开始」并禁用</td><td>已向 30 家未完成门店发送催办（大区：8 家）</td><td>总部催办：星驰 X5 30 秒口播视频（本店 0/1，截止 10-20）</td></tr>
+   <tr><td>新建任务</td><td>新建任务 → 确认下发</td><td>任务已下发至 12 家门店</td><td>总部下发任务：星驰 E3 冬季实拍短视频</td></tr>
+   <tr><td>定时发布</td><td>定时发布</td><td>已创建 350 条定时发布任务　查看记录</td><td>总部为本店 3 个账号排期 3 条发布（10-14 19:30）</td></tr>
+   <tr><td>发布失败处理</td><td>去授权 / 重新发布</td><td>（去授权只跳转，状态不变）</td><td>发布失败 1 条：杭州星驰西湖售后小助手（抖音）</td></tr>
+   <tr><td>转交线索</td><td>转交 → 确认转交</td><td>已转交给 销售顾问A</td><td>店长转交线索：李女士，星驰 X5，抖音私信</td></tr>
+   <tr><td>保存跟进</td><td>保存跟进</td><td>已保存跟进；内容为空「请填写跟进内容」</td><td>（不发消息）</td></tr>
+   <tr><td>完成门店任务</td><td>去发视频 / 去开直播 / 去回私信；今日任务超时线索「去跟进」</td><td>目标页顶部横条「正在完成任务：{任务名}（m/N）」+ 链接「返回任务」</td><td>门店完成时发起人收到「{门店}已完成任务：{任务名}」</td></tr>
+   <tr><td>计入直播</td><td>计入任务 → 已计入任务（禁用）</td><td>进度加 1</td><td>（不发消息）</td></tr>
+   <tr><td>下发脚本</td><td>下发到门店</td><td>已下发至 48 家门店</td><td>总部下发脚本：星驰 X5 · 短视频脚本</td></tr>
+   <tr><td>领取脚本</td><td>领取（手机卡片「领取脚本」）→ 标记已拍摄</td><td>状态变「已领取」→「已拍摄」</td><td>（不发消息）</td></tr>
+   <tr><td>重置</td><td>重置演示数据 → 重置</td><td>已重置演示数据</td><td>（不发消息）</td></tr>
+   <tr><td>保存权限</td><td>保存 / 新建角色 → 创建</td><td>『销售顾问』权限已保存</td><td>（不发消息）</td></tr>
   </tbody>
  </table>
- <ul class="p" style="margin-top:var(--s-4)">
-  <li>已定（PM 10-20）：按钮统一叫「提醒店长」，和角色名「门店店长」、消息里的「店长」一致；PRD v1.2 验收文案里的「提醒店总」随之改。</li>
-  <li>已定（PM 10-20）：跳转去完成任务的按钮写去处：「去发视频」「去开直播」「去回私信」，不写「去完成」。</li>
-  <li>不写「提交」「确定」「操作成功」。不写「暂无数据」，写「没有超时线索」这类具体的话。</li>
-  <li>数字和中文之间加空格：「已读 1 / 27」「近 30 天」；数字和单位「万」「亿」「%」之间不加。</li>
+ <h3 class="h3">分隔符：不用「·」拼接（PRD v1.3 第 42 条已统一）</h3>
+ <ul class="p">
+  <li><b>动作 + 数量写成一句话：</b>「催办 30 家门店」「发视频 1 条」，不写「催办 · 30 家门店」。</li>
+  <li><b>多个元信息并排</b>（任务类型、时间段、范围、统计数、来源、时间）：每个字段是独立文字元素，间距 12px（网格或 flex gap，组件类 <code>.meta</code>），不显示分隔符。PRD 里用「｜」表示字段边界，界面不显示「｜」。</li>
+  <li><b>一行文字</b>（消息标题、消息正文、提示、按钮旁说明、导出文件说明行）：用中文逗号，如「催办 30 家门店，已读 1 / 30」「已被催办 2 次，最近 14:00」「店长转交线索：李女士，星驰 X5，抖音私信」。消息标题的冒号格式不变。</li>
+  <li><b>消息来源</b>在界面上拆成两个字段：门店名 + 8px + 次级灰色角色名（「杭州星驰西湖店」「店长」）；总部和大区只写角色（「总部管理员」「华东大区经理」）；纯文本场景连写「杭州星驰西湖店店长」。</li>
+  <li><b>消息类型标签</b>按「对象 + 动作」写，不用括号，共 11 种：任务下发、任务抄送、任务完成、任务催办、门店提醒、发布排期、发布失败、脚本下发、线索转交、线索分配、PK 结算（PRD v1.3 第 44 条）。</li>
+  <li>内容、脚本、成片、直播间标题本来带的「·」照原样显示（如「星驰 X5 · 30 秒口播」「星驰 X5 · 数字人口播」「到店福利口播 · 0:19」）；demo 代码里现有的按钮名也照原样（如「智能混剪 · 批量 8 条」）。</li>
  </ul>
+ <h3 class="h3">与 PRD v1.3 一致</h3>
+ <p class="p">PRD v1.3（修订到第 45 条）已按上面的分隔符、消息类型、来源和按钮规则改完，规范页的示例和 PRD 原文一致，没有待对齐的差异。筛选项写「催办」（消息上的标签仍写「任务催办」）。</p>
+ <h3 class="h3">其他规则</h3>
+ <ul class="p">
+  <li>按钮统一叫「提醒店长」，和角色名「门店店长」、消息里的「店长」一致（PRD v1.3 已改）。</li>
+  <li>跳转去完成任务的按钮写去处：「去发视频」「去开直播」「去回私信」；全店今日任务的超时线索写「去跟进」。不写「去完成」。</li>
+  <li>不写「提交」「确定」「操作成功」。不写「暂无数据」，写「没有超时线索」「没有待领取的脚本」这类具体的话。</li>
+  <li>数字和中文之间加空格：「已读 1 / 30」「近 30 天」；数字和单位「万」「亿」「%」之间不加。</li>
+ </ul>
+ <p class="cap">按钮名称和去处：规范与 PRD v1.3 一致（提醒店长、去发视频 / 去开直播 / 去回私信 / 去跟进、去授权、重新发布、确认下发、确认转交、领取脚本、标记已拍摄、去脚本库、计入任务、看全部消息、清除筛选、去新建发布、去 AI 创作）。门店详情「提醒店长」弹层的按钮为「取消」「发送提醒」，也和 PRD v1.3 一致。</p>
 </section>
 
 <section class="s" id="cross">
  <h2 class="h">跨端</h2>
- <p class="p">PM 10-20 定：只有手机工作台（#/mobile）按手机专属布局设计；其他页面在手机宽度下只要求不错位、能看能点，不做手机专属布局。这和 PRD「电脑端为主，手机工作台单独一页」一致。</p>
+ <p class="p">10-20 评审已定（PRD v1.3 1.9）：只有手机工作台（#/mobile）按手机专属布局设计；其他页面在手机宽度下只要求不错位、能看能点，不做手机专属布局。这和 PRD「电脑端为主，手机工作台单独一页」一致。</p>
  <table class="spec">
   <thead><tr><th>断点</th><th>宽度</th><th>导航</th><th>指标区</th><th>表格</th></tr></thead>
   <tbody>
@@ -593,7 +813,7 @@ table.spec .num{color:var(--c-text-1)}
    <tr><td>不只靠颜色</td><td>状态、涨跌、等级都有文字或符号</td><td>状态标签带文字、涨跌带 ▲▼、意向等级写 A/B/C</td></tr>
    <tr><td>读屏</td><td>图标按钮有名称，图表有文字说明</td><td>铃铛 aria-label「消息，3 条未读」；趋势图 role="img" 带说明</td></tr>
    <tr><td>手机号脱敏</td><td>全站一致</td><td>138****1000，导出文件同样打码</td></tr>
-   <tr><td>演示标注</td><td>PRD 要求角落标「演示数据」</td><td>顶栏一处「演示数据 10-14 14:00」，不在每张卡上重复；演示专用模块用一处「演示专用，正式产品不含」</td></tr>
+   <tr><td>演示标注</td><td>PRD 要求角落标「演示数据」</td><td>顶栏一处「演示数据 10-14 14:00」，不在每张卡上重复；演示专用模块标题旁一个「演示专用模块」标签</td></tr>
   </tbody>
  </table>
 </section>
@@ -605,17 +825,30 @@ table.spec .num{color:var(--c-text-1)}
   <li><b>Square Dashboard</b>（<a href="https://squareup.com/us/en/point-of-sale/features/dashboard">官方产品页</a>）：Key metrics 用两列「名称 + 数值 + 小涨跌标签」，5 个指标只占一个面板，没有一张大卡。门店通门店详情的 7 项数据照这个写。</li>
   <li><b>Shopify 分析报表</b>（<a href="https://www.shopify.com/analytics">官方产品页</a>）：一张表放十几列数字，靠等宽数字和浅色热力区分高低，不靠卡片。门店进度表、PK 榜可以学这种密度。</li>
   <li><b>Stripe Dashboard</b>（<a href="https://docs.stripe.com/dashboard/basics">官方文档</a>）：首页把「需要处理的事」（未解决争议、待验证身份）放在图表之上。学「先给要处理的事」。真实后台需要登录，没有看到界面。</li>
-  <li><b>Apple HIG · Layout</b>（<a href="https://developer.apple.com/design/human-interface-guidelines/layout">官方文档</a>）：触控区 44pt、安全区、内容优先。</li>
-  <li><b>Material Design 3 · Layout</b>（<a href="https://m3.material.io/foundations/layout/understanding-layout/overview">官方文档</a>）：密度分档，每降一档减 4dp。门店通 PC 表格默认 40px、紧凑 36px 就是这个思路。</li>
+  <li><b>Apple HIG 布局（Layout）</b>（<a href="https://developer.apple.com/design/human-interface-guidelines/layout">官方文档</a>）：触控区 44pt、安全区、内容优先。</li>
+  <li><b>Material Design 3 布局（Layout）</b>（<a href="https://m3.material.io/foundations/layout/understanding-layout/overview">官方文档</a>）：密度分档，每降一档减 4dp。门店通 PC 表格默认 40px、紧凑 36px 就是这个思路。</li>
   <li><b>美团 / 有赞商家后台</b>需要商家账号登录，没有看到界面，不引用。</li>
  </ul>
 </section>
 
-<p class="cap" style="padding-bottom:var(--s-8)">变量文件：<a href="tokens.css">tokens.css</a>、<a href="tokens.json">tokens.json</a>。组件样式：<a href="components.css">components.css</a>。</p>
+<p class="cap" style="padding-bottom:var(--s-8)">变量文件：<a href="tokens.css">tokens.css</a>、<a href="tokens.json">tokens.json</a>。组件样式：<a href="components.css">components.css</a>。组件用在哪些页面和角色：<a href="usage.md">usage.md</a>。</p>
 </main>
 </div>
 <script>
 document.getElementById('themeBtn').addEventListener('click',function(){var r=document.documentElement;var l=r.getAttribute('data-theme')==='light';if(l){r.removeAttribute('data-theme');this.textContent='预览浅色备选'}else{r.setAttribute('data-theme','light');this.textContent='回到深色'}});
+</script>
+<script>
+document.querySelectorAll('.chipbar').forEach(function(bar){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function show(b){b.scrollIntoView({inline:'nearest',block:'nearest',behavior:reduce?'auto':'smooth'})}
+  var btns=[].slice.call(bar.querySelectorAll('[role=radio]'));
+  btns.forEach(function(b,i){
+    b.tabIndex=b.getAttribute('aria-checked')==='true'?0:-1;
+    b.addEventListener('click',function(){btns.forEach(function(x){x.setAttribute('aria-checked','false');x.tabIndex=-1});b.setAttribute('aria-checked','true');b.tabIndex=0;show(b)});
+    b.addEventListener('keydown',function(e){var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(!d)return;e.preventDefault();var n=btns[(i+d+btns.length)%btns.length];n.focus();n.click()});
+  });
+  if(bar.hasAttribute('data-autoscroll')){var on=bar.querySelector('[aria-checked=true]');if(on)bar.scrollLeft=on.offsetLeft-bar.clientWidth/2+on.offsetWidth/2}
+});
 </script>
 </body>
 </html>
