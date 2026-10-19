@@ -172,7 +172,7 @@ textarea.input{height:auto;min-height:72px;padding:var(--s-3) var(--s-4);line-he
 .prog b{display:block;height:100%;background:var(--c-text-2);border-radius:2px}
 .prog.done b{background:var(--c-positive)} .prog.late b{background:var(--c-accent)}
 
-/* 步骤（去完成流程） */
+/* 步骤（完成任务流程） */
 .steps{display:flex;gap:0;list-style:none;counter-reset:st}
 .steps li{flex:1;display:flex;flex-direction:column;gap:4px;padding:var(--s-3) var(--s-4) var(--s-3) 0;border-top:2px solid var(--c-line);font:var(--t-small);color:var(--c-text-3)}
 .steps li b{font:500 13px/20px var(--f-ui);color:var(--c-text-2)}

@@ -25,7 +25,39 @@
    "firstRowY": 228,
    "rowH": 40,
    "rowsFirstScreen": 14
-  }
+  },
+  "beforeURL": "mdt-demo 线上 demo #/dashboard?role=hq",
+  "afterURL": "mockups/dashboard.html"
+ },
+ "dashboard/m": {
+  "before": {
+   "vw": 390,
+   "vh": 844,
+   "metricTop": 300,
+   "metricH": 398,
+   "metricPct": 47.2,
+   "mainTop": 1349,
+   "mainVisPct": 0,
+   "mainContentPct": 0,
+   "firstRowY": 1455,
+   "rowH": 83,
+   "rowsFirstScreen": 0
+  },
+  "after": {
+   "vw": 390,
+   "vh": 844,
+   "metricTop": 92,
+   "metricH": 242,
+   "metricPct": 28.7,
+   "mainTop": 346,
+   "mainVisPct": 56.6,
+   "mainContentPct": 56.6,
+   "firstRowY": 430,
+   "rowH": 45,
+   "rowsFirstScreen": 8
+  },
+  "beforeURL": "mdt-demo 线上 demo #/dashboard?role=hq",
+  "afterURL": "mockups/dashboard.html"
  },
  "leads/pc": {
   "before": {
@@ -53,47 +85,21 @@
    "firstRowY": 180,
    "rowH": 40,
    "rowsFirstScreen": 18
-  }
- },
- "dashboard/m": {
-  "before": {
-   "vw": 390,
-   "vh": 844,
-   "metricTop": 300,
-   "metricH": 398,
-   "metricPct": 47.2,
-   "mainTop": 1349,
-   "mainVisPct": 0,
-   "mainContentPct": 0,
-   "firstRowY": 1455,
-   "rowH": 83,
-   "rowsFirstScreen": 0
   },
-  "after": {
-   "vw": 390,
-   "vh": 844,
-   "metricTop": 48,
-   "metricH": 130,
-   "metricPct": 15.4,
-   "mainTop": 178,
-   "mainVisPct": 72.3,
-   "mainContentPct": 77.4,
-   "firstRowY": 222,
-   "rowH": 89,
-   "rowsFirstScreen": 6
-  }
+  "beforeURL": "mdt-demo 线上 demo #/leads?role=hq",
+  "afterURL": "mockups/leads.html"
  },
  "leads/m": {
   "before": {
    "vw": 390,
    "vh": 844,
    "metricTop": 320,
-   "metricH": 248,
-   "metricPct": 29.4,
-   "mainTop": 850,
+   "metricH": 253,
+   "metricPct": 30,
+   "mainTop": 855,
    "mainVisPct": 0,
    "mainContentPct": 0,
-   "firstRowY": 850,
+   "firstRowY": 855,
    "rowH": 161,
    "rowsFirstScreen": 0
   },
@@ -109,6 +115,8 @@
    "firstRowY": 96,
    "rowH": 89,
    "rowsFirstScreen": 7
-  }
+  },
+  "beforeURL": "mdt-demo 线上 demo #/leads?role=store",
+  "afterURL": "mockups/mobile-leads.html"
  }
 }

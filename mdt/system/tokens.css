@@ -1,5 +1,6 @@
 /* 门店通设计变量 v0.1 初稿（2026-10-20）
-   与 tokens.json 一一对应。默认深色（主色黑色，见 decisions.md）；[data-theme="light"] 为「展厅白」备选，待确认。 */
+   与 tokens.json 一一对应。默认深色（主色黑色，见决策记录）；[data-theme="light"] 为「展厅白」备选，待确认。
+   手机专属尺寸（--tabbar-m 等）只用于手机工作台 #/mobile；其他页面手机宽度下按兼容写法。 */
 :root{
   /* 颜色 · 深色 */
   --c-bg:#000000; --c-surface-1:#141416; --c-surface-2:#1F1F23; --c-surface-3:#2A2A2F;

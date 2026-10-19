@@ -35,6 +35,7 @@ table.spec th{text-align:left;font:var(--t-caption);color:var(--c-text-3);paddin
 table.spec td{padding:10px 12px 10px 0;border-bottom:1px solid var(--c-line);vertical-align:top;color:var(--c-text-2)}
 table.spec td:first-child{color:var(--c-text-1);white-space:nowrap}
 table.spec .num{color:var(--c-text-1)}
+@media (max-width:767px){table.spec th{white-space:normal}table.spec{display:block;overflow-x:auto}}
 .hero-fact{display:flex;gap:var(--s-8);margin-top:var(--s-6);flex-wrap:wrap}
 .hero-fact div{font:var(--t-small);color:var(--c-text-2)}
 .hero-fact b{display:block;font:600 24px/32px var(--f-num);color:var(--c-text-1);font-variant-numeric:tabular-nums}
@@ -72,7 +73,7 @@ table.spec .num{color:var(--c-text-1)}
 <div class="doc">
 <nav class="toc" aria-label="目录">
  <b>门店通设计规范</b>
- <a href="#rule">仪表盘法则</a><a href="#principles">设计原则</a><a href="#density">信息密度</a><a href="#metric">指标写法</a><a href="#type">字阶</a><a href="#color">色板</a><a href="#space">间距圆角阴影</a><a href="#comp">基础组件</a><a href="#biz">业务组件</a><a href="#copy">文案</a><a href="#cross">跨端</a><a href="#quality">质量底线</a><a href="#refs">参照系</a>
+ <a href="#rule">仪表盘法则</a><a href="#principles">设计原则</a><a href="#density">信息密度</a><a href="#metric">指标写法</a><a href="#type">字阶</a><a href="#color">色板</a><a href="#space">间距圆角阴影</a><a href="#comp">基础组件</a><a href="#biz">业务组件</a><a href="#copy">文案</a><a href="#demo-module">演示模块</a><a href="#pending">待确认状态</a><a href="#cross">跨端</a><a href="#quality">质量底线</a><a href="#refs">参照系</a>
  <button class="btn btn-secondary theme" id="themeBtn" type="button">预览浅色备选</button>
  <a href="../index.html" style="margin-top:var(--s-3)">回到汇总页</a>
 </nav>
@@ -80,7 +81,7 @@ table.spec .num{color:var(--c-text-1)}
 
 <section class="s" id="rule">
  <h1 class="doc-t">门店通设计规范 v0.1 初稿</h1>
- <p class="lede">给 roxor 讨论用，2026-10-20。核心只有一条：像汽车仪表盘那样排信息。一块主表告诉你最重要的数，其他是小副表；警示灯平时不亮，亮了就是要你处理。</p>
+ <p class="lede">讨论稿，2026-10-20。核心只有一条：像汽车仪表盘那样排信息。一块主表告诉你最重要的数，其他是小副表；警示灯平时不亮，亮了就是要你处理。</p>
  <div class="stage" style="margin-top:var(--s-6)">
   <div class="mstrip demo-strip" aria-label="指标条示例：近 30 天，对比前 30 天">
    <div class="metric metric--hero"><span class="l">近 30 天线索</span><span class="v num">8,456<small>条</small></span><span class="d up">▲ 1,510　较前 30 天</span></div>
@@ -95,7 +96,7 @@ table.spec .num{color:var(--c-text-1)}
  <div class="hero-fact">
   <div><b>264 → 88px</b>驾驶舱指标区高度（PC 1440×900 实测）</div>
   <div><b>1 → 14 行</b>首屏能看到的掉队门店</div>
-  <div><b>0 → 7 条</b>手机首屏能看到的线索</div>
+  <div><b>0 → 7 条</b>手机工作台「线索」标签页首屏线索</div>
  </div>
 </section>
 
@@ -115,7 +116,7 @@ table.spec .num{color:var(--c-text-1)}
  <h2 class="h">信息密度</h2>
  <p class="p">下表是验收线，改版后的页面用 Playwright 读 DOM 位置检查，不靠目测。内容区 = 视口减去导航（PC 侧栏、手机底部标签栏）。</p>
  <table class="spec">
-  <thead><tr><th>项目</th><th>PC（基准 1440×900）</th><th>手机（基准 390×844）</th></tr></thead>
+  <thead><tr><th>项目</th><th>PC（基准 1440×900）</th><th>手机工作台（基准 390×844）</th></tr></thead>
   <tbody>
    <tr><td>顶栏高度</td><td class="num">≤ 52px</td><td class="num">≤ 48px（不含系统状态栏）</td></tr>
    <tr><td>指标区高度</td><td><span class="num">≤ 12%</span> 视口高（≤ 108px），只占一行</td><td><span class="num">≤ 16%</span>（≤ 136px）：主表一行 + 副表横滑一行</td></tr>
@@ -125,6 +126,7 @@ table.spec .num{color:var(--c-text-1)}
    <tr><td>同屏大数字</td><td>≤ 1 个</td><td>≤ 1 个</td></tr>
   </tbody>
  </table>
+ <p class="cap">手机列只考核手机工作台。其他页面在手机宽度下只要求不错位、能看能点，不考核这些指标（见「跨端」）。</p>
  <h3 class="h3">用什么写法放指标</h3>
  <table class="spec">
   <thead><tr><th>情况</th><th>写法</th><th>门店通里的例子</th></tr></thead>
@@ -133,8 +135,8 @@ table.spec .num{color:var(--c-text-1)}
    <tr><td>2–6 个数</td><td>指标条：一行，竖分隔线，不拆卡片；最关键的一个用主表</td><td>驾驶舱、直播详情、门店详情</td></tr>
    <tr><td>指标同时是筛选</td><td>筛选芯片：数字放在芯片里，点了筛列表</td><td>线索（待跟进 / 超 2 小时）、发布记录（待发布 / 已发布 / 失败）、任务</td></tr>
    <tr><td>7 个以上，或要并排对比</td><td>两列「名称—数值」清单，或直接用表格</td><td>门店详情的 7 项发布数据、PK 活动统计</td></tr>
-   <tr><td>大卡片</td><td>只给主表用，每页最多 1 张，只在驾驶舱类页面</td><td>手机驾驶舱的「近 30 天线索」</td></tr>
-   <tr><td>手机上超过 4 个副表</td><td>横滑，露出第 4 个的一半提示能滑；超过 6 个收进「更多指标」</td><td>手机驾驶舱</td></tr>
+   <tr><td>大卡片</td><td>只给主表用，每页最多 1 张，只在驾驶舱类页面</td><td>总部驾驶舱的「近 30 天线索」（指标条里的主表）</td></tr>
+   <tr><td>手机工作台里超过 4 个副表</td><td>横滑，露出第 4 个的一半提示能滑；超过 6 个收进「更多指标」</td><td>工作台「我的任务」顶部</td></tr>
   </tbody>
  </table>
  <h3 class="h3">不要这样</h3>
@@ -195,7 +197,7 @@ table.spec .num{color:var(--c-text-1)}
 
 <section class="s" id="color">
  <h2 class="h">色板</h2>
- <p class="p">沿用 decisions.md 定的「主色黑色」和线上 demo 里的琥珀色（视频里已经出现过，保持一致）。调整了两处：页面底用真正的黑 #000，面板靠三档灰分层，不再用描边加阴影；琥珀从「装饰点缀」收窄成「需要你处理」，图表主线改成白色。青色 #2DD4BF 和琥珀并列太花，换成信息蓝，只给进行中、链接和焦点环用。</p>
+ <p class="p">沿用决策记录里定的「主色黑色」和线上 demo 里的琥珀色（视频里已经出现过，保持一致）。调整了两处：页面底用真正的黑 #000，面板靠三档灰分层，不再用描边加阴影；琥珀从「装饰点缀」收窄成「需要你处理」，图表主线改成白色。青色 #2DD4BF 和琥珀并列太花，换成信息蓝，只给进行中、链接和焦点环用。</p>
  <div class="sw">
   <div><i style="background:#000;border-bottom:1px solid var(--c-line)"></i><p><b>车漆黑 bg</b>#000000　页面底</p></div>
   <div><i style="background:#141416"></i><p><b>面板 surface-1</b>#141416</p></div>
@@ -217,7 +219,7 @@ table.spec .num{color:var(--c-text-1)}
  <h3 class="h3">平台色</h3>
  <p class="p">抖音、快手、小红书不用各家品牌色，统一灰底标签加文字。原因：三种品牌色会和语义色撞（小红书红 = 失败？），PRD 也要求不出现真实品牌素材。</p>
  <h3 class="h3">浅色备选「展厅白」（待确认）</h3>
- <p class="p">展厅灯光亮，手机在强光下看黑底容易反光。建议手机工作台和销售顾问端提供浅色主题：琥珀做文字时压深到 #955700 才能过 4.5:1，主按钮改成黑底白字，品牌黑在这里反而最显眼。点左侧「预览浅色备选」可以整页切换。</p>
+ <p class="p">展厅灯光亮，手机在强光下看黑底容易反光。作为备选，可给手机工作台提供浅色主题（不在 10-20 的 PM 结论里，待确认）：琥珀做文字时压深到 #955700 才能过 4.5:1，主按钮改成黑底白字，品牌黑在这里反而最显眼。点左侧「预览浅色备选」可以整页切换。</p>
 </section>
 
 <section class="s" id="space">
@@ -267,7 +269,7 @@ table.spec .num{color:var(--c-text-1)}
    <div><button class="btn btn-danger">取消发布</button><span class="cap">危险操作</span></div>
    <div><button class="btn btn-secondary" disabled>10-17 开始</button><span class="cap">禁用并写明原因</span></div>
   </div>
-  <p class="cap">一个区域只放一个主按钮。按钮写「动词 + 对象」，说清点了会发生什么，不加箭头。</p>
+  <p class="cap">一个区域只放一个主按钮。按钮写「动词 + 对象」，说清点了会发生什么，不加箭头。跳到别的页面去完成某件事的按钮，写去处而不写「去完成」：「去发视频」「去开直播」「去回私信」。</p>
  </div>
 
  <h3 class="h3">标签页和分段控件</h3>
@@ -291,16 +293,16 @@ table.spec .num{color:var(--c-text-1)}
     <tr><td class="main">拉萨星驰城关店</td><td class="sub">西南</td><td><span class="health warn">72<i><b style="width:72%"></b></i></span></td><td class="r">23</td><td class="r">95</td><td class="sub">场均观看 1,250 人</td><td></td></tr>
    </tbody></table>
  </div>
- <p class="cap">行高 40px，紧凑模式 36px。数字列右对齐；行操作在 PC 上悬停或键盘聚焦时出现；分组行代替一整块新卡片。</p>
+ <p class="cap">行高 40px，紧凑模式 36px。数字列右对齐；行操作在 PC 上悬停或键盘聚焦时出现，触屏和手机宽度下常驻；分组行代替一整块新卡片。手机宽度下表格放在面板内横滑，首列固定，页面本身不横滑。</p>
 
- <h3 class="h3">列表行（手机）</h3>
+ <h3 class="h3">列表行（手机工作台）</h3>
  <div class="mobile-frame">
   <ul class="list">
    <li class="li"><span class="lv lv-a">A</span><div class="bd"><div class="t"><span>张先生</span><span class="t2" style="font:var(--t-small)">星驰 X5，12-15万</span></div><div class="q">“星驰 X5落地多少钱？本地有现车吗”</div><div class="s">抖音评论，杭州西湖店，销售顾问A</div></div><div class="end"><span class="ago">2 分钟前</span><span class="tag tag-accent">待跟进</span></div></li>
    <li class="li"><span class="lv">B</span><div class="bd"><div class="t"><span>李女士</span><span class="t2" style="font:var(--t-small)">星驰 X5，15-18万</span></div><div class="q">“直播间说的限时价还有吗”</div><div class="s">抖音私信，杭州西湖店，销售顾问B</div></div><div class="end"><span class="ago hot">3 小时前</span><span class="tag tag-accent">待跟进</span></div></li>
   </ul>
  </div>
- <p class="cap">表格到手机上不横滑，改成列表行：第一行是主语（客户、门店），第二行是 AI 摘出的原话，第三行是来源和归属。门店名去掉统一的品牌前缀。整行可点（≥ 56px）。</p>
+ <p class="cap">只用于手机工作台（#/mobile）的「我的任务」「线索」「消息」三个标签页：第一行是主语（客户、任务），第二行是 AI 摘出的原话，第三行是来源和归属。整行可点（≥ 56px）。其他页面在手机宽度下沿用表格，在面板内横滑、首列固定。</p>
 
  <h3 class="h3">指标条</h3>
  <p class="p">见本页顶部。状态：默认、悬停（可点时底色变 surface-2）、选中（下方 2px 白线，用于指标兼筛选）、加载（数字位置显示骨架）、无数据（显示 —）。</p>
@@ -340,7 +342,7 @@ table.spec .num{color:var(--c-text-1)}
 
 <section class="s" id="biz">
  <h2 class="h">业务组件（覆盖 PRD v1.2 闭环补充）</h2>
- <p class="p">以下组件对应 qa-pm/PRD-v1.2-闭环补充.md。文案中引号里的字符串照 PRD 验收原文写，改动前先和 PM 对齐。</p>
+ <p class="p">以下组件对应《PRD v1.2 闭环补充》（评审稿）。文案中引号里的字符串照 PRD 验收原文写，改动前先和 PM 对齐。</p>
 
  <h3 class="h3">顶栏：铃铛、重置演示数据、演示角色</h3>
  <div class="stage">
@@ -352,7 +354,7 @@ table.spec .num{color:var(--c-text-1)}
    <button class="btn btn-secondary">总部管理员 ▾</button>
    <span class="t3" style="font:var(--t-caption)">演示数据 10-14 14:00</span>
   </div>
-  <p class="cap">顺序按 PRD 1.1：铃铛 → 重置演示数据 → 演示角色 → 演示数据标签。未读 0 不显示角标；1–99 显示数字；超过 99 显示「99+」。角标红底黑字（7.2:1）。手机上铃铛留在顶栏，「重置演示数据」和角色切换收进「我的」。</p>
+  <p class="cap">顺序按 PRD 1.1：铃铛 → 重置演示数据 → 演示角色 → 演示数据标签。未读 0 不显示角标；1–99 显示数字；超过 99 显示「99+」。角标红底黑字（7.2:1）。手机工作台用底部标签「消息」代替铃铛（未读数显示在标签上）；其他页面在手机宽度下顶栏换行，「重置演示数据」和角色切换收进菜单按钮。</p>
  </div>
  <div class="grid2" style="margin-top:var(--s-4)">
   <div class="overlay-demo"><div class="sheet" style="width:100%;max-width:420px"><div class="sheet-h"><h3>重置演示数据？</h3></div><div class="sheet-b"><p class="p" style="color:var(--c-text-2)">将清空本浏览器里的演示操作（消息、任务、发布记录、脚本领取、线索跟进和转交、成片、角色修改），恢复初始数据。</p></div><div class="sheet-f"><button class="btn btn-ghost">取消</button><button class="btn btn-danger">重置</button></div></div></div>
@@ -374,8 +376,8 @@ table.spec .num{color:var(--c-text-1)}
  </div>
  <p class="cap">「我发出的」：一次发送一行，右侧写已读情况，数字等宽。</p>
  <div class="grid2" style="margin-top:var(--s-4)">
-  <div class="stage"><div class="empty" style="padding:0"><h3>没有新消息</h3><p>总部下发的任务、催办、脚本，和转交给你的线索，会出现在这里。</p></div></div>
-  <div class="stage"><div class="empty" style="padding:0"><h3>还没有发出过消息</h3><p>在任务中心催办、在驾驶舱提醒店长后，可以在这里看对方读没读。</p></div></div>
+  <div class="stage"><span class="tag plain" style="margin-bottom:8px">待 PM 在 v1.3 确认</span><div class="empty" style="padding:0"><h3>没有新消息</h3><p>总部下发的任务、催办、脚本，和转交给你的线索，会出现在这里。</p></div></div>
+  <div class="stage"><span class="tag plain" style="margin-bottom:8px">待 PM 在 v1.3 确认</span><div class="empty" style="padding:0"><h3>还没有发出过消息</h3><p>在任务中心催办、在驾驶舱提醒店长后，可以在这里看对方读没读。</p></div></div>
  </div>
 
  <h3 class="h3">发布记录</h3>
@@ -388,12 +390,12 @@ table.spec .num{color:var(--c-text-1)}
     <tr><td colspan="8" style="height:auto;padding:0 var(--s-5) var(--s-4);border-bottom:0"><div class="banner banner-err"><b>失败原因</b><span>账号授权已过期，请到直播间页重新扫码授权</span></div></td></tr>
    </tbody></table>
  </div>
- <div class="mobile-frame" style="margin-top:var(--s-4)"><div class="chips" style="padding:12px 16px;flex-wrap:nowrap;overflow-x:auto"><button class="chip" aria-pressed="true">待发布 <span class="n">3</span></button><button class="chip">已发布 <span class="n">2</span></button><button class="chip">失败 <span class="n" style="color:var(--c-negative)">1</span></button></div><ul class="list">
-  <li class="li"><div class="bd"><div class="t"><span>星驰 E3 冬季续航 0:31</span></div><div class="s">杭州星驰西湖售后小助手，抖音，10-13 19:30</div><div class="s" style="color:var(--c-negative);white-space:normal">账号授权已过期，请到直播间页重新扫码授权</div><div class="row" style="gap:8px;margin-top:8px"><button class="btn btn-secondary">去授权</button><button class="btn btn-primary">重新发布</button></div></div><span class="tag tag-neg">失败</span></li>
-  <li class="li"><div class="bd"><div class="t"><span>到店福利口播 0:19</span></div><div class="s">杭州星驰西湖新车速递，抖音，10-14 19:30</div></div><span class="tag tag-info">待发布</span></li>
+ <div class="mobile-frame" style="margin-top:var(--s-4)"><div class="panel-h"><h2>今日待发布</h2><span class="aside t3 num" style="font:var(--t-caption)">3 条</span></div><ul class="list">
+  <li class="li"><span class="num t2" style="font:var(--t-small);width:40px">19:30</span><div class="bd"><div class="t"><span>到店福利口播 0:19</span></div><div class="s">杭州星驰西湖新车速递，抖音</div></div><span class="tag tag-info">待发布</span></li>
+  <li class="li"><span class="num t2" style="font:var(--t-small);width:40px">19:30</span><div class="bd"><div class="t"><span>到店福利口播 0:19</span></div><div class="s">杭州星驰西湖销售顾问B，抖音</div></div><span class="tag tag-info">待发布</span></li>
  </ul></div>
- <p class="cap">手机写法：统计条变成筛选芯片，表格变成列表行，失败原因直接展开在行内，两个按钮 44px 高。</p>
- <p class="cap">三种状态各有颜色和文字：待发布（蓝，带计划时间）、已发布（绿）、失败（红，下方展开原因和两个按钮）。「去授权」跳到直播间页，「重新发布」把这条改回待发布 10-14 19:30。sales 没有这个页面；无权限点「重新发布」的角色不显示按钮，而不是显示禁用。</p>
+ <p class="cap">手机工作台「我的任务」页里的「今日待发布」卡片：每行写时间、账号、内容，点了进发布记录。发布记录页本身在手机宽度下按兼容写法显示表格。</p>
+ <p class="cap">三种状态各有颜色和文字：待发布（蓝，带计划时间）、已发布（绿）、失败（红，下方展开原因和两个按钮）。「去授权」跳到直播间页，「重新发布」把这条改回待发布 10-14 19:30。sales 没有这个页面；无权限点「重新发布」的角色不显示按钮，而不是显示禁用。状态只有这三种；「发布中」「审核中」「已取消」等真实平台状态，正式产品以后再定，demo 不做。</p>
 
  <h3 class="h3">新建任务（表单弹层）</h3>
  <div class="grid2">
@@ -412,7 +414,7 @@ table.spec .num{color:var(--c-text-1)}
   </div>
   <div>
    <ul class="p">
-    <li><b>PC：</b>居中弹层，宽 520px；<b>手机：</b>底部弹出，高度到屏幕 92%，底部按钮固定在安全区上方。</li>
+    <li>居中弹层，宽 520px。手机宽度下按兼容写法：弹层占满屏宽、内容可滚动，不另做底部弹出。</li>
     <li>预览「将下发至 N 家门店」放在底栏左侧，跟着范围实时变，用户点确认前就知道影响多大。</li>
     <li>必填项没填：「确认下发」禁用；截止日期早于 10-14：输入框变红，下方写「截止日期不能早于 10-14」。</li>
     <li>点确认后按钮进入加载态；成功后关闭弹层，提示「任务已下发至 12 家门店」，任务中心第一张卡片就是它。</li>
@@ -443,7 +445,7 @@ table.spec .num{color:var(--c-text-1)}
   </ul>
  </div>
 
- <h3 class="h3">门店任务卡（进度和去完成）</h3>
+ <h3 class="h3">门店任务卡（进度和去处按钮）</h3>
  <div class="grid3">
   <div class="panel" style="padding:var(--s-5);display:grid;gap:10px">
    <div class="row" style="justify-content:space-between"><b style="font:var(--t-title-2)">本周每店发 5 条新车视频</b></div>
@@ -468,9 +470,9 @@ table.spec .num{color:var(--c-text-1)}
    <div class="row"><button class="btn btn-ghost">查看</button><button class="btn btn-secondary" disabled>10-17 开始</button></div>
   </div>
  </div>
- <p class="cap">四种状态：未开始（灰，「去完成」禁用并写开始日期）、进行中（蓝）、已完成（绿，不显示「去完成」）、已逾期（琥珀，按钮保留）。建议按钮写去处：「去发视频」「去开直播」「去回私信」，比「去完成」更清楚，需 PM 确认（见汇总页）。</p>
+ <p class="cap">四种状态：未开始（灰，去处按钮禁用并写开始日期）、进行中（蓝）、已完成（绿，不显示去处按钮）、已逾期（琥珀，按钮保留）。按钮按任务类型写去处：「去发视频」「去开直播」「去回私信」（PM 10-20 已定），用户点之前就知道会去哪。</p>
  <div class="stage" style="margin-top:var(--s-4)">
-  <ol class="steps" aria-label="去完成流程"><li class="done"><b>任务卡</b>点「去发视频」</li><li class="done"><b>AI 创作</b>顶部横条：正在完成任务（0/1）</li><li class="cur"><b>内容分发</b>定时发布到本店账号</li><li><b>回到任务</b>进度 1/1，已完成</li></ol>
+  <ol class="steps" aria-label="完成任务流程"><li class="done"><b>任务卡</b>点「去发视频」</li><li class="done"><b>AI 创作</b>顶部横条：正在完成任务（0/1）</li><li class="cur"><b>内容分发</b>定时发布到本店账号</li><li><b>回到任务</b>进度 1/1，已完成</li></ol>
   <p class="cap">这是一个有先后的流程，所以用步骤条。每一步的页面顶部都有「正在完成任务」横条，随时能「返回任务」。</p>
  </div>
  <div class="stage flush" style="margin-top:var(--s-4)">
@@ -497,6 +499,33 @@ table.spec .num{color:var(--c-text-1)}
  <p class="cap">门店视角状态按钮随状态变：领取 → 标记已拍摄 → 无按钮。没有可领的脚本时，手机工作台显示「暂无新下发脚本」和「去脚本库」按钮。</p>
 </section>
 
+<section class="s" id="demo-module">
+ <h2 class="h">演示专用模块</h2>
+ <p class="p">只为演示讲解存在、正式产品不做的内容（目前是店长驾驶舱的「加入门店通前 → 现在」），留在原位，用一处标识说明。不加底色、不加图标、不在模块里每张小卡上重复。</p>
+ <div class="stage">
+  <section class="panel demo-only" aria-label="演示专用模块：加入门店通前到现在" style="border:1px dashed var(--c-line-strong);background:none">
+   <div class="panel-h"><h2>加入门店通前 → 现在</h2><span class="aside t3" style="font:var(--t-caption)">演示专用，正式产品不含</span></div>
+   <div style="display:flex;flex-wrap:wrap;gap:0 var(--s-6);padding:0 var(--s-5) var(--s-4);font:var(--t-small);color:var(--c-text-2)"><span>每天线索 <span class="t3" style="text-decoration:line-through">7 条</span> <b class="num" style="color:var(--c-text-1)">15 条左右</b></span><span>直播 <span class="t3" style="text-decoration:line-through">一周 2 场</span> <b style="color:var(--c-text-1)">每天 1–3 场</b></span><span>区域 PK <span class="t3" style="text-decoration:line-through">第 9 名</span> <b style="color:var(--c-text-1)">第 4 名</b></span></div>
+  </section>
+  <p class="cap">写法：面板改 1px 虚线描边、去掉底色；标题行右侧一处 12px 次要色文字「演示专用，正式产品不含」。模块内原来的「示意」徽标去掉，由这一处统一说明。数字为线上 demo 演示数据。</p>
+ </div>
+</section>
+
+<section class="s" id="pending">
+ <h2 class="h">补充状态（待 PM 在 v1.3 确认）</h2>
+ <p class="p">PRD v1.2 没写的 5 个状态，先按本规范写法给出文案，等 PM 在 v1.3 确认后再定稿。</p>
+ <table class="spec">
+  <thead><tr><th>状态</th><th>标题</th><th>说明和按钮</th></tr></thead>
+  <tbody>
+   <tr><td>消息中心空列表</td><td>没有新消息</td><td>总部下发的任务、催办、脚本，和转交给你的线索，会出现在这里。</td></tr>
+   <tr><td>发布记录筛选无结果</td><td>没有符合条件的发布记录</td><td>换个日期或状态再试。按钮「清除筛选」</td></tr>
+   <tr><td>脚本库没有下发</td><td>还没有下发的脚本</td><td>总部或大区下发脚本后会出现在这里。总部 / 大区视角按钮「去 AI 创作生成脚本」</td></tr>
+   <tr><td>转交时没有可选顾问</td><td>没有可以转交的销售顾问</td><td>本店除当前跟进人外没有其他顾问。「确认转交」保持禁用</td></tr>
+   <tr><td>新建任务提交失败</td><td>任务没有下发</td><td>弹层不关闭、已填内容保留，底栏上方红色横条：「网络中断，任务没有下发。检查网络后点『确认下发』重试。」</td></tr>
+  </tbody>
+ </table>
+</section>
+
 <section class="s" id="copy">
  <h2 class="h">文案</h2>
  <p class="p">界面文字也是设计。规则：写用户的话，按钮写「动词 + 对象」，同一个动作从按钮到提示到消息用同一个词；错误说清原因和办法；空状态告诉人下一步。</p>
@@ -509,11 +538,13 @@ table.spec .num{color:var(--c-text-1)}
    <tr><td>定时发布</td><td>定时发布</td><td>已创建 350 条定时发布任务　查看记录</td><td>总部为本店 6 个账号排期 12 条发布（10-14 19:30）</td></tr>
    <tr><td>转交线索</td><td>转交 → 确认转交</td><td>已转交给 销售顾问A</td><td>店长转交线索：李女士 · 星驰 X5 · 抖音私信</td></tr>
    <tr><td>保存跟进</td><td>保存跟进</td><td>已保存跟进</td><td>（不发消息）</td></tr>
+   <tr><td>完成门店任务</td><td>去发视频 / 去开直播 / 去回私信</td><td>目标页顶部横条「正在完成任务：{任务名}（m/N）」；做完回到任务，进度加 1</td><td>门店完成时，发起人收到「{门店}已完成任务：{任务名}」</td></tr>
    <tr><td>领取脚本</td><td>领取</td><td>已领取；按钮变「标记已拍摄」</td><td>（不发消息）</td></tr>
   </tbody>
  </table>
  <ul class="p" style="margin-top:var(--s-4)">
-  <li>现状不一致：角色叫「门店店长」，按钮写「提醒店总」，消息里又写「店长」。建议统一为「店长」，需 PM 确认后同步改 PRD 验收文案。</li>
+  <li>已定（PM 10-20）：按钮统一叫「提醒店长」，和角色名「门店店长」、消息里的「店长」一致；PRD v1.2 验收文案里的「提醒店总」随之改。</li>
+  <li>已定（PM 10-20）：跳转去完成任务的按钮写去处：「去发视频」「去开直播」「去回私信」，不写「去完成」。</li>
   <li>不写「提交」「确定」「操作成功」。不写「暂无数据」，写「没有超时线索」这类具体的话。</li>
   <li>数字和中文之间加空格：「已读 1 / 27」「近 30 天」；数字和单位「万」「亿」「%」之间不加。</li>
  </ul>
@@ -521,23 +552,33 @@ table.spec .num{color:var(--c-text-1)}
 
 <section class="s" id="cross">
  <h2 class="h">跨端</h2>
- <p class="p">PRD 定的是「电脑端为主，手机工作台单独一页」。但店长和销售顾问的真实场景是手机，所以手机不能只是把 PC 页面堆窄：导航、指标、表格都要换写法。</p>
+ <p class="p">PM 10-20 定：只有手机工作台（#/mobile）按手机专属布局设计；其他页面在手机宽度下只要求不错位、能看能点，不做手机专属布局。这和 PRD「电脑端为主，手机工作台单独一页」一致。</p>
  <table class="spec">
   <thead><tr><th>断点</th><th>宽度</th><th>导航</th><th>指标区</th><th>表格</th></tr></thead>
   <tbody>
    <tr><td>PC</td><td class="num">≥ 1280</td><td>左侧栏 200px，图标 + 文字</td><td>一行指标条</td><td>完整表格，40px 行</td></tr>
    <tr><td>小 PC / 平板横屏</td><td class="num">1024–1279</td><td>图标栏 64px，悬停出文字</td><td>一行指标条，名称可缩短</td><td>隐藏次要列（AI 标签、预算）</td></tr>
    <tr><td>平板竖屏</td><td class="num">768–1023</td><td>图标栏 64px</td><td>指标条可换两行</td><td>主列表单列，右侧栏移到下方</td></tr>
-   <tr><td>手机</td><td class="num">&lt; 768</td><td>底部标签栏 5 项（按角色），顶栏 48px</td><td>主表一行 + 副表横滑</td><td>改成列表行，不横滑</td></tr>
+   <tr><td>手机宽度（兼容）</td><td class="num">&lt; 768</td><td>侧栏收进左上角菜单按钮，顶栏可换行</td><td>指标条换行，主表占一整行，副表每行 3 个</td><td>面板内横滑、首列固定；页面不横滑</td></tr>
   </tbody>
  </table>
- <ul class="p" style="margin-top:var(--s-4)">
-  <li><b>触控区</b> ≥ 44×44px（安卓建议 48dp）；相邻两个可点元素间隔 ≥ 8px。列表整行可点。</li>
-  <li><b>底部标签栏按角色：</b>总部 / 大区：驾驶舱、门店、线索、内容、我的；店长：工作台、任务、线索、内容、我的；销售顾问：线索、脚本、直播、我的（4 项）。消息走顶栏铃铛。</li>
+ <h3 class="h3">兼容写法的底线（除手机工作台外的所有页面）</h3>
+ <ul class="p">
+  <li>390px 宽时页面不出现横向滚动条，文字不重叠、不被截断到看不懂；超宽的表格只在自己的面板里横滑。</li>
+  <li>所有按钮和链接能点到，点击区 ≥ 44×44px；只在悬停时出现的行操作改为常驻。</li>
+  <li>弹层占满屏宽、内容可滚动；抽屉（如线索详情）占满全屏。</li>
+  <li>不考核指标区占比和首屏行数；改后示意驾驶舱手机宽度实测：指标区 242px，首屏掉队门店 8 行，仅作参考。</li>
+ </ul>
+ <h3 class="h3">手机工作台（#/mobile）专属布局</h3>
+ <ul class="p">
+  <li><b>底部标签栏三项：</b>「我的任务」「线索」「消息」。消息未读数显示在「消息」标签上（规则同铃铛：0 不显示，超过 99 显示「99+」）。</li>
+  <li><b>顶栏 48px：</b>页面名 + 门店名 + 「演示数据」小字；不放铃铛（由「消息」标签代替）。</li>
+  <li><b>列表行</b>代替表格；指标并进筛选芯片（如「待跟进 8」「超 2 小时 2」）。</li>
+  <li><b>触控区</b> ≥ 44×44px（安卓建议 48dp）；相邻两个可点元素间隔 ≥ 8px；列表整行可点。</li>
   <li><b>iOS：</b>顶部和底部留安全区（env(safe-area-inset-*)）；屏幕左边缘留给返回手势，横滑区域离左边 ≥ 16px；数字字体用系统自带的 DIN Alternate。</li>
   <li><b>安卓：</b>系统返回键先关弹层和抽屉，再退页面；跟随系统字体放大到 1.3 倍时行高跟着长，数字不截断。</li>
-  <li><b>微信小程序（如果做）：</b>右上角胶囊按钮约 87×32px，自定义顶栏右侧留出 100px；没有悬停，所有悬停才出现的操作要常驻；尺寸用 rpx，750rpx = 屏宽，规范里的 1px = 2rpx（按 375 宽）；不加载网络字体。</li>
-  <li><b>横滑指标</b>必须露出下一项的一部分，否则用户不知道能滑；PC 上不用横滑。</li>
+  <li><b>微信小程序（如果以后做）：</b>右上角胶囊按钮约 87×32px，自定义顶栏右侧留出 100px；没有悬停；尺寸用 rpx，750rpx = 屏宽，规范里的 1px = 2rpx（按 375 宽）；不加载网络字体。</li>
+  <li><b>横滑</b>必须露出下一项的一部分，否则用户不知道能滑。</li>
  </ul>
 </section>
 
@@ -552,23 +593,21 @@ table.spec .num{color:var(--c-text-1)}
    <tr><td>不只靠颜色</td><td>状态、涨跌、等级都有文字或符号</td><td>状态标签带文字、涨跌带 ▲▼、意向等级写 A/B/C</td></tr>
    <tr><td>读屏</td><td>图标按钮有名称，图表有文字说明</td><td>铃铛 aria-label「消息，3 条未读」；趋势图 role="img" 带说明</td></tr>
    <tr><td>手机号脱敏</td><td>全站一致</td><td>138****1000，导出文件同样打码</td></tr>
-   <tr><td>演示标注</td><td>PRD 要求角落标「演示数据」</td><td>顶栏一处「演示数据 10-14 14:00」，不在每张卡上重复</td></tr>
+   <tr><td>演示标注</td><td>PRD 要求角落标「演示数据」</td><td>顶栏一处「演示数据 10-14 14:00」，不在每张卡上重复；演示专用模块用一处「演示专用，正式产品不含」</td></tr>
   </tbody>
  </table>
 </section>
 
 <section class="s" id="refs">
  <h2 class="h">参照系</h2>
- <p class="p">只学信息密度和层级，不学外观。截图在 refs/ 目录，都是官网公开页面；需要登录的后台截不到，下面写明。</p>
- <div class="grid2">
-  <div><img class="refimg" src="../refs/square-key-metrics-crop.png" alt="Square Dashboard 官网展示的 Key metrics 区：两列名称和数值，右侧小涨跌标签" loading="lazy"><p class="p" style="margin-top:8px"><b>Square Dashboard：</b>Key metrics 用两列「名称 + 数值 + 小涨跌标签」，5 个指标只占一个面板，没有一张大卡。门店通门店详情的 7 项数据照这个写。来源：squareup.com/us/en/point-of-sale/features/dashboard</p></div>
-  <div><img class="refimg" src="../refs/shopify-reports-table-crop.png" alt="Shopify 官网分析页展示的报表表格：密集行、等宽数字、热力着色" loading="lazy"><p class="p" style="margin-top:8px"><b>Shopify 分析报表：</b>一张表放十几列数字，靠等宽数字和浅色热力区分高低，不靠卡片。门店进度表、PK 榜可以学这种密度。来源：shopify.com/analytics</p></div>
- </div>
- <ul class="p" style="margin-top:var(--s-5)">
-  <li><b>Stripe Dashboard</b>（docs.stripe.com/dashboard/basics，截图 refs/stripe-dashboard-basics.png 只是文档页）：首页把「需要处理的事」（未解决争议、待验证身份）放在图表之上。学「先给要处理的事」。真实后台需要登录，没有截到。</li>
-  <li><b>Apple HIG · Layout</b>（developer.apple.com/design/human-interface-guidelines/layout）：触控区 44pt、安全区、内容优先。</li>
-  <li><b>Material Design 3 · Density</b>（m3.material.io/foundations/layout）：密度分档，每降一档减 4dp。门店通 PC 表格默认 40px、紧凑 36px 就是这个思路。</li>
-  <li><b>美团 / 有赞商家后台</b>需要商家账号登录，没有截到，不引用具体界面。</li>
+ <p class="p">只学信息密度和层级，不学外观。以下都是官方公开页面；第三方截图只作内部存档，不在公开稿里展示。</p>
+ <ul class="p">
+  <li><b>Square Dashboard</b>（<a href="https://squareup.com/us/en/point-of-sale/features/dashboard">官方产品页</a>）：Key metrics 用两列「名称 + 数值 + 小涨跌标签」，5 个指标只占一个面板，没有一张大卡。门店通门店详情的 7 项数据照这个写。</li>
+  <li><b>Shopify 分析报表</b>（<a href="https://www.shopify.com/analytics">官方产品页</a>）：一张表放十几列数字，靠等宽数字和浅色热力区分高低，不靠卡片。门店进度表、PK 榜可以学这种密度。</li>
+  <li><b>Stripe Dashboard</b>（<a href="https://docs.stripe.com/dashboard/basics">官方文档</a>）：首页把「需要处理的事」（未解决争议、待验证身份）放在图表之上。学「先给要处理的事」。真实后台需要登录，没有看到界面。</li>
+  <li><b>Apple HIG · Layout</b>（<a href="https://developer.apple.com/design/human-interface-guidelines/layout">官方文档</a>）：触控区 44pt、安全区、内容优先。</li>
+  <li><b>Material Design 3 · Layout</b>（<a href="https://m3.material.io/foundations/layout/understanding-layout/overview">官方文档</a>）：密度分档，每降一档减 4dp。门店通 PC 表格默认 40px、紧凑 36px 就是这个思路。</li>
+  <li><b>美团 / 有赞商家后台</b>需要商家账号登录，没有看到界面，不引用。</li>
  </ul>
 </section>
 
