@@ -1,0 +1,51 @@
+/* 门店通设计变量 v0.1 初稿（2026-10-20）
+   与 tokens.json 一一对应。默认深色（主色黑色，见 decisions.md）；[data-theme="light"] 为「展厅白」备选，待确认。 */
+:root{
+  /* 颜色 · 深色 */
+  --c-bg:#000000; --c-surface-1:#141416; --c-surface-2:#1F1F23; --c-surface-3:#2A2A2F;
+  --c-line:#2C2C31; --c-line-strong:#3A3A41;
+  --c-text-1:#F2F2F4; --c-text-2:#A1A1AA; --c-text-3:#8B8B95;
+  --c-accent:#F5A524; --c-accent-weak:rgba(245,165,36,.14);
+  --c-positive:#3DD68C; --c-positive-weak:rgba(61,214,140,.12);
+  --c-negative:#FF6369; --c-negative-weak:rgba(255,99,105,.12);
+  --c-info:#5AA9FF; --c-info-weak:rgba(90,169,255,.12);
+  --c-primary:#F2F2F4; --c-on-primary:#000000; --c-overlay:rgba(0,0,0,.64);
+  /* 字体 */
+  --f-ui:-apple-system,BlinkMacSystemFont,"PingFang SC","HarmonyOS Sans SC","MiSans","Noto Sans SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif;
+  --f-num:"DIN Alternate","SF Pro Display",-apple-system,"Roboto","Noto Sans SC",sans-serif;
+  /* 字阶：字号/行高 */
+  --t-display:600 32px/36px var(--f-num);
+  --t-display-m:600 28px/32px var(--f-num);
+  --t-title-1:600 20px/28px var(--f-ui);
+  --t-title-2:600 16px/24px var(--f-ui);
+  --t-metric:600 20px/24px var(--f-num);
+  --t-body:400 14px/22px var(--f-ui);
+  --t-body-m:400 15px/22px var(--f-ui);
+  --t-small:400 13px/20px var(--f-ui);
+  --t-caption:400 12px/16px var(--f-ui);
+  --t-micro:400 11px/16px var(--f-ui);
+  /* 间距（4 的倍数，2 只给图标与文字之间） */
+  --s-1:2px; --s-2:4px; --s-3:8px; --s-4:12px; --s-5:16px; --s-6:20px; --s-7:24px; --s-8:32px; --s-9:40px;
+  /* 圆角：容器越大圆角越大 */
+  --r-xs:4px; --r-sm:6px; --r-md:10px; --r-lg:16px; --r-pill:999px;
+  /* 阴影：只给浮层 */
+  --sh-overlay:0 12px 32px rgba(0,0,0,.55);
+  /* 尺寸 */
+  --touch-min:44px; --touch-rec:48px;
+  --row-pc-compact:36px; --row-pc:40px; --row-m:56px; --row-m-2line:72px;
+  --topbar-pc:52px; --topbar-m:48px; --tabbar-m:56px; --sidebar:200px; --rail:64px;
+  --metric-strip-pc:72px; --metric-strip-m:56px;
+  /* 动效 */
+  --m-fast:120ms; --m-base:200ms; --m-ease:cubic-bezier(.2,0,0,1);
+  --focus-ring:0 0 0 2px var(--c-bg),0 0 0 4px var(--c-info);
+}
+[data-theme="light"]{
+  --c-bg:#FFFFFF; --c-surface-1:#F4F4F5; --c-surface-2:#EBEBED; --c-surface-3:#E0E0E3;
+  --c-line:#E2E2E5; --c-line-strong:#CDCDD2;
+  --c-text-1:#18181B; --c-text-2:#5B5B66; --c-text-3:#6B6B75;
+  --c-accent:#955700; --c-accent-weak:rgba(245,165,36,.18);
+  --c-positive:#146C40; --c-negative:#C42030; --c-info:#1A62BD;
+  --c-primary:#000000; --c-on-primary:#FFFFFF; --c-overlay:rgba(0,0,0,.4);
+  --sh-overlay:0 12px 32px rgba(0,0,0,.16);
+}
+@media (prefers-reduced-motion:reduce){:root{--m-fast:0ms;--m-base:0ms}}

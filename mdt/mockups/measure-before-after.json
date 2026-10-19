@@ -1,0 +1,114 @@
+{
+ "dashboard/pc": {
+  "before": {
+   "vw": 1440,
+   "vh": 900,
+   "metricTop": 101,
+   "metricH": 264,
+   "metricPct": 29.3,
+   "mainTop": 714,
+   "mainVisPct": 16.5,
+   "mainContentPct": 19.6,
+   "firstRowY": 806,
+   "rowH": 62,
+   "rowsFirstScreen": 1
+  },
+  "after": {
+   "vw": 1440,
+   "vh": 900,
+   "metricTop": 52,
+   "metricH": 88,
+   "metricPct": 9.8,
+   "mainTop": 152,
+   "mainVisPct": 43.4,
+   "mainContentPct": 50.5,
+   "firstRowY": 228,
+   "rowH": 40,
+   "rowsFirstScreen": 14
+  }
+ },
+ "leads/pc": {
+  "before": {
+   "vw": 1440,
+   "vh": 900,
+   "metricTop": 101,
+   "metricH": 124,
+   "metricPct": 13.8,
+   "mainTop": 241,
+   "mainVisPct": 58.6,
+   "mainContentPct": 69.4,
+   "firstRowY": 368,
+   "rowH": 65,
+   "rowsFirstScreen": 8
+  },
+  "after": {
+   "vw": 1440,
+   "vh": 900,
+   "metricTop": 64,
+   "metricH": 32,
+   "metricPct": 3.6,
+   "mainTop": 148,
+   "mainVisPct": 69.6,
+   "mainContentPct": 80.9,
+   "firstRowY": 180,
+   "rowH": 40,
+   "rowsFirstScreen": 18
+  }
+ },
+ "dashboard/m": {
+  "before": {
+   "vw": 390,
+   "vh": 844,
+   "metricTop": 300,
+   "metricH": 398,
+   "metricPct": 47.2,
+   "mainTop": 1349,
+   "mainVisPct": 0,
+   "mainContentPct": 0,
+   "firstRowY": 1455,
+   "rowH": 83,
+   "rowsFirstScreen": 0
+  },
+  "after": {
+   "vw": 390,
+   "vh": 844,
+   "metricTop": 48,
+   "metricH": 130,
+   "metricPct": 15.4,
+   "mainTop": 178,
+   "mainVisPct": 72.3,
+   "mainContentPct": 77.4,
+   "firstRowY": 222,
+   "rowH": 89,
+   "rowsFirstScreen": 6
+  }
+ },
+ "leads/m": {
+  "before": {
+   "vw": 390,
+   "vh": 844,
+   "metricTop": 320,
+   "metricH": 248,
+   "metricPct": 29.4,
+   "mainTop": 850,
+   "mainVisPct": 0,
+   "mainContentPct": 0,
+   "firstRowY": 850,
+   "rowH": 161,
+   "rowsFirstScreen": 0
+  },
+  "after": {
+   "vw": 390,
+   "vh": 844,
+   "metricTop": 48,
+   "metricH": 48,
+   "metricPct": 5.7,
+   "mainTop": 96,
+   "mainVisPct": 82,
+   "mainContentPct": 87.8,
+   "firstRowY": 96,
+   "rowH": 89,
+   "rowsFirstScreen": 7
+  }
+ }
+}

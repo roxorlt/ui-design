@@ -1,0 +1,92 @@
+[
+ {
+  "name": "01-login",
+  "route": "#/login",
+  "scrollHeight": 1092
+ },
+ {
+  "name": "02-dashboard-hq",
+  "route": "#/dashboard?role=hq",
+  "scrollHeight": 2002
+ },
+ {
+  "name": "03-dashboard-region",
+  "route": "#/dashboard?role=region",
+  "scrollHeight": 2026
+ },
+ {
+  "name": "04-dashboard-store",
+  "route": "#/dashboard?role=store",
+  "scrollHeight": 2201
+ },
+ {
+  "name": "05-stores",
+  "route": "#/stores?role=hq",
+  "scrollHeight": 2848
+ },
+ {
+  "name": "06-store-detail",
+  "route": "#/stores/13?role=hq",
+  "scrollHeight": 1681
+ },
+ {
+  "name": "07-leads",
+  "route": "#/leads?role=hq",
+  "scrollHeight": 6359
+ },
+ {
+  "name": "08-lead-detail",
+  "route": "#/leads/XS26101400?role=hq",
+  "scrollHeight": 6359
+ },
+ {
+  "name": "09-ai",
+  "route": "#/ai?role=hq",
+  "scrollHeight": 1519
+ },
+ {
+  "name": "10-live",
+  "route": "#/live?role=hq",
+  "scrollHeight": 1890
+ },
+ {
+  "name": "11-live-detail",
+  "route": "#/live/1?role=hq",
+  "scrollHeight": 2483
+ },
+ {
+  "name": "12-pk",
+  "route": "#/pk?role=hq",
+  "scrollHeight": 2130
+ },
+ {
+  "name": "13-tasks",
+  "route": "#/tasks?role=hq",
+  "scrollHeight": 1798
+ },
+ {
+  "name": "14-tasks-store",
+  "route": "#/tasks?role=store",
+  "scrollHeight": 1642
+ },
+ {
+  "name": "15-publish",
+  "route": "#/publish?role=hq",
+  "scrollHeight": 1233
+ },
+ {
+  "name": "16-mobile",
+  "route": "#/mobile?role=store",
+  "scrollHeight": 1120
+ },
+ {
+  "name": "17-roles",
+  "route": "#/roles?role=hq",
+  "scrollHeight": 1503
+ },
+ {
+  "name": "18-leads-sales",
+  "route": "#/leads?role=sales",
+  "scrollHeight": 1913
+ }
+]
