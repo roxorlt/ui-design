@@ -58,11 +58,11 @@
 <div class="tw"><table class="st">
 <thead><tr><th>你要做的事</th><th>先看</th><th>再看</th></tr></thead>
 <tbody>
-<tr><td>做一个新页面</td><td><a href="templates.html">6 页面模板</a>，挑最像的一套</td><td><a href="principles.html#density">屏效规则</a>，交付前逐条量</td></tr>
-<tr><td>页面里缺一个控件</td><td><a href="components.html">3 组件</a>，按用途找</td><td>库里没有：走下面的<a href="#change">变更流程</a>，不在页面里临时造</td></tr>
-<tr><td>写按钮、提示、报错</td><td><a href="adapt.html#copy">文案</a></td><td><a href="patterns.html#feedback">反馈提示</a></td></tr>
-<tr><td>接 token</td><td><code>../system/tokens.css</code>（CSS 变量），<code>../system/tokens.json</code>（同一份数据）</td><td><a href="foundations.html">2 基础</a>里的 token 名</td></tr>
-<tr><td>验收页面</td><td><a href="adapt.html#a11y">无障碍</a>和<a href="principles.html#density">屏效规则</a></td><td>各组件的「状态」一栏</td></tr>
+<tr><td data-l="你要做的事">做一个新页面</td><td data-l="先看"><a href="templates.html">6 页面模板</a>，挑最像的一套</td><td data-l="再看"><a href="principles.html#density">屏效规则</a>，交付前逐条量</td></tr>
+<tr><td data-l="你要做的事">页面里缺一个控件</td><td data-l="先看"><a href="components.html">3 组件</a>，按用途找</td><td data-l="再看">库里没有：走下面的<a href="#change">变更流程</a>，不在页面里临时造</td></tr>
+<tr><td data-l="你要做的事">写按钮、提示、报错</td><td data-l="先看"><a href="adapt.html#copy">文案</a></td><td data-l="再看"><a href="patterns.html#feedback">反馈提示</a></td></tr>
+<tr><td data-l="你要做的事">接 token</td><td data-l="先看"><code>../system/tokens.css</code>（CSS 变量），<code>../system/tokens.json</code>（同一份数据）</td><td data-l="再看"><a href="foundations.html">2 基础</a>里的 token 名</td></tr>
+<tr><td data-l="你要做的事">验收页面</td><td data-l="先看"><a href="adapt.html#a11y">无障碍</a>和<a href="principles.html#density">屏效规则</a></td><td data-l="再看">各组件的「状态」一栏</td></tr>
 </tbody></table></div>
 <p class="p">写法约定：<code>--xxx</code> 是 tokens.css 里的变量，<code>.xxx</code> 是 components.css 里的类名。页面里不写行内样式，不写死色值和像素。</p>
 </section>
@@ -72,9 +72,9 @@
 <div class="tw"><table class="st">
 <thead><tr><th>角色</th><th>负责什么</th><th>交付物</th></tr></thead>
 <tbody>
-<tr><td>UI 设计</td><td>规范负责人：维护本手册、组件库和 tokens；审核新增或修改组件；变更后逐页走查</td><td>spec/、system/、更新记录</td></tr>
-<tr><td>前端开发</td><td>实现：引用 tokens 和组件类搭页面；发现库里缺组件时提给 UI 设计</td><td>页面代码，不含行内样式</td></tr>
-<tr><td>测试</td><td>验收：按屏效规则、无障碍底线和组件状态逐项检查</td><td>验收记录，过 / 不过</td></tr>
+<tr><td data-l="角色">UI 设计</td><td data-l="负责什么">规范负责人：维护本手册、组件库和 tokens；审核新增或修改组件；变更后逐页走查</td><td data-l="交付物">spec/、system/、更新记录</td></tr>
+<tr><td data-l="角色">前端开发</td><td data-l="负责什么">实现：引用 tokens 和组件类搭页面；发现库里缺组件时提给 UI 设计</td><td data-l="交付物">页面代码，不含行内样式</td></tr>
+<tr><td data-l="角色">测试</td><td data-l="负责什么">验收：按屏效规则、无障碍底线和组件状态逐项检查</td><td data-l="交付物">验收记录，过 / 不过</td></tr>
 </tbody></table></div>
 </section>
 
@@ -83,8 +83,8 @@
 <div class="tw"><table class="st">
 <thead><tr><th>版本</th><th>日期</th><th>改了什么</th><th>为什么</th><th>影响哪些组件</th></tr></thead>
 <tbody>
-<tr><td class="n">v1.0</td><td class="n">2026-10-20</td><td>补成正式手册：设计原则配正反例；基础、组件、交互模式、页面模板、跨端、无障碍、文案按章写全；新增「页面动效」一章和动效 token（<code>--dur-*</code>、<code>--ease-*</code>、<code>--shift-*</code>）；v1.4 规划组件 A01–A15 进组件章；v0.1 的走查和对比挪到附录；组件库补两处：危险按钮加悬停样式（6% 红底、描边转实色），表格复选框外包 <code>label.hit</code>，手机宽度下点击区 44 × 44px；芯片、分段控件、树展开按钮用透明伪元素把手机点击区补到 ≥ 44 × 44px，看得见的尺寸不变</td><td>v0.1 读起来像整改清单，新人照着做不出一致的新页面；触控区 ≥ 44px 是底线，权限表复选框原来只有 16px</td><td>按钮 <code>.btn-danger</code>；权限表 <code>.tbl.perm</code>；批量选择表格（A05）；筛选芯片 <code>.chip</code>；分段控件 <code>.seg</code>；组织树（A10）展开按钮。新增动效 token，旧名 <code>--m-fast</code>、<code>--m-base</code>、<code>--m-ease</code> 保留且值不变</td></tr>
-<tr><td class="n">v0.1</td><td class="n">2026-10-20</td><td>初版定稿：tokens、基础组件、业务组件；主色定为黑色</td><td>统一字号、间距、圆角和颜色，提高屏效</td><td>全部组件</td></tr>
+<tr><td data-l="版本" class="n">v1.0</td><td data-l="日期" class="n">2026-10-20</td><td data-l="改了什么">补成正式手册：设计原则配正反例；基础、组件、交互模式、页面模板、跨端、无障碍、文案按章写全；新增「页面动效」一章和动效 token（<code>--dur-*</code>、<code>--ease-*</code>、<code>--shift-*</code>）；v1.4 规划组件 A01–A15 进组件章；v0.1 的走查和对比挪到附录；组件库补两处：危险按钮加悬停样式（6% 红底、描边转实色），表格复选框外包 <code>label.hit</code>，手机宽度下点击区 44 × 44px；芯片、分段控件、树展开按钮用透明伪元素把手机点击区补到 ≥ 44 × 44px，看得见的尺寸不变；规范页表格在手机宽度下分两种：文字表 ≤ 599px 每行堆叠，必须保留列的数据表表内横滑、右缘渐隐、表下提示、首列固定，规则写进第 4 章「表格和列表」</td><td data-l="为什么">v0.1 读起来像整改清单，新人照着做不出一致的新页面；触控区 ≥ 44px 是底线，权限表复选框原来只有 16px；390 宽度下多列表格最右一列被截掉</td><td data-l="影响哪些组件">按钮 <code>.btn-danger</code>；权限表 <code>.tbl.perm</code>；批量选择表格（A05）；筛选芯片 <code>.chip</code>；分段控件 <code>.seg</code>；组织树（A10）展开按钮。新增动效 token，旧名 <code>--m-fast</code>、<code>--m-base</code>、<code>--m-ease</code> 保留且值不变；规范页所有表格</td></tr>
+<tr><td data-l="版本" class="n">v0.1</td><td data-l="日期" class="n">2026-10-20</td><td data-l="改了什么">初版定稿：tokens、基础组件、业务组件；主色定为黑色</td><td data-l="为什么">统一字号、间距、圆角和颜色，提高屏效</td><td data-l="影响哪些组件">全部组件</td></tr>
 </tbody></table></div>
 </section>
 
@@ -102,9 +102,9 @@
 <div class="tw"><table class="st">
 <thead><tr><th>变更类型</th><th>例子</th><th>版本号</th><th>要不要走查全部页面</th></tr></thead>
 <tbody>
-<tr><td>大改</td><td>换主色、改字阶、删组件</td><td class="n">主版本 +1</td><td>要</td></tr>
-<tr><td>新增</td><td>新组件、新 token、组件新状态</td><td class="n">次版本 +1</td><td>只走查用到的页面</td></tr>
-<tr><td>微调</td><td>改一个状态的颜色、修尺寸偏差</td><td class="n">修订号 +1</td><td>只走查用到的页面</td></tr>
+<tr><td data-l="变更类型">大改</td><td data-l="例子">换主色、改字阶、删组件</td><td data-l="版本号" class="n">主版本 +1</td><td data-l="要不要走查全部页面">要</td></tr>
+<tr><td data-l="变更类型">新增</td><td data-l="例子">新组件、新 token、组件新状态</td><td data-l="版本号" class="n">次版本 +1</td><td data-l="要不要走查全部页面">只走查用到的页面</td></tr>
+<tr><td data-l="变更类型">微调</td><td data-l="例子">改一个状态的颜色、修尺寸偏差</td><td data-l="版本号" class="n">修订号 +1</td><td data-l="要不要走查全部页面">只走查用到的页面</td></tr>
 </tbody></table></div>
 </section>
 

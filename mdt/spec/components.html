@@ -44,12 +44,12 @@
 <div class="tw"><table class="st">
 <thead><tr><th>分组</th><th>组件</th><th class="nw">数量</th></tr></thead>
 <tbody>
-<tr><td>输入和选择</td><td><a href="#c-btn">按钮</a>、<a href="#c-tabs">标签页</a>、<a href="#c-seg">分段控件</a>、<a href="#c-chip">筛选芯片</a>、<a href="#c-chipbar">横滑筛选条</a>、<a href="#c-field">输入框和下拉</a>、<a href="#c-radio">单选和复选行</a>、<a href="#c-picker">分组多选</a></td><td class="n">8</td></tr>
-<tr><td>数据展示</td><td><a href="#c-panel">面板</a>、<a href="#c-mstrip">指标条</a>、<a href="#c-tbl">表格</a>、<a href="#c-li">列表行</a>、<a href="#c-tag">状态标签</a>、<a href="#c-lv">意向等级</a>、<a href="#c-health">健康分</a>、<a href="#c-prog">进度条</a>、<a href="#c-steps">步骤条</a>、<a href="#c-meta">元信息行</a>、<a href="#c-pager">分页</a>、<a href="#c-perm">权限表</a>、<a href="#c-film">成片卡</a></td><td class="n">13</td></tr>
-<tr><td>反馈和浮层</td><td><a href="#c-toast">轻提示</a>、<a href="#c-banner">横条提示</a>、<a href="#c-errline">行内错误</a>、<a href="#c-empty">空状态</a>、<a href="#c-skel">骨架屏</a>、<a href="#c-sheet">弹窗</a></td><td class="n">6</td></tr>
-<tr><td>导航和消息</td><td><a href="#c-bell">铃铛和角标</a>、<a href="#c-msg">消息行</a>、<a href="#c-tabbar">底部标签栏</a></td><td class="n">3</td></tr>
-<tr><td>演示</td><td><a href="#c-demo">演示专用模块</a></td><td class="n">1</td></tr>
-<tr><td>v1.4 规划</td><td><a href="#a01">A01</a> 到 <a href="#a15">A15</a>：范围切换器、员工状态标签、带原因的不可用按钮、危险确认弹层、批量选择表格、平台账号行、绑定账号三步弹窗、手机独立表单页、演示专用控件、组织树、定位高亮行、二维码弹层、日志表、个人资料页、管理类消息标签</td><td class="n">15</td></tr>
+<tr><td data-l="分组">输入和选择</td><td data-l="组件"><a href="#c-btn">按钮</a>、<a href="#c-tabs">标签页</a>、<a href="#c-seg">分段控件</a>、<a href="#c-chip">筛选芯片</a>、<a href="#c-chipbar">横滑筛选条</a>、<a href="#c-field">输入框和下拉</a>、<a href="#c-radio">单选和复选行</a>、<a href="#c-picker">分组多选</a></td><td data-l="数量" class="n">8</td></tr>
+<tr><td data-l="分组">数据展示</td><td data-l="组件"><a href="#c-panel">面板</a>、<a href="#c-mstrip">指标条</a>、<a href="#c-tbl">表格</a>、<a href="#c-li">列表行</a>、<a href="#c-tag">状态标签</a>、<a href="#c-lv">意向等级</a>、<a href="#c-health">健康分</a>、<a href="#c-prog">进度条</a>、<a href="#c-steps">步骤条</a>、<a href="#c-meta">元信息行</a>、<a href="#c-pager">分页</a>、<a href="#c-perm">权限表</a>、<a href="#c-film">成片卡</a></td><td data-l="数量" class="n">13</td></tr>
+<tr><td data-l="分组">反馈和浮层</td><td data-l="组件"><a href="#c-toast">轻提示</a>、<a href="#c-banner">横条提示</a>、<a href="#c-errline">行内错误</a>、<a href="#c-empty">空状态</a>、<a href="#c-skel">骨架屏</a>、<a href="#c-sheet">弹窗</a></td><td data-l="数量" class="n">6</td></tr>
+<tr><td data-l="分组">导航和消息</td><td data-l="组件"><a href="#c-bell">铃铛和角标</a>、<a href="#c-msg">消息行</a>、<a href="#c-tabbar">底部标签栏</a></td><td data-l="数量" class="n">3</td></tr>
+<tr><td data-l="分组">演示</td><td data-l="组件"><a href="#c-demo">演示专用模块</a></td><td data-l="数量" class="n">1</td></tr>
+<tr><td data-l="分组">v1.4 规划</td><td data-l="组件"><a href="#a01">A01</a> 到 <a href="#a15">A15</a>：范围切换器、员工状态标签、带原因的不可用按钮、危险确认弹层、批量选择表格、平台账号行、绑定账号三步弹窗、手机独立表单页、演示专用控件、组织树、定位高亮行、二维码弹层、日志表、个人资料页、管理类消息标签</td><td data-l="数量" class="n">15</td></tr>
 </tbody></table></div>
 <p class="cap">结构图里的蓝色编号对应下方图例。「悬停」示例为静态示意，实际效果把鼠标移上去即可看到。</p>
 </section>
@@ -249,13 +249,13 @@
 <article class="cmp" id="c-tbl">
 <div class="cmp-h"><h3>表格</h3><span class="cls">.tbl .main .sub .r .row-act .grp .is-selected</span></div>
 <p class="p">PC 上横向比较多个对象。门店通的主力组件。</p>
-<div class="stage flush anat">
+<div class="xs"><div class="stage flush anat">
 <table class="tbl"><thead><tr><th data-pin="1">门店</th><th>大区</th><th>健康分</th><th class="r">本周发布</th><th class="r" data-pin="2">近 30 天线索</th><th></th></tr></thead><tbody>
 <tr><td class="main" data-pin="3">长沙星驰星沙店</td><td class="sub">华中</td><td><span class="health bad">42<i><b style="width:42%"></b></i></span></td><td class="r">1</td><td class="r">45</td><td class="r"><button class="btn btn-ghost row-act" data-pin="4">提醒店长</button></td></tr>
 <tr class="is-selected"><td class="main">太原星驰长风店</td><td class="sub">华北</td><td><span class="health bad">44<i><b style="width:44%"></b></i></span></td><td class="r">0</td><td class="r">18</td><td class="r"><button class="btn btn-ghost" disabled>已提醒 14:00</button></td></tr>
 <tr class="grp"><td colspan="6" data-pin="5">需关注，健康分 60–79，共 9 家</td></tr>
 <tr><td class="main">拉萨星驰城关店</td><td class="sub">西南</td><td><span class="health warn">72<i><b style="width:72%"></b></i></span></td><td class="r">23</td><td class="r">95</td><td></td></tr>
-</tbody></table></div>
+</tbody></table></div></div><p class="xs-hint">左右滑动查看全部列</p>
 <ol class="legend"><li><i>1</i>表头 32px，12px 文字 3</li><li><i>2</i>数字列右对齐，等宽数字</li><li><i>3</i>首列主对象，500 字重</li><li><i>4</i>行操作：悬停或键盘聚焦时出现，触屏常驻</li><li><i>5</i>分组行 28px，代替另起一块面板</li></ol>
 <div class="tw"><table class="st kv"><tbody>
 <tr><td>尺寸</td><td>行高 40px（紧凑 36px）；首列左内边距 16px，单元格左右 8px；首屏 ≥ 12 行</td></tr>
@@ -361,10 +361,10 @@
 <article class="cmp" id="c-perm">
 <div class="cmp-h"><h3>权限表</h3><span class="cls">.tbl.perm</span></div>
 <p class="p">角色和功能的勾选矩阵。</p>
-<div class="stage flush"><table class="tbl perm"><thead><tr><th>功能</th><th>查看</th><th>编辑</th><th>下发</th></tr></thead><tbody>
+<div class="xs"><div class="stage flush"><table class="tbl perm"><thead><tr><th>功能</th><th>查看</th><th>编辑</th><th>下发</th></tr></thead><tbody>
 <tr><td class="main">脚本库</td><td><label class="hit"><input type="checkbox" checked aria-label="脚本库查看"></label></td><td><label class="hit"><input type="checkbox" checked aria-label="脚本库编辑"></label></td><td><label class="hit"><input type="checkbox" aria-label="脚本库下发"></label></td></tr>
 <tr><td class="main">线索</td><td><label class="hit"><input type="checkbox" checked aria-label="线索查看"></label></td><td><label class="hit"><input type="checkbox" aria-label="线索编辑"></label></td><td><label class="hit"><input type="checkbox" disabled aria-label="线索下发，不适用"></label></td></tr>
-</tbody></table></div>
+</tbody></table></div></div><p class="xs-hint">左右滑动查看全部列</p>
 <div class="tw"><table class="st kv"><tbody>
 <tr><td>结构</td><td>每个复选框外包 <code>&lt;label class="hit"&gt;</code>，整块是点击区；复选框本身 16px，必须带 <code>aria-label</code>（「脚本库查看」）</td></tr>
 <tr><td>尺寸</td><td>PC：单元格 40px 高，点击区 32 × 32px。手机宽度（&lt; 768px）：单元格 44px 高，点击区 44 × 44px</td></tr>
@@ -601,12 +601,12 @@
 <article class="cmp" id="a05">
 <div class="cmp-h"><h3>A05 批量选择表格和操作栏</h3><span class="tag tag-info plain">v1.4 新增</span></div>
 <p class="p">交接线索：行首复选框，表格上方操作栏写已选数量和动作。</p>
-<div class="stage flush anat">
+<div class="xs"><div class="stage flush anat">
 <div class="v14-bulk" data-pin="1"><span class="num">已选 4 条</span><button class="btn btn-primary" data-pin="2">分配给</button><button class="btn btn-ghost">取消选择</button></div>
 <table class="tbl"><thead><tr><th style="width:56px"><label class="hit" data-pin="3"><input type="checkbox" checked aria-label="全选"></label></th><th>客户</th><th>意向车型</th><th>最近跟进</th></tr></thead><tbody>
 <tr class="is-selected"><td><label class="hit"><input type="checkbox" checked aria-label="选择张先生"></label></td><td class="main">张先生</td><td class="sub">星驰 X5</td><td class="sub num">10-14 14:00</td></tr>
 <tr class="is-selected"><td><label class="hit"><input type="checkbox" checked aria-label="选择李女士"></label></td><td class="main">李女士</td><td class="sub">星驰 E3</td><td class="sub num">10-13 18:20</td></tr>
-</tbody></table></div>
+</tbody></table></div></div><p class="xs-hint">左右滑动查看全部列</p>
 <ol class="legend"><li><i>1</i>操作栏：替换表头上方的筛选区，高 52px</li><li><i>2</i>动作写成「动词 + 对象」</li><li><i>3</i>表头全选，支持部分选中</li></ol>
 <div class="tw"><table class="st kv"><tbody>
 <tr><td>尺寸</td><td>操作栏 52px；复选框列 56px 宽，复选框外包 <code>label.hit</code>，点击区 PC 32px、手机 44px（与权限表同一写法）</td></tr>
@@ -662,12 +662,12 @@
 <div style="padding:12px 16px 24px;border-top:1px solid var(--c-line)"><button class="btn btn-primary btn-lg btn-block">完成激活</button></div>
 </div>
 <div><div class="tw" style="margin-top:16px"><table class="st"><thead><tr><th>状态</th><th>标题</th><th>主按钮</th></tr></thead><tbody>
-<tr><td>设密码</td><td>设置登录密码</td><td>完成激活</td></tr>
-<tr><td>等待审批</td><td>已提交申请，等店长审批</td><td>无</td></tr>
-<tr><td>已通过</td><td>店长已通过你的申请</td><td>去登录</td></tr>
-<tr><td>未通过</td><td>店长没有通过你的申请</td><td>重新申请</td></tr>
-<tr><td>链接已失效</td><td>邀请链接已失效</td><td>无，写「请联系店长重新发送」</td></tr>
-<tr><td>已激活</td><td>这个账号已经激活</td><td>去登录</td></tr>
+<tr><td data-l="状态">设密码</td><td data-l="标题">设置登录密码</td><td data-l="主按钮">完成激活</td></tr>
+<tr><td data-l="状态">等待审批</td><td data-l="标题">已提交申请，等店长审批</td><td data-l="主按钮">无</td></tr>
+<tr><td data-l="状态">已通过</td><td data-l="标题">店长已通过你的申请</td><td data-l="主按钮">去登录</td></tr>
+<tr><td data-l="状态">未通过</td><td data-l="标题">店长没有通过你的申请</td><td data-l="主按钮">重新申请</td></tr>
+<tr><td data-l="状态">链接已失效</td><td data-l="标题">邀请链接已失效</td><td data-l="主按钮">无，写「请联系店长重新发送」</td></tr>
+<tr><td data-l="状态">已激活</td><td data-l="标题">这个账号已经激活</td><td data-l="主按钮">去登录</td></tr>
 </tbody></table></div>
 <div class="tw"><table class="st kv"><tbody>
 <tr><td>尺寸</td><td>顶栏 48px 只放产品名；主按钮 44px 高，固定底部 + 安全区；PC 打开时居中 480px 宽</td></tr>
@@ -732,10 +732,10 @@
 <article class="cmp" id="a13">
 <div class="cmp-h"><h3>A13 日志表</h3><span class="tag tag-info plain">v1.4 新增</span></div>
 <p class="p">操作日志：时间、操作人、对象、动作、变化。</p>
-<div class="stage flush"><table class="tbl"><thead><tr><th>时间</th><th>操作人</th><th>对象</th><th>动作</th><th>变化</th></tr></thead><tbody>
+<div class="xs"><div class="stage flush"><table class="tbl"><thead><tr><th>时间</th><th>操作人</th><th>对象</th><th>动作</th><th>变化</th></tr></thead><tbody>
 <tr><td class="num sub">10-14 14:02</td><td class="main">店长</td><td>杭州星驰西湖店</td><td class="sub">修改营业时间</td><td><span class="t3">空</span>　改为　<span class="num">9:00–18:00</span></td></tr>
 <tr><td class="num sub">10-14 13:40</td><td class="main">店长</td><td>销售顾问E</td><td class="sub">停用员工</td><td><span class="t3">正常</span>　改为　已停用</td></tr>
-</tbody></table></div>
+</tbody></table></div></div><p class="xs-hint">左右滑动查看全部列</p>
 <div class="tw"><table class="st kv"><tbody>
 <tr><td>规则</td><td>「变化」写「旧值 改为 新值」，旧值用文字 3；数字用 <code>--f-num</code>；时间按日期格式规则</td></tr>
 <tr><td>用</td><td>操作日志页（PC）</td></tr>

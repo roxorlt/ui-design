@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>跨端、无障碍、文案｜rQuant 设计规范 v1.0</title>
+<title>跨端、无障碍、文案｜rQuant 设计规范 v1.1</title>
 <link rel="stylesheet" href="../system/tokens.css">
 <link rel="stylesheet" href="../system/components.css">
 <link rel="stylesheet" href="spec.css">
 </head>
 <body data-page="guidelines.html">
 <div class="doc">
-  <header class="mbar"><a href="index.html">rQuant 设计规范</a><span class="num">v1.0</span><button class="btn quiet" id="tocBtn" aria-expanded="false" aria-controls="toc">目录</button></header>
+  <header class="mbar"><a href="index.html">rQuant 设计规范</a><span class="num">v1.1</span><button class="btn quiet" id="tocBtn" aria-expanded="false" aria-controls="toc">目录</button></header>
   <nav class="toc" id="toc" aria-label="规范目录">
-    <div class="toc-brand"><a href="index.html">rQuant 设计规范</a><span class="num">v1.0</span></div>
+    <div class="toc-brand"><a href="index.html">rQuant 设计规范</a><span class="num">v1.1</span></div>
     <ol><li><a href="index.html"><span class="n"></span><span>概述</span></a></li><li><a href="principles.html"><span class="n">1</span><span>设计原则</span></a></li><li><a href="foundations.html"><span class="n">2</span><span>基础</span></a></li><li><a href="components.html"><span class="n">3</span><span>组件</span></a></li><li><a href="patterns.html"><span class="n">4</span><span>交互模式</span></a></li><li><a href="motion.html"><span class="n">5</span><span>页面动效</span></a></li><li><a href="templates.html"><span class="n">6</span><span>页面模板</span></a></li><li><a href="guidelines.html" aria-current="page"><span class="n">7</span><span>跨端、无障碍、文案</span></a><div class="sub"><a href="#breakpoints">断点行为</a><a href="#platforms">iOS、安卓、网页的差异</a><a href="#a11y">无障碍</a><a href="#copy">文案规范</a></div></li><li><a href="appendix.html"><span class="n"></span><span>附录</span></a></li></ol>
     <div class="toc-foot"><a href="../index.html">返回资料首页</a><a href="../system/index.html">组件库（v0.1 状态页）</a><a href="../system/tokens.css">tokens.css</a><a href="../system/tokens.json">tokens.json</a><a href="../system/components.css">components.css</a></div>
   </nav>
@@ -22,50 +22,51 @@
 <p class="lede">同一个页面在电脑、平板、手机上怎么变；怎么保证看得清、点得到、键盘能用；数字和时间怎么写。</p>
 
 <h2 id="breakpoints">断点行为</h2>
-<div class="tscroll"><table class="dt">
+<div class="tscroll"><table class="dt stack">
 <thead><tr><th>组件</th><th>手机 &lt; 600</th><th>平板 600–1023</th><th>电脑 ≥ 1024</th></tr></thead>
 <tbody>
-<tr><td>全局导航</td><td>底部标签栏 5 项，其余收进「更多」</td><td>左侧 212px 文字导航</td><td>左侧 212px</td></tr>
-<tr><td>顶栏</td><td>48px：品牌图标、标题、搜索图标</td><td>52px，说明可省略</td><td>52px 全部显示</td></tr>
-<tr><td>指标条</td><td>≤ 6 个：3 列网格；7–12 个：单行横滑</td><td>一行，放不下横滑</td><td>一行</td></tr>
-<tr><td>指标网格</td><td>首屏 6 项，其余「全部 N 项」</td><td>自动列宽</td><td>按组分行</td></tr>
-<tr><td>表格</td><td>两行列表项</td><td>表格，隐藏次要列</td><td>表格</td></tr>
-<tr><td>主区两列</td><td>单列</td><td>单列</td><td>7 : 5 两列</td></tr>
-<tr><td>抽屉</td><td>底部弹层</td><td>右侧 400px</td><td>右侧 400px</td></tr>
-<tr><td>悬停信息</td><td>点按出现</td><td>点按出现</td><td>悬停出现</td></tr>
-<tr><td>按钮、输入框</td><td>44px</td><td>44px（触屏）/ 32px（鼠标）</td><td>32px</td></tr>
+<tr><td>全局导航</td><td data-l="手机 &lt; 600">底部标签栏 4 项（全景、资金流、池子、更多），其余收进「更多」；告警铃铛、健康状态点在顶栏</td><td data-l="平板 600–1023">左侧 212px 文字导航</td><td data-l="电脑 ≥ 1024">左侧 212px</td></tr>
+<tr><td>默认打开页</td><td data-l="手机 &lt; 600">池子（底栏池子选中）</td><td data-l="平板 600–1023">总览</td><td data-l="电脑 ≥ 1024">总览</td></tr>
+<tr><td>顶栏</td><td data-l="手机 &lt; 600">48px：品牌图标、标题、搜索图标</td><td data-l="平板 600–1023">52px，说明可省略</td><td data-l="电脑 ≥ 1024">52px 全部显示</td></tr>
+<tr><td>指标条</td><td data-l="手机 &lt; 600">≤ 6 个：3 列网格；7–12 个：单行横滑</td><td data-l="平板 600–1023">一行，放不下横滑</td><td data-l="电脑 ≥ 1024">一行</td></tr>
+<tr><td>指标网格</td><td data-l="手机 &lt; 600">首屏 6 项，其余「全部 N 项」</td><td data-l="平板 600–1023">自动列宽</td><td data-l="电脑 ≥ 1024">按组分行</td></tr>
+<tr><td>表格</td><td data-l="手机 &lt; 600">两行列表项</td><td data-l="平板 600–1023">表格，隐藏次要列</td><td data-l="电脑 ≥ 1024">表格</td></tr>
+<tr><td>主区两列</td><td data-l="手机 &lt; 600">单列</td><td data-l="平板 600–1023">单列</td><td data-l="电脑 ≥ 1024">7 : 5 两列</td></tr>
+<tr><td>抽屉</td><td data-l="手机 &lt; 600">底部弹层</td><td data-l="平板 600–1023">右侧 400px</td><td data-l="电脑 ≥ 1024">右侧 400px</td></tr>
+<tr><td>悬停信息</td><td data-l="手机 &lt; 600">点按出现</td><td data-l="平板 600–1023">点按出现</td><td data-l="电脑 ≥ 1024">悬停出现</td></tr>
+<tr><td>按钮、输入框</td><td data-l="手机 &lt; 600">44px</td><td data-l="平板 600–1023">44px（触屏）/ 32px（鼠标）</td><td data-l="电脑 ≥ 1024">32px</td></tr>
 </tbody></table></div>
 <p>判断依据：宽度用断点；按钮大小再看指针类型 <code>(pointer: coarse)</code>，平板接了鼠标按电脑尺寸。</p>
 
 <h2 id="platforms">iOS、安卓、网页的差异</h2>
-<div class="tscroll"><table class="dt">
+<div class="tscroll"><table class="dt stack">
 <thead><tr><th>项</th><th>iOS（Safari）</th><th>安卓（Chrome、系统浏览器）</th><th>电脑网页</th></tr></thead>
 <tbody>
-<tr><td>安全区</td><td>底部标签栏加 <code>env(safe-area-inset-bottom)</code>；<code>viewport-fit=cover</code></td><td>同左（全面屏手势条）</td><td>不需要</td></tr>
-<tr><td>输入框字号</td><td>≥ 16px，否则聚焦时页面放大</td><td>16px，保持一致</td><td>13px</td></tr>
-<tr><td>返回</td><td>左滑返回：先关浮层，再回上一页</td><td>系统返回键：同左</td><td>浏览器返回：同左</td></tr>
-<tr><td>数字键盘</td><td>代码框 <code>inputmode="numeric"</code></td><td>同左</td><td>—</td></tr>
-<tr><td>字体回落</td><td>苹方</td><td>鸿蒙黑体、Noto Sans SC</td><td>苹方、微软雅黑</td></tr>
-<tr><td>悬停</td><td>没有，改点按</td><td>没有，改点按</td><td>有</td></tr>
-<tr><td>快捷键</td><td>—</td><td>—</td><td>「/」聚焦搜索，Esc 关浮层</td></tr>
-<tr><td>后台标签页</td><td colspan="3">页面不可见时（<code>document.hidden</code>）暂停行情刷新；回到前台立即刷新一次</td></tr>
-<tr><td>深色模式</td><td colspan="3">跟随系统；也可在设置里固定浅色或深色（<code>data-theme</code>）</td></tr>
+<tr><td>安全区</td><td data-l="iOS（Safari）">底部标签栏加 <code>env(safe-area-inset-bottom)</code>；<code>viewport-fit=cover</code></td><td data-l="安卓（Chrome、系统浏览器）">同左（全面屏手势条）</td><td data-l="电脑网页">不需要</td></tr>
+<tr><td>输入框字号</td><td data-l="iOS（Safari）">≥ 16px，否则聚焦时页面放大</td><td data-l="安卓（Chrome、系统浏览器）">16px，保持一致</td><td data-l="电脑网页">13px</td></tr>
+<tr><td>返回</td><td data-l="iOS（Safari）">左滑返回：先关浮层，再回上一页</td><td data-l="安卓（Chrome、系统浏览器）">系统返回键：同左</td><td data-l="电脑网页">浏览器返回：同左</td></tr>
+<tr><td>数字键盘</td><td data-l="iOS（Safari）">代码框 <code>inputmode="numeric"</code></td><td data-l="安卓（Chrome、系统浏览器）">同左</td><td data-l="电脑网页">—</td></tr>
+<tr><td>字体回落</td><td data-l="iOS（Safari）">苹方</td><td data-l="安卓（Chrome、系统浏览器）">鸿蒙黑体、Noto Sans SC</td><td data-l="电脑网页">苹方、微软雅黑</td></tr>
+<tr><td>悬停</td><td data-l="iOS（Safari）">没有，改点按</td><td data-l="安卓（Chrome、系统浏览器）">没有，改点按</td><td data-l="电脑网页">有</td></tr>
+<tr><td>快捷键</td><td data-l="iOS（Safari）">—</td><td data-l="安卓（Chrome、系统浏览器）">—</td><td data-l="电脑网页">「/」聚焦搜索，Esc 关浮层</td></tr>
+<tr><td>后台标签页</td><td colspan="3" data-l="iOS（Safari）">页面不可见时（<code>document.hidden</code>）暂停行情刷新；回到前台立即刷新一次</td></tr>
+<tr><td>深色模式</td><td colspan="3" data-l="iOS（Safari）">跟随系统；也可在设置里固定浅色或深色（<code>data-theme</code>）</td></tr>
 </tbody></table></div>
 
 <h2 id="a11y">无障碍</h2>
-<div class="tscroll"><table class="dt">
+<div class="tscroll"><table class="dt stack">
 <thead><tr><th>项</th><th>要求</th><th>怎么做到</th></tr></thead>
 <tbody>
-<tr><td>对比度</td><td>正文和数字 ≥ 4.5:1；≥ 18px 半粗和图形 ≥ 3:1</td><td>只用色板里的文字色。浅色：说明文字 5.71、上涨 5.63、下跌 5.65、琥珀 5.73、失败 6.53（对白色面板）。<code>--c-faint</code> 3.13 只给禁用和装饰</td></tr>
-<tr><td>触控区</td><td>≥ 44×44px，相邻 ≥ 8px</td><td>手机按钮、行、标签栏、指标格都按 44px 做；视觉小的靠内边距补足</td></tr>
-<tr><td>键盘焦点</td><td>所有可点元素 Tab 能到，焦点可见</td><td>组件已统一 <code>:focus-visible</code> 2px 主色框外偏 2px。不写 <code>outline: none</code> 而不给替代</td></tr>
-<tr><td>浮层焦点</td><td>打开时焦点进去，关闭时回来</td><td>见<a href="patterns.html#overlay">弹窗和抽屉</a></td></tr>
-<tr><td>减少动态效果</td><td>系统开启后不播放动画</td><td>tokens 里时长变 0；闪烁改静态浅底；骨架不闪。见<a href="motion.html#none">动效章</a></td></tr>
-<tr><td>涨跌不只靠颜色</td><td>色弱和黑白打印也能分清</td><td>正数带「+」，负数带「−」；K 线阳线空心、阴线实心；读屏文字写「上涨 1.30%」</td></tr>
-<tr><td>状态不只靠颜色</td><td>状态写出文字</td><td><code>.st</code> 圆点后必须有「正常」「需处理」等字</td></tr>
-<tr><td>图表</td><td>读屏能拿到结论</td><td>SVG 加 <code>role="img"</code> 和 <code>aria-label</code>（如「上涨 41%，平 3%，下跌 56%」）；关键数值另有文字</td></tr>
-<tr><td>行情刷新</td><td>不打断读屏</td><td>不对整表用 <code>aria-live</code>；只播报用户聚焦的单元格</td></tr>
-<tr><td>字号</td><td>电脑最小 11px，手机最小 12px</td><td>用字阶 token，不写更小的字号</td></tr>
+<tr><td>对比度</td><td data-l="要求">正文和数字 ≥ 4.5:1；≥ 18px 半粗和图形 ≥ 3:1</td><td data-l="怎么做到">只用色板里的文字色。浅色：说明文字 5.71、上涨 5.63、下跌 5.65、琥珀 5.73、失败 6.53（对白色面板）。<code>--c-faint</code> 3.13 只给禁用和装饰</td></tr>
+<tr><td>触控区</td><td data-l="要求">≥ 44×44px，相邻 ≥ 8px</td><td data-l="怎么做到">手机按钮、行、标签栏、顶栏告警铃铛和健康状态点、指标格都按 44px 做；视觉小的靠内边距补足</td></tr>
+<tr><td>键盘焦点</td><td data-l="要求">所有可点元素 Tab 能到，焦点可见</td><td data-l="怎么做到">组件已统一 <code>:focus-visible</code> 2px 主色框外偏 2px。不写 <code>outline: none</code> 而不给替代</td></tr>
+<tr><td>浮层焦点</td><td data-l="要求">打开时焦点进去，关闭时回来</td><td data-l="怎么做到">见<a href="patterns.html#overlay">弹窗和抽屉</a></td></tr>
+<tr><td>减少动态效果</td><td data-l="要求">系统开启后不播放动画</td><td data-l="怎么做到">tokens 里时长变 0；闪烁改静态浅底；骨架不闪。见<a href="motion.html#none">动效章</a></td></tr>
+<tr><td>涨跌不只靠颜色</td><td data-l="要求">色弱和黑白打印也能分清</td><td data-l="怎么做到">正数带「+」，负数带「−」；K 线阳线空心、阴线实心；读屏文字写「上涨 1.30%」</td></tr>
+<tr><td>状态不只靠颜色</td><td data-l="要求">状态写出文字</td><td data-l="怎么做到"><code>.st</code> 圆点后必须有「正常」「需处理」等字</td></tr>
+<tr><td>图表</td><td data-l="要求">读屏能拿到结论</td><td data-l="怎么做到">SVG 加 <code>role="img"</code> 和 <code>aria-label</code>（如「上涨 41%，平 3%，下跌 56%」）；关键数值另有文字</td></tr>
+<tr><td>行情刷新</td><td data-l="要求">不打断读屏</td><td data-l="怎么做到">不对整表用 <code>aria-live</code>；只播报用户聚焦的单元格</td></tr>
+<tr><td>字号</td><td data-l="要求">电脑最小 11px，手机最小 12px</td><td data-l="怎么做到">用字阶 token，不写更小的字号</td></tr>
 </tbody></table></div>
 <div class="dd">
 <figure class="yes"><div class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m3 8.5 3 3 7-7"/></svg>去掉颜色也能读</div>
@@ -78,58 +79,58 @@
 
 <h2 id="copy">文案规范</h2>
 <h3 id="numbers">数字和单位</h3>
-<div class="tscroll"><table class="dt">
+<div class="tscroll"><table class="dt stack">
 <thead><tr><th>类型</th><th>规则</th><th>示例</th></tr></thead>
 <tbody>
-<tr><td>股票价格</td><td>2 位小数（A 股最小价位 0.01）；基金、ETF 3 位</td><td class="nw num">24.86　1.236</td></tr>
-<tr><td>指数点位</td><td>2 位小数，千分位</td><td class="nw num">3,312.45</td></tr>
-<tr><td>涨跌幅</td><td>2 位小数，带正负号；0 写「0.00%」不带符号，平盘色</td><td class="nw num"><span class="up">+1.30%</span>　<span class="down">−0.86%</span>　<span class="flat">0.00%</span></td></tr>
-<tr><td>涨跌额</td><td>和价格同小数位，带正负号</td><td class="nw num"><span class="up">+0.32</span></td></tr>
-<tr><td>占比</td><td>整数百分比；换手率、股息率这类细微差别有意义的用 2 位</td><td class="nw num">41%　2.31%</td></tr>
-<tr><td>金额（成交额、市值）</td><td>不足 1 亿：「万」取整；1 亿到 1 万亿：「亿」2 位；1 万亿以上：「万亿」2 位</td><td class="nw num">8,560万　12.80亿　1.45万亿</td></tr>
-<tr><td>金额精确值</td><td>缩写的数悬停或点按看原值，原值统一用「亿」2 位、千分位</td><td class="nw num">1.45万亿 → 14,487.92亿</td></tr>
-<tr><td>成交量</td><td>「万手」2 位；1 亿手以上「亿手」</td><td class="nw num">51.6万手</td></tr>
-<tr><td>估值倍数</td><td>市盈率 1 位，市净率、市销率 2 位；亏损写「亏损」，不写负数</td><td class="nw num">18.4　2.36</td></tr>
-<tr><td>家数、条数</td><td>整数，千分位</td><td class="nw num">2,275 只　3 条</td></tr>
-<tr><td>表格里的单位</td><td>写进表头「成交额（亿）」，单元格只放数字</td><td class="nw num">12.80</td></tr>
-<tr><td>正负号</td><td>正数「+」，负数「−」（U+2212，不用连字符）。只有带方向的数加正号</td><td class="nw num">+0.32　−0.32</td></tr>
-<tr><td>单位与数字</td><td>中文单位紧贴数字不空格；% 紧贴；指标条里单位缩小</td><td class="nw num">12.80亿　41%</td></tr>
-<tr><td>没有数据</td><td>「—」（长横线），悬停说原因</td><td class="nw">—</td></tr>
+<tr><td>股票价格</td><td data-l="规则">2 位小数（A 股最小价位 0.01）；基金、ETF 3 位</td><td class="nw num" data-l="示例">24.86　1.236</td></tr>
+<tr><td>指数点位</td><td data-l="规则">2 位小数，千分位</td><td class="nw num" data-l="示例">3,312.45</td></tr>
+<tr><td>涨跌幅</td><td data-l="规则">2 位小数，带正负号；0 写「0.00%」不带符号，平盘色</td><td class="nw num" data-l="示例"><span class="up">+1.30%</span>　<span class="down">−0.86%</span>　<span class="flat">0.00%</span></td></tr>
+<tr><td>涨跌额</td><td data-l="规则">和价格同小数位，带正负号</td><td class="nw num" data-l="示例"><span class="up">+0.32</span></td></tr>
+<tr><td>占比</td><td data-l="规则">整数百分比；换手率、股息率这类细微差别有意义的用 2 位</td><td class="nw num" data-l="示例">41%　2.31%</td></tr>
+<tr><td>金额（成交额、市值）</td><td data-l="规则">不足 1 亿：「万」取整；1 亿到 1 万亿：「亿」2 位；1 万亿以上：「万亿」2 位</td><td class="nw num" data-l="示例">8,560万　12.80亿　1.45万亿</td></tr>
+<tr><td>金额精确值</td><td data-l="规则">缩写的数悬停或点按看原值，原值统一用「亿」2 位、千分位</td><td class="nw num" data-l="示例">1.45万亿 → 14,487.92亿</td></tr>
+<tr><td>成交量</td><td data-l="规则">「万手」2 位；1 亿手以上「亿手」</td><td class="nw num" data-l="示例">51.6万手</td></tr>
+<tr><td>估值倍数</td><td data-l="规则">市盈率 1 位，市净率、市销率 2 位；亏损写「亏损」，不写负数</td><td class="nw num" data-l="示例">18.4　2.36</td></tr>
+<tr><td>家数、条数</td><td data-l="规则">整数，千分位</td><td class="nw num" data-l="示例">2,275 只　3 条</td></tr>
+<tr><td>表格里的单位</td><td data-l="规则">写进表头「成交额（亿）」，单元格只放数字</td><td class="nw num" data-l="示例">12.80</td></tr>
+<tr><td>正负号</td><td data-l="规则">正数「+」，负数「−」（U+2212，不用连字符）。只有带方向的数加正号</td><td class="nw num" data-l="示例">+0.32　−0.32</td></tr>
+<tr><td>单位与数字</td><td data-l="规则">中文单位紧贴数字不空格；% 紧贴；指标条里单位缩小</td><td class="nw num" data-l="示例">12.80亿　41%</td></tr>
+<tr><td>没有数据</td><td data-l="规则">「—」（长横线），悬停说原因</td><td class="nw" data-l="示例">—</td></tr>
 </tbody></table></div>
 <h3 id="time">日期、时间、交易时段</h3>
 <p>所有时间都是北京时间。页面上默认不写时区；和海外市场并列、或用户在境外时，写「北京时间」。</p>
-<div class="tscroll"><table class="dt">
+<div class="tscroll"><table class="dt stack">
 <thead><tr><th>类型</th><th>格式</th><th>示例</th></tr></thead>
 <tbody>
-<tr><td>日期</td><td>YYYY-MM-DD；同一年内的短写 MM-DD</td><td class="nw num">2026-10-19　10-19</td></tr>
-<tr><td>时间</td><td>24 小时制 HH:MM:SS；行情到秒，其余到分</td><td class="nw num">14:32:05　15:30</td></tr>
-<tr><td>日期加时间</td><td>中间一个空格</td><td class="nw num">2026-10-19 15:00</td></tr>
-<tr><td>相对时间</td><td>1 小时内写「3 分钟前」；超过写具体时间</td><td class="nw">3 分钟前</td></tr>
-<tr><td>数据时间</td><td>「更新于 14:32:05」；收盘后「截至 10-19 15:00 收盘」</td><td class="nw">截至 15:00 收盘</td></tr>
+<tr><td>日期</td><td data-l="格式">YYYY-MM-DD；同一年内的短写 MM-DD</td><td class="nw num" data-l="示例">2026-10-19　10-19</td></tr>
+<tr><td>时间</td><td data-l="格式">24 小时制 HH:MM:SS；行情到秒，其余到分</td><td class="nw num" data-l="示例">14:32:05　15:30</td></tr>
+<tr><td>日期加时间</td><td data-l="格式">中间一个空格</td><td class="nw num" data-l="示例">2026-10-19 15:00</td></tr>
+<tr><td>相对时间</td><td data-l="格式">1 小时内写「3 分钟前」；超过写具体时间</td><td class="nw" data-l="示例">3 分钟前</td></tr>
+<tr><td>数据时间</td><td data-l="格式">「更新于 14:32:05」；收盘后「截至 10-19 15:00 收盘」</td><td class="nw" data-l="示例">截至 15:00 收盘</td></tr>
 </tbody></table></div>
-<div class="tscroll"><table class="dt">
+<div class="tscroll"><table class="dt stack">
 <thead><tr><th>时段（北京时间）</th><th>叫法</th><th>顶栏状态</th></tr></thead>
 <tbody>
-<tr><td class="num">09:15–09:25</td><td>集合竞价</td><td>集合竞价中</td></tr>
-<tr><td class="num">09:30–11:30</td><td>上午交易</td><td>交易中</td></tr>
-<tr><td class="num">11:30–13:00</td><td>午间休市</td><td>午间休市，13:00 继续</td></tr>
-<tr><td class="num">13:00–14:57</td><td>下午交易</td><td>交易中</td></tr>
-<tr><td class="num">14:57–15:00</td><td>收盘集合竞价</td><td>收盘竞价中</td></tr>
-<tr><td class="num">15:00 以后</td><td>已收盘</td><td>已收盘</td></tr>
-<tr><td>周末、法定节假日</td><td>休市</td><td>休市，显示 10-16 收盘数据</td></tr>
+<tr><td class="num">09:15–09:25</td><td data-l="叫法">集合竞价</td><td data-l="顶栏状态">集合竞价中</td></tr>
+<tr><td class="num">09:30–11:30</td><td data-l="叫法">上午交易</td><td data-l="顶栏状态">交易中</td></tr>
+<tr><td class="num">11:30–13:00</td><td data-l="叫法">午间休市</td><td data-l="顶栏状态">午间休市，13:00 继续</td></tr>
+<tr><td class="num">13:00–14:57</td><td data-l="叫法">下午交易</td><td data-l="顶栏状态">交易中</td></tr>
+<tr><td class="num">14:57–15:00</td><td data-l="叫法">收盘集合竞价</td><td data-l="顶栏状态">收盘竞价中</td></tr>
+<tr><td class="num">15:00 以后</td><td data-l="叫法">已收盘</td><td data-l="顶栏状态">已收盘</td></tr>
+<tr><td>周末、法定节假日</td><td data-l="叫法">休市</td><td data-l="顶栏状态">休市，显示 10-16 收盘数据</td></tr>
 </tbody></table></div>
 <p>不用「盘前」「盘后」以外的行话。「盘中」只在和「盘后」对比时用。</p>
 <h3 id="words">用词</h3>
-<div class="tscroll"><table class="dt">
+<div class="tscroll"><table class="dt stack">
 <thead><tr><th>写</th><th>不写</th><th>为什么</th></tr></thead>
 <tbody>
-<tr><td>成交额</td><td>AMOUNT、成交金额（元）</td><td>用常见叫法，不用字段名</td></tr>
-<tr><td>保存方案、加入自选</td><td>确定、提交、OK</td><td>按钮写动作本身</td></tr>
-<tr><td>已保存方案</td><td>操作成功！</td><td>结果和动作同名，不加感叹号</td></tr>
-<tr><td>读不到行情：行情来源没有响应</td><td>出错了、网络异常请稍后重试</td><td>说清哪里错、怎么办</td></tr>
-<tr><td>今天还没有告警</td><td>暂无数据</td><td>说清为什么空</td></tr>
-<tr><td>数据采集、数据发布</td><td>内部任务名、服务名</td><td>新手看不懂；内部名只放在详情里</td></tr>
-<tr><td>需处理</td><td>异常、FAIL</td><td>告诉用户要做什么</td></tr>
+<tr><td>成交额</td><td data-l="不写">AMOUNT、成交金额（元）</td><td data-l="为什么">用常见叫法，不用字段名</td></tr>
+<tr><td>保存方案、加入自选</td><td data-l="不写">确定、提交、OK</td><td data-l="为什么">按钮写动作本身</td></tr>
+<tr><td>已保存方案</td><td data-l="不写">操作成功！</td><td data-l="为什么">结果和动作同名，不加感叹号</td></tr>
+<tr><td>读不到行情：行情来源没有响应</td><td data-l="不写">出错了、网络异常请稍后重试</td><td data-l="为什么">说清哪里错、怎么办</td></tr>
+<tr><td>今天还没有告警</td><td data-l="不写">暂无数据</td><td data-l="为什么">说清为什么空</td></tr>
+<tr><td>数据采集、数据发布</td><td data-l="不写">内部任务名、服务名</td><td data-l="为什么">新手看不懂；内部名只放在详情里</td></tr>
+<tr><td>需处理</td><td data-l="不写">异常、FAIL</td><td data-l="为什么">告诉用户要做什么</td></tr>
 </tbody></table></div>
 <p>句子短，主动语态，不道歉，不用感叹号。一句话只说一件事。</p>
 

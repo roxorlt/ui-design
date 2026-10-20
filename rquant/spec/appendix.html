@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>附录｜rQuant 设计规范 v1.0</title>
+<title>附录｜rQuant 设计规范 v1.1</title>
 <link rel="stylesheet" href="../system/tokens.css">
 <link rel="stylesheet" href="../system/components.css">
 <link rel="stylesheet" href="spec.css">
 </head>
 <body data-page="appendix.html">
 <div class="doc">
-  <header class="mbar"><a href="index.html">rQuant 设计规范</a><span class="num">v1.0</span><button class="btn quiet" id="tocBtn" aria-expanded="false" aria-controls="toc">目录</button></header>
+  <header class="mbar"><a href="index.html">rQuant 设计规范</a><span class="num">v1.1</span><button class="btn quiet" id="tocBtn" aria-expanded="false" aria-controls="toc">目录</button></header>
   <nav class="toc" id="toc" aria-label="规范目录">
-    <div class="toc-brand"><a href="index.html">rQuant 设计规范</a><span class="num">v1.0</span></div>
+    <div class="toc-brand"><a href="index.html">rQuant 设计规范</a><span class="num">v1.1</span></div>
     <ol><li><a href="index.html"><span class="n"></span><span>概述</span></a></li><li><a href="principles.html"><span class="n">1</span><span>设计原则</span></a></li><li><a href="foundations.html"><span class="n">2</span><span>基础</span></a></li><li><a href="components.html"><span class="n">3</span><span>组件</span></a></li><li><a href="patterns.html"><span class="n">4</span><span>交互模式</span></a></li><li><a href="motion.html"><span class="n">5</span><span>页面动效</span></a></li><li><a href="templates.html"><span class="n">6</span><span>页面模板</span></a></li><li><a href="guidelines.html"><span class="n">7</span><span>跨端、无障碍、文案</span></a></li><li><a href="appendix.html" aria-current="page"><span class="n"></span><span>附录</span></a><div class="sub"><a href="#audit">A. v0.1 走查记录</a><a href="#density">B. 屏效前后对比</a><a href="#why">C. 改版说明</a><a href="#decisions">D. 产品决定记录</a></div></li></ol>
     <div class="toc-foot"><a href="../index.html">返回资料首页</a><a href="../system/index.html">组件库（v0.1 状态页）</a><a href="../system/tokens.css">tokens.css</a><a href="../system/tokens.json">tokens.json</a><a href="../system/components.css">components.css</a></div>
   </nav>
@@ -22,26 +22,26 @@
 
 <h2 id="audit">A. v0.1 走查记录</h2>
 <p>2026-10-20 对线上页面首屏做的走查，按页记录发现的问题和对应到正文的规则。截图含真实业务数据，不随本规范公开。</p>
-<div class="tscroll"><table class="dt">
+<div class="tscroll"><table class="dt stack">
 <thead><tr><th>页面</th><th>端</th><th>发现</th><th>对应规则</th></tr></thead>
 <tbody>
-<tr><td>市场全景</td><td>电脑</td><td>标题区 124px，指标条 84px 只放 7 个数；右栏热力图下方空 280px</td><td><a href="foundations.html#density">屏效规则</a>、<a href="components.html#c-mstrip">指标条</a></td></tr>
-<tr><td>市场全景</td><td>手机</td><td>顶栏、标题、指标占可视区 56%，热力图只露出 297px</td><td><a href="guidelines.html#breakpoints">断点行为</a></td></tr>
-<tr><td>总览</td><td>电脑</td><td>链路状态卡和 4 个数字占内容区 51%；长内部名称溢出到隔壁卡</td><td><a href="components.html#c-trunc">文本截断</a>、<a href="guidelines.html#words">用词</a></td></tr>
-<tr><td>总览</td><td>手机</td><td>6 张状态卡挤在一行、文字互相覆盖，首屏只露出 27px 告警</td><td><a href="templates.html#board">看板页模板</a></td></tr>
-<tr><td>个股档案</td><td>电脑</td><td>指标网格是正面样板（29 项 157px）；标题区三行可压成一行</td><td><a href="components.html#c-mgrid">指标网格</a>、<a href="components.html#c-header">全局顶栏</a></td></tr>
-<tr><td>个股档案</td><td>手机</td><td>29 项两列 15 行，K 线被挤出首屏</td><td><a href="templates.html#detail">详情页模板</a></td></tr>
-<tr><td>板块资金流</td><td>电脑、手机</td><td>3 张大卡只放 5 个数；手机标题和卡片占去 292px</td><td><a href="principles.html#p3">同级的数字排成一条</a></td></tr>
-<tr><td>选股器</td><td>手机</td><td>页面标题被挤成两行；9 个方案标签换成 3 行</td><td>页面标题不换行；横滑标签</td></tr>
-<tr><td>回测</td><td>电脑、手机</td><td>表格比视口宽 23px，整页横向滚动；手机只露出名称一列；空表仍画表头</td><td><a href="components.html#c-table">表格</a>、<a href="components.html#c-li2">两行列表项</a></td></tr>
-<tr><td>盯盘与告警</td><td>手机</td><td>规则说明 4 行直接铺开；数值列被截断</td><td>说明折叠；两行列表项</td></tr>
-<tr><td>系统健康</td><td>手机</td><td>状态列只露出一半；全局顶栏三行 110px</td><td><a href="components.html#c-header">全局顶栏</a></td></tr>
-<tr><td>宏观</td><td>电脑</td><td>页面 25,601px 高，明细表约占 74%；横向溢出 85px</td><td><a href="components.html#c-more">展开全部行</a>、<a href="components.html#c-tabs">标签页</a></td></tr>
+<tr><td>市场全景</td><td data-l="端">电脑</td><td data-l="发现">标题区 124px，指标条 84px 只放 7 个数；右栏热力图下方空 280px</td><td data-l="对应规则"><a href="foundations.html#density">屏效规则</a>、<a href="components.html#c-mstrip">指标条</a></td></tr>
+<tr><td>市场全景</td><td data-l="端">手机</td><td data-l="发现">顶栏、标题、指标占可视区 56%，热力图只露出 297px</td><td data-l="对应规则"><a href="guidelines.html#breakpoints">断点行为</a></td></tr>
+<tr><td>总览</td><td data-l="端">电脑</td><td data-l="发现">链路状态卡和 4 个数字占内容区 51%；长内部名称溢出到隔壁卡</td><td data-l="对应规则"><a href="components.html#c-trunc">文本截断</a>、<a href="guidelines.html#words">用词</a></td></tr>
+<tr><td>总览</td><td data-l="端">手机</td><td data-l="发现">6 张状态卡挤在一行、文字互相覆盖，首屏只露出 27px 告警</td><td data-l="对应规则"><a href="templates.html#board">看板页模板</a></td></tr>
+<tr><td>个股档案</td><td data-l="端">电脑</td><td data-l="发现">指标网格是正面样板（29 项 157px）；标题区三行可压成一行</td><td data-l="对应规则"><a href="components.html#c-mgrid">指标网格</a>、<a href="components.html#c-header">全局顶栏</a></td></tr>
+<tr><td>个股档案</td><td data-l="端">手机</td><td data-l="发现">29 项两列 15 行，K 线被挤出首屏</td><td data-l="对应规则"><a href="templates.html#detail">详情页模板</a></td></tr>
+<tr><td>板块资金流</td><td data-l="端">电脑、手机</td><td data-l="发现">3 张大卡只放 5 个数；手机标题和卡片占去 292px</td><td data-l="对应规则"><a href="principles.html#p3">同级的数字排成一条</a></td></tr>
+<tr><td>选股器</td><td data-l="端">手机</td><td data-l="发现">页面标题被挤成两行；9 个方案标签换成 3 行</td><td data-l="对应规则">页面标题不换行；横滑标签</td></tr>
+<tr><td>回测</td><td data-l="端">电脑、手机</td><td data-l="发现">表格比视口宽 23px，整页横向滚动；手机只露出名称一列；空表仍画表头</td><td data-l="对应规则"><a href="components.html#c-table">表格</a>、<a href="components.html#c-li2">两行列表项</a></td></tr>
+<tr><td>盯盘与告警</td><td data-l="端">手机</td><td data-l="发现">规则说明 4 行直接铺开；数值列被截断</td><td data-l="对应规则">说明折叠；两行列表项</td></tr>
+<tr><td>系统健康</td><td data-l="端">手机</td><td data-l="发现">状态列只露出一半；全局顶栏三行 110px</td><td data-l="对应规则"><a href="components.html#c-header">全局顶栏</a></td></tr>
+<tr><td>宏观</td><td data-l="端">电脑</td><td data-l="发现">页面 25,601px 高，明细表约占 74%；横向溢出 85px</td><td data-l="对应规则"><a href="components.html#c-more">展开全部行</a>、<a href="components.html#c-tabs">标签页</a></td></tr>
 </tbody></table></div>
 
 <h2 id="density">B. 屏效前后对比</h2>
 <p>改前是线上页面首屏实测，改后是按本规范做的示意稿在同尺寸下的 DOM 实测。「主功能区」指首屏内主图或主表的可见高度，手机不含底部导航。</p>
-<div class="tscroll"><table class="dt">
+<div class="tscroll-wrap"><div class="tscroll"><table class="dt data">
 <thead><tr><th>页面</th><th>端</th><th class="n">主功能开始位置（px）</th><th class="n">顶部数据区（px）</th><th class="n">首屏主功能区（px，占比）</th></tr></thead>
 <tbody>
 <tr><td>市场全景</td><td>电脑</td><td class="n">301 → 134</td><td class="n">84 → 58</td><td class="n">599（67%）→ 766（85%）</td></tr>
@@ -50,7 +50,7 @@
 <tr><td>总览</td><td>手机</td><td class="n">760 → 169</td><td class="n">444 → 105</td><td class="n">27（3%）→ 619（73%）</td></tr>
 <tr><td>个股档案</td><td>电脑</td><td class="n">447 → 192</td><td class="n">298 → 116</td><td class="n">453（50%）→ 708（79%）</td></tr>
 <tr><td>个股档案</td><td>手机</td><td class="n">787 → 228</td><td class="n">587 → 164</td><td class="n">0（0%）→ 560（66%）</td></tr>
-</tbody></table></div>
+</tbody></table></div></div><p class="tscroll-hint" aria-hidden="true">左右滑动查看全部列</p>
 <div class="demo" aria-label="首屏主功能区占比，改前和改后">
 <div class="scale" style="margin:0">
   <div style="grid-template-columns:120px 1fr 52px"><span>市场全景 电脑</span><span style="display:grid;gap:3px"><i style="width:67%;background:var(--c-faint)"></i><i style="width:85%"></i></span><span class="num">67→85%</span></div>
@@ -84,14 +84,14 @@
 </tbody></table></div>
 
 <h2 id="decisions">D. 产品决定记录</h2>
-<div class="tscroll"><table class="dt">
+<div class="tscroll"><table class="dt stack">
 <thead><tr><th>日期</th><th>事项</th><th>定了什么</th><th>为什么</th></tr></thead>
 <tbody>
-<tr><td class="n">2026-10-20</td><td>总览下半屏</td><td>放「市场速览」：涨跌分布条，加上涨占比、涨跌中位数、成交额 3 个数，整块点进市场全景；不和顶部数字重复</td><td>让新手一眼看到大盘冷热，不加新功能</td></tr>
-<tr><td class="n">2026-10-20</td><td>成交额精确值</td><td>显示「1.45 万亿」；电脑悬停、手机点按显示「14,487.92 亿」</td><td>短数字好读，原值可查</td></tr>
-<tr><td class="n">2026-10-20</td><td>个股页手机首屏</td><td>6 项：今开、最高、最低、成交额、换手率、总市值；其余进「全部 29 项」</td><td>现价和涨跌幅已在现价行，这 6 个最常用</td></tr>
-<tr><td class="n">2026-10-20</td><td>宏观明细表</td><td>默认 20 行，「展开全部（共 N 行）」，不分页</td><td>一页能搜到全部，比翻页简单</td></tr>
-<tr><td class="n">2026-10-20</td><td>改版范围</td><td>「市场全览」指总览和市场全景两页；板块资金流同一批改</td><td>省一次回归测试</td></tr>
+<tr><td class="n">2026-10-20</td><td data-l="事项">总览下半屏</td><td data-l="定了什么">放「市场速览」：涨跌分布条，加上涨占比、涨跌中位数、成交额 3 个数，整块点进市场全景；不和顶部数字重复</td><td data-l="为什么">让新手一眼看到大盘冷热，不加新功能</td></tr>
+<tr><td class="n">2026-10-20</td><td data-l="事项">成交额精确值</td><td data-l="定了什么">显示「1.45 万亿」；电脑悬停、手机点按显示「14,487.92 亿」</td><td data-l="为什么">短数字好读，原值可查</td></tr>
+<tr><td class="n">2026-10-20</td><td data-l="事项">个股页手机首屏</td><td data-l="定了什么">6 项：今开、最高、最低、成交额、换手率、总市值；其余进「全部 29 项」</td><td data-l="为什么">现价和涨跌幅已在现价行，这 6 个最常用</td></tr>
+<tr><td class="n">2026-10-20</td><td data-l="事项">宏观明细表</td><td data-l="定了什么">默认 20 行，「展开全部（共 N 行）」，不分页</td><td data-l="为什么">一页能搜到全部，比翻页简单</td></tr>
+<tr><td class="n">2026-10-20</td><td data-l="事项">改版范围</td><td data-l="定了什么">「市场全览」指总览和市场全景两页；板块资金流同一批改</td><td data-l="为什么">省一次回归测试</td></tr>
 </tbody></table></div>
 
 <nav class="pager" aria-label="翻页"><a class="prev" href="guidelines.html"><span>上一章</span>7 跨端、无障碍、文案</a></nav>

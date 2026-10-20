@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>设计原则｜rQuant 设计规范 v1.0</title>
+<title>设计原则｜rQuant 设计规范 v1.1</title>
 <link rel="stylesheet" href="../system/tokens.css">
 <link rel="stylesheet" href="../system/components.css">
 <link rel="stylesheet" href="spec.css">
 </head>
 <body data-page="principles.html">
 <div class="doc">
-  <header class="mbar"><a href="index.html">rQuant 设计规范</a><span class="num">v1.0</span><button class="btn quiet" id="tocBtn" aria-expanded="false" aria-controls="toc">目录</button></header>
+  <header class="mbar"><a href="index.html">rQuant 设计规范</a><span class="num">v1.1</span><button class="btn quiet" id="tocBtn" aria-expanded="false" aria-controls="toc">目录</button></header>
   <nav class="toc" id="toc" aria-label="规范目录">
-    <div class="toc-brand"><a href="index.html">rQuant 设计规范</a><span class="num">v1.0</span></div>
+    <div class="toc-brand"><a href="index.html">rQuant 设计规范</a><span class="num">v1.1</span></div>
     <ol><li><a href="index.html"><span class="n"></span><span>概述</span></a></li><li><a href="principles.html" aria-current="page"><span class="n">1</span><span>设计原则</span></a><div class="sub"><a href="#p1">主内容先占屏</a><a href="#p2">每页一个主数字</a><a href="#p3">同级的数字排成一条</a><a href="#p4">颜色只说涨跌和「需要你处理」</a><a href="#p5">说新手听得懂的话</a></div></li><li><a href="foundations.html"><span class="n">2</span><span>基础</span></a></li><li><a href="components.html"><span class="n">3</span><span>组件</span></a></li><li><a href="patterns.html"><span class="n">4</span><span>交互模式</span></a></li><li><a href="motion.html"><span class="n">5</span><span>页面动效</span></a></li><li><a href="templates.html"><span class="n">6</span><span>页面模板</span></a></li><li><a href="guidelines.html"><span class="n">7</span><span>跨端、无障碍、文案</span></a></li><li><a href="appendix.html"><span class="n"></span><span>附录</span></a></li></ol>
     <div class="toc-foot"><a href="../index.html">返回资料首页</a><a href="../system/index.html">组件库（v0.1 状态页）</a><a href="../system/tokens.css">tokens.css</a><a href="../system/tokens.json">tokens.json</a><a href="../system/components.css">components.css</a></div>
   </nav>
@@ -21,14 +21,14 @@
 <h1>设计原则</h1>
 <p class="lede">5 条原则，按优先级排。两条冲突时，排前面的赢。每条下面的对照都用组件库直接渲染。</p>
 
-<div class="tscroll"><table class="dt">
+<div class="tscroll"><table class="dt stack">
 <thead><tr><th>原则</th><th>一句话</th><th>落到哪条规则</th></tr></thead>
 <tbody>
-<tr><td><a href="#p1">主内容先占屏</a></td><td>首屏先给主图或主表，标题和指标让路</td><td>电脑主内容 ≥ 内容区 50%；指标条电脑 ≤ 108px、手机 ≤ 136px</td></tr>
-<tr><td><a href="#p2">每页一个主数字</a></td><td>只有一个数字可以大，其余同级同大</td><td>主数字用 <code>.hero</code>，全页只出现一次</td></tr>
-<tr><td><a href="#p3">同级的数字排成一条</a></td><td>不给每个数字单独一张卡</td><td>2–8 个数用指标条，9–40 个用指标网格</td></tr>
-<tr><td><a href="#p4">颜色只说涨跌和「需要你处理」</a></td><td>红绿只给相对昨收的数字；琥珀只表示要你动手</td><td>状态用圆点加文字；标题和装饰不用彩色</td></tr>
-<tr><td><a href="#p5">说新手听得懂的话</a></td><td>短数字、常见叫法、出错写清怎么办</td><td>大数用「万亿」，原值悬停或点按可查；不写内部名称</td></tr>
+<tr><td><a href="#p1">主内容先占屏</a></td><td data-l="一句话">首屏先给主图或主表，标题和指标让路</td><td data-l="落到哪条规则">电脑主内容 ≥ 内容区 50%；指标条电脑 ≤ 108px、手机 ≤ 136px</td></tr>
+<tr><td><a href="#p2">每页一个主数字</a></td><td data-l="一句话">只有一个数字可以大，其余同级同大</td><td data-l="落到哪条规则">主数字用 <code>.hero</code>，全页只出现一次</td></tr>
+<tr><td><a href="#p3">同级的数字排成一条</a></td><td data-l="一句话">不给每个数字单独一张卡</td><td data-l="落到哪条规则">2–8 个数用指标条，9–40 个用指标网格</td></tr>
+<tr><td><a href="#p4">颜色只说涨跌和「需要你处理」</a></td><td data-l="一句话">红绿只给相对昨收的数字；琥珀只表示要你动手</td><td data-l="落到哪条规则">状态用圆点加文字；标题和装饰不用彩色</td></tr>
+<tr><td><a href="#p5">说新手听得懂的话</a></td><td data-l="一句话">短数字、常见叫法、出错写清怎么办</td><td data-l="落到哪条规则">大数用「万亿」，原值悬停或点按可查；不写内部名称</td></tr>
 </tbody></table></div>
 
 <h2 id="p1">主内容先占屏</h2>

@@ -43,10 +43,10 @@
 <div class="tw"><table class="st">
 <thead><tr><th>层级</th><th>PC</th><th>手机工作台</th><th>其他页面在手机宽度</th></tr></thead>
 <tbody>
-<tr><td>一级</td><td>左侧栏 200px：图标 20px + 文字，当前项 surface-2；有待处理数时右侧琥珀数字</td><td>底部标签栏三项：我的任务、线索、消息</td><td>顶栏左上角菜单按钮，点开侧栏抽屉</td></tr>
-<tr><td>页面</td><td>顶栏 52px：页面标题（20/600）+ 范围切换器；右侧铃铛、演示角色、「演示数据」</td><td>顶栏 48px：页面名 + 门店名</td><td>顶栏可换行，次要按钮收进菜单</td></tr>
-<tr><td>页内</td><td>标签页切换大块内容；分段控件切换视角</td><td>同左，标签页 44px 高</td><td>同左</td></tr>
-<tr><td>返回</td><td>详情页标题左侧「返回 列表名」文字按钮；浏览器后退同样有效</td><td>顶栏左侧返回图标，44×44px；iOS 左缘右滑、安卓返回键同效</td><td>同手机工作台</td></tr>
+<tr><td data-l="层级">一级</td><td data-l="PC">左侧栏 200px：图标 20px + 文字，当前项 surface-2；有待处理数时右侧琥珀数字</td><td data-l="手机工作台">底部标签栏三项：我的任务、线索、消息</td><td data-l="其他页面在手机宽度">顶栏左上角菜单按钮，点开侧栏抽屉</td></tr>
+<tr><td data-l="层级">页面</td><td data-l="PC">顶栏 52px：页面标题（20/600）+ 范围切换器；右侧铃铛、演示角色、「演示数据」</td><td data-l="手机工作台">顶栏 48px：页面名 + 门店名</td><td data-l="其他页面在手机宽度">顶栏可换行，次要按钮收进菜单</td></tr>
+<tr><td data-l="层级">页内</td><td data-l="PC">标签页切换大块内容；分段控件切换视角</td><td data-l="手机工作台">同左，标签页 44px 高</td><td data-l="其他页面在手机宽度">同左</td></tr>
+<tr><td data-l="层级">返回</td><td data-l="PC">详情页标题左侧「返回 列表名」文字按钮；浏览器后退同样有效</td><td data-l="手机工作台">顶栏左侧返回图标，44×44px；iOS 左缘右滑、安卓返回键同效</td><td data-l="其他页面在手机宽度">同手机工作台</td></tr>
 </tbody></table></div>
 <ul class="ul">
 <li>当前位置只用一种方式表达：侧栏当前项，不再加面包屑。</li>
@@ -64,13 +64,13 @@
 <div class="tw"><table class="st">
 <thead><tr><th>规则</th><th>说明</th></tr></thead>
 <tbody>
-<tr><td>指标兼作筛选</td><td>状态类筛选用芯片，芯片里的数字是该状态的条数，选中后列表即时刷新，不需要「查询」按钮</td></tr>
-<tr><td>排列顺序</td><td>左侧状态芯片，右侧搜索框和「清除筛选」；更多条件（日期、平台）收进一个「筛选」次按钮，展开成一行下拉</td></tr>
-<tr><td>搜索</td><td>输入停止 300ms 后自动搜；占位符写能搜什么；结果里高亮匹配字</td></tr>
-<tr><td>筛选生效</td><td>有条件生效时才出现「清除筛选」；条数变化同时更新芯片数字</td></tr>
-<tr><td>无结果</td><td>空状态「没有符合筛选条件的……」+「清除筛选」</td></tr>
-<tr><td>记住条件</td><td>筛选条件写进地址，刷新和分享后保留；离开页面再回来保留</td></tr>
-<tr><td>手机</td><td>芯片多时用横滑筛选条；搜索放在顶栏下方，聚焦时顶栏收起</td></tr>
+<tr><td data-l="规则">指标兼作筛选</td><td data-l="说明">状态类筛选用芯片，芯片里的数字是该状态的条数，选中后列表即时刷新，不需要「查询」按钮</td></tr>
+<tr><td data-l="规则">排列顺序</td><td data-l="说明">左侧状态芯片，右侧搜索框和「清除筛选」；更多条件（日期、平台）收进一个「筛选」次按钮，展开成一行下拉</td></tr>
+<tr><td data-l="规则">搜索</td><td data-l="说明">输入停止 300ms 后自动搜；占位符写能搜什么；结果里高亮匹配字</td></tr>
+<tr><td data-l="规则">筛选生效</td><td data-l="说明">有条件生效时才出现「清除筛选」；条数变化同时更新芯片数字</td></tr>
+<tr><td data-l="规则">无结果</td><td data-l="说明">空状态「没有符合筛选条件的……」+「清除筛选」</td></tr>
+<tr><td data-l="规则">记住条件</td><td data-l="说明">筛选条件写进地址，刷新和分享后保留；离开页面再回来保留</td></tr>
+<tr><td data-l="规则">手机</td><td data-l="说明">芯片多时用横滑筛选条；搜索放在顶栏下方，聚焦时顶栏收起</td></tr>
 </tbody></table></div>
 </section>
 
@@ -79,14 +79,17 @@
 <div class="tw"><table class="st">
 <thead><tr><th>情况</th><th>用</th><th>规则</th></tr></thead>
 <tbody>
-<tr><td>PC，3 列以上，需要比较</td><td><code>.tbl</code></td><td>行高 40px，首屏 ≥ 12 行；数字右对齐；首列是对象名</td></tr>
-<tr><td>手机工作台</td><td><code>.li</code></td><td>三行结构，整行可点，首屏 ≥ 5 条</td></tr>
-<tr><td>其他页面在手机宽度</td><td><code>.tbl</code> 放在 <code>.panel</code> 里</td><td>面板内横滑，首列固定，页面本身不横滑</td></tr>
-<tr><td>排序</td><td>表头点击</td><td>默认按「最需要处理」排（健康分低在前、超时在前）；表头显示 ▲▼ 和 <code>aria-sort</code></td></tr>
-<tr><td>行操作</td><td>文字按钮</td><td>最多 2 个，其余进「更多」；PC 悬停或聚焦时出现，触屏常驻</td></tr>
-<tr><td>点击行</td><td>打开详情</td><td>PC 打开右侧抽屉，手机进新页面；行内按钮点击不触发行点击</td></tr>
-<tr><td>分组</td><td><code>.grp</code> 分组行</td><td>用分组行代替另起一块面板，如「需关注，健康分 60–79，共 9 家」</td></tr>
-<tr><td>超过 50 行</td><td>PC 分页，手机滚到底加载</td><td>分页写「第 1–14 家，共 48 家」</td></tr>
+<tr><td data-l="情况">PC，3 列以上，需要比较</td><td data-l="用"><code>.tbl</code></td><td data-l="规则">行高 40px，首屏 ≥ 12 行；数字右对齐；首列是对象名</td></tr>
+<tr><td data-l="情况">手机工作台</td><td data-l="用"><code>.li</code></td><td data-l="规则">三行结构，整行可点，首屏 ≥ 5 条</td></tr>
+<tr><td data-l="情况">其他页面在手机宽度</td><td data-l="用"><code>.tbl</code> 放在 <code>.panel</code> 里</td><td data-l="规则">按下面「必须保留列的数据表」处理：面板内横滑，首列固定，页面本身不横滑</td></tr>
+<tr><td data-l="情况">文字表在 ≤ 599px</td><td data-l="用">每行堆叠</td><td data-l="规则">更新记录、负责人、流程步骤、章节清单这类以文字为主的表。每行变成一块：首列作标题行放在最上面；下面每个字段先写灰色小标签（12px、文字 3，就是原来的表头），再写内容。跨到最后一列的整行说明不加标签。表头只留给读屏软件。任何宽度下文字表都不撑破容器，长代码名可以断行</td></tr>
+<tr><td data-l="情况">必须保留列的数据表</td><td data-l="用">表内横滑</td><td data-l="规则">参数表、字阶、对比度、断点、各端对照这类要横向对比的表。列数不变，只在表格自己的容器里横滑；右边缘 40px 渐隐遮罩，滑到头后消失；表下写「左右滑动查看全部列」（12px、文字 3），放得下时不显示；首列固定，滑动后首列右侧出现 1px 分隔线</td></tr>
+<tr><td data-l="情况">怎么验</td><td data-l="用">390、768、1440 三个宽度</td><td data-l="规则">页面本身没有横向滚动；390 下没有被截断、又滑不到的单元格；横滑的表都有遮罩和提示</td></tr>
+<tr><td data-l="情况">排序</td><td data-l="用">表头点击</td><td data-l="规则">默认按「最需要处理」排（健康分低在前、超时在前）；表头显示 ▲▼ 和 <code>aria-sort</code></td></tr>
+<tr><td data-l="情况">行操作</td><td data-l="用">文字按钮</td><td data-l="规则">最多 2 个，其余进「更多」；PC 悬停或聚焦时出现，触屏常驻</td></tr>
+<tr><td data-l="情况">点击行</td><td data-l="用">打开详情</td><td data-l="规则">PC 打开右侧抽屉，手机进新页面；行内按钮点击不触发行点击</td></tr>
+<tr><td data-l="情况">分组</td><td data-l="用"><code>.grp</code> 分组行</td><td data-l="规则">用分组行代替另起一块面板，如「需关注，健康分 60–79，共 9 家」</td></tr>
+<tr><td data-l="情况">超过 50 行</td><td data-l="用">PC 分页，手机滚到底加载</td><td data-l="规则">分页写「第 1–14 家，共 48 家」</td></tr>
 </tbody></table></div>
 </section>
 
@@ -115,12 +118,12 @@
 <div class="tw"><table class="st">
 <thead><tr><th></th><th>弹窗 <code>.sheet</code></th><th>抽屉</th><th>底部弹层（手机）</th></tr></thead>
 <tbody>
-<tr><td>用来</td><td>确认、短表单、选择</td><td>看一条记录的详情并就地处理（线索详情）</td><td>手机上的弹窗和选择</td></tr>
-<tr><td>位置和尺寸</td><td>居中，宽 440 / 520 / 640</td><td>右侧，宽 480px（手机全屏）</td><td>底部，宽满屏，最高 90% 视口</td></tr>
-<tr><td>遮罩</td><td>有，点遮罩不关（防止误丢内容）</td><td>有，点遮罩关闭</td><td>有，点遮罩或下滑关闭</td></tr>
-<tr><td>关闭</td><td>「取消」、Esc、安卓返回键</td><td>关闭图标、Esc、返回键</td><td>下滑、返回键</td></tr>
-<tr><td>焦点</td><td colspan="3">打开时焦点进入第一个可操作元素，Tab 在浮层内循环；关闭后回到触发按钮</td></tr>
-<tr><td>叠加</td><td colspan="3">最多一层。抽屉里要确认时，用弹窗盖在抽屉上，不再开第二个抽屉</td></tr>
+<tr><td data-l="">用来</td><td data-l="弹窗 .sheet">确认、短表单、选择</td><td data-l="抽屉">看一条记录的详情并就地处理（线索详情）</td><td data-l="底部弹层（手机）">手机上的弹窗和选择</td></tr>
+<tr><td data-l="">位置和尺寸</td><td data-l="弹窗 .sheet">居中，宽 440 / 520 / 640</td><td data-l="抽屉">右侧，宽 480px（手机全屏）</td><td data-l="底部弹层（手机）">底部，宽满屏，最高 90% 视口</td></tr>
+<tr><td data-l="">遮罩</td><td data-l="弹窗 .sheet">有，点遮罩不关（防止误丢内容）</td><td data-l="抽屉">有，点遮罩关闭</td><td data-l="底部弹层（手机）">有，点遮罩或下滑关闭</td></tr>
+<tr><td data-l="">关闭</td><td data-l="弹窗 .sheet">「取消」、Esc、安卓返回键</td><td data-l="抽屉">关闭图标、Esc、返回键</td><td data-l="底部弹层（手机）">下滑、返回键</td></tr>
+<tr><td data-l="">焦点</td><td data-l="" colspan="3">打开时焦点进入第一个可操作元素，Tab 在浮层内循环；关闭后回到触发按钮</td></tr>
+<tr><td data-l="">叠加</td><td data-l="" colspan="3">最多一层。抽屉里要确认时，用弹窗盖在抽屉上，不再开第二个抽屉</td></tr>
 </tbody></table></div>
 <p class="cap">进出动效见<a href="motion.html#m-overlay">第 5 章</a>。</p>
 </section>
@@ -130,12 +133,12 @@
 <div class="tw"><table class="st">
 <thead><tr><th>情况</th><th>用</th><th>示例</th></tr></thead>
 <tbody>
-<tr><td>操作成功</td><td>轻提示，3 秒</td><td><span class="toast">已保存跟进</span></td></tr>
-<tr><td>成功且有下一步</td><td>轻提示带动作，6 秒</td><td><span class="toast">已创建 350 条定时发布任务<span class="act">查看记录</span></span></td></tr>
-<tr><td>操作失败</td><td>失败轻提示或行内错误</td><td><span class="toast toast-err">没有发送成功：网络断开。<span class="act">重试</span></span></td></tr>
-<tr><td>持续状态</td><td>横条提示，常驻顶部</td><td>本地存储不可用、正在完成任务</td></tr>
-<tr><td>按钮本身变化</td><td>按钮变成结果</td><td><button class="btn btn-ghost" disabled>已提醒 14:00</button></td></tr>
-<tr><td>难以撤回</td><td>操作前弹确认</td><td>见 A04 危险确认弹层</td></tr>
+<tr><td data-l="情况">操作成功</td><td data-l="用">轻提示，3 秒</td><td data-l="示例"><span class="toast">已保存跟进</span></td></tr>
+<tr><td data-l="情况">成功且有下一步</td><td data-l="用">轻提示带动作，6 秒</td><td data-l="示例"><span class="toast">已创建 350 条定时发布任务<span class="act">查看记录</span></span></td></tr>
+<tr><td data-l="情况">操作失败</td><td data-l="用">失败轻提示或行内错误</td><td data-l="示例"><span class="toast toast-err">没有发送成功：网络断开。<span class="act">重试</span></span></td></tr>
+<tr><td data-l="情况">持续状态</td><td data-l="用">横条提示，常驻顶部</td><td data-l="示例">本地存储不可用、正在完成任务</td></tr>
+<tr><td data-l="情况">按钮本身变化</td><td data-l="用">按钮变成结果</td><td data-l="示例"><button class="btn btn-ghost" disabled>已提醒 14:00</button></td></tr>
+<tr><td data-l="情况">难以撤回</td><td data-l="用">操作前弹确认</td><td data-l="示例">见 A04 危险确认弹层</td></tr>
 </tbody></table></div>
 <p class="p">提示文字和触发它的按钮同名：「确认转交」对应「已转交给销售顾问A」；「发送提醒」对应「已提醒长沙星驰星沙店店长」。</p>
 </section>
@@ -145,10 +148,10 @@
 <div class="tw"><table class="st">
 <thead><tr><th>类型</th><th>标题写法</th><th>说明写法</th><th>按钮</th></tr></thead>
 <tbody>
-<tr><td>从来没有</td><td>还没有定时发布</td><td>做了什么之后会出现在这里</td><td>去创建的那一步，如「去新建发布」</td></tr>
-<tr><td>处理完了</td><td>没有超时线索</td><td>这里平时会出现什么，现在都处理完了</td><td>相邻的列表，如「看全部待跟进」</td></tr>
-<tr><td>筛选无结果</td><td>没有符合筛选条件的发布记录</td><td>换个条件试试</td><td>清除筛选</td></tr>
-<tr><td>没有权限</td><td>只有店长能看员工数据</td><td>找谁开通</td><td>无</td></tr>
+<tr><td data-l="类型">从来没有</td><td data-l="标题写法">还没有定时发布</td><td data-l="说明写法">做了什么之后会出现在这里</td><td data-l="按钮">去创建的那一步，如「去新建发布」</td></tr>
+<tr><td data-l="类型">处理完了</td><td data-l="标题写法">没有超时线索</td><td data-l="说明写法">这里平时会出现什么，现在都处理完了</td><td data-l="按钮">相邻的列表，如「看全部待跟进」</td></tr>
+<tr><td data-l="类型">筛选无结果</td><td data-l="标题写法">没有符合筛选条件的发布记录</td><td data-l="说明写法">换个条件试试</td><td data-l="按钮">清除筛选</td></tr>
+<tr><td data-l="类型">没有权限</td><td data-l="标题写法">只有店长能看员工数据</td><td data-l="说明写法">找谁开通</td><td data-l="按钮">无</td></tr>
 </tbody></table></div>
 <p class="p">空状态左对齐，放在原本列表的位置，列表的标题和筛选保留。不放插画，不写「暂无数据」。</p>
 </section>
@@ -158,11 +161,11 @@
 <div class="tw"><table class="st">
 <thead><tr><th>时长</th><th>做法</th></tr></thead>
 <tbody>
-<tr><td class="n">&lt; 300ms</td><td>什么都不显示，直接出结果，避免闪一下</td></tr>
-<tr><td class="n">300ms–10s</td><td>首次加载用骨架屏，尺寸和真实内容一致；刷新数据保留旧内容，右上角写「更新中」</td></tr>
-<tr><td class="n">&gt; 10s</td><td>转为错误状态，给「重新加载」</td></tr>
-<tr><td>提交</td><td>按钮加载态，按钮宽度不变，防重复点</td></tr>
-<tr><td>长任务（生成视频）</td><td>写进度和预计时间「生成中，约 2 分钟」，可以离开页面，完成后发消息</td></tr>
+<tr><td data-l="时长" class="n">&lt; 300ms</td><td data-l="做法">什么都不显示，直接出结果，避免闪一下</td></tr>
+<tr><td data-l="时长" class="n">300ms–10s</td><td data-l="做法">首次加载用骨架屏，尺寸和真实内容一致；刷新数据保留旧内容，右上角写「更新中」</td></tr>
+<tr><td data-l="时长" class="n">&gt; 10s</td><td data-l="做法">转为错误状态，给「重新加载」</td></tr>
+<tr><td data-l="时长">提交</td><td data-l="做法">按钮加载态，按钮宽度不变，防重复点</td></tr>
+<tr><td data-l="时长">长任务（生成视频）</td><td data-l="做法">写进度和预计时间「生成中，约 2 分钟」，可以离开页面，完成后发消息</td></tr>
 </tbody></table></div>
 </section>
 
@@ -171,11 +174,11 @@
 <div class="tw"><table class="st">
 <thead><tr><th>范围</th><th>做法</th><th>示例</th></tr></thead>
 <tbody>
-<tr><td>一个字段</td><td>字段下方红字</td><td>截止日期不能早于 10-14</td></tr>
-<tr><td>一次提交</td><td>行内错误，弹窗不关</td><td>任务没有下发：网络断开。检查网络后再点「确认下发」，已填内容不会丢。</td></tr>
-<tr><td>一块内容</td><td>在这块的位置放错误空状态，其他块照常显示</td><td>线索没有加载出来。检查网络后重新加载。</td></tr>
-<tr><td>整页</td><td>横条提示 + 页面内容保留最后一次的数据</td><td>网络已断开，显示的是 14:02 的数据。</td></tr>
-<tr><td>没有权限</td><td>空状态，写找谁开通</td><td>只有店长能停用员工。</td></tr>
+<tr><td data-l="范围">一个字段</td><td data-l="做法">字段下方红字</td><td data-l="示例">截止日期不能早于 10-14</td></tr>
+<tr><td data-l="范围">一次提交</td><td data-l="做法">行内错误，弹窗不关</td><td data-l="示例">任务没有下发：网络断开。检查网络后再点「确认下发」，已填内容不会丢。</td></tr>
+<tr><td data-l="范围">一块内容</td><td data-l="做法">在这块的位置放错误空状态，其他块照常显示</td><td data-l="示例">线索没有加载出来。检查网络后重新加载。</td></tr>
+<tr><td data-l="范围">整页</td><td data-l="做法">横条提示 + 页面内容保留最后一次的数据</td><td data-l="示例">网络已断开，显示的是 14:02 的数据。</td></tr>
+<tr><td data-l="范围">没有权限</td><td data-l="做法">空状态，写找谁开通</td><td data-l="示例">只有店长能停用员工。</td></tr>
 </tbody></table></div>
 <p class="p">错误写两件事：发生了什么，怎么办。不道歉，不写错误码给用户看（错误码放在「复制错误信息」里给开发）。</p>
 </section>

@@ -41,7 +41,7 @@
 <section class="sec" id="bp">
 <h2>断点行为</h2>
 <p class="p">门店通以电脑为主，手机只给工作台和独立表单页做专属布局。其他页面在手机宽度下只要求不错位、能看能点。</p>
-<div class="tw"><table class="st">
+<div class="xs"><div class="tw"><table class="st data">
 <thead><tr><th>元素</th><th class="nw">≥ 1280</th><th class="nw">1024–1279</th><th class="nw">768–1023</th><th class="nw">&lt; 768</th></tr></thead>
 <tbody>
 <tr><td>侧栏</td><td>200px 图标 + 文字</td><td>64px 图标栏，悬停出文字</td><td>64px 图标栏</td><td>收进左上角菜单按钮</td></tr>
@@ -53,13 +53,13 @@
 <tr><td>抽屉</td><td>右侧 480px</td><td>右侧 480px</td><td>右侧 480px</td><td>全屏新页面</td></tr>
 <tr><td>按钮、输入框</td><td>32 / 36px</td><td>32 / 36px</td><td>32 / 36px（触屏 44px）</td><td>44px</td></tr>
 <tr><td>行操作</td><td>悬停出现</td><td>悬停出现</td><td>常驻</td><td>常驻或收进「更多」</td></tr>
-</tbody></table></div>
+</tbody></table></div></div><p class="xs-hint">左右滑动查看全部列</p>
 <p class="cap">底线：任何宽度下页面本身不出现横向滚动，超宽内容只在自己的容器里横滑。</p>
 </section>
 
 <section class="sec" id="platform">
 <h2>各端差异</h2>
-<div class="tw"><table class="st">
+<div class="xs"><div class="tw"><table class="st data">
 <thead><tr><th></th><th>iOS</th><th>安卓</th><th>Web（PC 浏览器）</th><th>小程序</th></tr></thead>
 <tbody>
 <tr><td>安全区</td><td>顶部刘海、底部横条：<code>env(safe-area-inset-*)</code></td><td>状态栏和导航条按系统给的高度留</td><td>不需要</td><td>底部用系统安全区；顶部自定义导航要算状态栏高度</td></tr>
@@ -72,7 +72,7 @@
 <tr><td>尺寸单位</td><td>pt，1px = 1pt</td><td>dp，1px = 1dp</td><td>px</td><td>rpx，750rpx = 屏宽；按 375 宽，1px = 2rpx</td></tr>
 <tr><td>顶栏</td><td>48px + 状态栏</td><td>48px + 状态栏</td><td>52px</td><td>右上角胶囊约 87×32px，自定义顶栏右侧留出 100px</td></tr>
 <tr><td>分享和复制</td><td>系统分享面板</td><td>系统分享面板</td><td>「复制链接」+ 轻提示「已复制」</td><td>用小程序转发能力，不放外部链接</td></tr>
-</tbody></table></div>
+</tbody></table></div></div><p class="xs-hint">左右滑动查看全部列</p>
 </section>
 
 <section class="sec" id="a11y">
@@ -80,15 +80,15 @@
 <div class="tw"><table class="st">
 <thead><tr><th>项目</th><th>要求</th><th>门店通的做法</th><th>怎么验</th></tr></thead>
 <tbody>
-<tr><td>对比度</td><td>正文和小字 ≥ 4.5:1；大字和图形 ≥ 3:1</td><td>全部文字色达标，数值见<a href="foundations.html#contrast">对比度表</a>；text-3 不放在 surface-3 上</td><td>按 WCAG 2.1 公式计算</td></tr>
-<tr><td>触控区</td><td>≥ 44×44px，相邻可点元素间隔 ≥ 8px</td><td>手机宽度下按钮、输入框 44px；芯片、分段控件、树展开按钮看得见的尺寸不变，用透明伪元素把点击区补到 ≥ 44×44px；表格复选框外包 <code>label.hit</code>；列表整行可点。按下态按钮缩到 98%，按下瞬间约 43px，不算违规</td><td>读元素尺寸，并在点击区四边内 2px 处真实轻点</td></tr>
-<tr><td>焦点可见</td><td>键盘能到的每个元素都有清楚的焦点框</td><td><code>--focus-ring</code>：2px 底色间隔 + 2px 信息蓝外环 <button class="btn btn-secondary" style="box-shadow:var(--focus-ring)" tabindex="-1">示例</button></td><td>Tab 走一遍</td></tr>
-<tr><td>焦点顺序</td><td>和阅读顺序一致</td><td>弹层内循环，关闭后回到触发按钮；页面顶部有「跳到正文」</td><td>Tab 走一遍</td></tr>
-<tr><td>减少动效</td><td>系统开了「减少动态效果」时关掉非必要动画</td><td>tokens 里所有时长变 0；骨架停止光带；定位高亮常驻；见<a href="motion.html#m-none">第 5 章</a></td><td>系统设置里打开后检查</td></tr>
-<tr><td>不只靠颜色</td><td>状态、涨跌、等级都有文字或符号</td><td>状态标签带文字，涨跌带 ▲▼，等级写 A / B / C</td><td>灰度截图看一遍</td></tr>
-<tr><td>读屏</td><td>图标按钮有名称，图表有文字说明</td><td>铃铛 <code>aria-label</code>「消息，3 条未读」；趋势图 <code>role="img"</code> 带说明；标签页带 <code>role</code> 和 <code>aria-selected</code></td><td>系统读屏走一遍</td></tr>
-<tr><td>表单</td><td>每个输入框有标签；错误能被读到</td><td><code>label for</code>；错误用 <code>aria-invalid</code> + <code>aria-describedby</code></td><td>读屏</td></tr>
-<tr><td>不可用原因</td><td>禁用不能只靠变灰</td><td>按钮下方常驻原因（A03）</td><td>目测</td></tr>
+<tr><td data-l="项目">对比度</td><td data-l="要求">正文和小字 ≥ 4.5:1；大字和图形 ≥ 3:1</td><td data-l="门店通的做法">全部文字色达标，数值见<a href="foundations.html#contrast">对比度表</a>；text-3 不放在 surface-3 上</td><td data-l="怎么验">按 WCAG 2.1 公式计算</td></tr>
+<tr><td data-l="项目">触控区</td><td data-l="要求">≥ 44×44px，相邻可点元素间隔 ≥ 8px</td><td data-l="门店通的做法">手机宽度下按钮、输入框 44px；芯片、分段控件、树展开按钮看得见的尺寸不变，用透明伪元素把点击区补到 ≥ 44×44px；表格复选框外包 <code>label.hit</code>；列表整行可点。按下态按钮缩到 98%，按下瞬间约 43px，不算违规</td><td data-l="怎么验">读元素尺寸，并在点击区四边内 2px 处真实轻点</td></tr>
+<tr><td data-l="项目">焦点可见</td><td data-l="要求">键盘能到的每个元素都有清楚的焦点框</td><td data-l="门店通的做法"><code>--focus-ring</code>：2px 底色间隔 + 2px 信息蓝外环 <button class="btn btn-secondary" style="box-shadow:var(--focus-ring)" tabindex="-1">示例</button></td><td data-l="怎么验">Tab 走一遍</td></tr>
+<tr><td data-l="项目">焦点顺序</td><td data-l="要求">和阅读顺序一致</td><td data-l="门店通的做法">弹层内循环，关闭后回到触发按钮；页面顶部有「跳到正文」</td><td data-l="怎么验">Tab 走一遍</td></tr>
+<tr><td data-l="项目">减少动效</td><td data-l="要求">系统开了「减少动态效果」时关掉非必要动画</td><td data-l="门店通的做法">tokens 里所有时长变 0；骨架停止光带；定位高亮常驻；见<a href="motion.html#m-none">第 5 章</a></td><td data-l="怎么验">系统设置里打开后检查</td></tr>
+<tr><td data-l="项目">不只靠颜色</td><td data-l="要求">状态、涨跌、等级都有文字或符号</td><td data-l="门店通的做法">状态标签带文字，涨跌带 ▲▼，等级写 A / B / C</td><td data-l="怎么验">灰度截图看一遍</td></tr>
+<tr><td data-l="项目">读屏</td><td data-l="要求">图标按钮有名称，图表有文字说明</td><td data-l="门店通的做法">铃铛 <code>aria-label</code>「消息，3 条未读」；趋势图 <code>role="img"</code> 带说明；标签页带 <code>role</code> 和 <code>aria-selected</code></td><td data-l="怎么验">系统读屏走一遍</td></tr>
+<tr><td data-l="项目">表单</td><td data-l="要求">每个输入框有标签；错误能被读到</td><td data-l="门店通的做法"><code>label for</code>；错误用 <code>aria-invalid</code> + <code>aria-describedby</code></td><td data-l="怎么验">读屏</td></tr>
+<tr><td data-l="项目">不可用原因</td><td data-l="要求">禁用不能只靠变灰</td><td data-l="门店通的做法">按钮下方常驻原因（A03）</td><td data-l="怎么验">目测</td></tr>
 </tbody></table></div>
 </section>
 
@@ -99,29 +99,29 @@
 <div class="tw"><table class="st">
 <thead><tr><th>类型</th><th>规则</th><th>写成</th><th>不写成</th></tr></thead>
 <tbody>
-<tr><td>小于 1 万</td><td>千分位</td><td class="n">8,456 条</td><td>8456条</td></tr>
-<tr><td>1 万到 1 亿</td><td>「万」，1 位小数，去掉末尾 .0</td><td class="n">465.2万</td><td>4652000</td></tr>
-<tr><td>1 亿以上</td><td>「亿」，2 位小数</td><td class="n">1.48亿</td><td>14800万</td></tr>
-<tr><td>百分比</td><td>≥ 1% 保留 1 位，&lt; 1% 保留 2 位</td><td class="n">12.9%　0.49%</td><td>0.5%</td></tr>
-<tr><td>负数</td><td>减号 −（U+2212）</td><td class="n">−12</td><td>-12</td></tr>
-<tr><td>变化</td><td>带 ▲▼ 和单位</td><td class="n">▲ 1,510</td><td>+1510</td></tr>
-<tr><td>没有数据</td><td>长横线，悬停说明原因</td><td class="n">—</td><td>0（会被当成真的 0）</td></tr>
-<tr><td>分数和进度</td><td>斜杠两侧加空格；卡片里的紧凑进度不加</td><td class="n">已读 1 / 30　0/1</td><td>1/30人</td></tr>
-<tr><td>空格</td><td>数字和中文之间加空格；数字和「万」「亿」「%」之间不加</td><td class="n">近 30 天　465.2万</td><td>近30天　465.2 万</td></tr>
-<tr><td>手机号</td><td>前 3 后 4，中间打码，导出同样打码</td><td class="n">138****0000</td><td>完整号码</td></tr>
+<tr><td data-l="类型">小于 1 万</td><td data-l="规则">千分位</td><td data-l="写成" class="n">8,456 条</td><td data-l="不写成">8456条</td></tr>
+<tr><td data-l="类型">1 万到 1 亿</td><td data-l="规则">「万」，1 位小数，去掉末尾 .0</td><td data-l="写成" class="n">465.2万</td><td data-l="不写成">4652000</td></tr>
+<tr><td data-l="类型">1 亿以上</td><td data-l="规则">「亿」，2 位小数</td><td data-l="写成" class="n">1.48亿</td><td data-l="不写成">14800万</td></tr>
+<tr><td data-l="类型">百分比</td><td data-l="规则">≥ 1% 保留 1 位，&lt; 1% 保留 2 位</td><td data-l="写成" class="n">12.9%　0.49%</td><td data-l="不写成">0.5%</td></tr>
+<tr><td data-l="类型">负数</td><td data-l="规则">减号 −（U+2212）</td><td data-l="写成" class="n">−12</td><td data-l="不写成">-12</td></tr>
+<tr><td data-l="类型">变化</td><td data-l="规则">带 ▲▼ 和单位</td><td data-l="写成" class="n">▲ 1,510</td><td data-l="不写成">+1510</td></tr>
+<tr><td data-l="类型">没有数据</td><td data-l="规则">长横线，悬停说明原因</td><td data-l="写成" class="n">—</td><td data-l="不写成">0（会被当成真的 0）</td></tr>
+<tr><td data-l="类型">分数和进度</td><td data-l="规则">斜杠两侧加空格；卡片里的紧凑进度不加</td><td data-l="写成" class="n">已读 1 / 30　0/1</td><td data-l="不写成">1/30人</td></tr>
+<tr><td data-l="类型">空格</td><td data-l="规则">数字和中文之间加空格；数字和「万」「亿」「%」之间不加</td><td data-l="写成" class="n">近 30 天　465.2万</td><td data-l="不写成">近30天　465.2 万</td></tr>
+<tr><td data-l="类型">手机号</td><td data-l="规则">前 3 后 4，中间打码，导出同样打码</td><td data-l="写成" class="n">138****0000</td><td data-l="不写成">完整号码</td></tr>
 </tbody></table></div>
 <h3 class="h" id="copy-date">日期和时间</h3>
 <div class="tw"><table class="st">
 <thead><tr><th>情况</th><th>写成</th><th>说明</th></tr></thead>
 <tbody>
-<tr><td>1 小时内</td><td class="n">2 分钟前</td><td>悬停看准确时间</td></tr>
-<tr><td>今天</td><td class="n">14:02</td><td>24 小时制</td></tr>
-<tr><td>昨天</td><td class="n">昨天 21:14</td><td></td></tr>
-<tr><td>今年更早</td><td class="n">10-12　10-12 14:02</td><td>月-日，两位数</td></tr>
-<tr><td>跨年</td><td class="n">2025-12-30</td><td>年-月-日</td></tr>
-<tr><td>区间</td><td class="n">10-14 至 10-20</td><td>用「至」，不用波浪线</td></tr>
-<tr><td>时长</td><td class="n">3分42秒；表格里 3:42</td><td>不写 222 秒</td></tr>
-<tr><td>截止</td><td class="n">截止 10-20</td><td>过期写「已过期 2 天」</td></tr>
+<tr><td data-l="情况">1 小时内</td><td data-l="写成" class="n">2 分钟前</td><td data-l="说明">悬停看准确时间</td></tr>
+<tr><td data-l="情况">今天</td><td data-l="写成" class="n">14:02</td><td data-l="说明">24 小时制</td></tr>
+<tr><td data-l="情况">昨天</td><td data-l="写成" class="n">昨天 21:14</td><td data-l="说明"></td></tr>
+<tr><td data-l="情况">今年更早</td><td data-l="写成" class="n">10-12　10-12 14:02</td><td data-l="说明">月-日，两位数</td></tr>
+<tr><td data-l="情况">跨年</td><td data-l="写成" class="n">2025-12-30</td><td data-l="说明">年-月-日</td></tr>
+<tr><td data-l="情况">区间</td><td data-l="写成" class="n">10-14 至 10-20</td><td data-l="说明">用「至」，不用波浪线</td></tr>
+<tr><td data-l="情况">时长</td><td data-l="写成" class="n">3分42秒；表格里 3:42</td><td data-l="说明">不写 222 秒</td></tr>
+<tr><td data-l="情况">截止</td><td data-l="写成" class="n">截止 10-20</td><td data-l="说明">过期写「已过期 2 天」</td></tr>
 </tbody></table></div>
 <h3 class="h" id="copy-btn">按钮写清后果</h3>
 <div class="dd">
@@ -132,23 +132,23 @@
 <div class="tw"><table class="st">
 <thead><tr><th>动作</th><th>入口按钮</th><th>确认按钮</th><th>完成提示</th><th>对方收到</th></tr></thead>
 <tbody>
-<tr><td>提醒掉队门店</td><td>提醒店长</td><td>发送提醒</td><td>已提醒长沙星驰星沙店店长；按钮变「已提醒 14:00」</td><td>总部提醒：近 30 天直播仅 3 场</td></tr>
-<tr><td>催办</td><td>一键催办未完成门店</td><td>—</td><td>已向 30 家未完成门店发送催办</td><td>总部催办：星驰 X5 30 秒口播视频</td></tr>
-<tr><td>新建任务</td><td>新建任务</td><td>确认下发</td><td>任务已下发至 12 家门店</td><td>总部下发任务：星驰 E3 冬季实拍</td></tr>
-<tr><td>转交线索</td><td>转交</td><td>确认转交</td><td>已转交给销售顾问A</td><td>店长转交线索：李女士，星驰 X5</td></tr>
-<tr><td>保存跟进</td><td>—</td><td>保存跟进</td><td>已保存跟进</td><td>不发消息</td></tr>
-<tr><td>停用员工</td><td>停用</td><td>停用并去交接 / 只停用</td><td>已停用销售顾问E</td><td>员工停用</td></tr>
-<tr><td>复制邀请链接</td><td>复制链接</td><td>—</td><td>已复制</td><td>—</td></tr>
+<tr><td data-l="动作">提醒掉队门店</td><td data-l="入口按钮">提醒店长</td><td data-l="确认按钮">发送提醒</td><td data-l="完成提示">已提醒长沙星驰星沙店店长；按钮变「已提醒 14:00」</td><td data-l="对方收到">总部提醒：近 30 天直播仅 3 场</td></tr>
+<tr><td data-l="动作">催办</td><td data-l="入口按钮">一键催办未完成门店</td><td data-l="确认按钮">—</td><td data-l="完成提示">已向 30 家未完成门店发送催办</td><td data-l="对方收到">总部催办：星驰 X5 30 秒口播视频</td></tr>
+<tr><td data-l="动作">新建任务</td><td data-l="入口按钮">新建任务</td><td data-l="确认按钮">确认下发</td><td data-l="完成提示">任务已下发至 12 家门店</td><td data-l="对方收到">总部下发任务：星驰 E3 冬季实拍</td></tr>
+<tr><td data-l="动作">转交线索</td><td data-l="入口按钮">转交</td><td data-l="确认按钮">确认转交</td><td data-l="完成提示">已转交给销售顾问A</td><td data-l="对方收到">店长转交线索：李女士，星驰 X5</td></tr>
+<tr><td data-l="动作">保存跟进</td><td data-l="入口按钮">—</td><td data-l="确认按钮">保存跟进</td><td data-l="完成提示">已保存跟进</td><td data-l="对方收到">不发消息</td></tr>
+<tr><td data-l="动作">停用员工</td><td data-l="入口按钮">停用</td><td data-l="确认按钮">停用并去交接 / 只停用</td><td data-l="完成提示">已停用销售顾问E</td><td data-l="对方收到">员工停用</td></tr>
+<tr><td data-l="动作">复制邀请链接</td><td data-l="入口按钮">复制链接</td><td data-l="确认按钮">—</td><td data-l="完成提示">已复制</td><td data-l="对方收到">—</td></tr>
 </tbody></table></div>
 <h3 class="h" id="copy-err">报错写原因和办法</h3>
 <div class="tw"><table class="st">
 <thead><tr><th>场景</th><th>写成</th><th>不写成</th></tr></thead>
 <tbody>
-<tr><td>网络</td><td>任务没有下发：网络断开。检查网络后再点「确认下发」，已填内容不会丢。</td><td>操作失败，请稍后重试</td></tr>
-<tr><td>校验</td><td>截止日期不能早于 10-14</td><td>日期格式错误</td></tr>
-<tr><td>授权</td><td>账号授权已过期，去授权后重新发布。</td><td>发布异常（错误码 401）</td></tr>
-<tr><td>权限</td><td>只有店长能停用员工。</td><td>无权限</td></tr>
-<tr><td>冲突</td><td>这个角色名已经有了，换一个名字。</td><td>名称重复</td></tr>
+<tr><td data-l="场景">网络</td><td data-l="写成">任务没有下发：网络断开。检查网络后再点「确认下发」，已填内容不会丢。</td><td data-l="不写成">操作失败，请稍后重试</td></tr>
+<tr><td data-l="场景">校验</td><td data-l="写成">截止日期不能早于 10-14</td><td data-l="不写成">日期格式错误</td></tr>
+<tr><td data-l="场景">授权</td><td data-l="写成">账号授权已过期，去授权后重新发布。</td><td data-l="不写成">发布异常（错误码 401）</td></tr>
+<tr><td data-l="场景">权限</td><td data-l="写成">只有店长能停用员工。</td><td data-l="不写成">无权限</td></tr>
+<tr><td data-l="场景">冲突</td><td data-l="写成">这个角色名已经有了，换一个名字。</td><td data-l="不写成">名称重复</td></tr>
 </tbody></table></div>
 <h3 class="h" id="copy-sep">并列字段和标点</h3>
 <ul class="ul">

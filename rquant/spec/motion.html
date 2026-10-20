@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>页面动效｜rQuant 设计规范 v1.0</title>
+<title>页面动效｜rQuant 设计规范 v1.1</title>
 <link rel="stylesheet" href="../system/tokens.css">
 <link rel="stylesheet" href="../system/components.css">
 <link rel="stylesheet" href="spec.css">
 </head>
 <body data-page="motion.html">
 <div class="doc">
-  <header class="mbar"><a href="index.html">rQuant 设计规范</a><span class="num">v1.0</span><button class="btn quiet" id="tocBtn" aria-expanded="false" aria-controls="toc">目录</button></header>
+  <header class="mbar"><a href="index.html">rQuant 设计规范</a><span class="num">v1.1</span><button class="btn quiet" id="tocBtn" aria-expanded="false" aria-controls="toc">目录</button></header>
   <nav class="toc" id="toc" aria-label="规范目录">
-    <div class="toc-brand"><a href="index.html">rQuant 设计规范</a><span class="num">v1.0</span></div>
+    <div class="toc-brand"><a href="index.html">rQuant 设计规范</a><span class="num">v1.1</span></div>
     <ol><li><a href="index.html"><span class="n"></span><span>概述</span></a></li><li><a href="principles.html"><span class="n">1</span><span>设计原则</span></a></li><li><a href="foundations.html"><span class="n">2</span><span>基础</span></a></li><li><a href="components.html"><span class="n">3</span><span>组件</span></a></li><li><a href="patterns.html"><span class="n">4</span><span>交互模式</span></a></li><li><a href="motion.html" aria-current="page"><span class="n">5</span><span>页面动效</span></a><div class="sub"><a href="#tokens">动效变量</a><a href="#quote">数字变化：行情跳动</a><a href="#page">页面切换</a><a href="#overlay">弹窗和抽屉进出</a><a href="#list">列表加载</a><a href="#press">悬停和按下</a><a href="#skeleton">骨架屏</a><a href="#none">什么时候不用动效</a></div></li><li><a href="templates.html"><span class="n">6</span><span>页面模板</span></a></li><li><a href="guidelines.html"><span class="n">7</span><span>跨端、无障碍、文案</span></a></li><li><a href="appendix.html"><span class="n"></span><span>附录</span></a></li></ol>
     <div class="toc-foot"><a href="../index.html">返回资料首页</a><a href="../system/index.html">组件库（v0.1 状态页）</a><a href="../system/tokens.css">tokens.css</a><a href="../system/tokens.json">tokens.json</a><a href="../system/components.css">components.css</a></div>
   </nav>
@@ -24,7 +24,7 @@
 
 <h2 id="tokens">动效变量</h2>
 <p>写在 <a href="../system/tokens.css">tokens.css</a> 和 <a href="../system/tokens.json">tokens.json</a>。系统开启「减少动态效果」时，所有时长自动变成 0。</p>
-<div class="tscroll"><table class="dt"><thead><tr><th>token</th><th class="n">值</th><th>用在</th><th class="n">减少动态效果时</th></tr></thead><tbody><tr><td class="nw"><code>--dur-instant</code></td><td class="n">80ms</td><td>按下反馈、开关切换、选中态</td><td class="n">0ms</td></tr><tr><td class="nw"><code>--dur-fast</code></td><td class="n">120ms</td><td>悬停、按下、退出动画、轻提示消失</td><td class="n">0ms</td></tr><tr><td class="nw"><code>--dur-base</code></td><td class="n">180ms</td><td>弹窗进入、内容淡入、展开收起</td><td class="n">0ms</td></tr><tr><td class="nw"><code>--dur-slow</code></td><td class="n">280ms</td><td>抽屉、手机底部弹层进入</td><td class="n">0ms</td></tr><tr><td class="nw"><code>--dur-flash</code></td><td class="n">600ms</td><td>行情数字闪烁褪色</td><td class="n">0ms</td></tr><tr><td class="nw"><code>--dur-flash-gap</code></td><td class="n">1000ms</td><td>同一单元格两次闪烁的最小间隔（节流）</td><td class="n">不变</td></tr><tr><td class="nw"><code>--delay-skeleton</code></td><td class="n">300ms</td><td>请求超过这个时间才显示骨架，避免一闪</td><td class="n">不变</td></tr><tr><td class="nw"><code>--ease-standard</code></td><td class="n">cubic-bezier(0.2, 0, 0, 1)</td><td>状态变化：悬停、颜色、展开收起</td><td class="n">—</td></tr><tr><td class="nw"><code>--ease-enter</code></td><td class="n">cubic-bezier(0, 0, 0, 1)</td><td>进入：先快后慢，落定时轻</td><td class="n">—</td></tr><tr><td class="nw"><code>--ease-exit</code></td><td class="n">cubic-bezier(0.4, 0, 1, 1)</td><td>退出：先慢后快，干脆离开</td><td class="n">—</td></tr></tbody></table></div><p class="cap">v0.1 的 <code>--m-fast</code>、<code>--m-base</code>、<code>--m-ease</code> 保留兼容，等于 <code>--dur-fast</code>、<code>--dur-base</code>、<code>--ease-standard</code>。新代码用新名。</p>
+<div class="tscroll-wrap"><div class="tscroll"><table class="dt data"><thead><tr><th>token</th><th class="n">值</th><th>用在</th><th class="n">减少动态效果时</th></tr></thead><tbody><tr><td class="nw"><code>--dur-instant</code></td><td class="n">80ms</td><td>按下反馈、开关切换、选中态</td><td class="n">0ms</td></tr><tr><td class="nw"><code>--dur-fast</code></td><td class="n">120ms</td><td>悬停、按下、退出动画、轻提示消失</td><td class="n">0ms</td></tr><tr><td class="nw"><code>--dur-base</code></td><td class="n">180ms</td><td>弹窗进入、内容淡入、展开收起</td><td class="n">0ms</td></tr><tr><td class="nw"><code>--dur-slow</code></td><td class="n">280ms</td><td>抽屉、手机底部弹层进入</td><td class="n">0ms</td></tr><tr><td class="nw"><code>--dur-flash</code></td><td class="n">600ms</td><td>行情数字闪烁褪色</td><td class="n">0ms</td></tr><tr><td class="nw"><code>--dur-flash-gap</code></td><td class="n">1000ms</td><td>同一单元格两次闪烁的最小间隔（节流）</td><td class="n">不变</td></tr><tr><td class="nw"><code>--delay-skeleton</code></td><td class="n">300ms</td><td>请求超过这个时间才显示骨架，避免一闪</td><td class="n">不变</td></tr><tr><td class="nw"><code>--ease-standard</code></td><td class="n">cubic-bezier(0.2, 0, 0, 1)</td><td>状态变化：悬停、颜色、展开收起</td><td class="n">—</td></tr><tr><td class="nw"><code>--ease-enter</code></td><td class="n">cubic-bezier(0, 0, 0, 1)</td><td>进入：先快后慢，落定时轻</td><td class="n">—</td></tr><tr><td class="nw"><code>--ease-exit</code></td><td class="n">cubic-bezier(0.4, 0, 1, 1)</td><td>退出：先慢后快，干脆离开</td><td class="n">—</td></tr></tbody></table></div></div><p class="tscroll-hint" aria-hidden="true">左右滑动查看全部列</p><p class="cap">v0.1 的 <code>--m-fast</code>、<code>--m-base</code>、<code>--m-ease</code> 保留兼容，等于 <code>--dur-fast</code>、<code>--dur-base</code>、<code>--ease-standard</code>。新代码用新名。</p>
 <div class="states" aria-label="三条曲线">
   <div><span class="k"><code>--ease-standard</code></span><svg class="curve" viewBox="0 0 100 60" aria-hidden="true"><path class="ax" d="M0 60H100M0 60V0"/><path d="M0 60C20 60 0 0 100 0"/></svg><button class="btn" data-play="ease" data-ease="standard">播放</button><div class="dot-track" style="width:100%"><i data-dot="standard"></i></div></div>
   <div><span class="k"><code>--ease-enter</code></span><svg class="curve" viewBox="0 0 100 60" aria-hidden="true"><path class="ax" d="M0 60H100M0 60V0"/><path d="M0 60C0 60 0 0 100 0"/></svg><button class="btn" data-play="ease" data-ease="enter">播放</button><div class="dot-track" style="width:100%"><i data-dot="enter"></i></div></div>
@@ -34,7 +34,7 @@
 
 <h2 id="quote">数字变化：行情跳动</h2>
 <p>盘中行情每 3 秒刷新。变了的数字原地替换，底色用涨跌色低透明度闪一下再褪掉，告诉你「这个刚变」。数字不做滚动计数器，不放大缩小，不弹跳。</p>
-<div class="tscroll"><table class="dt">
+<div class="tscroll-wrap"><div class="tscroll"><table class="dt data">
 <thead><tr><th>项</th><th>参数</th></tr></thead>
 <tbody>
 <tr><td>触发条件</td><td>同一单元格的新值和旧值不同。新值比旧值大闪红，小闪绿（按「这次变化」的方向，不按相对昨收）</td></tr>
@@ -47,7 +47,7 @@
 <tr><td>一屏上限</td><td>一次刷新超过 20 个单元格在变时，只闪现价列，其余只换数</td></tr>
 <tr><td>减少动态效果</td><td>不渐变：浅底（<code>--c-up-weak</code> / <code>--c-down-weak</code>）直接出现，1000ms 后直接去掉</td></tr>
 <tr><td>读屏</td><td>不播报每次跳动；只有用户聚焦的单元格变化时通过 <code>aria-live="polite"</code> 读新值</td></tr>
-</tbody></table></div>
+</tbody></table></div></div><p class="tscroll-hint" aria-hidden="true">左右滑动查看全部列</p>
 <div class="demo" data-demo="ticker">
   <div class="demo-bar"><button class="btn" data-tick-toggle>开始刷新</button><button class="btn" data-tick-burst>连续刷新 5 次（看节流）</button><span class="note" data-tick-time>假数据，每 1.5 秒刷新</span></div>
   <section class="panel"><div class="panel-b" style="padding-top:12px"><table class="tbl std ticker"><thead><tr><th>名称</th><th class="r">现价</th><th class="r">涨跌幅</th><th class="r">成交额（亿）</th></tr></thead><tbody data-rows></tbody></table></div></section>
@@ -58,20 +58,20 @@
 </div>
 
 <h2 id="page">页面切换</h2>
-<div class="tscroll"><table class="dt">
+<div class="tscroll-wrap"><div class="tscroll"><table class="dt data">
 <thead><tr><th>情况</th><th class="n">时长</th><th>曲线</th><th>变化</th><th>触发</th></tr></thead>
 <tbody>
-<tr><td>切换页面（左侧导航、底部标签栏）</td><td class="n">0ms</td><td>—</td><td>直接换；外框不动</td><td>点导航</td></tr>
+<tr><td>切换页面（左侧导航、底部标签栏、「更多」弹层里的页面）</td><td class="n">0ms</td><td>—</td><td>直接换；外框不动</td><td>点导航</td></tr>
 <tr><td>标签页、分段控件切换内容</td><td class="n">180ms</td><td><code>--ease-enter</code></td><td>新内容不透明度 0 → 1，无位移</td><td>点选项</td></tr>
 <tr><td>进入个股页</td><td class="n">0ms</td><td>—</td><td>直接换；返回时恢复列表滚动位置</td><td>点一行</td></tr>
-</tbody></table></div>
+</tbody></table></div></div><p class="tscroll-hint" aria-hidden="true">左右滑动查看全部列</p>
 <div class="demo" data-demo="pageswitch">
   <section class="panel"><div class="panel-h"><h2>示例科技</h2><div class="seg" role="tablist"><button role="tab" aria-selected="true" data-v="0">概览</button><button role="tab" aria-selected="false" data-v="1">财务</button><button role="tab" aria-selected="false" data-v="2">资金</button></div></div>
   <div class="panel-b" data-view></div></section>
 </div>
 
 <h2 id="overlay">弹窗和抽屉进出</h2>
-<div class="tscroll"><table class="dt">
+<div class="tscroll-wrap"><div class="tscroll"><table class="dt data">
 <thead><tr><th>对象</th><th>进入</th><th>退出</th><th>变化</th><th>触发</th></tr></thead>
 <tbody>
 <tr><td>遮罩</td><td class="nw">180ms <code>--ease-enter</code></td><td class="nw">120ms <code>--ease-exit</code></td><td>不透明度 0 ↔ 1</td><td>打开或关闭浮层</td></tr>
@@ -79,7 +79,7 @@
 <tr><td>抽屉（电脑）</td><td class="nw">280ms <code>--ease-enter</code></td><td class="nw">180ms <code>--ease-exit</code></td><td>从右侧平移 100% ↔ 0</td><td>点行、点编辑</td></tr>
 <tr><td>底部弹层（手机）</td><td class="nw">280ms <code>--ease-enter</code></td><td class="nw">180ms <code>--ease-exit</code></td><td>从底部平移 100% ↔ 0；可下滑关闭</td><td>同上</td></tr>
 <tr><td>轻提示</td><td class="nw">180ms <code>--ease-enter</code></td><td class="nw">120ms <code>--ease-exit</code></td><td>不透明度 0 ↔ 1，上移 8px</td><td>操作完成</td></tr>
-</tbody></table></div>
+</tbody></table></div></div><p class="tscroll-hint" aria-hidden="true">左右滑动查看全部列</p>
 <p>退出比进入快：用户关掉它时已经不想再看。</p>
 <div class="frame" data-demo="motion-overlay" style="height:300px">
   <div class="fake"><div class="demo-bar"><button class="btn" data-mo="dialog">播放弹窗</button><button class="btn" data-mo="drawer">播放抽屉</button><button class="btn" data-mo="toast">播放轻提示</button></div>
@@ -87,38 +87,38 @@
 </div>
 
 <h2 id="list">列表加载</h2>
-<div class="tscroll"><table class="dt">
+<div class="tscroll-wrap"><div class="tscroll"><table class="dt data">
 <thead><tr><th>情况</th><th class="n">时长</th><th>曲线</th><th>变化</th><th>触发</th></tr></thead>
 <tbody>
 <tr><td>骨架换成内容</td><td class="n">120ms</td><td><code>--ease-enter</code></td><td>内容不透明度 0 → 1，骨架直接移除</td><td>首次数据到达</td></tr>
 <tr><td>展开全部，新增的行</td><td class="n">180ms</td><td><code>--ease-enter</code></td><td>新行整体淡入，一次完成，不逐行错开</td><td>点「展开全部」</td></tr>
 <tr><td>筛选、排序后</td><td class="n">0ms</td><td>—</td><td>直接替换；行不移动、不重排动画</td><td>点表头、点指标</td></tr>
-</tbody></table></div>
+</tbody></table></div></div><p class="tscroll-hint" aria-hidden="true">左右滑动查看全部列</p>
 <div class="demo" data-demo="listload">
   <div class="demo-bar"><button class="btn" data-play="list">播放</button><span class="note">假数据，延迟 600ms 返回</span></div>
   <section class="panel"><div class="panel-b" style="padding-top:12px"><table class="tbl std"><tbody data-rows></tbody></table></div></section>
 </div>
 
 <h2 id="press">悬停和按下</h2>
-<div class="tscroll"><table class="dt">
+<div class="tscroll-wrap"><div class="tscroll"><table class="dt data">
 <thead><tr><th>对象</th><th class="n">时长</th><th>曲线</th><th>变化</th><th>触发</th></tr></thead>
 <tbody>
 <tr><td>按钮、可点行、可筛选指标</td><td class="n">120ms</td><td><code>--ease-standard</code></td><td>只变底色和描边色</td><td>鼠标悬停</td></tr>
 <tr><td>按下</td><td class="n">0ms</td><td>—</td><td>立即变 <code>--c-sunken</code>，松开回到悬停色</td><td>按下</td></tr>
 <tr><td>键盘焦点</td><td class="n">0ms</td><td>—</td><td>2px 主色框直接出现</td><td>Tab</td></tr>
-</tbody></table></div>
+</tbody></table></div></div><p class="tscroll-hint" aria-hidden="true">左右滑动查看全部列</p>
 <p>不做：放大、上浮、加阴影、发光、波纹。</p>
 <div class="demo row"><button class="btn primary">保存方案</button><button class="btn">刷新</button><button class="btn quiet">全部告警</button><div class="mstrip"><button class="m" aria-pressed="false"><span class="m-l">涨停</span><span class="m-v up">50</span></button></div></div>
 
 <h2 id="skeleton">骨架屏</h2>
-<div class="tscroll"><table class="dt">
+<div class="tscroll-wrap"><div class="tscroll"><table class="dt data">
 <thead><tr><th>项</th><th>参数</th></tr></thead>
 <tbody>
 <tr><td>出现</td><td>请求超过 300ms（<code>--delay-skeleton</code>）才出现，快的请求不闪骨架</td></tr>
 <tr><td>微光</td><td>1.4 秒一轮，ease-in-out，横向循环；颜色 <code>--c-sunken</code> ↔ <code>--c-surface-2</code></td></tr>
 <tr><td>尺寸</td><td>和真实内容一致，内容到了不跳</td></tr>
 <tr><td>减少动态效果</td><td>去掉微光，只留静态色块</td></tr>
-</tbody></table></div>
+</tbody></table></div></div><p class="tscroll-hint" aria-hidden="true">左右滑动查看全部列</p>
 <div class="demo" data-demo="skel">
   <div class="demo-bar"><button class="btn" data-play="skel">播放：慢请求（1.2 秒）</button><button class="btn" data-play="skelfast">播放：快请求（0.2 秒）</button></div>
   <div class="mstrip" data-skel><div class="m"><span class="m-l">上证指数</span><span class="m-v">3,312.45</span></div><div class="m"><span class="m-l">成交额</span><span class="m-v">1.45<small>万亿</small></span></div><div class="m"><span class="m-l">上涨占比</span><span class="m-v down">41%</span></div></div>

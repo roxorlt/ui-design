@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>交互模式｜rQuant 设计规范 v1.0</title>
+<title>交互模式｜rQuant 设计规范 v1.1</title>
 <link rel="stylesheet" href="../system/tokens.css">
 <link rel="stylesheet" href="../system/components.css">
 <link rel="stylesheet" href="spec.css">
 </head>
 <body data-page="patterns.html">
 <div class="doc">
-  <header class="mbar"><a href="index.html">rQuant 设计规范</a><span class="num">v1.0</span><button class="btn quiet" id="tocBtn" aria-expanded="false" aria-controls="toc">目录</button></header>
+  <header class="mbar"><a href="index.html">rQuant 设计规范</a><span class="num">v1.1</span><button class="btn quiet" id="tocBtn" aria-expanded="false" aria-controls="toc">目录</button></header>
   <nav class="toc" id="toc" aria-label="规范目录">
-    <div class="toc-brand"><a href="index.html">rQuant 设计规范</a><span class="num">v1.0</span></div>
+    <div class="toc-brand"><a href="index.html">rQuant 设计规范</a><span class="num">v1.1</span></div>
     <ol><li><a href="index.html"><span class="n"></span><span>概述</span></a></li><li><a href="principles.html"><span class="n">1</span><span>设计原则</span></a></li><li><a href="foundations.html"><span class="n">2</span><span>基础</span></a></li><li><a href="components.html"><span class="n">3</span><span>组件</span></a></li><li><a href="patterns.html" aria-current="page"><span class="n">4</span><span>交互模式</span></a><div class="sub"><a href="#nav">导航</a><a href="#filter">筛选和搜索</a><a href="#table">表格和列表</a><a href="#form">表单和校验</a><a href="#overlay">弹窗和抽屉</a><a href="#feedback">反馈提示</a><a href="#empty">空状态</a><a href="#loading">加载</a><a href="#error">错误和特殊时段</a><a href="#decisions">已定的产品规则</a></div></li><li><a href="motion.html"><span class="n">5</span><span>页面动效</span></a></li><li><a href="templates.html"><span class="n">6</span><span>页面模板</span></a></li><li><a href="guidelines.html"><span class="n">7</span><span>跨端、无障碍、文案</span></a></li><li><a href="appendix.html"><span class="n"></span><span>附录</span></a></li></ol>
     <div class="toc-foot"><a href="../index.html">返回资料首页</a><a href="../system/index.html">组件库（v0.1 状态页）</a><a href="../system/tokens.css">tokens.css</a><a href="../system/tokens.json">tokens.json</a><a href="../system/components.css">components.css</a></div>
   </nav>
@@ -22,14 +22,14 @@
 <p class="lede">组件怎么组合成一次完整的操作。下面的示例可以直接点。</p>
 
 <h2 id="nav">导航</h2>
-<div class="tscroll"><table class="dt">
+<div class="tscroll"><table class="dt stack">
 <thead><tr><th>层级</th><th>电脑</th><th>手机</th><th>规则</th></tr></thead>
 <tbody>
-<tr><td>全站</td><td>左侧导航 212px</td><td>底部标签栏 5 项</td><td>当前页高亮；手机第 5 项「更多」放其余页面</td></tr>
-<tr><td>页面标题</td><td>顶栏里</td><td>顶栏里</td><td>不另起标题区；二级页（个股）顶栏左侧加返回</td></tr>
-<tr><td>页内分区</td><td>标签页 <code>.tabs</code></td><td>标签页，放不下横滑</td><td>超过 3 屏的页面必须分区；切换后滚到顶部</td></tr>
-<tr><td>同块视图</td><td>分段控件 <code>.seg</code></td><td>同左</td><td>放面板标题行；切换不改变页面滚动位置</td></tr>
-<tr><td>进详情</td><td>整行可点进个股页；看全部字段用抽屉</td><td>整行可点；全部字段用底部弹层</td><td>新窗口打开用电脑的系统习惯（Ctrl/⌘ + 点击），不另放按钮</td></tr>
+<tr><td>全站</td><td data-l="电脑">左侧导航 212px</td><td data-l="手机">底部标签栏 4 项（全景、资金流、池子、更多）</td><td data-l="规则">当前页高亮；当前页不在底栏时「更多」高亮；「更多」只列不在底栏的页面，总览在第一行；告警、健康在顶栏；手机默认打开池子，平板和电脑默认打开总览（产品负责人确认）</td></tr>
+<tr><td>页面标题</td><td data-l="电脑">顶栏里</td><td data-l="手机">顶栏里</td><td data-l="规则">不另起标题区；二级页（个股）顶栏左侧加返回</td></tr>
+<tr><td>页内分区</td><td data-l="电脑">标签页 <code>.tabs</code></td><td data-l="手机">标签页，放不下横滑</td><td data-l="规则">超过 3 屏的页面必须分区；切换后滚到顶部</td></tr>
+<tr><td>同块视图</td><td data-l="电脑">分段控件 <code>.seg</code></td><td data-l="手机">同左</td><td data-l="规则">放面板标题行；切换不改变页面滚动位置</td></tr>
+<tr><td>进详情</td><td data-l="电脑">整行可点进个股页；看全部字段用抽屉</td><td data-l="手机">整行可点；全部字段用底部弹层</td><td data-l="规则">新窗口打开用电脑的系统习惯（Ctrl/⌘ + 点击），不另放按钮</td></tr>
 </tbody></table></div>
 <p>浏览器返回键要能回到上一个状态：切换标签页、打开个股都写进地址栏。筛选条件也写进地址栏，分享链接能看到同样的结果。</p>
 
@@ -71,6 +71,16 @@
 </div>
 <h3>手机上的列表</h3>
 <p>手机不用宽表，改成两行列表项。首屏至少露出 5 项。排序放在面板标题行的「排序」按钮里，点开是底部弹层。</p>
+<h3>手机上的表格（≤ 599px）</h3>
+<p>表格先分两类：内容是文字的，手机上拆成一块一块；内容是要对着看的数，保留列，在表内横滑。整页任何时候都不横向滚动，单元格内容不能被裁掉。</p>
+<div class="tscroll"><table class="dt">
+<thead><tr><th>类型</th><th>手机上怎么显示</th></tr></thead>
+<tbody>
+<tr><td>文字表<br><span class="muted" style="font-weight:400">更新记录、负责人、流程步骤、规则对照、文案对照</span></td><td>堆叠：每行变成一块，第一列作标题行放最上面；其余每个字段上面一行小灰字写字段名（<code>--t-caption</code> 说明色），下面写内容。不画表头。</td></tr>
+<tr><td>数据表<br><span class="muted" style="font-weight:400">参数表、色板、字阶、对比度、尺寸表、实测数据</span></td><td>保留列，在表格容器内横滑，页面本身不动。放不下时必须同时有：右边缘渐隐遮罩（滑到最右消失）、表格下方一行「左右滑动查看全部列」、首列固定不随横滑移走。放得下就不出现遮罩和提示。</td></tr>
+<tr><td>两列表、无表头表</td><td>本来就是「名称 + 内容」，原样显示，内容自动换行。</td></tr>
+</tbody></table></div>
+<p>新写一张表时先判断：读的人是一行一行读（文字表），还是要上下比同一列的数（数据表）。拿不准按文字表做。产品页面里的行情、选股结果这类宽表不在此列，手机上改两行列表项（见上一条）。</p>
 
 <h2 id="form">表单和校验</h2>
 <div class="tscroll"><table class="dt">
@@ -92,13 +102,13 @@
 </div>
 
 <h2 id="overlay">弹窗和抽屉</h2>
-<div class="tscroll"><table class="dt">
+<div class="tscroll"><table class="dt stack">
 <thead><tr><th>要做的事</th><th>用什么</th><th>电脑</th><th>手机</th></tr></thead>
 <tbody>
-<tr><td>确认不可撤销的操作</td><td>弹窗</td><td>居中 420px</td><td>居中，按钮竖排</td></tr>
-<tr><td>看一行的全部字段</td><td>抽屉</td><td>右侧 400px</td><td>底部弹层</td></tr>
-<tr><td>编辑规则、填条件</td><td>抽屉</td><td>右侧 400px</td><td>底部弹层，最高 85%</td></tr>
-<tr><td>一次操作的结果</td><td>轻提示</td><td>底部居中</td><td>底栏上方</td></tr>
+<tr><td>确认不可撤销的操作</td><td data-l="用什么">弹窗</td><td data-l="电脑">居中 420px</td><td data-l="手机">居中，按钮竖排</td></tr>
+<tr><td>看一行的全部字段</td><td data-l="用什么">抽屉</td><td data-l="电脑">右侧 400px</td><td data-l="手机">底部弹层</td></tr>
+<tr><td>编辑规则、填条件</td><td data-l="用什么">抽屉</td><td data-l="电脑">右侧 400px</td><td data-l="手机">底部弹层，最高 85%</td></tr>
+<tr><td>一次操作的结果</td><td data-l="用什么">轻提示</td><td data-l="电脑">底部居中</td><td data-l="手机">底栏上方</td></tr>
 </tbody></table></div>
 <ul class="dash">
 <li>打开后焦点进入浮层，Tab 只在浮层内循环；关闭后焦点回到触发它的按钮。</li>
@@ -113,25 +123,25 @@
 </div>
 
 <h2 id="feedback">反馈提示</h2>
-<div class="tscroll"><table class="dt">
+<div class="tscroll"><table class="dt stack">
 <thead><tr><th>结果</th><th>用什么</th><th>停留</th><th>例子</th></tr></thead>
 <tbody>
-<tr><td>操作成功</td><td>轻提示 <code>.toast</code></td><td>4 秒，可撤销的 6 秒</td><td>已加入自选　撤销</td></tr>
-<tr><td>操作失败</td><td>按钮旁或字段下的一行字</td><td>直到下次操作</td><td>没保存上：网络断开，内容已保留</td></tr>
-<tr><td>一块内容的状态</td><td>提示条 <code>.notice</code></td><td>直到状态解除</td><td>行情 14:32:05 后没有更新</td></tr>
-<tr><td>需要你处理</td><td>琥珀提示条 <code>.notice.warn</code> 或 <code>.st.warn</code></td><td>直到处理</td><td>2 条盯盘规则引用的方案已删除</td></tr>
-<tr><td>系统状态</td><td>状态点 <code>.st</code></td><td>常驻</td><td>数据采集　需处理</td></tr>
+<tr><td>操作成功</td><td data-l="用什么">轻提示 <code>.toast</code></td><td data-l="停留">4 秒，可撤销的 6 秒</td><td data-l="例子">已加入自选　撤销</td></tr>
+<tr><td>操作失败</td><td data-l="用什么">按钮旁或字段下的一行字</td><td data-l="停留">直到下次操作</td><td data-l="例子">没保存上：网络断开，内容已保留</td></tr>
+<tr><td>一块内容的状态</td><td data-l="用什么">提示条 <code>.notice</code></td><td data-l="停留">直到状态解除</td><td data-l="例子">行情 14:32:05 后没有更新</td></tr>
+<tr><td>需要你处理</td><td data-l="用什么">琥珀提示条 <code>.notice.warn</code> 或 <code>.st.warn</code></td><td data-l="停留">直到处理</td><td data-l="例子">2 条盯盘规则引用的方案已删除</td></tr>
+<tr><td>系统状态</td><td data-l="用什么">状态点 <code>.st</code></td><td data-l="停留">常驻</td><td data-l="例子">数据采集　需处理</td></tr>
 </tbody></table></div>
 <p>按钮叫什么，结果就叫什么：「加入自选」→「已加入自选」，「保存方案」→「已保存方案」。</p>
 
 <h2 id="empty">空状态</h2>
-<div class="tscroll"><table class="dt">
+<div class="tscroll"><table class="dt stack">
 <thead><tr><th>为什么空</th><th>标题</th><th>说明和操作</th></tr></thead>
 <tbody>
-<tr><td>还没开始用</td><td>还没有自选股</td><td>搜索股票，点「加入自选」。按钮：搜索股票</td></tr>
-<tr><td>今天还没发生</td><td>今天还没有告警</td><td>规则在运行，还没被触发。按钮：去改规则</td></tr>
-<tr><td>筛选后没有</td><td>没有符合条件的股票</td><td>当前 4 个条件。按钮：清除筛选</td></tr>
-<tr><td>还没到时间</td><td>收盘后生成</td><td>选股信号每天 15:30 后出现。不放按钮</td></tr>
+<tr><td>还没开始用</td><td data-l="标题">还没有自选股</td><td data-l="说明和操作">搜索股票，点「加入自选」。按钮：搜索股票</td></tr>
+<tr><td>今天还没发生</td><td data-l="标题">今天还没有告警</td><td data-l="说明和操作">规则在运行，还没被触发。按钮：去改规则</td></tr>
+<tr><td>筛选后没有</td><td data-l="标题">没有符合条件的股票</td><td data-l="说明和操作">当前 4 个条件。按钮：清除筛选</td></tr>
+<tr><td>还没到时间</td><td data-l="标题">收盘后生成</td><td data-l="说明和操作">选股信号每天 15:30 后出现。不放按钮</td></tr>
 </tbody></table></div>
 <p>空表不画表头。不画插图，不只写「暂无数据」。</p>
 
@@ -150,17 +160,17 @@
 </div>
 
 <h2 id="error">错误和特殊时段</h2>
-<div class="tscroll"><table class="dt">
+<div class="tscroll"><table class="dt stack">
 <thead><tr><th>情况</th><th>算不算错</th><th>表现</th><th>文案</th></tr></thead>
 <tbody>
-<tr><td>行情来源中断（有旧数据）</td><td>算</td><td>保留旧值，数字改说明色；顶部红色提示条；自动重试</td><td>读不到行情：行情来源没有响应。页面显示 14:32:05 的数据，30 秒后自动重试。　现在重试</td></tr>
-<tr><td>行情延迟（超过 1 分钟没更新）</td><td>需要注意</td><td>时间改琥珀 <code>.st.warn</code></td><td>14:32:05　已 3 分钟没更新</td></tr>
-<tr><td>整块读取失败（没有旧数据）</td><td>算</td><td>错误状态 <code>.error</code></td><td>读不到行业数据：请求超时。　重试</td></tr>
-<tr><td>网络断开</td><td>算</td><td>顶栏下方一条提示条，恢复后自动消失</td><td>网络已断开，恢复后自动刷新</td></tr>
-<tr><td>午间休市 11:30–13:00</td><td>不算</td><td>中性，顶栏状态改「午间休市」，数字保持上午收盘值、不标灰</td><td>午间休市，13:00 继续</td></tr>
-<tr><td>收盘后、周末、节假日</td><td>不算</td><td>中性，顶栏写「已收盘」或「休市」，显示最近交易日数据</td><td>休市中，显示 10-16 收盘数据</td></tr>
-<tr><td>个股停牌</td><td>不算</td><td>现价显示停牌前收盘价，旁边一行说明色文字</td><td>停牌中，显示 10-16 收盘价</td></tr>
-<tr><td>单项没有数据</td><td>不算</td><td>「—」说明色，悬停说原因</td><td>数据源暂未提供该指标</td></tr>
+<tr><td>行情来源中断（有旧数据）</td><td data-l="算不算错">算</td><td data-l="表现">保留旧值，数字改说明色；顶部红色提示条；自动重试</td><td data-l="文案">读不到行情：行情来源没有响应。页面显示 14:32:05 的数据，30 秒后自动重试。　现在重试</td></tr>
+<tr><td>行情延迟（超过 1 分钟没更新）</td><td data-l="算不算错">需要注意</td><td data-l="表现">时间改琥珀 <code>.st.warn</code></td><td data-l="文案">14:32:05　已 3 分钟没更新</td></tr>
+<tr><td>整块读取失败（没有旧数据）</td><td data-l="算不算错">算</td><td data-l="表现">错误状态 <code>.error</code></td><td data-l="文案">读不到行业数据：请求超时。　重试</td></tr>
+<tr><td>网络断开</td><td data-l="算不算错">算</td><td data-l="表现">顶栏下方一条提示条，恢复后自动消失</td><td data-l="文案">网络已断开，恢复后自动刷新</td></tr>
+<tr><td>午间休市 11:30–13:00</td><td data-l="算不算错">不算</td><td data-l="表现">中性，顶栏状态改「午间休市」，数字保持上午收盘值、不标灰</td><td data-l="文案">午间休市，13:00 继续</td></tr>
+<tr><td>收盘后、周末、节假日</td><td data-l="算不算错">不算</td><td data-l="表现">中性，顶栏写「已收盘」或「休市」，显示最近交易日数据</td><td data-l="文案">休市中，显示 10-16 收盘数据</td></tr>
+<tr><td>个股停牌</td><td data-l="算不算错">不算</td><td data-l="表现">现价显示停牌前收盘价，旁边一行说明色文字</td><td data-l="文案">停牌中，显示 10-16 收盘价</td></tr>
+<tr><td>单项没有数据</td><td data-l="算不算错">不算</td><td data-l="表现">「—」说明色，悬停说原因</td><td data-l="文案">数据源暂未提供该指标</td></tr>
 </tbody></table></div>
 <div class="demo">
   <div class="notice crit">读不到行情：行情来源没有响应。页面显示 14:32:05 的数据，30 秒后自动重试。<a class="act" href="#error">现在重试</a></div>

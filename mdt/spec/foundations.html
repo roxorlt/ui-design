@@ -55,27 +55,27 @@
 </div>
 <h3 class="h" id="color-sem">语义色</h3>
 <p class="p">每种语义色只有一个意思。不确定该不该上色时，不上。</p>
-<div class="tw"><table class="st">
+<div class="xs"><div class="tw"><table class="st data">
 <thead><tr><th>颜色</th><th>token</th><th>色值</th><th>只表示</th><th>典型用法</th><th>不能用来</th></tr></thead>
 <tbody>
 <tr><td><span class="tag tag-accent">琥珀</span></td><td><code>--c-accent</code><br><code>--c-accent-weak</code></td><td class="n">#F5A524<br>14% 透明</td><td>需要你处理</td><td>待跟进、超时、待交接、即将过期、待审批数</td><td>装饰、品牌点缀、标题、图表主线</td></tr>
 <tr><td><span class="tag tag-neg">红</span></td><td><code>--c-negative</code><br><code>--c-negative-weak</code></td><td class="n">#FF6369<br>12% 透明</td><td>失败、下降</td><td>发布失败、▼ 下降、健康分 &lt; 60、已过期、未读角标</td><td>普通的删除入口（用危险按钮描边即可）</td></tr>
 <tr><td><span class="tag tag-pos">绿</span></td><td><code>--c-positive</code><br><code>--c-positive-weak</code></td><td class="n">#3DD68C<br>12% 透明</td><td>完成、上升</td><td>已完成、已发布、▲ 上升、步骤已完成</td><td>「正常」状态（正常不加标签）</td></tr>
 <tr><td><span class="tag tag-info">蓝</span></td><td><code>--c-info</code><br><code>--c-info-weak</code></td><td class="n">#5AA9FF<br>12% 透明</td><td>进行中、可点、焦点</td><td>进行中、待发布、待激活、链接、焦点环、定位高亮</td><td>表示好坏</td></tr>
-</tbody></table></div>
+</tbody></table></div></div><p class="xs-hint">左右滑动查看全部列</p>
 <h3 class="h" id="color-trend">涨跌色</h3>
 <div class="tw"><table class="st">
 <thead><tr><th>情况</th><th>写法</th><th>示例</th><th>类名</th></tr></thead>
 <tbody>
-<tr><td>上升</td><td>绿色 + ▲ + 变化量</td><td><span class="up num">▲ 1,510</span></td><td><code>.up</code></td></tr>
-<tr><td>下降</td><td>红色 + ▼ + 变化量</td><td><span class="down num">▼ 12</span></td><td><code>.down</code></td></tr>
-<tr><td>持平或无对比</td><td>文字 2，写「持平」或口径</td><td><span class="flat">持平</span></td><td><code>.flat</code></td></tr>
-<tr><td>下降是好事（如投诉、超时数）</td><td>仍按方向上色：降用红 ▼。好坏写在名称里，不反转颜色</td><td><span class="down num">▼ 3</span> 超时线索</td><td><code>.down</code></td></tr>
+<tr><td data-l="情况">上升</td><td data-l="写法">绿色 + ▲ + 变化量</td><td data-l="示例"><span class="up num">▲ 1,510</span></td><td data-l="类名"><code>.up</code></td></tr>
+<tr><td data-l="情况">下降</td><td data-l="写法">红色 + ▼ + 变化量</td><td data-l="示例"><span class="down num">▼ 12</span></td><td data-l="类名"><code>.down</code></td></tr>
+<tr><td data-l="情况">持平或无对比</td><td data-l="写法">文字 2，写「持平」或口径</td><td data-l="示例"><span class="flat">持平</span></td><td data-l="类名"><code>.flat</code></td></tr>
+<tr><td data-l="情况">下降是好事（如投诉、超时数）</td><td data-l="写法">仍按方向上色：降用红 ▼。好坏写在名称里，不反转颜色</td><td data-l="示例"><span class="down num">▼ 3</span> 超时线索</td><td data-l="类名"><code>.down</code></td></tr>
 </tbody></table></div>
 <p class="cap">涨跌永远带 ▲▼ 符号，色弱用户靠符号读。颜色跟方向走，不跟好坏走，避免同一个红在不同页面意思相反。</p>
 <h3 class="h" id="contrast">对比度</h3>
 <p class="p">按 WCAG 2.1 公式计算。正文和小字要 ≥ 4.5:1，18px 以上半粗大字和图形要 ≥ 3:1。</p>
-<div class="tw"><table class="st">
+<div class="xs"><div class="tw"><table class="st data">
 <thead><tr><th>前景</th><th class="nw">在 bg #000</th><th class="nw">在 surface-1</th><th class="nw">在 surface-2</th><th class="nw">在 surface-3</th><th>结论</th></tr></thead>
 <tbody>
 <tr><td>text-1 #F2F2F4</td><td class="n">18.8</td><td class="n">16.5</td><td class="n">14.7</td><td class="n">12.8</td><td class="ok">全部可用</td></tr>
@@ -88,7 +88,7 @@
 <tr><td>on-primary #000 在主按钮 #F2F2F4</td><td class="n" colspan="4">18.8</td><td class="ok">可用</td></tr>
 <tr><td>状态标签文字在自身弱底上</td><td class="n" colspan="4">琥珀 7.0，红 5.5，绿 7.9，蓝 6.2</td><td class="ok">可用</td></tr>
 <tr><td>line #2C2C31 在 surface-1</td><td class="n" colspan="4">1.3</td><td>只做分隔，不承载信息；输入框边界另有 surface-2 底色</td></tr>
-</tbody></table></div>
+</tbody></table></div></div><p class="xs-hint">左右滑动查看全部列</p>
 <p class="cap">禁用态用 40% 不透明度，按 WCAG 豁免对比度要求，但必须配一行原因（见组件「带原因的不可用按钮」）。</p>
 </section>
 
@@ -109,14 +109,14 @@
 <div class="tw"><table class="st">
 <thead><tr><th>规则</th><th>说明</th></tr></thead>
 <tbody>
-<tr><td>信息文字下限</td><td>12px（<code>--t-caption</code>）。11px 只给图表坐标轴</td></tr>
-<tr><td>手机正文</td><td>15px（<code>--t-body-m</code>）；输入框 16px，避免 iOS 聚焦时自动放大</td></tr>
-<tr><td>字号和行高</td><td>字号取偶数为主，行高取 4 的倍数，对齐 4px 网格；相邻两档约差 1.2 倍</td></tr>
-<tr><td>字重</td><td>400 正文；500 可点的文字、表格主列、未读标题；600 标题和数字。不用 700 以上</td></tr>
-<tr><td>主数字</td><td>每页 1 个 <code>--t-display</code>，手机 <code>--t-display-m</code> 28/32</td></tr>
-<tr><td>字距</td><td>默认 0。只有 28px 以上的标题收 −0.01em。不拉开字距做小标签</td></tr>
-<tr><td>行长</td><td>说明文字每行不超过 44 个汉字（约 44em）</td></tr>
-<tr><td>数字</td><td>表格数字列右对齐，开 <code>tabular-nums</code>，上下行的位数对齐</td></tr>
+<tr><td data-l="规则">信息文字下限</td><td data-l="说明">12px（<code>--t-caption</code>）。11px 只给图表坐标轴</td></tr>
+<tr><td data-l="规则">手机正文</td><td data-l="说明">15px（<code>--t-body-m</code>）；输入框 16px，避免 iOS 聚焦时自动放大</td></tr>
+<tr><td data-l="规则">字号和行高</td><td data-l="说明">字号取偶数为主，行高取 4 的倍数，对齐 4px 网格；相邻两档约差 1.2 倍</td></tr>
+<tr><td data-l="规则">字重</td><td data-l="说明">400 正文；500 可点的文字、表格主列、未读标题；600 标题和数字。不用 700 以上</td></tr>
+<tr><td data-l="规则">主数字</td><td data-l="说明">每页 1 个 <code>--t-display</code>，手机 <code>--t-display-m</code> 28/32</td></tr>
+<tr><td data-l="规则">字距</td><td data-l="说明">默认 0。只有 28px 以上的标题收 −0.01em。不拉开字距做小标签</td></tr>
+<tr><td data-l="规则">行长</td><td data-l="说明">说明文字每行不超过 44 个汉字（约 44em）</td></tr>
+<tr><td data-l="规则">数字</td><td data-l="说明">表格数字列右对齐，开 <code>tabular-nums</code>，上下行的位数对齐</td></tr>
 </tbody></table></div>
 </section>
 
@@ -141,20 +141,20 @@
 <p class="p">PC 内容区用 12 列，栏间距 16px；手机用 4 列，栏间距 12px。常用的切法只有三种，不自由发挥。</p>
 <div class="stage"><div class="gridviz" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><p class="cap">PC 12 列：主内容 8 列 + 右栏 4 列（右栏固定 340px 时主内容自适应）。</p>
 <div class="gridviz m" style="margin-top:16px" aria-hidden="true"><i></i><i></i><i></i><i></i></div><p class="cap">手机 4 列：内容通栏，左右边距 16px。</p></div>
-<div class="tw"><table class="st">
+<div class="xs"><div class="tw"><table class="st data">
 <thead><tr><th>断点</th><th>宽度</th><th>导航</th><th>栅格</th><th>页面边距</th><th>表格</th></tr></thead>
 <tbody>
 <tr><td>PC</td><td class="n">≥ 1280</td><td>左侧栏 <code>--sidebar</code> 200px</td><td class="n">12 列，16px</td><td class="n">20px</td><td>完整列，40px 行</td></tr>
 <tr><td>小 PC、平板横屏</td><td class="n">1024–1279</td><td>图标栏 <code>--rail</code> 64px</td><td class="n">12 列，16px</td><td class="n">20px</td><td>隐藏次要列</td></tr>
 <tr><td>平板竖屏</td><td class="n">768–1023</td><td>图标栏 64px</td><td class="n">8 列，12px</td><td class="n">16px</td><td>右栏移到主内容下方</td></tr>
 <tr><td>手机</td><td class="n">&lt; 768</td><td>手机工作台：底部标签栏；其他页面：菜单按钮</td><td class="n">4 列，12px</td><td class="n">16px</td><td>工作台用列表行；其他页面表格在面板内横滑、首列固定</td></tr>
-</tbody></table></div>
+</tbody></table></div></div><p class="xs-hint">左右滑动查看全部列</p>
 <div class="tw"><table class="st">
 <thead><tr><th>常用布局</th><th>PC 切法</th><th>用在</th></tr></thead>
 <tbody>
-<tr><td>单栏</td><td>12 列通栏</td><td>列表页、表格页</td></tr>
-<tr><td>主栏 + 右栏</td><td><code>minmax(0,1fr) 340px</code></td><td>看板页、详情页的辅助信息</td></tr>
-<tr><td>居中窄栏</td><td>480px 居中</td><td>手机独立表单页在 PC 打开时</td></tr>
+<tr><td data-l="常用布局">单栏</td><td data-l="PC 切法">12 列通栏</td><td data-l="用在">列表页、表格页</td></tr>
+<tr><td data-l="常用布局">主栏 + 右栏</td><td data-l="PC 切法"><code>minmax(0,1fr) 340px</code></td><td data-l="用在">看板页、详情页的辅助信息</td></tr>
+<tr><td data-l="常用布局">居中窄栏</td><td data-l="PC 切法">480px 居中</td><td data-l="用在">手机独立表单页在 PC 打开时</td></tr>
 </tbody></table></div>
 </section>
 
@@ -163,7 +163,7 @@
 <div class="g2">
 <div>
 <h3 class="h" style="margin-top:var(--s-3)">圆角：容器越大越圆</h3>
-<div class="tw"><table class="st">
+<div class="xs"><div class="tw"><table class="st data">
 <thead><tr><th>token</th><th>值</th><th>用在</th></tr></thead>
 <tbody>
 <tr><td><code>--r-xs</code></td><td class="n">4px</td><td>状态标签、等级块、复选框</td></tr>
@@ -171,7 +171,7 @@
 <tr><td><code>--r-md</code></td><td class="n">10px</td><td>面板、指标条、轻提示</td></tr>
 <tr><td><code>--r-lg</code></td><td class="n">16px</td><td>弹窗、抽屉、底部弹层</td></tr>
 <tr><td><code>--r-pill</code></td><td class="n">999px</td><td>只给未读角标</td></tr>
-</tbody></table></div>
+</tbody></table></div></div><p class="xs-hint">左右滑动查看全部列</p>
 <p class="cap">嵌套时内层圆角 ≤ 外层圆角减去内边距，不出现内外一样圆。</p>
 </div>
 <div>
@@ -179,10 +179,10 @@
 <div class="tw"><table class="st">
 <thead><tr><th>层</th><th>写法</th></tr></thead>
 <tbody>
-<tr><td>页面</td><td><code>--c-bg</code>，无阴影</td></tr>
-<tr><td>面板</td><td><code>--c-surface-1</code>，无阴影、无描边</td></tr>
-<tr><td>面板里的选中、悬停</td><td><code>--c-surface-2</code> / <code>-3</code></td></tr>
-<tr><td>浮层（弹窗、下拉、轻提示）</td><td><code>--sh-overlay</code> + 1px <code>--c-line</code> 描边，下面加 <code>--c-overlay</code> 遮罩</td></tr>
+<tr><td data-l="层">页面</td><td data-l="写法"><code>--c-bg</code>，无阴影</td></tr>
+<tr><td data-l="层">面板</td><td data-l="写法"><code>--c-surface-1</code>，无阴影、无描边</td></tr>
+<tr><td data-l="层">面板里的选中、悬停</td><td data-l="写法"><code>--c-surface-2</code> / <code>-3</code></td></tr>
+<tr><td data-l="层">浮层（弹窗、下拉、轻提示）</td><td data-l="写法"><code>--sh-overlay</code> + 1px <code>--c-line</code> 描边，下面加 <code>--c-overlay</code> 遮罩</td></tr>
 </tbody></table></div>
 <p class="p"><b>为什么不用阴影：</b>黑底上阴影几乎看不见，加了只会让面板边缘发灰发脏；一页几十个面板都带阴影，阴影就失去了「它浮在上面」的意思。所以阴影只留给真正盖在内容上面的东西。</p>
 </div>
