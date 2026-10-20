@@ -71,9 +71,9 @@
   }
   function openDrawer(host) {
     const s = document.createElement("div"); s.className = "scrim"; s.style.placeItems = "stretch";
-    const d = document.createElement("aside"); d.className = "drawer"; d.setAttribute("role", "dialog"); d.setAttribute("aria-modal", "true"); d.setAttribute("aria-label", "示例科技详情");
+    const d = document.createElement("aside"); d.className = "drawer"; d.setAttribute("role", "dialog"); d.setAttribute("aria-modal", "true"); d.setAttribute("aria-label", "澜屿科技详情");
     if (host !== document.body) d.style.width = "min(320px, 100%)";
-    d.innerHTML = '<div class="drawer-h"><h2>示例科技</h2><span class="m-l num">999001</span><button class="x" aria-label="关闭" data-x>×</button></div><div class="drawer-b"><dl class="mgrid" style="grid-template-columns:1fr 1fr;padding:0"><div><dt>现价</dt><dd class="up">24.86</dd></div><div><dt>涨跌幅</dt><dd class="up">+1.30%</dd></div><div><dt>今开</dt><dd class="down">24.71</dd></div><div><dt>最高</dt><dd class="up">25.36</dd></div><div><dt>成交额</dt><dd>12.80亿</dd></div><div><dt>换手率</dt><dd>2.31%</dd></div></dl><p class="cap" style="margin-top:12px">示例数据，代码和名称为虚构。</p></div>';
+    d.innerHTML = '<div class="drawer-h"><h2>澜屿科技</h2><span class="m-l num">999001</span><button class="x" aria-label="关闭" data-x>×</button></div><div class="drawer-b"><dl class="mgrid" style="grid-template-columns:1fr 1fr;padding:0"><div><dt>现价</dt><dd class="up">24.86</dd></div><div><dt>涨跌幅</dt><dd class="up">+1.30%</dd></div><div><dt>今开</dt><dd class="down">24.71</dd></div><div><dt>最高</dt><dd class="up">25.36</dd></div><div><dt>成交额</dt><dd>12.80亿</dd></div><div><dt>换手率</dt><dd>2.31%</dd></div></dl><p class="cap" style="margin-top:12px">示例数据，代码和名称为虚构。</p></div>';
     host.appendChild(s); host.appendChild(d);
     const close = trap(d, () => leave([s, d], dur("--dur-base")));
     s.addEventListener("click", close); d.addEventListener("click", (e) => { if (e.target.closest("[data-x]")) close(); });
@@ -96,7 +96,7 @@
   $$("[data-demo='motion-overlay'] [data-mo]").forEach((b) => b.addEventListener("click", () => { const host = b.closest(".frame"); const k = b.dataset.mo; if (k === "dialog") openDialog(host); if (k === "drawer") openDrawer(host); if (k === "toast") toast(host, "已加入自选"); }));
 
   // ---------- 示例股票 ----------
-  const STOCKS = [["示例科技", "999001", 24.54, 1.3, 12.8], ["样例电子", "999002", 8.19, -0.86, 5.37], ["演示医药", "999003", 31.4, 0, 2.05], ["模拟能源", "999004", 6.02, 10.0, 9.12], ["示范银行", "999005", 4.87, 0.41, 3.66], ["样本材料", "999006", 15.33, -2.15, 4.4], ["远岫汽车", "999007", 41.2, -0.37, 7.95]];
+  const STOCKS = [["澜屿科技", "999001", 24.54, 1.3, 12.8], ["样例电子", "999002", 8.19, -0.86, 5.37], ["演示医药", "999003", 31.4, 0, 2.05], ["模拟能源", "999004", 6.02, 10.0, 9.12], ["示范银行", "999005", 4.87, 0.41, 3.66], ["样本材料", "999006", 15.33, -2.15, 4.4], ["远岫汽车", "999007", 41.2, -0.37, 7.95]];
 
   // 指标兼作筛选
   const mf = $("[data-demo='mfilter']");
@@ -183,7 +183,7 @@
     const tick = () => { data.forEach((_, i) => { if (rnd() < 0.5) move(i); }); stamp(); };
     const stop = () => { clearInterval(timer); timer = null; tbtn.textContent = "开始刷新"; };
     tbtn.addEventListener("click", () => { if (timer) stop(); else { tick(); timer = setInterval(tick, 1500); tbtn.textContent = "暂停刷新"; } });
-    tburst.addEventListener("click", () => { if (timer) stop(); let n = 0, f = 0; const go = () => { if (move(0)) f++; n++; if (n < 5) setTimeout(go, 200); else ttime.textContent = `示例科技 1 秒内变了 5 次，只闪了 ${f} 次；其余只换数`; }; go(); });
+    tburst.addEventListener("click", () => { if (timer) stop(); let n = 0, f = 0; const go = () => { if (move(0)) f++; n++; if (n < 5) setTimeout(go, 200); else ttime.textContent = `澜屿科技 1 秒内变了 5 次，只闪了 ${f} 次；其余只换数`; }; go(); });
     // 离开视口自动暂停，避免后台空转
     if ("IntersectionObserver" in window) new IntersectionObserver((es) => es.forEach((e) => { if (!e.isIntersecting && timer) stop(); })).observe(tk);
   }

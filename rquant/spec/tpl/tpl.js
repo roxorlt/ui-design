@@ -66,7 +66,7 @@ function shell(page) {
 const sign = (p) => (p > 0 ? "+" : p < 0 ? "−" : "") + Math.abs(p).toFixed(2) + "%";
 const dir = (p) => (p > 0 ? "up" : p < 0 ? "down" : "flat");
 function prng(seed) { let s = seed >>> 0; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); }
-const NAMES = ["示例科技", "样例电子", "演示医药", "模拟能源", "示范银行", "样本材料", "远岫汽车", "范例软件", "示例食品", "样例化工", "演示传媒", "模拟机械", "示范地产", "样本通信", "澈阳光伏", "范例证券", "示例家电", "样例物流", "演示农业", "模拟军工", "示范环保", "样本建材", "砚安保险", "范例旅游"];
+const NAMES = ["澜屿科技", "样例电子", "演示医药", "模拟能源", "示范银行", "样本材料", "远岫汽车", "范例软件", "示例食品", "样例化工", "演示传媒", "模拟机械", "示范地产", "样本通信", "澈阳光伏", "范例证券", "示例家电", "样例物流", "演示农业", "模拟军工", "示范环保", "样本建材", "砚安保险", "范例旅游"];
 function stocks(n, seed) { const r = prng(seed); return Array.from({ length: n }, (_, i) => { const pre = +(4 + r() * 60).toFixed(2); const p = +((r() - 0.45) * 8).toFixed(2); return { n: NAMES[i % NAMES.length] + (i >= NAMES.length ? " " + String.fromCharCode(65 + Math.floor(i / NAMES.length)) : ""), c: String(999001 + i), px: +(pre * (1 + p / 100)).toFixed(2), p, amt: +(1 + r() * 30).toFixed(2), turn: +(r() * 6).toFixed(2), vals: Array.from({ length: 24 }, () => r()) }; }).sort((a, b) => b.p - a.p); }
 function spark(v, up) { const lo = Math.min(...v), hi = Math.max(...v); const d = v.map((x, i) => `${i ? "L" : "M"}${(i / (v.length - 1) * 64).toFixed(1)},${(20 - (x - lo) / (hi - lo || 1) * 20).toFixed(1)}`).join(""); return `<svg class="spark ${up ? "up" : "down"}" viewBox="0 0 64 20" preserveAspectRatio="none" aria-hidden="true"><path class="base" d="M0,${(20 - (v[0] - lo) / (hi - lo || 1) * 20).toFixed(1)}H64"/><path class="line" d="${d}"/></svg>`; }
 function drawK(el, n) {

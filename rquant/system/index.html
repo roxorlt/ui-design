@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>rQuant 设计规范 初稿 v0.1</title>
+<title>rQuant 设计规范 v0.1</title>
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="components.css">
 <style>
@@ -123,8 +123,8 @@
   </nav>
   <div class="body">
     <section class="s" id="top">
-      <h1 class="doc-t">rQuant 设计规范　初稿 v0.1</h1>
-      <p class="lede">这份规范围绕一件事：把首屏让给主功能。数字要多，但要排得紧；标题、说明、装饰要少。讨论稿，未改动代码仓库。</p>
+      <h1 class="doc-t">rQuant 设计规范　v0.1</h1>
+      <p class="lede">这份规范围绕一件事：把首屏让给主功能。数字要多，但要排得紧；标题、说明、装饰要少。</p>
       <div class="ruler" aria-label="市场全景首屏构成，改前与改后">
         <figure class="rcol"><div class="rbar d"><span class="seg-chrome" style="height:6.22%"><em>顶栏 56</em></span><span class="seg-top" style="height:27.22%"><em>标题 + 指标 245</em></span><span class="seg-main" style="height:66.56%"><em>主功能 599</em></span></div><figcaption>电脑改前</figcaption></figure>
         <figure class="rcol"><div class="rbar d"><span class="seg-chrome" style="height:5.78%"><em>顶栏 52</em></span><span class="seg-top" style="height:9.11%"><em>指标 82</em></span><span class="seg-main" style="height:85.11%"><em>主功能 766</em></span></div><figcaption>电脑改后</figcaption></figure>
@@ -343,7 +343,7 @@
         <div class="field"><label for="i1">方案名称</label><input class="input" id="i1" placeholder="命名当前条件"></div>
         <div class="field"><label for="i2">股票代码</label><input class="input" id="i2" value="99900" aria-invalid="true" aria-describedby="e2"><span class="err" id="e2">代码是 6 位数字，例如 999001</span></div>
         <div class="field"><label for="i3">已锁定的参数</label><input class="input" id="i3" value="v1 冻结" disabled></div>
-        <div class="field"><label for="i4">搜索</label><input class="input" id="i4" placeholder="代码 / 名称，如 999001 或 示例科技"></div>
+        <div class="field"><label for="i4">搜索</label><input class="input" id="i4" placeholder="代码 / 名称，如 999001 或 澜屿科技"></div>
       </div>
       <h3>提示</h3>
       <div class="stage" style="display:grid;gap:8px">
@@ -389,9 +389,9 @@
       </ul>
       <div class="cols2">
         <div class="stage" style="padding:12px"><ul class="listrow">
-          <li><span class="n ellipsis">示例科技 999001</span><span class="v up">+1.30%</span><span class="s num">现价 24.86　成交 12.80亿</span><span class="s" style="text-align:right">涨跌幅</span></li>
+          <li><span class="n ellipsis">澜屿科技 999001</span><span class="v up">+1.30%</span><span class="s num">现价 24.86　成交 12.80亿</span><span class="s" style="text-align:right">涨跌幅</span></li>
           <li><span class="n ellipsis">样例电子 999002</span><span class="v down">−0.86%</span><span class="s num">现价 8.12　成交 5.37亿</span><span class="s" style="text-align:right">涨跌幅</span></li>
-        </ul><p class="cap">手机列表示意，股票代码、名称和数值均为虚构。</p></div>
+        </ul></div>
         <div><p>宽表在手机上只看得到「名称」一列。改成列表项后，一屏能看到约 10 行各自最关键的数。</p></div>
       </div>
       <h3>长页面分区与折叠</h3>
@@ -459,14 +459,14 @@
       </ul>
       <h3>自查后改掉的</h3>
       <ul class="rules">
-        <li><b>数字字体：</b>初稿沿用现有的 IBM Plex Mono。等宽编程字体是「数据标签用等宽字」的俗套，而且同一串数字比窄体宽约 22%（253px 对 208px），和屏效目标冲突。改为 Plex Sans Condensed 加 <code>tnum</code>，照样上下对齐。</li>
-        <li><b>指标条的格子线：</b>初稿每个指标一个描边格子（现状写法），读起来就是「一排小卡片」。改为整条一个面板，格间只用短竖线。</li>
-        <li><b>页面标题：</b>初稿保留「眉标 + 大标题 + 副标题」三行。这是模板化的标题区，且眉标和左侧导航重复。改为标题进顶栏，副标题缩成一行说明。</li>
+        <li><b>数字字体：</b>原写法沿用现有的 IBM Plex Mono。等宽编程字体是「数据标签用等宽字」的俗套，而且同一串数字比窄体宽约 22%（253px 对 208px），和屏效目标冲突。改为 Plex Sans Condensed 加 <code>tnum</code>，照样上下对齐。</li>
+        <li><b>指标条的格子线：</b>原写法每个指标一个描边格子（现状写法），读起来就是「一排小卡片」。改为整条一个面板，格间只用短竖线。</li>
+        <li><b>页面标题：</b>原写法保留「眉标 + 大标题 + 副标题」三行。这是模板化的标题区，且眉标和左侧导航重复。改为标题进顶栏，副标题缩成一行说明。</li>
         <li><b>暗色作为默认：</b>考虑过「深底 + 荧光绿」的交易终端风格，但这是另一种俗套，金融小白在白天看也吃力。默认浅色，深色作为跟随系统的备选。</li>
-        <li><b>圆角统一：</b>初稿所有东西 8px。改为 4 / 6 / 10 三档，按容器层级递增。</li>
+        <li><b>圆角统一：</b>原写法所有东西 8px。改为 4 / 6 / 10 三档，按容器层级递增。</li>
       </ul>
     </section>
-    <p class="cap" style="margin-top:40px">变量文件：<a href="tokens.css">tokens.css</a>、<a href="tokens.json">tokens.json</a>；组件样式：<a href="components.css">components.css</a>。初稿 v0.1，2026-10-20。</p>
+    <p class="cap" style="margin-top:40px">变量文件：<a href="tokens.css">tokens.css</a>、<a href="tokens.json">tokens.json</a>；组件样式：<a href="components.css">components.css</a>。v0.1，2026-10-20。</p>
   </div>
 </div>
 </body>
