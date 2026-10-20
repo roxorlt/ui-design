@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>设计原则，门店通设计规范</title>
+<link rel="stylesheet" href="../system/tokens.css">
+<link rel="stylesheet" href="../system/components.css">
+<link rel="stylesheet" href="spec.css">
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<div class="toc-bar"><b>门店通设计规范</b><span>1 设计原则</span><button class="btn btn-secondary" id="tocBtn" type="button" aria-controls="toc" aria-expanded="false">目录</button></div>
+<div class="doc">
+<nav class="toc" id="toc" aria-label="规范目录">
+<a class="toc-brand" href="index.html">门店通设计规范</a>
+<span class="toc-ver">v1.0，2026-10-20</span><ol>
+<li><a class="ch" href="index.html"><span class="no"></span>概览</a>
+</li>
+<li><a class="ch" href="principles.html" aria-current="page"><span class="no">1</span>设计原则</a>
+<ol class="sub"><li><a href="#p1">一屏一个主数字</a></li><li><a href="#p2">先给要处理的事</a></li><li><a href="#p3">颜色只在需要时亮</a></li><li><a href="#p4">数字可以点</a></li><li><a href="#p5">字段各自独立，动作说成一句话</a></li><li><a href="#density">屏效规则</a></li></ol>
+</li>
+<li><a class="ch" href="foundations.html"><span class="no">2</span>基础</a>
+</li>
+<li><a class="ch" href="components.html"><span class="no">3</span>组件</a>
+</li>
+<li><a class="ch" href="patterns.html"><span class="no">4</span>交互模式</a>
+</li>
+<li><a class="ch" href="motion.html"><span class="no">5</span>页面动效</a>
+</li>
+<li><a class="ch" href="templates.html"><span class="no">6</span>页面模板</a>
+</li>
+<li><a class="ch" href="adapt.html"><span class="no">7</span>跨端、无障碍、文案</a>
+</li>
+<li><a class="ch" href="appendix.html"><span class="no"></span>附录</a>
+</li>
+</ol><div class="toc-foot"><a href="../index.html">返回门店通设计入口</a><a href="../system/index.html">组件库</a><a href="../system/tokens.css">tokens.css</a><a href="../system/tokens.json">tokens.json</a></div></nav>
+<main id="main">
+<header class="page-h"><p class="crumb">第 1 章</p><h1>设计原则</h1><p class="lede">门店通像一块汽车仪表盘：车速表最大，油量水温很小，警示灯平时不亮，亮了就是要你处理。下面 5 条原则都从这个比喻出发，每条配一组用组件库直接渲染的正反例。</p></header>
+<section class="sec" id="p1">
+<h2>一屏一个主数字</h2>
+<p class="p">每页只有一个 32px 的主数字（<code>.metric--hero</code>），其余指标写成 20px 的副数字，排进一条指标条。几个数字一样大，就等于没有重点。</p>
+<div class="dd">
+<figure class="yes"><figcaption>✓ 这样做</figcaption>
+<div class="mstrip" aria-label="指标条示例">
+<div class="metric metric--hero"><span class="l">近 30 天线索</span><span class="v num">8,456<small>条</small></span><span class="d up">▲ 1,510</span></div>
+<div class="metric"><span class="l">播放</span><span class="v num">1.48<small>亿</small></span><span class="d up">▲ 1,792万</span></div>
+<div class="metric"><span class="l">留资率</span><span class="v num">0.49<small>%</small></span><span class="d down">▼ 0.02</span></div>
+<div class="metric"><span class="l">门店</span><span class="v num">48<small>家</small></span><span class="d flat">持平</span></div>
+</div>
+<p>一条指标条，高 88px。最关键的「线索」是主数字，其他三个是副数字。对比周期只在页面标题旁写一次。</p>
+</figure>
+<figure class="no"><figcaption>✕ 不要这样</figcaption>
+<div class="bad-grid" aria-hidden="true">
+<div class="bad-card"><div class="k">近 30 天线索</div><div class="v num">8,456</div></div>
+<div class="bad-card"><div class="k">播放</div><div class="v num">1.48亿</div></div>
+<div class="bad-card"><div class="k">留资率</div><div class="v num">0.49%</div></div>
+<div class="bad-card"><div class="k">门店</div><div class="v num">48</div></div>
+</div>
+<p>四张一样大的卡，渐变底、灰阴影、字距拉开的小标签。高 230px，看不出哪个数最重要。</p>
+</figure>
+</div>
+</section>
+
+<section class="sec" id="p2">
+<h2>先给要处理的事</h2>
+<p class="p">掉队的门店、待跟进的线索、失败的发布，这些要动手的内容首屏必须露出前几行。趋势和统计放到右栏或下方。</p>
+<div class="dd">
+<figure class="yes"><figcaption>✓ 这样做</figcaption>
+<div class="panel">
+<div class="panel-h"><h2>掉队门店 6</h2><div class="aside"><button class="btn btn-secondary">提醒这 6 家店长</button></div></div>
+<table class="tbl"><thead><tr><th>门店</th><th>健康分</th><th class="r">本周发布</th></tr></thead><tbody>
+<tr><td class="main">长沙星驰星沙店</td><td><span class="health bad">42<i><b style="width:42%"></b></i></span></td><td class="r">1</td></tr>
+<tr><td class="main">太原星驰长风店</td><td><span class="health bad">44<i><b style="width:44%"></b></i></span></td><td class="r">0</td></tr>
+<tr><td class="main">南昌星驰红谷店</td><td><span class="health bad">51<i><b style="width:51%"></b></i></span></td><td class="r">2</td></tr>
+<tr><td class="main">贵阳星驰观山湖店</td><td><span class="health bad">55<i><b style="width:55%"></b></i></span></td><td class="r">1</td></tr>
+</tbody></table>
+</div>
+<p>标题写清数量，表格紧跟指标条，批量动作写在标题行。</p>
+</figure>
+<figure class="no"><figcaption>✕ 不要这样</figcaption>
+<div class="panel" aria-hidden="true">
+<div class="panel-h"><h2>播放趋势</h2></div>
+<div style="height:150px;margin:0 16px 16px;border-radius:6px;background:var(--c-surface-2)"></div>
+<div class="panel-h"><h2>预警</h2></div>
+<table class="tbl"><tbody><tr><td class="main">长沙星驰星沙店</td><td class="r">42</td></tr></tbody></table>
+</div>
+<p>趋势图放在最上面，要处理的门店只露出 1 行，标题也不说有几家。</p>
+</figure>
+</div>
+</section>
+
+<section class="sec" id="p3">
+<h2>颜色只在需要时亮</h2>
+<p class="p">界面平时是黑白灰。琥珀只表示「需要你处理」，红只表示失败或下降，绿只表示完成或上升，蓝只表示进行中、链接和焦点。颜色永远配文字或符号，不单独表意。</p>
+<div class="dd">
+<figure class="yes"><figcaption>✓ 这样做</figcaption>
+<div class="panel">
+<table class="tbl"><thead><tr><th>任务</th><th>状态</th><th class="r">进度</th></tr></thead><tbody>
+<tr><td class="main">星驰 X5 30 秒口播视频</td><td><span class="tag tag-accent">待你确认</span></td><td class="r">3/5</td></tr>
+<tr><td class="main">周末到店直播</td><td><span class="tag tag-info">进行中</span></td><td class="r">1/2</td></tr>
+<tr><td class="main">本周新车视频</td><td><span class="tag tag-pos">已完成</span></td><td class="r">5/5</td></tr>
+<tr><td class="main">冬季保养专题</td><td><span class="tag">未开始</span></td><td class="r">0/3</td></tr>
+</tbody></table>
+</div>
+<p>四行里只有一个琥珀，眼睛直接落到要处理的那一行。</p>
+</figure>
+<figure class="no"><figcaption>✕ 不要这样</figcaption>
+<div class="panel" aria-hidden="true">
+<table class="tbl"><thead><tr><th style="color:var(--c-accent)">任务</th><th style="color:var(--c-accent)">状态</th><th class="r" style="color:var(--c-accent)">进度</th></tr></thead><tbody>
+<tr><td class="main" style="color:var(--c-accent)">星驰 X5 30 秒口播视频</td><td><span class="tag tag-accent">待你确认</span></td><td class="r" style="color:var(--c-negative)">3/5</td></tr>
+<tr><td class="main">周末到店直播</td><td><span class="tag tag-accent">进行中</span></td><td class="r" style="color:var(--c-positive)">1/2</td></tr>
+<tr><td class="main">本周新车视频</td><td><span class="tag tag-neg">已完成</span></td><td class="r" style="color:var(--c-negative)">5/5</td></tr>
+<tr><td class="main">冬季保养专题</td><td><span class="tag tag-accent">未开始</span></td><td class="r">0/3</td></tr>
+</tbody></table>
+</div>
+<p>琥珀拿来做装饰，红绿随手用。用户分不出哪一行真的要处理。</p>
+</figure>
+</div>
+</section>
+
+<section class="sec" id="p4">
+<h2>数字可以点</h2>
+<p class="p">能当筛选的指标就做成筛选芯片：「待跟进 158」不只是展示，点了就筛出这 158 条。省掉一整排大卡和一个下拉框。</p>
+<div class="dd">
+<figure class="yes"><figcaption>✓ 这样做</figcaption>
+<div class="chips" role="group" aria-label="线索状态">
+<button class="chip" aria-pressed="false">全部 <span class="n">186</span></button>
+<button class="chip" aria-pressed="true">待跟进 <span class="n">158</span></button>
+<button class="chip warn" aria-pressed="false">超 2 小时 <span class="n">3</span></button>
+<button class="chip" aria-pressed="false">已到店 <span class="n">25</span></button>
+</div>
+<p>指标区只有 32px 高。超时数用琥珀，因为它要你马上处理。</p>
+</figure>
+<figure class="no"><figcaption>✕ 不要这样</figcaption>
+<div aria-hidden="true">
+<div class="bad-grid"><div class="bad-card"><div class="k">待跟进</div><div class="v num">158</div></div><div class="bad-card"><div class="k">超 2 小时</div><div class="v num">3</div></div></div>
+<div class="field" style="margin-top:12px;max-width:200px"><select class="input" tabindex="-1"><option>状态：全部</option></select></div>
+</div>
+<p>数字放在卡里只能看，筛选又另做一个下拉框，同一件事说了两遍。</p>
+</figure>
+</div>
+</section>
+
+<section class="sec" id="p5">
+<h2>字段各自独立，动作说成一句话</h2>
+<p class="p">并列的元信息（来源、时间、负责人）用 <code>.meta</code> 排成独立的文字，间距 12px，不用「·」「｜」去拼。动作和数量写成一个短语。</p>
+<div class="dd">
+<figure class="yes"><figcaption>✓ 这样做</figcaption>
+<div class="panel" style="padding:16px;display:grid;gap:8px">
+<b style="font:var(--t-title-2)">星驰 X5 30 秒口播视频</b>
+<div class="meta"><span>总部</span><span class="num">10-14 至 10-20</span><span>负责人 店长</span></div>
+<p style="font:var(--t-small);color:var(--c-text-2)">催办 30 家门店，已读 1 / 30</p>
+</div>
+<p>三个字段三个元素，靠间距分开；一句话里用中文逗号。</p>
+</figure>
+<figure class="no"><figcaption>✕ 不要这样</figcaption>
+<div class="panel" style="padding:16px;display:grid;gap:8px" aria-hidden="true">
+<b style="font:var(--t-title-2)">星驰 X5 30 秒口播视频</b>
+<p style="font:var(--t-caption);color:var(--c-text-3)">总部 · 10-14 至 10-20 · 负责人：店长 | 演示数据</p>
+<p style="font:var(--t-small);color:var(--c-text-2)">催办 · 30 家门店 · 已读 1/30</p>
+</div>
+<p>分隔符堆在一起，读屏会念出「点」，换行时符号还会落到行首。</p>
+</figure>
+</div>
+</section>
+
+<section class="sec" id="density">
+<h2>屏效规则</h2>
+<p class="p">前 4 条原则落到尺寸上，就是下面这张验收表。测法：在 PC 1440×900、手机 390×844 下读元素位置，不靠目测。内容区 = 视口减去导航（PC 侧栏，手机底部标签栏）。</p>
+<div class="tw"><table class="st">
+<thead><tr><th>规则</th><th>PC</th><th>手机工作台</th><th>对应 token 或组件</th></tr></thead>
+<tbody>
+<tr><td>主数字</td><td class="n">每页 1 个</td><td class="n">每页 1 个</td><td><code>.metric--hero</code></td></tr>
+<tr><td>指标条高度</td><td class="n">≤ 108px，只占一行</td><td class="n">≤ 136px</td><td><code>.mstrip</code>，默认 <code>--metric-strip-pc</code> 72px</td></tr>
+<tr><td>主内容首屏面积</td><td class="n">≥ 内容区 50%</td><td class="n">≥ 内容区 60%</td><td>主表格或主列表</td></tr>
+<tr><td>表格行高</td><td class="n">40px（紧凑 36px）</td><td>列表行 ≥ 56px</td><td><code>--row-pc</code>、<code>--row-m</code></td></tr>
+<tr><td>主列表首屏行数</td><td class="n">≥ 12 行</td><td class="n">≥ 5 条</td><td><code>.tbl</code>、<code>.li</code></td></tr>
+<tr><td>指标兼作筛选</td><td colspan="2">能筛选的指标做成芯片或可点的指标，点了就筛</td><td><code>.chip</code>、<code>button.metric</code></td></tr>
+<tr><td>触控区</td><td>—</td><td class="n">≥ 44×44px，相邻 ≥ 8px</td><td><code>--touch-min</code></td></tr>
+<tr><td>顶栏</td><td class="n">52px</td><td class="n">48px</td><td><code>--topbar-pc</code>、<code>--topbar-m</code></td></tr>
+</tbody></table></div>
+<p class="cap">手机列只考核手机工作台和手机独立表单页。其他页面在手机宽度下只要求不错位、能看能点，见第 7 章。</p>
+</section>
+
+<nav class="pg-nav" aria-label="翻页"><a href="index.html"><span>上一章</span>概览</a><a href="foundations.html"><span>下一章</span>2 基础</a></nav>
+</main>
+</div>
+<script src="spec.js"></script>
+</body>
+</html>

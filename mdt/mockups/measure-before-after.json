@@ -26,7 +26,7 @@
    "rowH": 40,
    "rowsFirstScreen": 14
   },
-  "beforeURL": "mdt-demo 线上 demo #/dashboard?role=hq",
+  "beforeURL": "门店通演示版，驾驶舱页，总部视角",
   "afterURL": "mockups/dashboard.html"
  },
  "dashboard/m": {
@@ -56,7 +56,7 @@
    "rowH": 45,
    "rowsFirstScreen": 8
   },
-  "beforeURL": "mdt-demo 线上 demo #/dashboard?role=hq",
+  "beforeURL": "门店通演示版，驾驶舱页，总部视角",
   "afterURL": "mockups/dashboard.html"
  },
  "leads/pc": {
@@ -86,7 +86,7 @@
    "rowH": 40,
    "rowsFirstScreen": 18
   },
-  "beforeURL": "mdt-demo 线上 demo #/leads?role=hq",
+  "beforeURL": "门店通演示版，线索列表页，总部视角",
   "afterURL": "mockups/leads.html"
  },
  "leads/m": {
@@ -116,7 +116,7 @@
    "rowH": 89,
    "rowsFirstScreen": 7
   },
-  "beforeURL": "mdt-demo 线上 demo #/leads?role=store",
+  "beforeURL": "门店通演示版，线索列表页，店长视角",
   "afterURL": "mockups/mobile-leads.html"
  }
 }

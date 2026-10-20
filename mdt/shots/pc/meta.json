@@ -1,92 +1,92 @@
 [
  {
   "name": "01-login",
-  "route": "#/login",
-  "scrollHeight": 900
+  "scrollHeight": 900,
+  "page": "登录页"
  },
  {
   "name": "02-dashboard-hq",
-  "route": "#/dashboard?role=hq",
-  "scrollHeight": 1238
+  "scrollHeight": 1238,
+  "page": "驾驶舱页，总部视角"
  },
  {
   "name": "03-dashboard-region",
-  "route": "#/dashboard?role=region",
-  "scrollHeight": 1309
+  "scrollHeight": 1309,
+  "page": "驾驶舱页，大区视角"
  },
  {
   "name": "04-dashboard-store",
-  "route": "#/dashboard?role=store",
-  "scrollHeight": 1029
+  "scrollHeight": 1029,
+  "page": "驾驶舱页，店长视角"
  },
  {
   "name": "05-stores",
-  "route": "#/stores?role=hq",
-  "scrollHeight": 2436
+  "scrollHeight": 2436,
+  "page": "门店矩阵页，总部视角"
  },
  {
   "name": "06-store-detail",
-  "route": "#/stores/13?role=hq",
-  "scrollHeight": 901
+  "scrollHeight": 901,
+  "page": "门店详情页，总部视角"
  },
  {
   "name": "07-leads",
-  "route": "#/leads?role=hq",
-  "scrollHeight": 2518
+  "scrollHeight": 2518,
+  "page": "线索列表页，总部视角"
  },
  {
   "name": "08-lead-detail",
-  "route": "#/leads/XS26101400?role=hq",
-  "scrollHeight": 2518
+  "scrollHeight": 2518,
+  "page": "线索详情，总部视角"
  },
  {
   "name": "09-ai",
-  "route": "#/ai?role=hq",
-  "scrollHeight": 1025
+  "scrollHeight": 1025,
+  "page": "AI 创作页，总部视角"
  },
  {
   "name": "10-live",
-  "route": "#/live?role=hq",
-  "scrollHeight": 1094
+  "scrollHeight": 1094,
+  "page": "直播间页，总部视角"
  },
  {
   "name": "11-live-detail",
-  "route": "#/live/1?role=hq",
-  "scrollHeight": 931
+  "scrollHeight": 931,
+  "page": "直播详情页，总部视角"
  },
  {
   "name": "12-pk",
-  "route": "#/pk?role=hq",
-  "scrollHeight": 1090
+  "scrollHeight": 1090,
+  "page": "PK 榜页，总部视角"
  },
  {
   "name": "13-tasks",
-  "route": "#/tasks?role=hq",
-  "scrollHeight": 1237
+  "scrollHeight": 1237,
+  "page": "任务中心页，总部视角"
  },
  {
   "name": "14-tasks-store",
-  "route": "#/tasks?role=store",
-  "scrollHeight": 900
+  "scrollHeight": 900,
+  "page": "任务中心页，店长视角"
  },
  {
   "name": "15-publish",
-  "route": "#/publish?role=hq",
-  "scrollHeight": 900
+  "scrollHeight": 900,
+  "page": "内容分发页，总部视角"
  },
  {
   "name": "16-mobile",
-  "route": "#/mobile?role=store",
-  "scrollHeight": 985
+  "scrollHeight": 985,
+  "page": "手机工作台，店长视角"
  },
  {
   "name": "17-roles",
-  "route": "#/roles?role=hq",
-  "scrollHeight": 907
+  "scrollHeight": 907,
+  "page": "角色与权限页，总部视角"
  },
  {
   "name": "18-leads-sales",
-  "route": "#/leads?role=sales",
-  "scrollHeight": 900
+  "scrollHeight": 900,
+  "page": "线索列表页，顾问视角"
  }
 ]

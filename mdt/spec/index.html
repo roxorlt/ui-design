@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>门店通设计规范 v1.0</title>
+<link rel="stylesheet" href="../system/tokens.css">
+<link rel="stylesheet" href="../system/components.css">
+<link rel="stylesheet" href="spec.css">
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<div class="toc-bar"><b>门店通设计规范</b><span>概览</span><button class="btn btn-secondary" id="tocBtn" type="button" aria-controls="toc" aria-expanded="false">目录</button></div>
+<div class="doc">
+<nav class="toc" id="toc" aria-label="规范目录">
+<a class="toc-brand" href="index.html">门店通设计规范</a>
+<span class="toc-ver">v1.0，2026-10-20</span><ol>
+<li><a class="ch" href="index.html" aria-current="page"><span class="no"></span>概览</a>
+<ol class="sub"><li><a href="#chapters">章节</a></li><li><a href="#use">怎么用这份手册</a></li><li><a href="#owner">负责人</a></li><li><a href="#log">更新记录</a></li><li><a href="#change">新增或修改组件的流程</a></li></ol>
+</li>
+<li><a class="ch" href="principles.html"><span class="no">1</span>设计原则</a>
+</li>
+<li><a class="ch" href="foundations.html"><span class="no">2</span>基础</a>
+</li>
+<li><a class="ch" href="components.html"><span class="no">3</span>组件</a>
+</li>
+<li><a class="ch" href="patterns.html"><span class="no">4</span>交互模式</a>
+</li>
+<li><a class="ch" href="motion.html"><span class="no">5</span>页面动效</a>
+</li>
+<li><a class="ch" href="templates.html"><span class="no">6</span>页面模板</a>
+</li>
+<li><a class="ch" href="adapt.html"><span class="no">7</span>跨端、无障碍、文案</a>
+</li>
+<li><a class="ch" href="appendix.html"><span class="no"></span>附录</a>
+</li>
+</ol><div class="toc-foot"><a href="../index.html">返回门店通设计入口</a><a href="../system/index.html">组件库</a><a href="../system/tokens.css">tokens.css</a><a href="../system/tokens.json">tokens.json</a></div></nav>
+<main id="main">
+<header class="page-h"><p class="crumb">门店通设计规范</p><h1>门店通设计规范</h1><p class="lede">门店通是给汽车经销商用的新媒体营销后台。总部和大区在电脑前横向比几十家门店，店长、新媒体专员和销售顾问在展厅里拿手机跟进线索。这份手册写给做页面的人：照着它，不看旧页面也能做出一致的新页面。</p>
+<div class="facts"><div><b>v1.0</b>当前版本</div><div><b>2026-10-20</b>发布日期</div><div><b>黑色</b>主色</div><div><b>46 个</b>组件，其中 15 个 v1.4 规划</div></div></header>
+<section class="sec" id="chapters">
+<h2>章节</h2>
+<ol class="chap">
+<li><a href="principles.html"><span class="no">1</span><b>设计原则</b><span>一屏一个主数字，先给要处理的事，颜色只在需要时亮，数字可以点，字段各自独立</span></a></li>
+<li><a href="foundations.html"><span class="no">2</span><b>基础</b><span>色彩和对比度、字阶、间距、栅格和断点、圆角和阴影、图标</span></a></li>
+<li><a href="components.html"><span class="no">3</span><b>组件</b><span>31 个现有组件和 15 个 v1.4 规划组件，各自的结构、尺寸、状态和用法</span></a></li>
+<li><a href="patterns.html"><span class="no">4</span><b>交互模式</b><span>导航、筛选和搜索、表格和列表、表单和校验、弹窗和抽屉、反馈、空、加载、错误</span></a></li>
+<li><a href="motion.html"><span class="no">5</span><b>页面动效</b><span>动效 token、页面切换、弹层进出、列表加载、数字变化、按压反馈、骨架屏</span></a></li>
+<li><a href="templates.html"><span class="no">6</span><b>页面模板</b><span>列表页、详情页、看板页，PC 和手机各一套</span></a></li>
+<li><a href="adapt.html"><span class="no">7</span><b>跨端、无障碍、文案</b><span>断点行为、iOS、安卓、Web、小程序差异，无障碍底线，数字日期和按钮写法</span></a></li>
+<li><a href="appendix.html"><span class="no"></span><b>附录</b><span>v0.1 走查、屏效前后对比、改版说明</span></a></li>
+</ol>
+</section>
+
+<section class="sec" id="use">
+<h2>怎么用这份手册</h2>
+<div class="tw"><table class="st">
+<thead><tr><th>你要做的事</th><th>先看</th><th>再看</th></tr></thead>
+<tbody>
+<tr><td>做一个新页面</td><td><a href="templates.html">6 页面模板</a>，挑最像的一套</td><td><a href="principles.html#density">屏效规则</a>，交付前逐条量</td></tr>
+<tr><td>页面里缺一个控件</td><td><a href="components.html">3 组件</a>，按用途找</td><td>库里没有：走下面的<a href="#change">变更流程</a>，不在页面里临时造</td></tr>
+<tr><td>写按钮、提示、报错</td><td><a href="adapt.html#copy">文案</a></td><td><a href="patterns.html#feedback">反馈提示</a></td></tr>
+<tr><td>接 token</td><td><code>../system/tokens.css</code>（CSS 变量），<code>../system/tokens.json</code>（同一份数据）</td><td><a href="foundations.html">2 基础</a>里的 token 名</td></tr>
+<tr><td>验收页面</td><td><a href="adapt.html#a11y">无障碍</a>和<a href="principles.html#density">屏效规则</a></td><td>各组件的「状态」一栏</td></tr>
+</tbody></table></div>
+<p class="p">写法约定：<code>--xxx</code> 是 tokens.css 里的变量，<code>.xxx</code> 是 components.css 里的类名。页面里不写行内样式，不写死色值和像素。</p>
+</section>
+
+<section class="sec" id="owner">
+<h2>负责人</h2>
+<div class="tw"><table class="st">
+<thead><tr><th>角色</th><th>负责什么</th><th>交付物</th></tr></thead>
+<tbody>
+<tr><td>UI 设计</td><td>规范负责人：维护本手册、组件库和 tokens；审核新增或修改组件；变更后逐页走查</td><td>spec/、system/、更新记录</td></tr>
+<tr><td>前端开发</td><td>实现：引用 tokens 和组件类搭页面；发现库里缺组件时提给 UI 设计</td><td>页面代码，不含行内样式</td></tr>
+<tr><td>测试</td><td>验收：按屏效规则、无障碍底线和组件状态逐项检查</td><td>验收记录，过 / 不过</td></tr>
+</tbody></table></div>
+</section>
+
+<section class="sec" id="log">
+<h2>更新记录</h2>
+<div class="tw"><table class="st">
+<thead><tr><th>版本</th><th>日期</th><th>改了什么</th><th>为什么</th><th>影响哪些组件</th></tr></thead>
+<tbody>
+<tr><td class="n">v1.0</td><td class="n">2026-10-20</td><td>补成正式手册：设计原则配正反例；基础、组件、交互模式、页面模板、跨端、无障碍、文案按章写全；新增「页面动效」一章和动效 token（<code>--dur-*</code>、<code>--ease-*</code>、<code>--shift-*</code>）；v1.4 规划组件 A01–A15 进组件章；v0.1 的走查和对比挪到附录；组件库补两处：危险按钮加悬停样式（6% 红底、描边转实色），表格复选框外包 <code>label.hit</code>，手机宽度下点击区 44 × 44px；芯片、分段控件、树展开按钮用透明伪元素把手机点击区补到 ≥ 44 × 44px，看得见的尺寸不变</td><td>v0.1 读起来像整改清单，新人照着做不出一致的新页面；触控区 ≥ 44px 是底线，权限表复选框原来只有 16px</td><td>按钮 <code>.btn-danger</code>；权限表 <code>.tbl.perm</code>；批量选择表格（A05）；筛选芯片 <code>.chip</code>；分段控件 <code>.seg</code>；组织树（A10）展开按钮。新增动效 token，旧名 <code>--m-fast</code>、<code>--m-base</code>、<code>--m-ease</code> 保留且值不变</td></tr>
+<tr><td class="n">v0.1</td><td class="n">2026-10-20</td><td>初版定稿：tokens、基础组件、业务组件；主色定为黑色</td><td>统一字号、间距、圆角和颜色，提高屏效</td><td>全部组件</td></tr>
+</tbody></table></div>
+</section>
+
+<section class="sec" id="change">
+<h2>新增或修改组件的流程</h2>
+<p class="p"><b>规则：页面里不临时造组件，先进库再用。</b>库里没有或不合适，就走下面 6 步。第 6 步全部对上，变更才算结束。</p>
+<ol class="flow">
+<li><div><b>提需求</b><span class="who">产品、前端开发、测试，任何人</span></div><p>发现库里没有或不合适，提给 UI 设计。写清三件事：哪个页面，什么场景，现在的截图。</p></li>
+<li><div><b>改库</b><span class="who">UI 设计</span></div><p>先改组件库和 tokens，不先改页面。写更新记录：改了什么、为什么、影响哪些组件。</p></li>
+<li><div><b>升版本号</b><span class="who">UI 设计</span></div><p>大改升主版本（v1.0 → v2.0，如换主色、改字阶）；新增组件或 token 升次版本（v1.0 → v1.1）；微调升修订号（v1.1.0 → v1.1.1，如改一个状态的颜色）。</p></li>
+<li><div><b>同步</b><span class="who">UI 设计</span></div><p>按组件使用清单列出受影响的页面，把 tokens 文件和变更清单同步给前端开发和测试。</p></li>
+<li><div><b>实现</b><span class="who">前端开发</span></div><p>引用新的 tokens 和组件类实现，不复制样式，不写行内样式。</p></li>
+<li class="end"><div><b>走查</b><span class="who">UI 设计，测试一起验收</span></div><p>逐页走查受影响页面，全部和库对上，变更结束。对不上的回到第 5 步。</p></li>
+</ol>
+<div class="tw"><table class="st">
+<thead><tr><th>变更类型</th><th>例子</th><th>版本号</th><th>要不要走查全部页面</th></tr></thead>
+<tbody>
+<tr><td>大改</td><td>换主色、改字阶、删组件</td><td class="n">主版本 +1</td><td>要</td></tr>
+<tr><td>新增</td><td>新组件、新 token、组件新状态</td><td class="n">次版本 +1</td><td>只走查用到的页面</td></tr>
+<tr><td>微调</td><td>改一个状态的颜色、修尺寸偏差</td><td class="n">修订号 +1</td><td>只走查用到的页面</td></tr>
+</tbody></table></div>
+</section>
+
+<nav class="pg-nav" aria-label="翻页"><a href="principles.html"><span>下一章</span>1 设计原则</a></nav>
+</main>
+</div>
+<script src="spec.js"></script>
+</body>
+</html>

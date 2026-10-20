@@ -1,4 +1,4 @@
-/* 门店通 · 基础组件样式（规范页和改后示意共用）。依赖 tokens.css。 */
+/* 门店通基础组件样式 v1.0（2026-10-20）。依赖 tokens.css。v1.0 新增：危险按钮悬停、权限表复选框点击区（表格内 label.hit，权限表和批量选择共用）、悬停状态类 .is-hover（只给规范页展示静态悬停用）。 */
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
 body{background:var(--c-bg);color:var(--c-text-1);font:var(--t-body);-webkit-font-smoothing:antialiased}
@@ -26,7 +26,7 @@ a{color:var(--c-info);text-decoration:none}
 .metric--hero{flex:1.6 1 0}
 .metric--hero .v{font:var(--t-display)}
 .metric--hero .v small{font:var(--t-small)}
-a.metric:hover,button.metric:hover{background:var(--c-surface-2)}
+a.metric:hover,button.metric:hover,.metric.is-hover{background:var(--c-surface-2)}
 .metric.is-on{background:var(--c-surface-2)}
 .metric.is-on::after{content:"";position:absolute;left:var(--s-5);right:var(--s-5);bottom:0;height:2px;background:var(--c-text-1);border-radius:2px}
 .up{color:var(--c-positive)} .down{color:var(--c-negative)} .flat{color:var(--c-text-2)}
@@ -34,16 +34,17 @@ a.metric:hover,button.metric:hover{background:var(--c-surface-2)}
 /* 按钮 */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s-2);height:32px;padding:0 var(--s-4);border-radius:var(--r-sm);border:1px solid transparent;font:500 13px/1 var(--f-ui);cursor:pointer;white-space:nowrap;transition:background var(--m-fast) var(--m-ease),transform var(--m-fast)}
 .btn-primary{background:var(--c-primary);color:var(--c-on-primary)}
-.btn-primary:hover{opacity:.88}
+.btn-primary:hover,.btn-primary.is-hover{opacity:.88}
 .btn-primary:active,.btn-primary.is-pressed{opacity:.76;transform:scale(.98)}
 .btn-secondary{background:var(--c-surface-2);color:var(--c-text-1);border-color:var(--c-line-strong)}
-.btn-secondary:hover{background:var(--c-surface-3)}
+.btn-secondary:hover,.btn-secondary.is-hover{background:var(--c-surface-3)}
 .btn-secondary:active,.btn-secondary.is-pressed{background:#34343A;transform:scale(.98)}
 .btn-ghost{background:none;color:var(--c-text-1)}
-.btn-ghost:hover{background:var(--c-surface-2)}
+.btn-ghost:hover,.btn-ghost.is-hover{background:var(--c-surface-2)}
 .btn-ghost:active,.btn-ghost.is-pressed{background:var(--c-surface-3)}
 .btn-danger{background:none;color:var(--c-negative);border-color:rgba(255,99,105,.4)}
-.btn-danger:active,.btn-danger.is-pressed{background:var(--c-negative-weak)}
+.btn-danger:not(:disabled):hover,.btn-danger.is-hover{background:rgba(255,99,105,.06);border-color:var(--c-negative)} /* v1.0 新增 */
+.btn-danger:not(:disabled):active,.btn-danger.is-pressed{background:var(--c-negative-weak);border-color:var(--c-negative);transform:scale(.98)}
 .btn:disabled,.btn.is-disabled{opacity:.4;cursor:not-allowed;transform:none}
 .btn.is-loading{color:transparent!important;position:relative;pointer-events:none}
 .btn.is-loading::after{content:"";position:absolute;width:14px;height:14px;border-radius:50%;border:2px solid currentColor;border-color:var(--c-on-primary) transparent var(--c-on-primary) var(--c-on-primary);animation:spin .8s linear infinite}
@@ -183,11 +184,11 @@ textarea.input{height:auto;min-height:72px;padding:var(--s-3) var(--s-4);line-he
 @media (max-width:767px){
   body{font:var(--t-body-m)}
   .btn{height:44px;padding:0 var(--s-5);font-size:15px}
+  /* v1.0：芯片、分段、树展开按钮的点击区用透明伪元素补到 ≥ 44 × 44px，以元素中心向外扩，看得见的尺寸不变 */
   .chip{height:36px;position:relative}
-  .chip::after{content:"";position:absolute;left:0;right:0;top:-4px;bottom:-4px}
+  .chip::after,.seg button::after{content:"";position:absolute;left:50%;top:50%;width:max(100%,44px);height:max(100%,44px);transform:translate(-50%,-50%)}
   .input{height:44px;font-size:16px}
   .seg button{height:40px;position:relative}
-  .seg button::after{content:"";position:absolute;left:0;right:0;top:-2px;bottom:-2px}
   .tabs button{height:44px}
   .banner a{display:inline-flex;align-items:center;min-height:44px;margin:-12px 0}
 }
@@ -219,7 +220,11 @@ textarea.input{height:auto;min-height:72px;padding:var(--s-3) var(--s-4);line-he
 /* 权限表勾选 */
 .perm td{text-align:center}
 .perm td:first-child{text-align:left}
-.perm input{accent-color:var(--c-text-1);width:16px;height:16px}
+.perm input{accent-color:var(--c-text-1);width:16px;height:16px;margin:0}
+/* v1.0：表格里的复选框外包 <label class="hit">，整块是点击区。PC 32px，手机 44px */
+.tbl .hit{display:inline-grid;place-items:center;width:32px;height:32px;vertical-align:middle;cursor:pointer;border-radius:var(--r-sm)}
+.tbl .hit:has(input:disabled){cursor:not-allowed}
+@media (max-width:767px){.perm td,.tbl td:has(>.hit),.tbl th:has(>.hit){height:44px;padding-top:0;padding-bottom:0}.tbl .hit{width:44px;height:44px}}
 button.metric{background:none;border:0;text-align:left;cursor:pointer;font:inherit;color:inherit}
 .meta .src{color:var(--c-text-2)}
 .meta .src i{font-style:normal;margin-left:8px;color:var(--c-text-3)}

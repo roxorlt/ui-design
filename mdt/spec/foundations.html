@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>基础，门店通设计规范</title>
+<link rel="stylesheet" href="../system/tokens.css">
+<link rel="stylesheet" href="../system/components.css">
+<link rel="stylesheet" href="spec.css">
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<div class="toc-bar"><b>门店通设计规范</b><span>2 基础</span><button class="btn btn-secondary" id="tocBtn" type="button" aria-controls="toc" aria-expanded="false">目录</button></div>
+<div class="doc">
+<nav class="toc" id="toc" aria-label="规范目录">
+<a class="toc-brand" href="index.html">门店通设计规范</a>
+<span class="toc-ver">v1.0，2026-10-20</span><ol>
+<li><a class="ch" href="index.html"><span class="no"></span>概览</a>
+</li>
+<li><a class="ch" href="principles.html"><span class="no">1</span>设计原则</a>
+</li>
+<li><a class="ch" href="foundations.html" aria-current="page"><span class="no">2</span>基础</a>
+<ol class="sub"><li><a href="#color">色彩</a></li><li><a href="#type">字体和字阶</a></li><li><a href="#space">间距</a></li><li><a href="#grid">栅格和断点</a></li><li><a href="#radius">圆角和阴影</a></li><li><a href="#icon">图标</a></li></ol>
+</li>
+<li><a class="ch" href="components.html"><span class="no">3</span>组件</a>
+</li>
+<li><a class="ch" href="patterns.html"><span class="no">4</span>交互模式</a>
+</li>
+<li><a class="ch" href="motion.html"><span class="no">5</span>页面动效</a>
+</li>
+<li><a class="ch" href="templates.html"><span class="no">6</span>页面模板</a>
+</li>
+<li><a class="ch" href="adapt.html"><span class="no">7</span>跨端、无障碍、文案</a>
+</li>
+<li><a class="ch" href="appendix.html"><span class="no"></span>附录</a>
+</li>
+</ol><div class="toc-foot"><a href="../index.html">返回门店通设计入口</a><a href="../system/index.html">组件库</a><a href="../system/tokens.css">tokens.css</a><a href="../system/tokens.json">tokens.json</a></div></nav>
+<main id="main">
+<header class="page-h"><p class="crumb">第 2 章</p><h1>基础</h1><p class="lede">所有颜色、字号、间距、圆角和动效都来自 <code>tokens.css</code>，页面里不写死色值和像素。下表的 token 名就是 CSS 变量名。</p></header>
+<section class="sec" id="color">
+<h2>色彩</h2>
+<p class="p">主色是黑色：页面底用纯黑 <code>--c-bg</code>，面板用三档灰（surface）往上叠。层级靠底色深浅区分，不靠描边和阴影。主按钮在黑底上用近白色，是页面里最亮的东西。</p>
+<h3 class="h" id="color-base">中性色</h3>
+<div class="sw">
+<div><i style="background:#000"></i><b>页面底</b><span>--c-bg　#000000</span></div>
+<div><i style="background:#141416"></i><b>面板</b><span>--c-surface-1　#141416</span></div>
+<div><i style="background:#1F1F23"></i><b>悬停、输入框</b><span>--c-surface-2　#1F1F23</span></div>
+<div><i style="background:#2A2A2F"></i><b>按下、选中</b><span>--c-surface-3　#2A2A2F</span></div>
+<div><i style="background:#2C2C31"></i><b>分隔线</b><span>--c-line　#2C2C31</span></div>
+<div><i style="background:#3A3A41"></i><b>输入框描边</b><span>--c-line-strong　#3A3A41</span></div>
+<div><i style="background:#F2F2F4"></i><b>文字 1、主按钮</b><span>--c-text-1　#F2F2F4</span></div>
+<div><i style="background:#A1A1AA"></i><b>文字 2</b><span>--c-text-2　#A1A1AA</span></div>
+<div><i style="background:#8B8B95"></i><b>文字 3</b><span>--c-text-3　#8B8B95</span></div>
+</div>
+<h3 class="h" id="color-sem">语义色</h3>
+<p class="p">每种语义色只有一个意思。不确定该不该上色时，不上。</p>
+<div class="tw"><table class="st">
+<thead><tr><th>颜色</th><th>token</th><th>色值</th><th>只表示</th><th>典型用法</th><th>不能用来</th></tr></thead>
+<tbody>
+<tr><td><span class="tag tag-accent">琥珀</span></td><td><code>--c-accent</code><br><code>--c-accent-weak</code></td><td class="n">#F5A524<br>14% 透明</td><td>需要你处理</td><td>待跟进、超时、待交接、即将过期、待审批数</td><td>装饰、品牌点缀、标题、图表主线</td></tr>
+<tr><td><span class="tag tag-neg">红</span></td><td><code>--c-negative</code><br><code>--c-negative-weak</code></td><td class="n">#FF6369<br>12% 透明</td><td>失败、下降</td><td>发布失败、▼ 下降、健康分 &lt; 60、已过期、未读角标</td><td>普通的删除入口（用危险按钮描边即可）</td></tr>
+<tr><td><span class="tag tag-pos">绿</span></td><td><code>--c-positive</code><br><code>--c-positive-weak</code></td><td class="n">#3DD68C<br>12% 透明</td><td>完成、上升</td><td>已完成、已发布、▲ 上升、步骤已完成</td><td>「正常」状态（正常不加标签）</td></tr>
+<tr><td><span class="tag tag-info">蓝</span></td><td><code>--c-info</code><br><code>--c-info-weak</code></td><td class="n">#5AA9FF<br>12% 透明</td><td>进行中、可点、焦点</td><td>进行中、待发布、待激活、链接、焦点环、定位高亮</td><td>表示好坏</td></tr>
+</tbody></table></div>
+<h3 class="h" id="color-trend">涨跌色</h3>
+<div class="tw"><table class="st">
+<thead><tr><th>情况</th><th>写法</th><th>示例</th><th>类名</th></tr></thead>
+<tbody>
+<tr><td>上升</td><td>绿色 + ▲ + 变化量</td><td><span class="up num">▲ 1,510</span></td><td><code>.up</code></td></tr>
+<tr><td>下降</td><td>红色 + ▼ + 变化量</td><td><span class="down num">▼ 12</span></td><td><code>.down</code></td></tr>
+<tr><td>持平或无对比</td><td>文字 2，写「持平」或口径</td><td><span class="flat">持平</span></td><td><code>.flat</code></td></tr>
+<tr><td>下降是好事（如投诉、超时数）</td><td>仍按方向上色：降用红 ▼。好坏写在名称里，不反转颜色</td><td><span class="down num">▼ 3</span> 超时线索</td><td><code>.down</code></td></tr>
+</tbody></table></div>
+<p class="cap">涨跌永远带 ▲▼ 符号，色弱用户靠符号读。颜色跟方向走，不跟好坏走，避免同一个红在不同页面意思相反。</p>
+<h3 class="h" id="contrast">对比度</h3>
+<p class="p">按 WCAG 2.1 公式计算。正文和小字要 ≥ 4.5:1，18px 以上半粗大字和图形要 ≥ 3:1。</p>
+<div class="tw"><table class="st">
+<thead><tr><th>前景</th><th class="nw">在 bg #000</th><th class="nw">在 surface-1</th><th class="nw">在 surface-2</th><th class="nw">在 surface-3</th><th>结论</th></tr></thead>
+<tbody>
+<tr><td>text-1 #F2F2F4</td><td class="n">18.8</td><td class="n">16.5</td><td class="n">14.7</td><td class="n">12.8</td><td class="ok">全部可用</td></tr>
+<tr><td>text-2 #A1A1AA</td><td class="n">8.2</td><td class="n">7.2</td><td class="n">6.4</td><td class="n">5.6</td><td class="ok">全部可用</td></tr>
+<tr><td>text-3 #8B8B95</td><td class="n">6.2</td><td class="n">5.5</td><td class="n">4.9</td><td class="n">4.2</td><td class="no">surface-3 上不放 text-3 文字</td></tr>
+<tr><td>accent #F5A524</td><td class="n">10.3</td><td class="n">9.0</td><td class="n">8.0</td><td class="n">7.0</td><td class="ok">全部可用</td></tr>
+<tr><td>negative #FF6369</td><td class="n">7.2</td><td class="n">6.3</td><td class="n">5.7</td><td class="n">4.9</td><td class="ok">全部可用</td></tr>
+<tr><td>positive #3DD68C</td><td class="n">11.2</td><td class="n">9.8</td><td class="n">8.8</td><td class="n">7.6</td><td class="ok">全部可用</td></tr>
+<tr><td>info #5AA9FF</td><td class="n">8.6</td><td class="n">7.5</td><td class="n">6.7</td><td class="n">5.8</td><td class="ok">全部可用</td></tr>
+<tr><td>on-primary #000 在主按钮 #F2F2F4</td><td class="n" colspan="4">18.8</td><td class="ok">可用</td></tr>
+<tr><td>状态标签文字在自身弱底上</td><td class="n" colspan="4">琥珀 7.0，红 5.5，绿 7.9，蓝 6.2</td><td class="ok">可用</td></tr>
+<tr><td>line #2C2C31 在 surface-1</td><td class="n" colspan="4">1.3</td><td>只做分隔，不承载信息；输入框边界另有 surface-2 底色</td></tr>
+</tbody></table></div>
+<p class="cap">禁用态用 40% 不透明度，按 WCAG 豁免对比度要求，但必须配一行原因（见组件「带原因的不可用按钮」）。</p>
+</section>
+
+<section class="sec" id="type">
+<h2>字体和字阶</h2>
+<p class="p">只用系统字体，不加载网络字体，国内网络和小程序都稳。中文用 <code>--f-ui</code>，数字用 <code>--f-num</code> 并一律开等宽数字（<code>.num</code>）。字重只用 400、500、600 三档。层级靠字号、字重和留白，不靠颜色和框。</p>
+<div class="stage">
+<div class="ts"><span>主数字</span><span>--t-display　32/36　600</span><span class="num" style="font:var(--t-display)">8,456</span></div>
+<div class="ts"><span>页面标题</span><span>--t-title-1　20/28　600</span><span style="font:var(--t-title-1)">总部驾驶舱</span></div>
+<div class="ts"><span>区块标题</span><span>--t-title-2　16/24　600</span><span style="font:var(--t-title-2)">掉队门店 6</span></div>
+<div class="ts"><span>副数字</span><span>--t-metric　20/24　600</span><span class="num" style="font:var(--t-metric)">465.2万</span></div>
+<div class="ts"><span>正文 PC</span><span>--t-body　14/22　400</span><span style="font:var(--t-body)">评论、私信、弹幕里的购车意向，自动建成线索</span></div>
+<div class="ts"><span>正文 手机</span><span>--t-body-m　15/22　400</span><span style="font:var(--t-body-m)">星驰 X5 落地多少钱？本地有现车吗</span></div>
+<div class="ts"><span>表格、次行</span><span>--t-small　13/20　400</span><span style="font:var(--t-small)">抖音评论，杭州星驰西湖店，销售顾问A</span></div>
+<div class="ts"><span>辅助</span><span>--t-caption　12/16　400</span><span style="font:var(--t-caption)">较前 30 天，演示数据 10-14 14:00</span></div>
+<div class="ts"><span>坐标轴</span><span>--t-micro　11/16　400</span><span style="font:var(--t-micro)">9-15　9-22　9-29　10-06</span></div>
+</div>
+<div class="tw"><table class="st">
+<thead><tr><th>规则</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>信息文字下限</td><td>12px（<code>--t-caption</code>）。11px 只给图表坐标轴</td></tr>
+<tr><td>手机正文</td><td>15px（<code>--t-body-m</code>）；输入框 16px，避免 iOS 聚焦时自动放大</td></tr>
+<tr><td>字号和行高</td><td>字号取偶数为主，行高取 4 的倍数，对齐 4px 网格；相邻两档约差 1.2 倍</td></tr>
+<tr><td>字重</td><td>400 正文；500 可点的文字、表格主列、未读标题；600 标题和数字。不用 700 以上</td></tr>
+<tr><td>主数字</td><td>每页 1 个 <code>--t-display</code>，手机 <code>--t-display-m</code> 28/32</td></tr>
+<tr><td>字距</td><td>默认 0。只有 28px 以上的标题收 −0.01em。不拉开字距做小标签</td></tr>
+<tr><td>行长</td><td>说明文字每行不超过 44 个汉字（约 44em）</td></tr>
+<tr><td>数字</td><td>表格数字列右对齐，开 <code>tabular-nums</code>，上下行的位数对齐</td></tr>
+</tbody></table></div>
+</section>
+
+<section class="sec" id="space">
+<h2>间距</h2>
+<p class="p">全部是 4 的倍数；2px 只用在图标和紧挨的文字之间。同组元素靠得近，不同组之间拉开，分组靠间距表达，不靠加框。</p>
+<div class="stage">
+<div class="spc"><code>--s-1</code><span class="num">2px</span><i style="width:2px"></i><span>图标和文字、数字和单位</span></div>
+<div class="spc"><code>--s-2</code><span class="num">4px</span><i style="width:4px"></i><span>按钮内图标和文字、标签内</span></div>
+<div class="spc"><code>--s-3</code><span class="num">8px</span><i style="width:8px"></i><span>同组元素：按钮之间、芯片之间</span></div>
+<div class="spc"><code>--s-4</code><span class="num">12px</span><i style="width:12px"></i><span>面板之间、元信息字段之间、列表行上下</span></div>
+<div class="spc"><code>--s-5</code><span class="num">16px</span><i style="width:16px"></i><span>面板内边距、手机页面左右边距</span></div>
+<div class="spc"><code>--s-6</code><span class="num">20px</span><i style="width:20px"></i><span>PC 页面左右边距</span></div>
+<div class="spc"><code>--s-7</code><span class="num">24px</span><i style="width:24px"></i><span>大区块之间</span></div>
+<div class="spc"><code>--s-8</code><span class="num">32px</span><i style="width:32px"></i><span>独立页面区块（登录、激活页）</span></div>
+<div class="spc"><code>--s-9</code><span class="num">40px</span><i style="width:40px"></i><span>独立页面上下留白</span></div>
+</div>
+</section>
+
+<section class="sec" id="grid">
+<h2>栅格和断点</h2>
+<p class="p">PC 内容区用 12 列，栏间距 16px；手机用 4 列，栏间距 12px。常用的切法只有三种，不自由发挥。</p>
+<div class="stage"><div class="gridviz" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><p class="cap">PC 12 列：主内容 8 列 + 右栏 4 列（右栏固定 340px 时主内容自适应）。</p>
+<div class="gridviz m" style="margin-top:16px" aria-hidden="true"><i></i><i></i><i></i><i></i></div><p class="cap">手机 4 列：内容通栏，左右边距 16px。</p></div>
+<div class="tw"><table class="st">
+<thead><tr><th>断点</th><th>宽度</th><th>导航</th><th>栅格</th><th>页面边距</th><th>表格</th></tr></thead>
+<tbody>
+<tr><td>PC</td><td class="n">≥ 1280</td><td>左侧栏 <code>--sidebar</code> 200px</td><td class="n">12 列，16px</td><td class="n">20px</td><td>完整列，40px 行</td></tr>
+<tr><td>小 PC、平板横屏</td><td class="n">1024–1279</td><td>图标栏 <code>--rail</code> 64px</td><td class="n">12 列，16px</td><td class="n">20px</td><td>隐藏次要列</td></tr>
+<tr><td>平板竖屏</td><td class="n">768–1023</td><td>图标栏 64px</td><td class="n">8 列，12px</td><td class="n">16px</td><td>右栏移到主内容下方</td></tr>
+<tr><td>手机</td><td class="n">&lt; 768</td><td>手机工作台：底部标签栏；其他页面：菜单按钮</td><td class="n">4 列，12px</td><td class="n">16px</td><td>工作台用列表行；其他页面表格在面板内横滑、首列固定</td></tr>
+</tbody></table></div>
+<div class="tw"><table class="st">
+<thead><tr><th>常用布局</th><th>PC 切法</th><th>用在</th></tr></thead>
+<tbody>
+<tr><td>单栏</td><td>12 列通栏</td><td>列表页、表格页</td></tr>
+<tr><td>主栏 + 右栏</td><td><code>minmax(0,1fr) 340px</code></td><td>看板页、详情页的辅助信息</td></tr>
+<tr><td>居中窄栏</td><td>480px 居中</td><td>手机独立表单页在 PC 打开时</td></tr>
+</tbody></table></div>
+</section>
+
+<section class="sec" id="radius">
+<h2>圆角和阴影</h2>
+<div class="g2">
+<div>
+<h3 class="h" style="margin-top:var(--s-3)">圆角：容器越大越圆</h3>
+<div class="tw"><table class="st">
+<thead><tr><th>token</th><th>值</th><th>用在</th></tr></thead>
+<tbody>
+<tr><td><code>--r-xs</code></td><td class="n">4px</td><td>状态标签、等级块、复选框</td></tr>
+<tr><td><code>--r-sm</code></td><td class="n">6px</td><td>按钮、输入框、芯片、分段控件</td></tr>
+<tr><td><code>--r-md</code></td><td class="n">10px</td><td>面板、指标条、轻提示</td></tr>
+<tr><td><code>--r-lg</code></td><td class="n">16px</td><td>弹窗、抽屉、底部弹层</td></tr>
+<tr><td><code>--r-pill</code></td><td class="n">999px</td><td>只给未读角标</td></tr>
+</tbody></table></div>
+<p class="cap">嵌套时内层圆角 ≤ 外层圆角减去内边距，不出现内外一样圆。</p>
+</div>
+<div>
+<h3 class="h" style="margin-top:var(--s-3)">阴影：只给浮层</h3>
+<div class="tw"><table class="st">
+<thead><tr><th>层</th><th>写法</th></tr></thead>
+<tbody>
+<tr><td>页面</td><td><code>--c-bg</code>，无阴影</td></tr>
+<tr><td>面板</td><td><code>--c-surface-1</code>，无阴影、无描边</td></tr>
+<tr><td>面板里的选中、悬停</td><td><code>--c-surface-2</code> / <code>-3</code></td></tr>
+<tr><td>浮层（弹窗、下拉、轻提示）</td><td><code>--sh-overlay</code> + 1px <code>--c-line</code> 描边，下面加 <code>--c-overlay</code> 遮罩</td></tr>
+</tbody></table></div>
+<p class="p"><b>为什么不用阴影：</b>黑底上阴影几乎看不见，加了只会让面板边缘发灰发脏；一页几十个面板都带阴影，阴影就失去了「它浮在上面」的意思。所以阴影只留给真正盖在内容上面的东西。</p>
+</div>
+</div>
+</section>
+
+<section class="sec" id="icon">
+<h2>图标</h2>
+<p class="p">门店通用一套自绘线性图标，和文字一样跟随 <code>currentColor</code> 上色。不用面性图标、不用彩色图标、不用第三方平台的品牌标志。</p>
+<div class="tw"><table class="st kv">
+<tbody>
+<tr><td>画板</td><td>24×24 网格，内容在中间 20×20 内，四周留 2px</td></tr>
+<tr><td>线宽</td><td>1.75px（24px 显示时），圆头、圆角连接；缩到 16px 时线宽不变，避免发虚</td></tr>
+<tr><td>显示尺寸</td><td>16px（表格行内、标签内）、20px（按钮、导航、顶栏）、24px（空状态、手机标签栏）</td></tr>
+<tr><td>颜色</td><td>跟文字同色：默认 text-2，选中 text-1；不单独给图标上语义色，状态靠旁边的文字</td></tr>
+<tr><td>点击区</td><td>图标按钮最小 44×44px（如顶栏铃铛 <code>.bell</code>），图标本身 20px 居中</td></tr>
+<tr><td>读屏</td><td>装饰图标加 <code>aria-hidden="true"</code>；单独成按钮时按钮写 <code>aria-label</code>，如「消息，3 条未读」</td></tr>
+<tr><td>来源</td><td>门店通自绘，以本页为准。新图标按同一网格和线宽画，走组件变更流程进库</td></tr>
+</tbody></table></div>
+<div class="stage"><div class="ico-grid">
+<figure><div class="ico-big"><svg viewBox="0 0 24 24" width="96" height="96" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10l1.5-5h13L20 10"/><path d="M4 10v9h16v-9"/><path d="M9 19v-5h6v5"/></svg></div><figcaption>24 网格，放大 4 倍</figcaption></figure>
+<figure><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 21h4"/></svg><figcaption>16px</figcaption></figure><figure><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 21h4"/></svg><figcaption>20px</figcaption></figure><figure><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 21h4"/></svg><figcaption>24px</figcaption></figure>
+</div></div>
+<div class="icons"><figure><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16a8 8 0 1 1 16 0"/><path d="M12 16l4-5"/><path d="M4 20h16"/></svg><figcaption>驾驶舱</figcaption></figure><figure><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10l1.5-5h13L20 10"/><path d="M4 10v9h16v-9"/><path d="M9 19v-5h6v5"/></svg><figcaption>门店</figcaption></figure><figure><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/></svg><figcaption>线索</figcaption></figure><figure><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><figcaption>任务</figcaption></figure><figure><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 21h4"/></svg><figcaption>消息</figcaption></figure><figure><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 4L10 14"/><path d="M20 4l-6 16-4-6-6-4z"/></svg><figcaption>内容分发</figcaption></figure><figure><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="13" height="12" rx="2.5"/><path d="M16 10.5l5-3v9l-5-3"/></svg><figcaption>直播</figcaption></figure><figure><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M10 12h5M10 16h5"/></svg><figcaption>脚本</figcaption></figure><figure><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg><figcaption>搜索</figcaption></figure><figure><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg><figcaption>筛选</figcaption></figure><figure><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="12" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/><circle cx="18" cy="12" r="1.2" fill="currentColor"/></svg><figcaption>更多</figcaption></figure><figure><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg><figcaption>关闭</figcaption></figure><figure><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><figcaption>返回</figcaption></figure><figure><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg><figcaption>展开</figcaption></figure><figure><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V5.5A1.5 1.5 0 0 0 14.5 4h-9A1.5 1.5 0 0 0 4 5.5v9A1.5 1.5 0 0 0 5.5 16H8"/></svg><figcaption>复制</figcaption></figure><figure><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg><figcaption>设置</figcaption></figure></div>
+</section>
+
+<nav class="pg-nav" aria-label="翻页"><a href="principles.html"><span>上一章</span>1 设计原则</a><a href="components.html"><span>下一章</span>3 组件</a></nav>
+</main>
+</div>
+<script src="spec.js"></script>
+</body>
+</html>

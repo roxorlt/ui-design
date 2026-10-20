@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>组件，门店通设计规范</title>
+<link rel="stylesheet" href="../system/tokens.css">
+<link rel="stylesheet" href="../system/components.css">
+<link rel="stylesheet" href="spec.css">
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<div class="toc-bar"><b>门店通设计规范</b><span>3 组件</span><button class="btn btn-secondary" id="tocBtn" type="button" aria-controls="toc" aria-expanded="false">目录</button></div>
+<div class="doc">
+<nav class="toc" id="toc" aria-label="规范目录">
+<a class="toc-brand" href="index.html">门店通设计规范</a>
+<span class="toc-ver">v1.0，2026-10-20</span><ol>
+<li><a class="ch" href="index.html"><span class="no"></span>概览</a>
+</li>
+<li><a class="ch" href="principles.html"><span class="no">1</span>设计原则</a>
+</li>
+<li><a class="ch" href="foundations.html"><span class="no">2</span>基础</a>
+</li>
+<li><a class="ch" href="components.html" aria-current="page"><span class="no">3</span>组件</a>
+<ol class="sub"><li><a href="#overview">组件总览</a></li><li><a href="#input">输入和选择</a></li><li><a href="#data">数据展示</a></li><li><a href="#feedback-c">反馈和浮层</a></li><li><a href="#nav-c">导航和消息</a></li><li><a href="#v14">v1.4 规划组件</a></li></ol>
+</li>
+<li><a class="ch" href="patterns.html"><span class="no">4</span>交互模式</a>
+</li>
+<li><a class="ch" href="motion.html"><span class="no">5</span>页面动效</a>
+</li>
+<li><a class="ch" href="templates.html"><span class="no">6</span>页面模板</a>
+</li>
+<li><a class="ch" href="adapt.html"><span class="no">7</span>跨端、无障碍、文案</a>
+</li>
+<li><a class="ch" href="appendix.html"><span class="no"></span>附录</a>
+</li>
+</ol><div class="toc-foot"><a href="../index.html">返回门店通设计入口</a><a href="../system/index.html">组件库</a><a href="../system/tokens.css">tokens.css</a><a href="../system/tokens.json">tokens.json</a></div></nav>
+<main id="main">
+<header class="page-h"><p class="crumb">第 3 章</p><h1>组件</h1><p class="lede">每个组件按同一个顺序写：用途、结构标注、尺寸、状态、什么时候用、什么时候不用。示例全部由 <code>components.css</code> 直接渲染，改了组件库，这里跟着变。</p></header>
+<section class="sec" id="overview">
+<h2>组件总览</h2>
+<p class="p">46 个组件分六组。前五组共 31 个，已在组件库里，可以直接用；第六组是 15 个 v1.4 规划组件，样式进库前以本页写法为准，进库后以组件库为准。</p>
+<div class="tw"><table class="st">
+<thead><tr><th>分组</th><th>组件</th><th class="nw">数量</th></tr></thead>
+<tbody>
+<tr><td>输入和选择</td><td><a href="#c-btn">按钮</a>、<a href="#c-tabs">标签页</a>、<a href="#c-seg">分段控件</a>、<a href="#c-chip">筛选芯片</a>、<a href="#c-chipbar">横滑筛选条</a>、<a href="#c-field">输入框和下拉</a>、<a href="#c-radio">单选和复选行</a>、<a href="#c-picker">分组多选</a></td><td class="n">8</td></tr>
+<tr><td>数据展示</td><td><a href="#c-panel">面板</a>、<a href="#c-mstrip">指标条</a>、<a href="#c-tbl">表格</a>、<a href="#c-li">列表行</a>、<a href="#c-tag">状态标签</a>、<a href="#c-lv">意向等级</a>、<a href="#c-health">健康分</a>、<a href="#c-prog">进度条</a>、<a href="#c-steps">步骤条</a>、<a href="#c-meta">元信息行</a>、<a href="#c-pager">分页</a>、<a href="#c-perm">权限表</a>、<a href="#c-film">成片卡</a></td><td class="n">13</td></tr>
+<tr><td>反馈和浮层</td><td><a href="#c-toast">轻提示</a>、<a href="#c-banner">横条提示</a>、<a href="#c-errline">行内错误</a>、<a href="#c-empty">空状态</a>、<a href="#c-skel">骨架屏</a>、<a href="#c-sheet">弹窗</a></td><td class="n">6</td></tr>
+<tr><td>导航和消息</td><td><a href="#c-bell">铃铛和角标</a>、<a href="#c-msg">消息行</a>、<a href="#c-tabbar">底部标签栏</a></td><td class="n">3</td></tr>
+<tr><td>演示</td><td><a href="#c-demo">演示专用模块</a></td><td class="n">1</td></tr>
+<tr><td>v1.4 规划</td><td><a href="#a01">A01</a> 到 <a href="#a15">A15</a>：范围切换器、员工状态标签、带原因的不可用按钮、危险确认弹层、批量选择表格、平台账号行、绑定账号三步弹窗、手机独立表单页、演示专用控件、组织树、定位高亮行、二维码弹层、日志表、个人资料页、管理类消息标签</td><td class="n">15</td></tr>
+</tbody></table></div>
+<p class="cap">结构图里的蓝色编号对应下方图例。「悬停」示例为静态示意，实际效果把鼠标移上去即可看到。</p>
+</section>
+
+<section class="sec" id="input">
+<h2>输入和选择</h2>
+
+<article class="cmp" id="c-btn">
+<div class="cmp-h"><h3>按钮</h3><span class="cls">.btn .btn-primary .btn-secondary .btn-ghost .btn-danger .btn-lg .btn-block</span></div>
+<p class="p">触发一个动作。按钮文字写「动词 + 对象」，说清点了会发生什么。</p>
+<div class="stage anat"><div class="row">
+<button class="btn btn-primary" data-pin="1">确认下发</button>
+<button class="btn btn-secondary" data-pin="2"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" data-pin="4" data-pin-at="bottom"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 21h4"/></svg>提醒这 6 家店长</button>
+<button class="btn btn-ghost" data-pin="3">导出表格</button>
+<button class="btn btn-danger" data-pin="5">停用门店</button>
+</div></div>
+<ol class="legend"><li><i>1</i>主按钮：一个区域最多一个</li><li><i>2</i>次按钮：并列的其他动作</li><li><i>3</i>文字按钮：低频动作、行内动作</li><li><i>4</i>可选图标 16px，在文字左侧，间距 4px</li><li><i>5</i>危险按钮：停用、解绑、重置</li></ol>
+<div class="stage"><div class="states">
+<div><button class="btn btn-primary">确认下发</button><span class="cap">默认</span></div>
+<div><button class="btn btn-primary is-hover">确认下发</button><span class="cap">悬停：不透明度 88%</span></div>
+<div><button class="btn btn-primary is-pressed">确认下发</button><span class="cap">按下：76%，缩到 98%</span></div>
+<div><button class="btn btn-primary" disabled>确认下发</button><span class="cap">禁用：40%</span></div>
+<div><button class="btn btn-primary is-loading" aria-busy="true">确认下发</button><span class="cap">加载：防重复点</span></div>
+<div><button class="btn btn-primary">确认下发</button><span class="cap">报错后：恢复可点，原因写在上方</span></div>
+<div><button class="btn btn-secondary is-hover">次按钮</button><span class="cap">次按钮悬停：surface-3</span></div>
+<div><button class="btn btn-ghost is-hover">文字按钮</button><span class="cap">文字按钮悬停：surface-2</span></div>
+<div><button class="btn btn-danger">停用门店</button><span class="cap">危险按钮默认：红字、40% 红描边</span></div>
+<div><button class="btn btn-danger is-hover">停用门店</button><span class="cap">危险按钮悬停：6% 红底、描边转实色</span></div>
+<div><button class="btn btn-danger is-pressed">停用门店</button><span class="cap">危险按钮按下：12% 红底，缩到 98%</span></div>
+<div><button class="btn btn-danger" disabled>停用门店</button><span class="cap">危险按钮禁用：40%，不响应悬停</span></div>
+</div></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>PC 高 32px，左右 12px，13px/500；<code>.btn-lg</code> 高 44px；手机宽度下所有按钮自动 44px 高、15px 字。按下时缩到 98%，按下瞬间量到约 43px 属正常，松手恢复</td></tr>
+<tr><td>用</td><td>提交表单、确认弹窗、触发批量动作、跳去完成任务（写去处：「去发视频」）</td></tr>
+<tr><td>不用</td><td>页面跳转导航（用链接）；切换视角（用分段控件）；文字后面加箭头；写「提交」「确定」</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-tabs">
+<div class="cmp-h"><h3>标签页</h3><span class="cls">.tabs .count</span></div>
+<p class="p">在同一页面里切换几块并列的大内容，如消息的「全部 / 未读 / 我发出的」。</p>
+<div class="stage anat"><div class="tabs" role="tablist" aria-label="消息分组"><button role="tab" aria-selected="true" data-pin="1">全部</button><button role="tab" aria-selected="false">未读<span class="count" data-pin="2">3</span></button><button role="tab" aria-selected="false" data-pin="3">我发出的</button></div></div>
+<ol class="legend"><li><i>1</i>选中：文字 1 + 底部 2px 白线</li><li><i>2</i>数量：数字字体、文字 3；0 时不显示</li><li><i>3</i>未选中：文字 2</li></ol>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>高 40px（手机 44px），14px/500，标签之间 20px</td></tr>
+<tr><td>状态</td><td>默认、选中、键盘焦点（焦点环）；不做禁用，没有内容的页签直接不显示</td></tr>
+<tr><td>用</td><td>2–5 块并列内容，切换后整块内容替换</td></tr>
+<tr><td>不用</td><td>同一份数据换视角（用分段控件）；超过 5 项（用横滑筛选条）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-seg">
+<div class="cmp-h"><h3>分段控件</h3><span class="cls">.seg</span></div>
+<p class="p">切换同一块内容的视角或周期，如趋势图的「播放 / 线索」、统计的「近 30 天 / 近 7 天 / 今日」。</p>
+<div class="stage anat"><div class="row">
+<div class="seg" role="tablist" aria-label="周期" data-pin="1"><button role="tab" aria-selected="true" data-pin="2">近 30 天</button><button role="tab" aria-selected="false">近 7 天</button><button role="tab" aria-selected="false">今日</button></div>
+<div class="seg" role="tablist" aria-label="图表指标"><button role="tab" aria-selected="true">播放</button><button role="tab" aria-selected="false" disabled data-pin="3">线索</button></div>
+</div></div>
+<ol class="legend"><li><i>1</i>轨道：surface-2，内边距 2px</li><li><i>2</i>选中：surface-3 + 文字 1</li><li><i>3</i>禁用：40%</li></ol>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>PC 段高 28px；手机宽度下看得见 40px，点击区用透明伪元素 <code>::after</code> 从中心外扩到 ≥ 44 × 44px</td></tr>
+<tr><td>用</td><td>2–4 个互斥选项，切换后同一块内容就地刷新；表单里无默认值的二选一（如账号类型）</td></tr>
+<tr><td>不用</td><td>切换整块不同内容（用标签页）；多选（用芯片）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-chip">
+<div class="cmp-h"><h3>筛选芯片</h3><span class="cls">.chips .chip .chip.warn .n</span></div>
+<p class="p">指标兼作筛选。芯片里的数字就是筛完的条数，点了就筛。</p>
+<div class="stage anat"><div class="chips" role="group" aria-label="线索状态">
+<button class="chip" aria-pressed="true" data-pin="1">全部 <span class="n">186</span></button>
+<button class="chip" aria-pressed="false" data-pin="2">待跟进 <span class="n" data-pin="3">158</span></button>
+<button class="chip warn" aria-pressed="false" data-pin="4">超 2 小时 <span class="n">3</span></button>
+<button class="chip" aria-pressed="false" disabled style="opacity:.4">已战败 <span class="n">0</span></button>
+</div></div>
+<ol class="legend"><li><i>1</i>选中：白描边 + surface-2</li><li><i>2</i>未选中：描边 line-strong，文字 2</li><li><i>3</i>数量：等宽数字，文字 3</li><li><i>4</i>要处理的数量用琥珀（<code>.chip.warn</code>）</li></ol>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>PC 高 32px；手机宽度下看得见 36px，点击区用透明伪元素 <code>::after</code> 从中心外扩到 ≥ 44 × 44px。芯片间距 8px，换行时行距也 ≥ 8px（36 + 8 = 44，上下两行点击区不重叠）</td></tr>
+<tr><td>状态</td><td>默认、悬停（文字 1）、选中（<code>aria-pressed="true"</code>）、数量为 0 时禁用 40%、加载中数量位置显示「—」</td></tr>
+<tr><td>用</td><td>列表顶部 2–6 个状态筛选，代替一排指标卡</td></tr>
+<tr><td>不用</td><td>超过 6 项或手机上一行放不下（用横滑筛选条）；不是筛选的纯展示数字</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-chipbar">
+<div class="cmp-h"><h3>横滑筛选条</h3><span class="cls">.chipbar</span></div>
+<p class="p">单选的类型筛选，项目多（6–9 项）。PC 换行，手机单行横滑，选中项自动滚进可视区，左右方向键切换。</p>
+<div class="stage flush anat" style="padding:12px 0"><div class="chipbar" role="radiogroup" aria-label="消息类型" data-autoscroll>
+<button class="chip" role="radio" aria-checked="true" data-pin="1">全部</button><button class="chip" role="radio" aria-checked="false">任务</button><button class="chip" role="radio" aria-checked="false">催办</button><button class="chip" role="radio" aria-checked="false">门店提醒</button><button class="chip" role="radio" aria-checked="false">发布</button><button class="chip" role="radio" aria-checked="false">脚本下发</button><button class="chip" role="radio" aria-checked="false">线索</button><button class="chip" role="radio" aria-checked="false">PK 结算</button><button class="chip" role="radio" aria-checked="false" data-pin="2">管理</button>
+</div></div>
+<ol class="legend"><li><i>1</i>选中：反白（白底黑字）</li><li><i>2</i>手机上最后一项露出一半，提示能滑</li></ol>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>手机 44px 高，左右内边距 16px；PC 32px 高，自动换行</td></tr>
+<tr><td>用</td><td>消息类型这类 6 项以上的单选筛选</td></tr>
+<tr><td>不用</td><td>多选；带数量的状态筛选（用芯片）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-field">
+<div class="cmp-h"><h3>输入框、下拉和文本域</h3><span class="cls">.field .input .help .help.err</span></div>
+<p class="p">收集一项信息。标签在上，说明和错误在下。</p>
+<div class="stage anat"><div class="field" style="max-width:320px"><label for="cf1" data-pin="1">任务名称</label><input id="cf1" class="input" value="每店发视频 5 条" data-pin="2"><span class="help" data-pin="3">30 字以内，选完类型后自动填好，可以改</span></div></div>
+<ol class="legend"><li><i>1</i>标签：12px 文字 2，必填项不加星号，选填项写「（选填）」</li><li><i>2</i>输入框：surface-2 底 + line-strong 描边</li><li><i>3</i>说明或错误：12px</li></ol>
+<div class="stage"><div class="g3">
+<div class="field"><label for="cf2">任务名称</label><input id="cf2" class="input" placeholder="例如：冬季保养专题"><span class="help">默认：占位符写例子</span></div>
+<div class="field"><label for="cf3">任务名称</label><input id="cf3" class="input is-focus" value="星驰 E3 冬季实拍"><span class="help">聚焦：蓝描边 + 3px 弱蓝外圈</span></div>
+<div class="field"><label for="cf4">截止日期</label><input id="cf4" class="input is-error" value="10-13" aria-invalid="true" aria-describedby="cf4e"><span id="cf4e" class="help err">截止日期不能早于 10-14</span></div>
+<div class="field"><label for="cf5">下发范围</label><input id="cf5" class="input" value="华东全部 12 店" disabled><span class="help">禁用：大区经理只能选华东门店</span></div>
+<div class="field"><label for="cf6">负责人</label><select id="cf6" class="input"><option>门店店长</option><option>新媒体专员</option></select><span class="help">下拉：同输入框</span></div>
+<div class="field"><label for="cf7">跟进内容</label><textarea id="cf7" class="input" placeholder="例如：已电话联系，约周六到店"></textarea><span class="help">文本域：最小 72px，可拉高</span></div>
+</div></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>PC 高 36px，13–14px 字；手机 44px 高、16px 字；标签和输入框间距 6px</td></tr>
+<tr><td>状态</td><td>默认、悬停（不变）、聚焦、报错（红描边 + 红字说明）、禁用（40% + 说明原因）、加载（下拉选项加载时显示「加载中」一行）</td></tr>
+<tr><td>用</td><td>新建、编辑表单；搜索框（同样式，左侧放 16px 搜索图标）</td></tr>
+<tr><td>不用</td><td>2–4 个选项的单选（用分段控件或单选行）；标签写在框里当占位符</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-radio">
+<div class="cmp-h"><h3>单选和复选行</h3><span class="cls">.radio-row</span></div>
+<p class="p">整行可点的单选或复选，用在弹窗里选人、选门店、选提醒内容。</p>
+<div class="stage flush anat" style="max-width:420px">
+<label class="radio-row" data-pin="1"><input type="radio" name="cr" checked data-pin="2"><span class="bd">销售顾问A<span class="meta"><span>跟进中 12 条</span></span></span></label>
+<label class="radio-row"><input type="radio" name="cr"><span class="bd">销售顾问B<span class="meta"><span>跟进中 8 条</span></span></span></label>
+<label class="radio-row" aria-disabled="true"><input type="radio" name="cr" disabled><span class="bd">销售顾问C<span class="meta"><span>当前跟进人</span></span></span></label>
+</div>
+<ol class="legend"><li><i>1</i>整行是点击区，高 52px</li><li><i>2</i>控件 18px，用文字 1 着色</li></ol>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>状态</td><td>默认、悬停（surface-2）、选中、禁用（40%，第二行写原因）</td></tr>
+<tr><td>用</td><td>弹窗里 3–10 个选项，每项需要一行说明</td></tr>
+<tr><td>不用</td><td>超过 10 项且要分组（用分组多选）；页面上的筛选（用芯片）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-picker">
+<div class="cmp-h"><h3>分组多选</h3><span class="cls">.picker .grp-h</span></div>
+<p class="p">按大区分组勾选门店。组标题吸顶，带「全选本区」；顶部配搜索框。</p>
+<div class="stage anat" style="max-width:460px">
+<div class="field" style="margin-bottom:8px"><label for="cp1">指定门店，已选 2 家</label><input id="cp1" class="input" placeholder="搜索门店名"></div>
+<div class="picker">
+<div class="grp-h" data-pin="1">华东<button type="button" data-pin="2">全选本区</button></div>
+<label class="radio-row"><input type="checkbox" checked><span class="bd">杭州星驰西湖店</span></label>
+<label class="radio-row"><input type="checkbox" checked><span class="bd">苏州星驰园区店</span></label>
+<div class="grp-h">华北<button type="button">全选本区</button></div>
+<label class="radio-row"><input type="checkbox"><span class="bd">天津星驰滨海店</span></label>
+</div></div>
+<ol class="legend"><li><i>1</i>组标题 36px，吸顶</li><li><i>2</i>组内全选，蓝色文字按钮</li></ol>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>最高 248px，内部滚动；行高 40px，手机 44px</td></tr>
+<tr><td>状态</td><td>默认、部分选中、全选、搜索无结果（「没有叫这个名字的门店」）、加载</td></tr>
+<tr><td>用</td><td>从几十个对象里多选，对象天然有分组</td></tr>
+<tr><td>不用</td><td>少于 10 项（用复选行）</td></tr>
+</tbody></table></div>
+</article>
+</section>
+
+<section class="sec" id="data">
+<h2>数据展示</h2>
+
+<article class="cmp" id="c-panel">
+<div class="cmp-h"><h3>面板</h3><span class="cls">.panel .panel-h .aside</span></div>
+<p class="p">页面上的内容分块。底色 surface-1，不加描边和阴影。</p>
+<div class="stage anat"><section class="panel" data-pin="1" aria-label="面板示例"><div class="panel-h" data-pin="2"><h2>掉队门店 6</h2><div class="aside" data-pin="3"><button class="btn btn-ghost">导出表格</button><button class="btn btn-secondary">提醒这 6 家店长</button></div></div><div style="padding:0 16px 16px;font:var(--t-small);color:var(--c-text-2)">内容区，内边距 16px。</div></section></div>
+<ol class="legend"><li><i>1</i>面板：surface-1，圆角 10px</li><li><i>2</i>标题行：最低 44px，标题 16/600，数量跟在标题后</li><li><i>3</i>标题行右侧：本块的动作</li></ol>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>内边距 16px；面板之间 12px；手机工作台不用面板，用分隔线</td></tr>
+<tr><td>用</td><td>一页里 2 块以上内容需要分开时</td></tr>
+<tr><td>不用</td><td>一个数字一张卡；面板套面板（内层用 surface-2 或分隔线）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-mstrip">
+<div class="cmp-h"><h3>指标条</h3><span class="cls">.mstrip .metric .metric--hero .is-on</span></div>
+<p class="p">一行放 2–6 个指标，竖线分隔，不拆卡片。最关键的一个是主数字。</p>
+<div class="stage anat"><div class="mstrip">
+<div class="metric metric--hero" data-pin="1"><span class="l" data-pin="2">近 30 天线索</span><span class="v num" data-pin="3">8,456<small>条</small></span><span class="d up" data-pin="4">▲ 1,510</span></div>
+<div class="metric" data-pin="5"><span class="l">播放</span><span class="v num">1.48<small>亿</small></span><span class="d up">▲ 1,792万</span></div>
+<div class="metric"><span class="l">留资率</span><span class="v num">0.49<small>%</small></span><span class="d down">▼ 0.02</span></div>
+<div class="metric"><span class="l">门店</span><span class="v num">48<small>家</small></span><span class="d flat">持平</span></div>
+</div></div>
+<ol class="legend"><li><i>1</i>主数字：宽度 1.6 倍，每页 1 个</li><li><i>2</i>名称：12px 文字 2</li><li><i>3</i>数值 32/36（副数字 20/24），单位 12px 文字 2</li><li><i>4</i>变化：▲▼ + 变化量，涨绿跌红</li><li><i>5</i>副数字，竖线分隔</li></ol>
+<div class="stage"><div class="mstrip">
+<button class="metric is-on" type="button"><span class="l">待发布</span><span class="v num">45</span></button>
+<button class="metric is-hover" type="button"><span class="l">已发布</span><span class="v num">2</span></button>
+<button class="metric" type="button"><span class="l">失败</span><span class="v num down">1</span></button>
+<div class="metric"><span class="l">加载中</span><span class="skel" style="width:56px;height:20px;margin:2px 0"></span></div>
+<div class="metric"><span class="l">无数据</span><span class="v num t3" title="本店未接入该平台">—</span></div>
+</div><p class="cap">状态从左到右：选中（底部 2px 白线，兼作筛选时）、悬停、默认、加载（骨架）、无数据（—，悬停说明原因）。</p></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>PC 无主数字时 72px，带主数字 88px，不超过 108px；手机 ≤ 136px，换行时主数字独占一行、副数字每行 3 个</td></tr>
+<tr><td>用</td><td>看板页、详情页顶部的 2–6 个关键数；发布记录这类「统计兼筛选」（用 <code>button.metric</code>）</td></tr>
+<tr><td>不用</td><td>7 个以上（改成两列「名称—数值」清单或表格）；只有 1 个数（跟在标题后面写）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-tbl">
+<div class="cmp-h"><h3>表格</h3><span class="cls">.tbl .main .sub .r .row-act .grp .is-selected</span></div>
+<p class="p">PC 上横向比较多个对象。门店通的主力组件。</p>
+<div class="stage flush anat">
+<table class="tbl"><thead><tr><th data-pin="1">门店</th><th>大区</th><th>健康分</th><th class="r">本周发布</th><th class="r" data-pin="2">近 30 天线索</th><th></th></tr></thead><tbody>
+<tr><td class="main" data-pin="3">长沙星驰星沙店</td><td class="sub">华中</td><td><span class="health bad">42<i><b style="width:42%"></b></i></span></td><td class="r">1</td><td class="r">45</td><td class="r"><button class="btn btn-ghost row-act" data-pin="4">提醒店长</button></td></tr>
+<tr class="is-selected"><td class="main">太原星驰长风店</td><td class="sub">华北</td><td><span class="health bad">44<i><b style="width:44%"></b></i></span></td><td class="r">0</td><td class="r">18</td><td class="r"><button class="btn btn-ghost" disabled>已提醒 14:00</button></td></tr>
+<tr class="grp"><td colspan="6" data-pin="5">需关注，健康分 60–79，共 9 家</td></tr>
+<tr><td class="main">拉萨星驰城关店</td><td class="sub">西南</td><td><span class="health warn">72<i><b style="width:72%"></b></i></span></td><td class="r">23</td><td class="r">95</td><td></td></tr>
+</tbody></table></div>
+<ol class="legend"><li><i>1</i>表头 32px，12px 文字 3</li><li><i>2</i>数字列右对齐，等宽数字</li><li><i>3</i>首列主对象，500 字重</li><li><i>4</i>行操作：悬停或键盘聚焦时出现，触屏常驻</li><li><i>5</i>分组行 28px，代替另起一块面板</li></ol>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>行高 40px（紧凑 36px）；首列左内边距 16px，单元格左右 8px；首屏 ≥ 12 行</td></tr>
+<tr><td>状态</td><td>默认、悬停（surface-2）、选中（surface-2 常驻）、加载（骨架行，行高不变）、空（表内 <code>.empty</code>）、加载失败（表内错误 + 重新加载）</td></tr>
+<tr><td>用</td><td>PC 上 3 列以上、需要横向比较或排序的数据</td></tr>
+<tr><td>不用</td><td>手机工作台（用列表行）；只有 1–2 列（用列表行）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-li">
+<div class="cmp-h"><h3>列表行</h3><span class="cls">.list .li .bd .t .q .s .end</span></div>
+<p class="p">手机工作台的主力组件。三行：主语、客户原话、来源和归属。整行可点。</p>
+<div class="stage flush anat" style="max-width:390px"><ul class="list">
+<li class="li"><span class="lv lv-a" data-pin="1">A</span><div class="bd"><div class="t" data-pin="2"><span>张先生</span><span class="t2" style="font:var(--t-small)">星驰 X5，12-15万</span></div><div class="q" data-pin="3">“落地多少钱？本地有现车吗”</div><div class="s" data-pin="4">抖音私信，杭州西湖店，销售顾问A</div></div><div class="end" data-pin="5"><span>2 分钟前</span><span class="tag tag-accent">待跟进</span></div></li>
+<li class="li"><span class="lv">B</span><div class="bd"><div class="t"><span>李女士</span><span class="t2" style="font:var(--t-small)">星驰 X5，15-18万</span></div><div class="q">“直播间说的限时价还有吗”</div><div class="s">小红书评论，杭州西湖店，销售顾问B</div></div><div class="end"><span>3 小时前</span><span class="tag tag-pos">已到店</span></div></li>
+</ul></div>
+<ol class="legend"><li><i>1</i>前置：意向等级或头像，20px</li><li><i>2</i>主语 15/500 + 次要信息 13px</li><li><i>3</i>原话：13px 文字 3，一行省略</li><li><i>4</i>来源：一句话，中文逗号</li><li><i>5</i>右侧：时间 + 状态</li></ol>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>最低 56px，三行约 90px；左右 16px，上下 12px；行间用分隔线</td></tr>
+<tr><td>状态</td><td>默认、按下（surface-2）、加载（骨架行）、空（列表位置放 <code>.empty</code>）</td></tr>
+<tr><td>用</td><td>手机上的线索、任务、消息列表；PC 上只有 1–2 列信息的列表</td></tr>
+<tr><td>不用</td><td>PC 上需要横向比较的数据（用表格）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-tag">
+<div class="cmp-h"><h3>状态标签</h3><span class="cls">.tag .tag-accent .tag-pos .tag-neg .tag-info .tag.plain</span></div>
+<p class="p">一个对象的当前状态。点 + 文字，颜色从不单独表意。</p>
+<div class="stage anat"><div class="row"><span class="tag tag-accent" data-pin="1">待跟进</span><span class="tag tag-info">进行中</span><span class="tag tag-pos">已完成</span><span class="tag tag-neg">发布失败</span><span class="tag" data-pin="2">未开始</span><span class="tag plain" data-pin="3">任务催办</span></div></div>
+<ol class="legend"><li><i>1</i>语义色：文字色 + 同色弱底 + 6px 圆点</li><li><i>2</i>中性：灰底文字 2</li><li><i>3</i>无点：类型标签、来源标签</li></ol>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>高 22px，左右 8px，12px 字，圆角 4px</td></tr>
+<tr><td>用</td><td>状态（带点）；消息类型、账号类型（无点）。「正常」状态不加标签</td></tr>
+<tr><td>不用</td><td>可点的筛选（用芯片）；一个对象挂 3 个以上标签</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-lv">
+<div class="cmp-h"><h3>意向等级</h3><span class="cls">.lv .lv-a</span></div>
+<p class="p">线索意向 A / B / C。只有 A 级用琥珀，因为要马上回电。</p>
+<div class="stage"><div class="row"><span class="lv lv-a">A</span><span class="lv">B</span><span class="lv">C</span></div></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>20×20px，12px/600 数字字体，圆角 4px</td></tr>
+<tr><td>用</td><td>线索列表和表格的首列前置</td></tr>
+<tr><td>不用</td><td>其他分级（用文字）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-health">
+<div class="cmp-h"><h3>健康分</h3><span class="cls">.health .health.warn .health.bad</span></div>
+<p class="p">门店健康分：数字 + 36px 刻度条。</p>
+<div class="stage"><div class="row"><span class="health">86<i><b style="width:86%"></b></i></span><span class="health warn">72<i><b style="width:72%"></b></i></span><span class="health bad">42<i><b style="width:42%"></b></i></span></div><p class="cap">≥ 80 灰；60–79 琥珀（需关注）；&lt; 60 红。</p></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>用</td><td>门店表格、门店详情标题旁</td></tr>
+<tr><td>不用</td><td>其他百分比（用进度条或纯数字）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-prog">
+<div class="cmp-h"><h3>进度条</h3><span class="cls">.prog .prog.done .prog.late</span></div>
+<p class="p">任务完成进度。永远和「m/N」数字一起出现。</p>
+<div class="stage col" style="max-width:360px"><div class="prog"><b style="width:0"></b></div><div class="prog"><b style="width:40%"></b></div><div class="prog late"><b style="width:60%"></b></div><div class="prog done"><b style="width:100%"></b></div><p class="cap">从上到下：0（宽度为 0，不留最小宽度）、进行中、落后（琥珀）、完成（绿）。</p></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>高 4px，圆角 2px</td></tr>
+<tr><td>用</td><td>任务卡、门店进度表</td></tr>
+<tr><td>不用</td><td>加载进度（用骨架屏或按钮加载态）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-steps">
+<div class="cmp-h"><h3>步骤条</h3><span class="cls">.steps li.done li.cur</span></div>
+<p class="p">跨页面或多步弹窗的流程位置。</p>
+<div class="stage anat"><ol class="steps" aria-label="完成任务流程"><li class="done" data-pin="1"><b>任务卡</b>点「去发视频」</li><li class="cur" data-pin="2"><b>AI 创作</b>出成片</li><li data-pin="3"><b>内容分发</b>定时发布</li></ol></div>
+<ol class="legend"><li><i>1</i>已完成：绿色顶线</li><li><i>2</i>当前：白色顶线</li><li><i>3</i>未到：灰色顶线</li></ol>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>用</td><td>3–5 步的流程；三步弹窗顶部</td></tr>
+<tr><td>不用</td><td>能一屏填完的表单</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-meta">
+<div class="cmp-h"><h3>元信息行</h3><span class="cls">.meta .meta b .meta .warn .meta .src</span></div>
+<p class="p">并列的来源、时间、负责人。每个字段是独立元素，间距 12px，不显示分隔符。</p>
+<div class="stage anat"><div class="meta"><span data-pin="1">总部</span><span class="num" data-pin="2">10-14 至 10-20</span><span>负责人 店长</span><span class="warn" data-pin="3">已被催办 2 次，最近 14:00</span></div>
+<div class="meta" style="margin-top:12px"><span class="src" data-pin="4">杭州星驰西湖店<i>店长</i></span><span class="num">10-14 14:00</span></div></div>
+<ol class="legend"><li><i>1</i>字段：12px 文字 3</li><li><i>2</i>字段间距 12px，换行时自动对齐</li><li><i>3</i>要处理的字段用琥珀</li><li><i>4</i>来源：门店名 + 8px + 灰色角色名</li></ol>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>用</td><td>卡片、消息、时间线下方的 2–5 个并列字段</td></tr>
+<tr><td>不用</td><td>一句完整的话（用中文逗号写成句子，如「催办 30 家门店，已读 1 / 30」）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-pager">
+<div class="cmp-h"><h3>分页</h3><span class="cls">.pager</span></div>
+<p class="p">表格超过一页时放在表格下方右侧。</p>
+<div class="stage flush"><div class="pager"><span>第 1–14 家，共 48 家</span><button class="btn btn-ghost" disabled>上一页</button><button class="btn btn-ghost">下一页</button></div></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>用</td><td>PC 表格超过 50 行，或像门店进度表这样固定每页行数</td></tr>
+<tr><td>不用</td><td>手机列表（滚动到底自动加载）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-perm">
+<div class="cmp-h"><h3>权限表</h3><span class="cls">.tbl.perm</span></div>
+<p class="p">角色和功能的勾选矩阵。</p>
+<div class="stage flush"><table class="tbl perm"><thead><tr><th>功能</th><th>查看</th><th>编辑</th><th>下发</th></tr></thead><tbody>
+<tr><td class="main">脚本库</td><td><label class="hit"><input type="checkbox" checked aria-label="脚本库查看"></label></td><td><label class="hit"><input type="checkbox" checked aria-label="脚本库编辑"></label></td><td><label class="hit"><input type="checkbox" aria-label="脚本库下发"></label></td></tr>
+<tr><td class="main">线索</td><td><label class="hit"><input type="checkbox" checked aria-label="线索查看"></label></td><td><label class="hit"><input type="checkbox" aria-label="线索编辑"></label></td><td><label class="hit"><input type="checkbox" disabled aria-label="线索下发，不适用"></label></td></tr>
+</tbody></table></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>结构</td><td>每个复选框外包 <code>&lt;label class="hit"&gt;</code>，整块是点击区；复选框本身 16px，必须带 <code>aria-label</code>（「脚本库查看」）</td></tr>
+<tr><td>尺寸</td><td>PC：单元格 40px 高，点击区 32 × 32px。手机宽度（&lt; 768px）：单元格 44px 高，点击区 44 × 44px</td></tr>
+<tr><td>状态</td><td>勾选、未勾选、禁用（不适用的格子，40%，鼠标为禁止）</td></tr>
+<tr><td>用</td><td>角色与权限页</td></tr>
+<tr><td>不用</td><td>普通多选（用复选行）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-film">
+<div class="cmp-h"><h3>成片卡</h3><span class="cls">.film .cover .dur</span></div>
+<p class="p">竖版视频成片的缩略。</p>
+<div class="stage"><div class="row" style="align-items:flex-start"><div class="film"><div class="cover"><span class="tag tag-info">新生成</span><span class="dur">0:19</span></div><span class="t">到店福利口播</span><button class="btn btn-secondary">去分发</button></div><div class="film"><div class="cover"><span class="dur">0:30</span></div><span class="t">星驰 X5 30 秒口播</span><div class="meta"><span>已分发 3 个账号</span></div></div></div></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>宽 156px，封面 9:16，最高 200px</td></tr>
+<tr><td>用</td><td>AI 创作的最近成片、内容分发选内容</td></tr>
+<tr><td>不用</td><td>非视频内容</td></tr>
+</tbody></table></div>
+</article>
+</section>
+
+<section class="sec" id="feedback-c">
+<h2>反馈和浮层</h2>
+
+<article class="cmp" id="c-toast">
+<div class="cmp-h"><h3>轻提示</h3><span class="cls">.toast .toast-err .act</span></div>
+<p class="p">写操作完成后的短反馈。文字和按钮同名：按钮「确认转交」，提示「已转交给销售顾问A」。</p>
+<div class="stage anat"><div class="col" style="justify-items:start"><div class="toast" data-pin="1">已向 30 家未完成门店发送催办</div><div class="toast">已创建 350 条定时发布任务<span class="act" data-pin="2">查看记录</span></div><div class="toast toast-err" data-pin="3">没有发送成功：网络断开。<span class="act">重试</span></div></div></div>
+<ol class="legend"><li><i>1</i>成功：反白，14/500</li><li><i>2</i>可带一个动作，下划线</li><li><i>3</i>失败：深红底，写原因和办法</li></ol>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>上下 10px，左右 16px，圆角 10px；PC 底部居中，距底 24px；手机在底部标签栏上方 12px</td></tr>
+<tr><td>时长</td><td>3 秒；带动作 6 秒；悬停或聚焦时暂停计时</td></tr>
+<tr><td>用</td><td>保存、发送、复制这类结果明确的操作</td></tr>
+<tr><td>不用</td><td>需要用户读完再决定的事（用弹窗）；持续存在的状态（用横条）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-banner">
+<div class="cmp-h"><h3>横条提示</h3><span class="cls">.banner .banner-warn .banner-err</span></div>
+<p class="p">常驻页面顶部的状态，不遮内容。</p>
+<div class="stage col"><div class="banner banner-warn" role="status"><b>本地存储不可用：</b><span>刷新后操作记录会丢失。可能是浏览器开了无痕模式。</span></div><div class="banner"><b>正在完成任务：</b><span>星驰 X5 30 秒口播视频（0/1）</span><a href="#c-banner" style="margin-left:auto">返回任务</a></div><div class="banner banner-err" role="alert"><b>发布失败 1 条：</b><span>账号授权已过期，去授权后重新发布。</span></div></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>用</td><td>影响整页的状态：存储不可用、正在完成任务、有发布失败</td></tr>
+<tr><td>不用</td><td>一次性的操作结果（用轻提示）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-errline">
+<div class="cmp-h"><h3>行内错误</h3><span class="cls">.err-line .help.err</span></div>
+<p class="p">弹窗或表单提交失败时，在底栏上方写一行原因和办法。弹窗不关，已填内容保留。</p>
+<div class="stage flush" style="max-width:520px"><p class="err-line" role="alert" style="padding-top:12px">任务没有下发：网络断开。检查网络后再点「确认下发」，已填内容不会丢。</p><div class="sheet-f"><button class="btn btn-ghost">取消</button><button class="btn btn-primary">确认下发</button></div></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>用</td><td>提交失败、校验不过但不属于某一个输入框</td></tr>
+<tr><td>不用</td><td>单个字段的错误（写在字段下方 <code>.help.err</code>）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-empty">
+<div class="cmp-h"><h3>空状态</h3><span class="cls">.empty</span></div>
+<p class="p">告诉用户这里会出现什么、下一步做什么。左对齐，放在原本列表的位置。</p>
+<div class="g3">
+<div class="stage anat"><div class="empty" style="padding:0"><h3 data-pin="1">没有超时线索</h3><p data-pin="2">超过 2 小时没跟进的线索会出现在这里。现在都处理完了。</p><button class="btn btn-secondary" data-pin="3">看全部待跟进</button></div></div>
+<div class="stage"><div class="empty" style="padding:0"><h3>没有符合筛选条件的发布记录</h3><p>换个日期、平台或状态试试。</p><button class="btn btn-secondary">清除筛选</button></div></div>
+<div class="stage"><div class="empty" style="padding:0"><h3>线索没有加载出来</h3><p>网络连接中断。检查网络后重新加载，已填的跟进内容不会丢。</p><button class="btn btn-secondary">重新加载</button></div></div>
+</div>
+<ol class="legend"><li><i>1</i>标题：具体说没有什么，16/600</li><li><i>2</i>说明：会出现什么或为什么</li><li><i>3</i>一个次按钮：下一步</li></ol>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>三种</td><td>从来没有（引导去创建）、筛选无结果（清除筛选）、加载失败（重新加载，见错误模式）</td></tr>
+<tr><td>不用</td><td>插画、「暂无数据」、道歉</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-skel">
+<div class="cmp-h"><h3>骨架屏</h3><span class="cls">.skel</span></div>
+<p class="p">数据加载时占住真实布局的位置。动效参数见第 5 章。</p>
+<div class="stage col" style="max-width:420px"><span class="skel" style="width:60%"></span><span class="skel" style="width:90%"></span><span class="skel" style="width:75%"></span></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>和真实内容同尺寸：文字行 12px 高，数字 20px 高；圆角 4px</td></tr>
+<tr><td>用</td><td>首次加载超过 300ms 的列表、表格、指标</td></tr>
+<tr><td>不用</td><td>按钮提交（用按钮加载态）；超过 10 秒（改成错误态）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-sheet">
+<div class="cmp-h"><h3>弹窗</h3><span class="cls">.sheet .sheet-h .sheet-b .sheet-f</span></div>
+<p class="p">打断当前操作、要用户确认或填写的事。手机上从底部弹出、占满屏宽。</p>
+<div class="stage anat" style="background:var(--c-overlay)"><div class="sheet" style="max-width:440px;margin:0 auto" role="dialog" aria-label="提醒店长示例">
+<div class="sheet-h" data-pin="1"><h3>提醒杭州星驰西湖店店长</h3></div>
+<div class="sheet-b" style="padding:0;gap:0" data-pin="2">
+<label class="radio-row"><input type="radio" name="sr" checked><span class="bd">近 30 天直播仅 3 场</span></label>
+<label class="radio-row"><input type="radio" name="sr"><span class="bd">本周未发布内容</span></label>
+</div>
+<div class="sheet-f" data-pin="3"><button class="btn btn-ghost">取消</button><button class="btn btn-primary">发送提醒</button></div>
+</div></div>
+<ol class="legend"><li><i>1</i>标题行 52px：写要做的事</li><li><i>2</i>内容：内边距 16px，可滚动</li><li><i>3</i>底栏：取消在左，主按钮在右</li></ol>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>宽 440 / 520 / 640px 三档，圆角 16px，有阴影和 1px 描边；遮罩 <code>--c-overlay</code></td></tr>
+<tr><td>状态</td><td>打开、提交中（主按钮加载）、提交失败（行内错误，不关）、关闭</td></tr>
+<tr><td>用</td><td>确认、短表单（≤ 6 个字段）、选择</td></tr>
+<tr><td>不用</td><td>看详情（用抽屉）；长表单（单独页面）</td></tr>
+</tbody></table></div>
+</article>
+</section>
+
+<section class="sec" id="nav-c">
+<h2>导航和消息</h2>
+
+<article class="cmp" id="c-bell">
+<div class="cmp-h"><h3>铃铛和角标</h3><span class="cls">.bell .badge</span></div>
+<p class="p">顶栏的消息入口，角标显示未读数。</p>
+<div class="stage"><div class="row">
+<button class="bell" aria-label="消息，没有未读"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 21h4"/></svg></button>
+<button class="bell" aria-label="消息，3 条未读"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 21h4"/></svg><span class="badge">3</span></button>
+<button class="bell" aria-label="消息，超过 99 条未读"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 21h4"/></svg><span class="badge" style="right:0">99+</span></button>
+</div><p class="cap">0 不显示角标；1–99 显示数字；超过 99 显示「99+」。角标红底黑字，对比度 7.2:1。</p></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>按钮 44×44px，图标 20px；角标高 16px</td></tr>
+<tr><td>用</td><td>PC 顶栏。手机工作台不用，未读数放在底部「消息」标签上</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-msg">
+<div class="cmp-h"><h3>消息行</h3><span class="cls">.msg .dot-unread .is-read</span></div>
+<p class="p">一条通知：未读点、类型、标题、来源和时间、去处理。</p>
+<div class="stage flush anat">
+<div class="msg"><span class="dot-unread" aria-label="未读" data-pin="1"></span><div><div class="row" style="gap:8px"><span class="tag plain" data-pin="2">任务催办</span><span class="t" data-pin="3">总部催办：星驰 X5 30 秒口播视频</span></div><div class="meta" style="margin-top:4px" data-pin="4"><span class="src">总部管理员</span><span class="num">10-14 14:00</span></div></div><button class="btn btn-secondary go" data-pin="5">去处理</button></div>
+<div class="msg is-read"><span class="dot-unread"></span><div><div class="row" style="gap:8px"><span class="tag plain">PK 结算</span><span class="t">国庆 PK 结算：本店全国第 4 名</span></div><div class="meta" style="margin-top:4px"><span>系统</span><span class="num">10-08 10:00</span></div></div><button class="btn btn-ghost go">查看</button></div>
+</div>
+<ol class="legend"><li><i>1</i>未读：8px 蓝点</li><li><i>2</i>类型：无点标签，「对象 + 动作」</li><li><i>3</i>标题：未读 500，已读 400 文字 2</li><li><i>4</i>来源和时间：元信息行</li><li><i>5</i>去处理：未读次按钮，已读文字按钮</li></ol>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>用</td><td>消息中心、手机工作台「消息」</td></tr>
+<tr><td>不用</td><td>操作日志（用日志表）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-tabbar">
+<div class="cmp-h"><h3>底部标签栏</h3><span class="cls">.wbbar</span></div>
+<p class="p">手机工作台的一级导航，固定三项。</p>
+<div class="stage flush" style="max-width:390px"><nav class="wbbar" aria-label="手机工作台">
+<a href="#c-tabbar" aria-current="page"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>我的任务</a>
+<a href="#c-tabbar"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/></svg>线索</a>
+<a href="#c-tabbar" aria-label="消息，5 条未读"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 21h4"/></svg>消息<span class="badge">5</span></a>
+</nav></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>高 56px（<code>--tabbar-m</code>）+ 底部安全区；图标 24px，文字 11px/500</td></tr>
+<tr><td>用</td><td>只用于手机工作台</td></tr>
+<tr><td>不用</td><td>PC；超过 3 项</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="c-demo">
+<div class="cmp-h"><h3>演示专用模块</h3><span class="cls">.panel + 虚线描边 + .tag.plain</span></div>
+<p class="p">只为演示讲解存在、正式产品不做的内容。留在原位，标题旁一处标签。</p>
+<div class="stage"><section class="panel" style="border:1px dashed var(--c-line-strong);background:none" aria-label="演示专用模块示例"><div class="panel-h"><h2>加入门店通前和现在</h2><span class="tag plain">演示专用模块</span></div><div class="meta" style="padding:0 16px 16px;font:var(--t-small)"><span>每天线索 <b class="num">15 条左右</b></span><span>直播 <b>每天 1–3 场</b></span><span>区域 PK <b>第 4 名</b></span></div></section></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>用</td><td>演示讲解内容、模拟操作（模拟短信、模拟扫码，见 A09）</td></tr>
+<tr><td>不用</td><td>正式功能；在模块里每张小卡上重复标注</td></tr>
+</tbody></table></div>
+</article>
+</section>
+
+<section class="sec" id="v14">
+<h2>v1.4 规划组件</h2>
+<p class="p">员工、门店、账号管理页要用的 15 个新组件。都由现有 token 和组件拼成，下面的示例样式是规划稿；进库时升次版本号（v1.1），以组件库为准。</p>
+
+<article class="cmp" id="a01">
+<div class="cmp-h"><h3>A01 范围切换器</h3><span class="tag tag-info plain">v1.4 新增</span></div>
+<p class="p">在页面标题行切换数据范围（总部、大区、门店）。按钮上写当前范围。</p>
+<div class="stage anat"><div class="row" style="gap:12px;align-items:flex-start">
+<div><div class="row" style="gap:8px"><h4 style="font:var(--t-title-1)">员工与账号</h4><span class="t3 num" style="font:var(--t-small)">7 人</span><button class="v14-scope" type="button" aria-haspopup="listbox" aria-expanded="true" data-pin="1">华东全部 12 店<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div>
+<div class="v14-pop" role="listbox" aria-label="选择范围" data-pin="2">
+<div style="padding:8px"><input class="input" placeholder="搜索门店名" aria-label="搜索门店名"></div>
+<div class="v14-grp">大区</div><div class="v14-opt" role="option" aria-selected="true">华东全部 12 店<span class="t3">✓</span></div>
+<div class="v14-grp" data-pin="3">门店</div><div class="v14-opt" role="option" aria-selected="false">杭州星驰西湖店</div><div class="v14-opt" role="option" aria-selected="false">苏州星驰园区店</div>
+</div></div>
+<div><p class="cap" style="margin-top:0">店长视角：不可点的文字</p><div class="row" style="gap:8px"><h4 style="font:var(--t-title-1)">员工与账号</h4><span class="t3 num" style="font:var(--t-small)">7 人</span><span style="font:500 14px/32px var(--f-ui);color:var(--c-text-2)">杭州星驰西湖店</span></div></div>
+</div></div>
+<ol class="legend"><li><i>1</i>触发按钮：文字按钮样式 + 展开图标</li><li><i>2</i>下拉：浮层，顶部搜索</li><li><i>3</i>分组标题：总部 / 大区 / 门店</li></ol>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>结构</td><td>页面标题 + 数量 + 切换器，三者在一行</td></tr>
+<tr><td>尺寸</td><td>按钮高 32px（手机 44px）；下拉宽 280px，最高 360px</td></tr>
+<tr><td>状态</td><td>默认、悬停（surface-2）、展开、选中项打勾、搜索无结果、只有一个范围时变成纯文字</td></tr>
+<tr><td>用</td><td>同一页面要在多个门店之间切换（员工、员工数据）</td></tr>
+<tr><td>不用</td><td>表格内筛选（用芯片）；店长等只有一个范围的角色</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="a02">
+<div class="cmp-h"><h3>A02 员工状态标签</h3><span class="tag tag-info plain">v1.4 新增</span></div>
+<p class="p">员工账号的状态。正常不加标签；要店长动手的才用琥珀。</p>
+<div class="stage"><div class="tw" style="margin:0"><table class="tbl"><thead><tr><th>员工</th><th>角色</th><th>状态</th></tr></thead><tbody>
+<tr><td class="main">销售顾问A</td><td class="sub">销售顾问</td><td class="sub">正常</td></tr>
+<tr><td class="main">销售顾问D</td><td class="sub">销售顾问</td><td><span class="tag tag-info">待激活</span></td></tr>
+<tr><td class="main">新媒体专员B</td><td class="sub">新媒体专员</td><td><span class="tag tag-info">待审批</span></td></tr>
+<tr><td class="main">销售顾问E</td><td class="sub">销售顾问</td><td><div class="row" style="gap:6px"><span class="tag">已停用</span><span class="tag tag-accent">待交接</span></div></td></tr>
+<tr><td class="main">销售顾问F</td><td class="sub">销售顾问</td><td><span class="tag">已停用</span></td></tr>
+</tbody></table></div></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>状态</td><td>正常：纯文本「正常」；待激活、待审批：蓝；已停用：灰；已停用且有线索或账号没交接：灰「已停用」+ 琥珀「待交接」两个标签</td></tr>
+<tr><td>用</td><td>员工列表、员工详情标题旁</td></tr>
+<tr><td>不用</td><td>把两个状态拼成一个复合标签</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="a03">
+<div class="cmp-h"><h3>A03 带原因的不可用按钮</h3><span class="tag tag-info plain">v1.4 新增</span></div>
+<p class="p">按钮不能点时，在按钮下方常驻一行原因。手机没有悬停，原因不能只放在悬停提示里。</p>
+<div class="stage anat"><div class="row" style="align-items:flex-start;gap:24px">
+<div class="v14-why"><button class="btn btn-secondary" disabled data-pin="1" aria-describedby="w1">停用店长</button><span id="w1" class="help" data-pin="2">先指定新店长</span></div>
+<div class="v14-why"><button class="btn btn-danger" disabled aria-describedby="w2">停用门店</button><span id="w2" class="help">演示种子门店不能停用</span></div>
+</div></div>
+<ol class="legend"><li><i>1</i>按钮：禁用 40%</li><li><i>2</i>原因：12px 文字 3，距按钮 4px，常驻</li></ol>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>结构</td><td>按钮 + 原因，按钮用 <code>aria-describedby</code> 指向原因</td></tr>
+<tr><td>用</td><td>条件不满足导致不能操作，且用户能自己去满足条件</td></tr>
+<tr><td>不用</td><td>必填项没填的提交按钮（表单内已有提示）；只靠悬停 <code>title</code></td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="a04">
+<div class="cmp-h"><h3>A04 危险确认弹层</h3><span class="tag tag-info plain">v1.4 新增</span></div>
+<p class="p">停用、解绑这类难以撤回的操作。标题写后果，按钮写清各自会发生什么。</p>
+<div class="g2">
+<div class="stage" style="background:var(--c-overlay)"><div class="sheet" role="dialog" aria-label="停用员工示例"><div class="sheet-h"><h3>停用销售顾问E 后，他不能再登录</h3></div><div class="sheet-b"><p style="font:var(--t-small);color:var(--c-text-2)">名下有 12 条线索、2 个门店号，需要交接给其他员工。</p></div><div class="sheet-f"><button class="btn btn-ghost">取消</button><button class="btn btn-secondary">只停用</button><button class="btn btn-primary">停用并去交接</button></div></div><p class="cap">名下有线索或账号：三个按钮。</p></div>
+<div class="stage" style="background:var(--c-overlay)"><div class="sheet" role="dialog" aria-label="停用门店示例"><div class="sheet-h"><h3>停用苏州星驰园区店后，店内员工都不能登录</h3></div><div class="sheet-b"><div class="field"><label for="a4i">输入门店名「苏州星驰园区店」确认</label><input id="a4i" class="input" value="苏州星驰"></div></div><div class="sheet-f"><button class="btn btn-ghost">取消</button><button class="btn btn-danger" disabled>停用门店</button></div></div><p class="cap">停用门店：输入一致前确认按钮不可用。</p></div>
+</div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>状态</td><td>打开、名下为 0（只留「取消」「停用」，正文不写「0 条线索」）、输入不一致（禁用）、提交中、提交失败（行内错误）</td></tr>
+<tr><td>用</td><td>停用员工、解绑账号、停用门店</td></tr>
+<tr><td>不用</td><td>可撤回的操作（直接做，轻提示里给「撤销」）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="a05">
+<div class="cmp-h"><h3>A05 批量选择表格和操作栏</h3><span class="tag tag-info plain">v1.4 新增</span></div>
+<p class="p">交接线索：行首复选框，表格上方操作栏写已选数量和动作。</p>
+<div class="stage flush anat">
+<div class="v14-bulk" data-pin="1"><span class="num">已选 4 条</span><button class="btn btn-primary" data-pin="2">分配给</button><button class="btn btn-ghost">取消选择</button></div>
+<table class="tbl"><thead><tr><th style="width:56px"><label class="hit" data-pin="3"><input type="checkbox" checked aria-label="全选"></label></th><th>客户</th><th>意向车型</th><th>最近跟进</th></tr></thead><tbody>
+<tr class="is-selected"><td><label class="hit"><input type="checkbox" checked aria-label="选择张先生"></label></td><td class="main">张先生</td><td class="sub">星驰 X5</td><td class="sub num">10-14 14:00</td></tr>
+<tr class="is-selected"><td><label class="hit"><input type="checkbox" checked aria-label="选择李女士"></label></td><td class="main">李女士</td><td class="sub">星驰 E3</td><td class="sub num">10-13 18:20</td></tr>
+</tbody></table></div>
+<ol class="legend"><li><i>1</i>操作栏：替换表头上方的筛选区，高 52px</li><li><i>2</i>动作写成「动词 + 对象」</li><li><i>3</i>表头全选，支持部分选中</li></ol>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>操作栏 52px；复选框列 56px 宽，复选框外包 <code>label.hit</code>，点击区 PC 32px、手机 44px（与权限表同一写法）</td></tr>
+<tr><td>状态</td><td>默认全选、部分选中、分配中、分配后已分出的行移出表格并轻提示「已分配 4 条给销售顾问A」、全部分完显示空状态</td></tr>
+<tr><td>用</td><td>对多行做同一个动作</td></tr>
+<tr><td>不用</td><td>只能单行操作的场景</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="a06">
+<div class="cmp-h"><h3>A06 平台账号行</h3><span class="tag tag-info plain">v1.4 新增</span></div>
+<p class="p">门店绑定的抖音、快手、小红书账号。授权正常不加标签。</p>
+<div class="stage flush anat">
+<div class="v14-acc"><span class="v14-plat" aria-hidden="true" data-pin="1">抖</span><div class="bd"><div class="t" data-pin="2">杭州星驰西湖店官方号</div><div class="meta"><span>抖音</span><span class="tag plain" data-pin="3">门店号</span></div></div><div class="end"><button class="btn btn-ghost">查看数据</button><button class="btn btn-ghost" aria-label="更多操作" data-pin="4">更多</button></div></div>
+<div class="v14-acc"><span class="v14-plat" aria-hidden="true">快</span><div class="bd"><div class="t">西湖店售后小助手</div><div class="meta"><span>快手</span><span class="tag plain">门店号</span><span class="tag tag-accent" data-pin="5">3 天后过期</span></div></div><div class="end"><button class="btn btn-secondary">去授权</button><button class="btn btn-ghost" aria-label="更多操作">更多</button></div></div>
+<div class="v14-acc"><span class="v14-plat" aria-hidden="true">红</span><div class="bd"><div class="t">销售顾问A 的个人号</div><div class="meta"><span>小红书</span><span class="tag plain">个人号</span><span class="tag tag-neg">已过期</span></div></div><div class="end"><button class="btn btn-secondary">去授权</button></div></div>
+<div class="v14-acc"><span class="v14-plat" aria-hidden="true">抖</span><div class="bd"><div class="t" style="color:var(--c-text-2)">西湖店旧账号</div><div class="meta"><span>抖音</span><span class="tag plain">门店号</span><span class="tag">已解绑</span></div></div><div class="end"><button class="btn btn-secondary">重新绑定</button></div></div>
+</div>
+<ol class="legend"><li><i>1</i>平台：24px 灰底字块写平台首字，不用平台品牌色和标志</li><li><i>2</i>账号名 14/500</li><li><i>3</i>类型：门店号 / 个人号</li><li><i>4</i>行内最多露 2 个操作，其余进「更多」</li><li><i>5</i>授权：即将过期琥珀，已过期红，已解绑灰</li></ol>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>行高 56px，左右 16px</td></tr>
+<tr><td>用</td><td>门店详情账号页签、我的账号、交接页账号页签</td></tr>
+<tr><td>不用</td><td>整行灰显（会让按钮看着不可点）；已解绑行只把账号名改为文字 2</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="a07">
+<div class="cmp-h"><h3>A07 绑定账号三步弹窗</h3><span class="tag tag-info plain">v1.4 新增</span></div>
+<p class="p">选平台、扫码授权、选账号类型。顶部步骤条，第 3 步账号类型没有默认值。</p>
+<div class="stage" style="background:var(--c-overlay)"><div class="sheet" style="max-width:520px;margin:0 auto" role="dialog" aria-label="绑定账号示例">
+<div class="sheet-h"><h3>绑定账号</h3></div>
+<div class="sheet-b"><ol class="steps"><li class="done"><b>选平台</b>抖音</li><li class="done"><b>扫码授权</b>已授权</li><li class="cur"><b>账号类型</b>选一个</li></ol>
+<div class="field"><span style="font:var(--t-caption);color:var(--c-text-2)" id="a7l">账号类型</span><div class="seg" role="radiogroup" aria-labelledby="a7l"><button role="radio" aria-checked="false" aria-selected="false">门店号</button><button role="radio" aria-checked="false" aria-selected="false">个人号</button></div><span class="help">门店号离职时转交给其他员工，个人号离职时只能解绑</span></div></div>
+<div class="sheet-f"><button class="btn btn-ghost">上一步</button><button class="btn btn-primary" disabled>完成绑定</button></div></div></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>状态</td><td>每步：默认、加载（扫码等待）、成功、失败（二维码过期，「刷新二维码」）；第 3 步未选类型时「完成绑定」禁用</td></tr>
+<tr><td>用</td><td>绑定账号、添加直播间（同一个弹窗）</td></tr>
+<tr><td>不用</td><td>一步就能完成的设置</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="a08">
+<div class="cmp-h"><h3>A08 手机独立表单页</h3><span class="tag tag-info plain">v1.4 新增</span></div>
+<p class="p">员工激活、申请加入这类不进后台的单页。无侧栏，单列表单，主按钮固定在底部。</p>
+<div class="g2">
+<div class="frame-m" style="height:560px;display:flex;flex-direction:column">
+<div class="m-top"><h1 style="font:600 15px/1 var(--f-ui)">门店通</h1></div>
+<div style="flex:1;padding:24px 16px;display:grid;gap:16px;align-content:start">
+<div><h2 style="font:var(--t-title-1)">设置登录密码</h2><p style="font:var(--t-small);color:var(--c-text-2);margin-top:4px">杭州星驰西湖店邀请你加入，设好密码就能登录。</p></div>
+<div class="field"><label for="a8a">新密码</label><input id="a8a" class="input" type="password" value="xxxxxxxx"><span class="help">8–20 位，含字母和数字</span></div>
+<div class="field"><label for="a8b">再输一次</label><input id="a8b" class="input is-error" type="password" value="xxxxxxx" aria-invalid="true" aria-describedby="a8be"><span id="a8be" class="help err">两次输入不一致，请重新输入</span></div>
+</div>
+<div style="padding:12px 16px 24px;border-top:1px solid var(--c-line)"><button class="btn btn-primary btn-lg btn-block">完成激活</button></div>
+</div>
+<div><div class="tw" style="margin-top:16px"><table class="st"><thead><tr><th>状态</th><th>标题</th><th>主按钮</th></tr></thead><tbody>
+<tr><td>设密码</td><td>设置登录密码</td><td>完成激活</td></tr>
+<tr><td>等待审批</td><td>已提交申请，等店长审批</td><td>无</td></tr>
+<tr><td>已通过</td><td>店长已通过你的申请</td><td>去登录</td></tr>
+<tr><td>未通过</td><td>店长没有通过你的申请</td><td>重新申请</td></tr>
+<tr><td>链接已失效</td><td>邀请链接已失效</td><td>无，写「请联系店长重新发送」</td></tr>
+<tr><td>已激活</td><td>这个账号已经激活</td><td>去登录</td></tr>
+</tbody></table></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>顶栏 48px 只放产品名；主按钮 44px 高，固定底部 + 安全区；PC 打开时居中 480px 宽</td></tr>
+<tr><td>验收</td><td>390×844 首屏能看到主按钮</td></tr>
+<tr><td>不用</td><td>后台里的表单（用弹窗或页面内表单）</td></tr>
+</tbody></table></div></div>
+</div>
+</article>
+
+<article class="cmp" id="a09">
+<div class="cmp-h"><h3>A09 演示专用控件</h3><span class="tag tag-info plain">v1.4 新增</span></div>
+<p class="p">模拟短信、模拟扫码成功、以该员工身份登录、模拟授权到期检查。统一用演示专用模块样式，和正式功能分开。</p>
+<div class="stage"><div class="v14-democtl"><span class="tag plain">演示专用</span><button class="btn btn-ghost">模拟扫码成功</button><button class="btn btn-ghost">模拟授权到期检查</button></div></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>结构</td><td>1px 虚线框 + 「演示专用」标签 + 文字按钮；放在对应正式功能的下方</td></tr>
+<tr><td>不用</td><td>和正式按钮混排在同一个按钮组里</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="a10">
+<div class="cmp-h"><h3>A10 组织树</h3><span class="tag tag-info plain">v1.4 新增</span></div>
+<p class="p">门店页左侧：总部、大区、门店三层，叶子节点后写员工数和账号数。</p>
+<div class="stage" style="max-width:340px"><ul class="v14-tree" role="tree" aria-label="组织">
+<li role="treeitem" aria-expanded="true" aria-level="1"><span class="v14-node"><button class="v14-tw" aria-label="收起总部"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>总部</span>
+<ul role="group">
+<li role="treeitem" aria-expanded="true" aria-level="2"><span class="v14-node"><button class="v14-tw" aria-label="收起华东"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>华东</span>
+<ul role="group">
+<li role="treeitem" aria-level="3" aria-selected="true"><span class="v14-node is-on"><span class="v14-tw"></span>杭州星驰西湖店<span class="meta"><span>员工 7</span><span>账号 7</span></span></span></li>
+<li role="treeitem" aria-level="3"><span class="v14-node"><span class="v14-tw"></span>苏州星驰园区店<span class="meta"><span>员工 5</span><span>账号 4</span></span></span></li>
+</ul></li>
+<li role="treeitem" aria-expanded="false" aria-level="2"><span class="v14-node"><button class="v14-tw" aria-label="展开华北"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" style="transform:rotate(-90deg)"><path d="M6 9l6 6 6-6"/></svg></button>华北</span></li>
+</ul></li></ul></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>行高 36px；每层缩进 16px（<code>--s-5</code>）；展开按钮看得见 24px，点击区用透明伪元素 <code>::after</code> 从中心外扩到 44 × 44px</td></tr>
+<tr><td>状态</td><td>展开、收起、选中（surface-2）、悬停、键盘焦点；上下键移动，左右键收展</td></tr>
+<tr><td>用</td><td>PC 门店页左侧</td></tr>
+<tr><td>不用</td><td>手机（用范围切换器）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="a11">
+<div class="cmp-h"><h3>A11 定位高亮行</h3><span class="tag tag-info plain">v1.4 新增</span></div>
+<p class="p">从消息或链接跳进来时，自动滚到目标行并短暂高亮。演示见<a href="motion.html#m-highlight">第 5 章</a>。</p>
+<div class="stage flush"><table class="tbl"><tbody><tr><td class="main">杭州星驰西湖店官方号</td><td class="sub">门店号</td></tr><tr><td class="main" style="background:var(--c-info-weak)">西湖店售后小助手</td><td class="sub" style="background:var(--c-info-weak)">门店号　<span class="tag tag-neg">已过期</span></td></tr><tr><td class="main">销售顾问A 的个人号</td><td class="sub">个人号</td></tr></tbody></table></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>参数</td><td>底色 <code>--c-info-weak</code>，停留 <code>--dur-highlight</code> 2 秒后用 <code>--dur-slow</code> 淡出；减少动效时直接显示，不淡出</td></tr>
+<tr><td>用</td><td>带定位参数进入的账号页、日志页</td></tr>
+<tr><td>不用</td><td>用户自己点选的行（用选中态）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="a12">
+<div class="cmp-h"><h3>A12 二维码弹层</h3><span class="tag tag-info plain">v1.4 新增</span></div>
+<p class="p">邀请员工：二维码 + 链接 + 复制链接。</p>
+<div class="stage" style="background:var(--c-overlay)"><div class="sheet" style="max-width:360px;margin:0 auto" role="dialog" aria-label="邀请二维码示例"><div class="sheet-h"><h3>邀请员工加入杭州星驰西湖店</h3></div><div class="sheet-b" style="justify-items:center"><div class="v14-qr" role="img" aria-label="邀请二维码"></div><p style="font:var(--t-small);color:var(--c-text-2);text-align:center">用手机扫码，或把链接发给员工。7 天内有效。</p><div class="row" style="width:100%;flex-wrap:nowrap"><input class="input" value="邀请链接（示例）" readonly aria-label="邀请链接"><button class="btn btn-secondary">复制链接</button></div></div></div></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>状态</td><td>默认、复制后轻提示「已复制」、链接过期（二维码位置写「已失效」+「重新生成」）</td></tr>
+<tr><td>尺寸</td><td>二维码 160×160px，白底留 8px 静区</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="a13">
+<div class="cmp-h"><h3>A13 日志表</h3><span class="tag tag-info plain">v1.4 新增</span></div>
+<p class="p">操作日志：时间、操作人、对象、动作、变化。</p>
+<div class="stage flush"><table class="tbl"><thead><tr><th>时间</th><th>操作人</th><th>对象</th><th>动作</th><th>变化</th></tr></thead><tbody>
+<tr><td class="num sub">10-14 14:02</td><td class="main">店长</td><td>杭州星驰西湖店</td><td class="sub">修改营业时间</td><td><span class="t3">空</span>　改为　<span class="num">9:00–18:00</span></td></tr>
+<tr><td class="num sub">10-14 13:40</td><td class="main">店长</td><td>销售顾问E</td><td class="sub">停用员工</td><td><span class="t3">正常</span>　改为　已停用</td></tr>
+</tbody></table></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>规则</td><td>「变化」写「旧值 改为 新值」，旧值用文字 3；数字用 <code>--f-num</code>；时间按日期格式规则</td></tr>
+<tr><td>用</td><td>操作日志页（PC）</td></tr>
+<tr><td>不用</td><td>给用户的通知（用消息行）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="a14">
+<div class="cmp-h"><h3>A14 个人资料页</h3><span class="tag tag-info plain">v1.4 新增</span></div>
+<p class="p">设置列表样式：每行「名称—值」，可改的行右侧「修改」。</p>
+<div class="stage flush" style="max-width:480px"><div class="v14-set"><span>姓名</span><b>销售顾问A</b><span></span></div><div class="v14-set"><span>手机号</span><b class="num">138****0000</b><button class="btn btn-ghost">修改</button></div><div class="v14-set"><span>所属门店</span><b>杭州星驰西湖店</b><span></span></div><a class="v14-set" href="#a06"><span>我的绑定账号</span><b class="num">2</b><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" style="transform:rotate(-90deg)"><path d="M6 9l6 6 6-6"/></svg></a></div>
+<div class="tw"><table class="st kv"><tbody>
+<tr><td>尺寸</td><td>行高 52px（手机 56px），名称列 96px</td></tr>
+<tr><td>用</td><td>个人资料、门店资料</td></tr>
+<tr><td>不用</td><td>需要一次改很多项（用表单）</td></tr>
+</tbody></table></div>
+</article>
+
+<article class="cmp" id="a15">
+<div class="cmp-h"><h3>A15 管理类消息标签</h3><span class="tag tag-info plain">v1.4 新增</span></div>
+<p class="p">消息中心新增的 11 种管理类消息，沿用 <code>.tag</code>，「对象 + 动作」命名。</p>
+<div class="stage"><div class="row"><span class="tag tag-accent">员工申请</span><span class="tag tag-accent">授权失效</span><span class="tag plain">员工激活</span><span class="tag plain">员工停用</span><span class="tag plain">线索交接</span><span class="tag plain">账号交接</span><span class="tag plain">账号绑定</span><span class="tag plain">账号解绑</span><span class="tag plain">门店停用</span><span class="tag plain">店长变更</span><span class="tag plain">资料修改</span></div><p class="cap">要处理的两种用琥珀，其余灰。筛选条加一项「管理」，手机上单行横滑。</p></div>
+</article>
+</section>
+
+<nav class="pg-nav" aria-label="翻页"><a href="foundations.html"><span>上一章</span>2 基础</a><a href="patterns.html"><span>下一章</span>4 交互模式</a></nav>
+</main>
+</div>
+<script src="spec.js"></script>
+</body>
+</html>

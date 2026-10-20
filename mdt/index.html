@@ -3,136 +3,74 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>门店通设计规范初稿 · 汇总</title>
+<meta name="color-scheme" content="dark">
+<title>门店通设计</title>
 <link rel="stylesheet" href="system/tokens.css">
 <link rel="stylesheet" href="system/components.css">
 <style>
-.wrap{max-width:1120px;margin:0 auto;padding:var(--s-8) var(--s-7) var(--s-9)}
-h1{font:600 28px/36px var(--f-ui)}
-.lede{font:400 16px/26px var(--f-ui);color:var(--c-text-2);max-width:42em;margin-top:var(--s-3)}
-.links{display:flex;flex-wrap:wrap;gap:var(--s-3);margin-top:var(--s-5)}
-section{padding:var(--s-8) 0;border-top:1px solid var(--c-line)}
-section:first-of-type{border-top:0}
-h2{font:600 22px/30px var(--f-ui);margin-bottom:var(--s-4)}
-h3{font:600 16px/24px var(--f-ui);margin:var(--s-6) 0 var(--s-3)}
-.p,.p li{font:400 14px/24px var(--f-ui);color:var(--c-text-2);max-width:46em}
-ul.p,ol.p{padding-left:1.2em} .p li+li{margin-top:6px}
-.p b{color:var(--c-text-1);font-weight:600}
-.shots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-5)}
-.shots figure{margin:0}
-.shots img,.full img{width:100%;display:block;border-radius:var(--r-sm);border:1px solid var(--c-line);background:#fff}
-.shots figcaption,.full figcaption{font:var(--t-small);color:var(--c-text-2);margin-top:var(--s-3)}
-.shots figcaption b,.full figcaption b{color:var(--c-text-1);font-weight:500;display:block}
-.full{margin:var(--s-5) 0 0}
-.pair{display:grid;grid-template-columns:2.1fr 1fr;gap:var(--s-5);align-items:start}
-table.t{width:100%;border-collapse:collapse;font:var(--t-small);margin-top:var(--s-3)}
-table.t th{text-align:left;font:var(--t-caption);color:var(--c-text-3);padding:8px 12px 8px 0;border-bottom:1px solid var(--c-line)}
-table.t td{padding:10px 12px 10px 0;border-bottom:1px solid var(--c-line);color:var(--c-text-2);vertical-align:top}
-table.t td:first-child{color:var(--c-text-1)}
-table.t .n{font-family:var(--f-num);font-variant-numeric:tabular-nums;color:var(--c-text-1)}
-.decisions{list-style:none;display:grid;gap:var(--s-5);margin-top:var(--s-3)}
-.decisions li{display:grid;grid-template-columns:220px 1fr;gap:var(--s-5)}
-.decisions b{font:600 15px/24px var(--f-ui)}
-.decisions span{font:var(--t-body);line-height:24px;color:var(--c-text-2)}
-@media (max-width:900px){.shots{grid-template-columns:repeat(2,minmax(0,1fr))}.pair{grid-template-columns:1fr}}
-@media (max-width:767px){.wrap{padding:var(--s-6) var(--s-5) var(--s-8)}h1{font-size:24px;line-height:32px}.shots{grid-template-columns:1fr}.decisions li{grid-template-columns:1fr;gap:2px}table.t{display:block;overflow-x:auto}}
+.wrap{max-width:1040px;margin:0 auto;padding:56px var(--s-7) 80px}
+.k{font:var(--t-small);color:var(--c-text-3)}
+h1{font:600 32px/40px var(--f-ui);letter-spacing:-.01em;margin-top:var(--s-3)}
+.lede{font:400 16px/26px var(--f-ui);color:var(--c-text-2);max-width:40em;margin-top:var(--s-4)}
+.primary{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--s-6);align-items:center;margin-top:var(--s-8);padding:var(--s-7);background:var(--c-surface-1);border-radius:var(--r-md)}
+.primary h2{font:600 22px/30px var(--f-ui)}
+.primary p{font:var(--t-small);color:var(--c-text-2);margin-top:var(--s-2);max-width:40em}
+.primary .meta{margin-top:var(--s-3)}
+section{margin-top:56px}
+section>h2{font:600 18px/26px var(--f-ui);padding-top:var(--s-5);border-top:1px solid var(--c-line)}
+section>p{font:var(--t-small);color:var(--c-text-2);margin-top:var(--s-2);max-width:44em}
+ul.ln{list-style:none;margin-top:var(--s-4)}
+ul.ln li{border-bottom:1px solid var(--c-line)}
+ul.ln a{display:grid;grid-template-columns:220px minmax(0,1fr);gap:var(--s-5);align-items:baseline;padding:var(--s-4) 0;min-height:44px;color:var(--c-text-2);font:var(--t-small)}
+ul.ln a b{font:500 15px/22px var(--f-ui);color:var(--c-text-1)}
+ul.ln a:hover b{text-decoration:underline;text-underline-offset:4px}
+.mock{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-5);margin-top:var(--s-4)}
+.mock a{display:grid;gap:var(--s-3);color:var(--c-text-2);font:var(--t-small)}
+.mock img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top left;border-radius:var(--r-sm);border:1px solid var(--c-line);display:block}
+.mock a.m img{object-fit:cover;object-position:top center}
+.mock b{display:block;font:500 15px/22px var(--f-ui);color:var(--c-text-1)}
+@media (max-width:767px){.wrap{padding:32px var(--s-5) 64px}h1{font-size:26px;line-height:34px}.primary{grid-template-columns:minmax(0,1fr);padding:var(--s-5)}.primary .btn{width:100%}ul.ln a{grid-template-columns:minmax(0,1fr);gap:2px}.mock{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head>
 <body>
 <div class="wrap">
+<p class="k">星驰汽车门店通</p>
+<h1>门店通设计</h1>
+<p class="lede">汽车经销商新媒体营销后台的设计规范、组件库和高保真示例。做新页面从设计规范开始。</p>
+
+<div class="primary">
+<div><h2>设计规范 v1.0</h2><p>设计原则、基础、组件、交互模式、页面动效、页面模板、跨端、无障碍和文案。照着它，不看旧页面也能做出一致的新页面。</p><div class="meta"><span>2026-10-20</span><span>46 个组件</span><span>规范负责人 UI 设计</span></div></div>
+<a class="btn btn-primary btn-lg" href="spec/index.html">打开设计规范</a>
+</div>
+
 <section>
- <h1>门店通设计规范 v0.1 初稿</h1>
- <p class="lede">讨论稿，2026-10-20。只是设计稿，没有改 demo 代码，也没有部署。主线是屏效：同样的屏幕放下更多有用的信息，把面积留给「谁掉队」「谁要回电」这类要动手的事。</p>
- <div class="links"><a class="btn btn-primary" href="system/index.html">打开设计规范</a><a class="btn btn-secondary" href="mockups/dashboard.html">改后示意：驾驶舱</a><a class="btn btn-secondary" href="mockups/leads.html">改后示意：线索</a><a class="btn btn-secondary" href="mockups/mobile-leads.html">改后示意：手机工作台线索</a><a class="btn btn-ghost" href="selfcheck.md">自查表</a></div>
+<h2>组件库</h2>
+<p>设计变量和组件样式。页面直接引用这两个文件，不复制样式。</p>
+<ul class="ln">
+<li><a href="system/tokens.css"><b>tokens.css</b><span>CSS 变量：颜色、字阶、间距、圆角、尺寸、动效</span></a></li>
+<li><a href="system/tokens.json"><b>tokens.json</b><span>同一份变量的数据格式</span></a></li>
+<li><a href="system/components.css"><b>components.css</b><span>组件样式，用法见规范第 3 章</span></a></li>
+<li><a href="system/index.html"><b>组件状态总表</b><span>v0.1 组件和业务组件的全部状态示例</span></a></li>
+<li><a href="system/usage.md"><b>组件用在哪</b><span>组件和页面、角色的对应表</span></a></li>
+</ul>
 </section>
 
 <section>
- <h2>依据</h2>
- <ul class="p">
-  <li><b>需求：</b>PRD v0.1–v1.3（含 v1.1 补充、v1.2 闭环补充评审稿和 v1.3 修订稿）、决策记录（主色黑色、虚构品牌星驰汽车、演示数据口径）、闭环缺口清单、门店竞品调研，以及 10-20 评审对本稿问题的答复（已写进 PRD v1.3）。</li>
-  <li><b>行业和用户：</b>汽车经销商新媒体矩阵营销。买单方是品牌总部和经销商集团（电脑前横向比 48 家门店）；使用方是店长、新媒体专员、销售顾问（展厅里用手机，线索要 30 分钟内跟进）。</li>
-  <li><b>看过的页面：</b>线上 demo（mdt-demo，GitHub Pages）总部 / 大区 / 门店驾驶舱、门店矩阵和门店详情、线索列表和详情抽屉、AI 创作（含生成后）、直播间列表和详情、直播 PK、任务中心（总部 / 门店）、内容分发、手机工作台、角色与权限、销售顾问线索页，PC 1440×900 和手机 390×844 各一套，存在 shots/pc 和 shots/m（不含登录页）。四个角色的首页（总部、大区、店长驾驶舱，销售顾问线索页）都在下面审计里。</li>
- </ul>
- <h3>现状用法统计（读 demo 源码的样式和脚本）</h3>
- <table class="t"><thead><tr><th>项目</th><th>现状</th><th>本规范</th></tr></thead><tbody>
-  <tr><td>字号</td><td><span class="n">15</span> 种（10–46px），12px 用了 60 次，11px 16 次</td><td>9 档，信息文字最小 12px</td></tr>
-  <tr><td>间距值</td><td><span class="n">28</span> 种，含 9、13、22、26、46px</td><td>8 档，4 的倍数</td></tr>
-  <tr><td>圆角</td><td><span class="n">11</span> 种（3–48px）</td><td>4 档，按容器大小</td></tr>
-  <tr><td>颜色写死</td><td>62 个不同的十六进制颜色值，琥珀 #f5a524 出现 14 次，另有 5 种透明度变体</td><td>全部走变量</td></tr>
-  <tr><td>行内 style</td><td><span class="n">180</span> 处</td><td>改造时收进组件类</td></tr>
-  <tr><td>字重</td><td>400、500、600、700、800、900 共 6 档</td><td>400、500、600 三档</td></tr>
- </tbody></table>
+<h2>高保真示例</h2>
+<p>按规范搭的完整页面，数字是演示数据。</p>
+<div class="mock">
+<a href="mockups/dashboard.html"><img src="mockups/after-dashboard-pc.png" alt="总部驾驶舱高保真示例截图" loading="lazy"><span><b>总部驾驶舱</b>看板页，PC</span></a>
+<a href="mockups/leads.html"><img src="mockups/after-leads-pc.png" alt="线索页高保真示例截图" loading="lazy"><span><b>线索</b>列表页，PC</span></a>
+<a class="m" href="mockups/mobile-leads.html"><img src="mockups/after-mobile-leads-m.png" alt="手机工作台线索高保真示例截图" loading="lazy"><span><b>手机工作台线索</b>列表页，手机</span></a>
+</div>
 </section>
 
 <section>
- <h2>关键设计决定</h2>
- <ul class="decisions">
-  <li><b>仪表盘法则：一屏一块主表</b><span>从汽车仪表盘借来的：车速表最大，油量水温很小。每页最多一个 32px 大数字，其余写成 20px 指标条。驾驶舱指标区从 264px 降到 88px，首屏掉队门店从 1 行变成 14 行。</span></li>
-  <li><b>指标兼作筛选</b><span>线索、发布记录、任务这类页面，「待跟进 158」「失败 1」直接做成筛选芯片，点了就筛。一排大卡省掉，手机工作台线索首屏从 0 条变成 7 条。</span></li>
-  <li><b>沿用黑色和琥珀，收窄用途</b><span>遵守「主色黑色」，琥珀保留（视频里已出现）。改的是用法：琥珀只表示「需要你处理」，图表主线改白色；去掉青色，换成只管「进行中 / 链接 / 焦点」的信息蓝。面板靠三档灰分层，不加阴影。</span></li>
-  <li><b>手机只给工作台做专属布局</b><span>按 10-20 评审结论（PRD v1.3 1.9）：手机工作台（#/mobile）用底部标签栏「我的任务」「线索」「消息」、顶栏 48px、三行列表（主语、AI 摘出的原话、来源归属）。其他页面在手机宽度下只要求不错位、能看能点：侧栏收进菜单按钮，指标条换行，表格在面板内横滑、首列固定。</span></li>
-  <li><b>演示标注只说一次</b><span>「演示数据」从每张卡上的「示意」徽标（店长首屏 12 处）收成顶栏一处，满足 PRD「角落标注」的要求，又不干扰工作界面。「加入门店通前 → 现在」留在原位，标为演示专用模块（虚线描边 + 一处「演示专用，正式产品不含」）。</span></li>
- </ul>
-</section>
-
-<section>
- <h2>现状问题</h2>
- <p class="p">红框是问题区域，数字由 Playwright 读取 demo 页面的 DOM 位置得出。</p>
- <div class="shots" style="margin-top:var(--s-4)">
-  <figure><a href="audit/01-pc-dashboard-hq.png"><img src="audit/01-pc-dashboard-hq.png" alt="总部驾驶舱 PC 现状标注" loading="lazy"></a><figcaption><b>总部驾驶舱（PC）</b>指标卡和趋势图吃掉首屏 66%，掉队预警只露 1 行。</figcaption></figure>
-  <figure><a href="audit/08-pc-dashboard-region.png"><img src="audit/08-pc-dashboard-region.png" alt="大区驾驶舱 PC 现状标注" loading="lazy"></a><figcaption><b>大区驾驶舱（PC）</b>趋势卡被拉高留出约 280px 空白，本区预警在 y=971。</figcaption></figure>
-  <figure><a href="audit/07-pc-dashboard-store.png"><img src="audit/07-pc-dashboard-store.png" alt="店长驾驶舱 PC 现状标注" loading="lazy"></a><figcaption><b>店长驾驶舱（PC）</b>首屏 12 处「示意」；「加入门店通前 → 现在」占 168px（已定：标为演示专用模块）；今日任务在 y=570 以下。</figcaption></figure>
-  <figure><a href="audit/09-m-leads-sales.png"><img src="audit/09-m-leads-sales.png" alt="销售顾问线索页手机现状标注" loading="lazy"></a><figcaption><b>销售顾问首页（手机）</b>4 张大卡放 2、6、2、33.3%，首屏 0 条线索。</figcaption></figure>
-  <figure><a href="audit/02-m-dashboard-hq.png"><img src="audit/02-m-dashboard-hq.png" alt="总部驾驶舱手机现状标注" loading="lazy"></a><figcaption><b>总部驾驶舱（手机）</b>首屏 844px 没有一行业务内容。</figcaption></figure>
-  <figure><a href="audit/03-m-leads-hq.png"><img src="audit/03-m-leads-hq.png" alt="线索页手机现状标注" loading="lazy"></a><figcaption><b>线索（手机）</b>第一条线索在 y=850，正好落在首屏外。</figcaption></figure>
-  <figure><a href="audit/04-pc-store-detail.png"><img src="audit/04-pc-store-detail.png" alt="门店详情 PC 现状标注" loading="lazy"></a><figcaption><b>门店详情（PC）</b>第 7 个指标「健康分」单独掉到第二行。</figcaption></figure>
-  <figure><a href="audit/05-m-live-detail.png"><img src="audit/05-m-live-detail.png" alt="直播详情手机现状标注" loading="lazy"></a><figcaption><b>直播详情（手机）</b>5 个数字各占一整行，共 524px。</figcaption></figure>
-  <figure><a href="audit/06-pc-pk.png"><img src="audit/06-pc-pk.png" alt="PK 榜 PC 现状标注" loading="lazy"></a><figcaption><b>直播 PK（PC）</b>排行行内数据被挤成 3 行小字，公式说明常驻榜单上方。</figcaption></figure>
- </div>
-</section>
-
-<section>
- <h2>改前和改后</h2>
- <p class="p">挑了屏效问题最大的两个页面：总部驾驶舱（卖点第 1 条「一眼看出谁掉队」）和线索（卖点第 4 条「线索不漏一条」）。改后示意按新规范重排，数字取自线上 demo 的演示数据，不是新编的。手机列口径不同：驾驶舱手机是兼容写法（同一页面缩到 390 宽）；线索手机对比的是店长线索页 → 手机工作台「线索」标签页。</p>
- <table class="t"><thead><tr><th>实测项</th><th>驾驶舱 PC</th><th>驾驶舱 手机（兼容）</th><th>线索 PC</th><th>线索 手机（工作台）</th></tr></thead><tbody>
-  <tr><td>指标区高度</td><td class="n">264 → 88px</td><td class="n">398 → 242px</td><td class="n">124 → 32px</td><td class="n">253 → 48px</td></tr>
-  <tr><td>占视口高度</td><td class="n">29.3% → 9.8%</td><td class="n">47.2% → 28.7%</td><td class="n">13.8% → 3.6%</td><td class="n">30% → 5.7%</td></tr>
-  <tr><td>主功能区首屏面积 ÷ 内容区</td><td class="n">19.6% → 50.5%</td><td class="n">0% → 56.6%</td><td class="n">69.4% → 80.9%</td><td class="n">0% → 87.8%</td></tr>
-  <tr><td>首屏完整可见的主列表行数</td><td class="n">1 → 14</td><td class="n">0 → 8</td><td class="n">8 → 18</td><td class="n">0 → 7</td></tr>
- </tbody></table>
- <p class="p" style="margin-top:8px;font-size:12px">内容区 = 视口减去导航。原始数据见 mockups/measure-before-after.json。</p>
- <figure class="full"><a href="mockups/compare-dashboard-pc.png"><img src="mockups/compare-dashboard-pc.png" alt="总部驾驶舱 PC 改前改后对比" loading="lazy"></a><figcaption><b>总部驾驶舱 PC</b>指标进一条指标条，掉队门店表上移到 y=152，右侧放大区线索、每日播放和消息。</figcaption></figure>
- <div class="pair" style="margin-top:var(--s-5)">
-  <figure class="full" style="margin:0"><a href="mockups/compare-leads-pc.png"><img src="mockups/compare-leads-pc.png" alt="线索 PC 改前改后对比" loading="lazy"></a><figcaption><b>线索 PC</b>4 张 KPI 卡变成筛选芯片，行高 65 → 40px。</figcaption></figure>
-  <figure class="full" style="margin:0"><a href="mockups/compare-leads-m.png"><img src="mockups/compare-leads-m.png" alt="线索手机改前改后对比" loading="lazy"></a><figcaption><b>线索手机</b>改后是手机工作台「线索」标签页（西湖店店长视角）：首屏 0 → 7 条，每条带 AI 摘出的客户原话。线索页本身在手机宽度下的兼容写法见 mockups/after-leads-m.png。</figcaption></figure>
- </div>
- <figure class="full" style="max-width:560px"><a href="mockups/compare-dashboard-m.png"><img src="mockups/compare-dashboard-m.png" alt="总部驾驶舱手机改前改后对比" loading="lazy"></a><figcaption><b>总部驾驶舱手机宽度</b>兼容写法：侧栏收进菜单按钮，指标条换行（主表一行、副表每行 3 个），掉队门店表在面板内横滑、首列固定。不考核屏效指标，仅供参考。</figcaption></figure>
-</section>
-
-<section>
- <h2>需要确认的问题</h2>
- <p class="p">前 7 项 10-20 评审已答复并写进 PRD v1.3，标「已定」；第 9 项记录和 PRD v1.3 的对齐结果。</p>
- <ol class="p">
-  <li><b>已定：按钮叫「提醒店长」。</b>和角色名、消息文案统一；规范文案表和改后示意已改，自查表文案项改为通过。</li>
-  <li><b>已定：「去完成」按任务写去处：</b>「去发视频」「去开直播」「去回私信」，已写进规范的按钮文案规则和文案表。</li>
-  <li><b>已定：手机范围：</b>只有手机工作台（#/mobile）做手机专属布局，底部标签栏三项「我的任务」「线索」「消息」；其他页面在手机宽度下只要求不错位、能看能点。规范「跨端」一节已重写；驾驶舱、线索改后示意改为兼容写法；另出手机工作台「线索」标签页示意。</li>
-  <li><b>已定：「加入门店通前 → 现在」留在原位，</b>标为「演示专用模块」，正式产品不做。规范新增「演示专用模块」一节：虚线描边、标题旁一个「演示专用模块」标签（PRD v1.3 1.10）。</li>
-  <li><b>已定：5 个补充状态文案</b>按 PRD v1.3 定稿（消息中心空列表按角色写说明句、发布记录筛选无结果、脚本库没下发、转交时没有其他顾问、新建任务提交失败；手机脚本卡空态「没有待领取的脚本」），规范「空和失败状态」一节已照录。</li>
-  <li><b>已定：发布状态只保留待发布 / 已发布 / 失败。</b>「发布中」「审核中」「已取消」等正式产品以后再定，规范里已注明。</li>
-  <li><b>已定：销售顾问没有导出，</b>记为 demo 已知差异（线上 demo 销售顾问线索页仍显示「导出」）。</li>
-  <li><b>待确认：浅色「展厅白」：</b>不在这次结论里，保留为备选，token 已备好。</li>
-  <li><b>已对齐：与 PRD v1.3 一致。</b>分隔格式、消息类型（11 种标签，筛选项「催办」）、来源写法、今日任务说明的中文逗号、任务中心默认详情的标题分开放、「提醒店长」弹层按钮「取消」「发送提醒」，都已写进 PRD v1.3（第 42、44、45 条），规范没有待对齐的差异。</li>
- </ol>
-</section>
-
-<section>
- <h2>文件</h2>
- <ul class="p">
-  <li>规范：system/index.html，变量 system/tokens.css、system/tokens.json，组件样式 system/components.css，组件用在哪：<a href="system/usage.md">system/usage.md</a></li>
-  <li>现状截图：shots/pc、shots/m（每页视口截图和整页截图）；现状标注：audit/</li>
-  <li>改后示意：mockups/dashboard.html、mockups/leads.html（同一文件，PC 布局，手机宽度兼容显示），mockups/mobile-leads.html（手机工作台「线索」标签页）；截图 mockups/after-*.png，对比图 mockups/compare-*.png</li>
-  <li>参照产品：见规范页「参照系」一节（文字说明 + 官方公开页链接）；自查表：selfcheck.md；自查截图：selfcheck-shots/</li>
- </ul>
+<h2>附录</h2>
+<ul class="ln">
+<li><a href="spec/appendix.html"><b>走查、屏效对比、改版说明</b><span>v0.1 阶段的走查结果和改前改后实测</span></a></li>
+<li><a href="selfcheck.md"><b>v0.1 自查表</b><span>v0.1 交付时的自查记录</span></a></li>
+</ul>
 </section>
 </div>
 </body>

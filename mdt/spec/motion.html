@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>页面动效，门店通设计规范</title>
+<link rel="stylesheet" href="../system/tokens.css">
+<link rel="stylesheet" href="../system/components.css">
+<link rel="stylesheet" href="spec.css">
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<div class="toc-bar"><b>门店通设计规范</b><span>5 页面动效</span><button class="btn btn-secondary" id="tocBtn" type="button" aria-controls="toc" aria-expanded="false">目录</button></div>
+<div class="doc">
+<nav class="toc" id="toc" aria-label="规范目录">
+<a class="toc-brand" href="index.html">门店通设计规范</a>
+<span class="toc-ver">v1.0，2026-10-20</span><ol>
+<li><a class="ch" href="index.html"><span class="no"></span>概览</a>
+</li>
+<li><a class="ch" href="principles.html"><span class="no">1</span>设计原则</a>
+</li>
+<li><a class="ch" href="foundations.html"><span class="no">2</span>基础</a>
+</li>
+<li><a class="ch" href="components.html"><span class="no">3</span>组件</a>
+</li>
+<li><a class="ch" href="patterns.html"><span class="no">4</span>交互模式</a>
+</li>
+<li><a class="ch" href="motion.html" aria-current="page"><span class="no">5</span>页面动效</a>
+<ol class="sub"><li><a href="#m-tokens">动效 token</a></li><li><a href="#m-page">页面切换</a></li><li><a href="#m-overlay">弹窗和抽屉进出</a></li><li><a href="#m-list">列表加载</a></li><li><a href="#m-number">数字变化</a></li><li><a href="#m-press">悬停和按下反馈</a></li><li><a href="#m-skel">骨架屏</a></li><li><a href="#m-highlight">定位高亮</a></li><li><a href="#m-none">什么时候不用动效</a></li></ol>
+</li>
+<li><a class="ch" href="templates.html"><span class="no">6</span>页面模板</a>
+</li>
+<li><a class="ch" href="adapt.html"><span class="no">7</span>跨端、无障碍、文案</a>
+</li>
+<li><a class="ch" href="appendix.html"><span class="no"></span>附录</a>
+</li>
+</ol><div class="toc-foot"><a href="../index.html">返回门店通设计入口</a><a href="../system/index.html">组件库</a><a href="../system/tokens.css">tokens.css</a><a href="../system/tokens.json">tokens.json</a></div></nav>
+<main id="main">
+<header class="page-h"><p class="crumb">第 5 章</p><h1>页面动效</h1><p class="lede">动效只用来说明状态变了：东西从哪来、到哪去、哪个数刚更新。不做装饰，不做入场秀。每条都有可重复播放的实物演示；系统开了「减少动态效果」时，演示同样会降级。</p></header>
+<section class="sec" id="m-tokens">
+<h2>动效 token</h2>
+<p class="p">时长只有 4 档，缓动只有 3 条。旧名 <code>--m-fast</code>、<code>--m-base</code>、<code>--m-ease</code> 保留，值和 <code>--dur-fast</code>、<code>--dur-base</code>、<code>--ease-standard</code> 相同，新代码用新名。</p>
+<div class="tw"><table class="st">
+<thead><tr><th>token</th><th>值</th><th>用在</th><th>减少动效时</th></tr></thead>
+<tbody>
+<tr><td><code>--dur-instant</code></td><td class="n">80ms</td><td>按下反馈、勾选</td><td class="n">0ms</td></tr>
+<tr><td><code>--dur-fast</code></td><td class="n">120ms</td><td>悬停、离场、轻提示消失</td><td class="n">0ms</td></tr>
+<tr><td><code>--dur-base</code></td><td class="n">200ms</td><td>弹窗进场、下拉、页面内容切换、数字更替</td><td class="n">0ms</td></tr>
+<tr><td><code>--dur-slow</code></td><td class="n">320ms</td><td>抽屉进场、高亮淡出</td><td class="n">0ms</td></tr>
+<tr><td><code>--dur-highlight</code></td><td class="n">2000ms</td><td>定位高亮行停留</td><td>高亮常驻，不淡出</td></tr>
+<tr><td><code>--ease-standard</code></td><td class="n">cubic-bezier(.2,0,0,1)</td><td>位置不变的变化：颜色、透明度</td><td>—</td></tr>
+<tr><td><code>--ease-enter</code></td><td class="n">cubic-bezier(.05,.7,.1,1)</td><td>东西进来：弹窗、抽屉、新内容</td><td>—</td></tr>
+<tr><td><code>--ease-exit</code></td><td class="n">cubic-bezier(.3,0,.8,.15)</td><td>东西离开：关闭弹窗、收起抽屉</td><td>—</td></tr>
+<tr><td><code>--shift-sm</code></td><td class="n">4px</td><td>新内容进场的位移</td><td class="n">0px</td></tr>
+<tr><td><code>--shift-md</code></td><td class="n">8px</td><td>弹窗进场的位移</td><td class="n">0px</td></tr>
+</tbody></table></div>
+<div class="g3" style="margin-top:16px">
+<figure style="margin:0"><svg class="curve" viewBox="-4 -4 208 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 72 L200 72 M0 72 L0 0" stroke="var(--c-line-strong)" fill="none" stroke-width="1" vector-effect="non-scaling-stroke"/><path d="M0 72 C40.0 72 0 0 200 0" stroke="var(--c-text-1)" fill="none" stroke-width="2" vector-effect="non-scaling-stroke"/></svg><figcaption class="cap"><b style="color:var(--c-text-1)">--ease-standard</b>　cubic-bezier(.2,0,0,1)　颜色、透明度、原地变化</figcaption></figure>
+<figure style="margin:0"><svg class="curve" viewBox="-4 -4 208 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 72 L200 72 M0 72 L0 0" stroke="var(--c-line-strong)" fill="none" stroke-width="1" vector-effect="non-scaling-stroke"/><path d="M0 72 C10.0 21.6 20.0 0 200 0" stroke="var(--c-text-1)" fill="none" stroke-width="2" vector-effect="non-scaling-stroke"/></svg><figcaption class="cap"><b style="color:var(--c-text-1)">--ease-enter</b>　cubic-bezier(.05,.7,.1,1)　进场，先快后慢</figcaption></figure>
+<figure style="margin:0"><svg class="curve" viewBox="-4 -4 208 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 72 L200 72 M0 72 L0 0" stroke="var(--c-line-strong)" fill="none" stroke-width="1" vector-effect="non-scaling-stroke"/><path d="M0 72 C60.0 72 160.0 61.2 200 0" stroke="var(--c-text-1)" fill="none" stroke-width="2" vector-effect="non-scaling-stroke"/></svg><figcaption class="cap"><b style="color:var(--c-text-1)">--ease-exit</b>　cubic-bezier(.3,0,.8,.15)　离场，先慢后快</figcaption></figure>
+</div>
+<p class="p">三条原则：离场比进场快（用户已经决定关掉了）；只动透明度和位移，不动宽高和布局；一次只有一个东西在动。</p>
+<div class="row" style="margin-top:16px"><label class="radio-row" style="border:1px solid var(--c-line);border-radius:var(--r-sm);min-height:44px"><input type="checkbox" id="rmToggle"><span class="bd">按「减少动态效果」预览本页演示</span></label></div>
+<p class="cap" id="rmNote">系统已开「减少动态效果」时，本页演示自动按降级方式播放。</p>
+</section>
+
+<section class="sec" id="m-page">
+<h2>页面切换</h2>
+<div class="tw"><table class="st">
+<thead><tr><th>部分</th><th>时长</th><th>曲线</th><th>变化</th><th>触发</th></tr></thead>
+<tbody>
+<tr><td>新内容进场</td><td class="n">--dur-base 200ms</td><td>--ease-enter</td><td>透明度 0 → 1，向上 4px</td><td>点侧栏、标签页、分段控件</td></tr>
+<tr><td>旧内容</td><td class="n">0</td><td>—</td><td>直接替换，不做离场</td><td>同上</td></tr>
+<tr><td>导航选中态</td><td class="n">0</td><td>—</td><td>立即切换</td><td>同上</td></tr>
+<tr><td>顶栏、侧栏</td><td colspan="4">不动。只有内容区在变</td></tr>
+</tbody></table></div>
+<div class="demo mo-scope"><div class="demo-bar"><span class="cap">点「播放」切换标签页</span><button class="btn btn-secondary" type="button" data-play="page">播放</button></div>
+<div class="demo-stage short" style="padding:16px">
+<div class="tabs" role="tablist" aria-label="演示标签页"><button role="tab" aria-selected="true" data-tab="0">掉队门店</button><button role="tab" aria-selected="false" data-tab="1">需关注</button></div>
+<div class="mo-page" id="moPage" style="margin-top:12px"></div>
+</div></div>
+</section>
+
+<section class="sec" id="m-overlay">
+<h2>弹窗和抽屉进出</h2>
+<div class="tw"><table class="st">
+<thead><tr><th>部分</th><th>时长</th><th>曲线</th><th>变化</th><th>触发</th></tr></thead>
+<tbody>
+<tr><td>遮罩进场</td><td class="n">200ms</td><td>--ease-standard</td><td>透明度 0 → 1</td><td>打开弹窗、抽屉</td></tr>
+<tr><td>弹窗进场</td><td class="n">200ms</td><td>--ease-enter</td><td>透明度 0 → 1，缩放 0.98 → 1，向上 8px</td><td>点触发按钮</td></tr>
+<tr><td>弹窗离场</td><td class="n">120ms</td><td>--ease-exit</td><td>透明度 1 → 0，缩放 1 → 0.98</td><td>取消、Esc、提交成功</td></tr>
+<tr><td>抽屉进场</td><td class="n">320ms</td><td>--ease-enter</td><td>从右侧滑入 100% → 0（手机底部弹层从下方）</td><td>点表格行</td></tr>
+<tr><td>抽屉离场</td><td class="n">200ms</td><td>--ease-exit</td><td>滑出 0 → 100%</td><td>关闭、Esc、返回键</td></tr>
+</tbody></table></div>
+<div class="g2">
+<div class="demo mo-scope"><div class="demo-bar"><span class="cap">弹窗：打开，停 1 秒，关闭</span><button class="btn btn-secondary" type="button" data-play="sheet">播放</button></div>
+<div class="demo-stage"><div style="padding:16px;display:grid;gap:8px"><span class="skel" style="width:70%;animation:none"></span><span class="skel" style="width:50%;animation:none"></span></div>
+<div class="mo-ovl" id="moSheet"><div class="mo-sheet sheet" role="dialog" aria-label="演示弹窗"><div class="sheet-h"><h3>提醒长沙星驰星沙店店长</h3></div><div class="sheet-f"><button class="btn btn-ghost" tabindex="-1">取消</button><button class="btn btn-primary" tabindex="-1">发送提醒</button></div></div></div>
+</div></div>
+<div class="demo mo-scope"><div class="demo-bar"><span class="cap">抽屉：打开，停 1 秒，关闭</span><button class="btn btn-secondary" type="button" data-play="drawer">播放</button></div>
+<div class="demo-stage"><div style="padding:16px;display:grid;gap:8px"><span class="skel" style="width:70%;animation:none"></span><span class="skel" style="width:50%;animation:none"></span></div>
+<div class="mo-ovl mo-dr" id="moDrawer"><aside class="mo-drawer" aria-label="演示抽屉"><div class="sheet-h"><h3>张先生</h3></div><div style="padding:16px;display:grid;gap:8px"><div class="meta"><span>星驰 X5</span><span>抖音私信</span><span class="warn">待跟进</span></div><p style="font:var(--t-small);color:var(--c-text-2)">“落地多少钱？本地有现车吗”</p></div></aside></div>
+</div></div>
+</div>
+</section>
+
+<section class="sec" id="m-list">
+<h2>列表加载</h2>
+<div class="tw"><table class="st">
+<thead><tr><th>部分</th><th>时长</th><th>曲线</th><th>变化</th><th>触发</th></tr></thead>
+<tbody>
+<tr><td>骨架出现</td><td class="n">0</td><td>—</td><td>加载超过 300ms 才出现，出现时不渐显</td><td>首次加载</td></tr>
+<tr><td>真实内容替换骨架</td><td class="n">200ms</td><td>--ease-standard</td><td>整块透明度 0 → 1，不位移</td><td>数据返回</td></tr>
+<tr><td>逐行错开</td><td colspan="4">不做。几十行逐行进场会拖慢阅读，也会让人以为还没加载完</td></tr>
+<tr><td>滚到底加载更多</td><td class="n">200ms</td><td>--ease-standard</td><td>新加的行透明度 0 → 1，已有的行不动</td><td>手机列表滚到底</td></tr>
+</tbody></table></div>
+<div class="demo mo-scope"><div class="demo-bar"><span class="cap">骨架 900ms 后换成真实行</span><button class="btn btn-secondary" type="button" data-play="list">播放</button></div>
+<div class="demo-stage" id="moList"></div></div>
+</section>
+
+<section class="sec" id="m-number">
+<h2>数字变化</h2>
+<p class="p">门店通的数字变化主要是两种：指标刷新（新数据到了）和计数变化（处理掉一条，待跟进 −1）。动效只回答一个问题：哪个数刚变了。</p>
+<div class="tw"><table class="st">
+<thead><tr><th>部分</th><th>时长</th><th>曲线</th><th>变化</th><th>触发</th></tr></thead>
+<tbody>
+<tr><td>数值更替</td><td class="n">200ms</td><td>--ease-standard</td><td>新数值透明度 0 → 1，原地替换，不位移</td><td>数据刷新、计数变化</td></tr>
+<tr><td>变化的格子</td><td class="n">停 2000ms，淡出 320ms</td><td>--ease-standard</td><td>底色 surface-2 → 透明</td><td>数值和上次不同</td></tr>
+<tr><td>芯片、角标计数</td><td class="n">200ms</td><td>--ease-standard</td><td>数字透明度 0 → 1，不弹跳</td><td>处理了一条</td></tr>
+<tr><td>数字滚动计数</td><td colspan="4">不做。从 0 滚到 8,456 是装饰，还会让人在滚动途中读到错的数</td></tr>
+<tr><td>没变的数</td><td colspan="4">不动。刷新时只有变了的格子高亮</td></tr>
+</tbody></table></div>
+<div class="demo mo-scope"><div class="demo-bar"><span class="cap">刷新一次数据：线索和待跟进变化，播放不变</span><button class="btn btn-secondary" type="button" data-play="number">播放</button></div>
+<div class="demo-stage short" style="padding:16px;display:grid;gap:12px;align-content:start">
+<div class="mstrip" id="moStrip"><div class="metric metric--hero mo-cell"><span class="l">近 30 天线索</span><span class="v num"><span class="mo-num">8,456</span><small>条</small></span></div><div class="metric mo-cell"><span class="l">播放</span><span class="v num"><span class="mo-num">1.48</span><small>亿</small></span></div><div class="metric mo-cell"><span class="l">待跟进</span><span class="v num"><span class="mo-num">158</span><small>条</small></span></div></div>
+<div class="chips"><span class="chip" aria-pressed="false">待跟进 <span class="n mo-num" id="moChip">158</span></span></div>
+</div></div>
+</section>
+
+<section class="sec" id="m-press">
+<h2>悬停和按下反馈</h2>
+<div class="tw"><table class="st">
+<thead><tr><th>部分</th><th>时长</th><th>曲线</th><th>变化</th><th>触发</th></tr></thead>
+<tbody>
+<tr><td>悬停</td><td class="n">120ms</td><td>--ease-standard</td><td>底色 → surface-2 / -3；主按钮不透明度 → 88%</td><td>鼠标移入（只在 PC）</td></tr>
+<tr><td>按下</td><td class="n">80ms</td><td>--ease-standard</td><td>缩放 → 0.98，底色加深一档</td><td>按下</td></tr>
+<tr><td>松开</td><td class="n">120ms</td><td>--ease-standard</td><td>回到原状</td><td>松开</td></tr>
+<tr><td>表格行悬停</td><td class="n">0</td><td>—</td><td>底色立即变化，不做过渡（扫视时过渡会拖尾）</td><td>鼠标移入</td></tr>
+<tr><td>触屏</td><td colspan="4">没有悬停；按下态立即出现，手指离开后 120ms 恢复</td></tr>
+</tbody></table></div>
+<div class="demo mo-scope"><div class="demo-bar"><span class="cap">点「播放」模拟一次按下；也可以直接把鼠标移上去、点按</span><button class="btn btn-secondary" type="button" data-play="press">播放</button></div>
+<div class="demo-stage short" style="display:grid;place-items:center"><div class="row"><button class="btn btn-primary" id="moPress1" type="button">确认下发</button><button class="btn btn-secondary" id="moPress2" type="button">提醒这 6 家店长</button></div></div></div>
+</section>
+
+<section class="sec" id="m-skel">
+<h2>骨架屏</h2>
+<div class="tw"><table class="st">
+<thead><tr><th>部分</th><th>时长</th><th>曲线</th><th>变化</th><th>触发</th></tr></thead>
+<tbody>
+<tr><td>光带扫过</td><td class="n">1400ms 一轮，循环</td><td>linear</td><td>surface-2 → surface-3 → surface-2 横向移动</td><td>加载中</td></tr>
+<tr><td>减少动效</td><td colspan="4">光带停掉，骨架变成静态 surface-2 色块，形状不变</td></tr>
+<tr><td>上限</td><td colspan="4">超过 10 秒停止并改成错误状态</td></tr>
+</tbody></table></div>
+<div class="demo mo-scope"><div class="demo-bar"><span class="cap">骨架屏 3 秒，之后停</span><button class="btn btn-secondary" type="button" data-play="skel">播放</button></div>
+<div class="demo-stage short" style="padding:16px"><div id="moSkel" style="display:grid;gap:12px;max-width:420px"><span class="skel" style="width:60%;animation:none"></span><span class="skel" style="width:90%;animation:none"></span><span class="skel" style="width:75%;animation:none"></span></div></div></div>
+</section>
+
+<section class="sec" id="m-highlight">
+<h2>定位高亮</h2>
+<div class="tw"><table class="st">
+<thead><tr><th>部分</th><th>时长</th><th>曲线</th><th>变化</th><th>触发</th></tr></thead>
+<tbody>
+<tr><td>滚到目标行</td><td class="n">--dur-slow 320ms</td><td>--ease-standard</td><td>页面滚动，目标行停在可视区中间</td><td>带定位参数进入页面</td></tr>
+<tr><td>高亮</td><td class="n">停 2000ms，淡出 320ms</td><td>--ease-standard</td><td>底色 info-weak → 透明</td><td>滚动结束</td></tr>
+<tr><td>减少动效</td><td colspan="4">直接跳到目标行，高亮常驻，直到用户点别处</td></tr>
+</tbody></table></div>
+<div class="demo mo-scope"><div class="demo-bar"><span class="cap">从消息跳进账号列表，定位到过期账号</span><button class="btn btn-secondary" type="button" data-play="hl">播放</button></div>
+<div class="demo-stage short" id="moHlBox" style="overflow-y:auto"><table class="tbl" id="moHl"><tbody></tbody></table></div></div>
+</section>
+
+<section class="sec" id="m-none">
+<h2>什么时候不用动效</h2>
+<div class="tw"><table class="st">
+<thead><tr><th>情况</th><th>做法</th></tr></thead>
+<tbody>
+<tr><td>系统开了「减少动态效果」</td><td>所有 <code>--dur-*</code> 变为 0、<code>--shift-*</code> 变为 0，状态直接切换；骨架停止光带；定位高亮常驻不淡出；滚动改为直接跳转。<code>components.css</code> 末尾统一处理，页面不用单独写</td></tr>
+<tr><td>数据密集页（表格、看板）</td><td>表格行悬停、排序、筛选结果都不做过渡，直接刷新；同一时刻最多一处在动</td></tr>
+<tr><td>页面首次打开</td><td>不做入场秀，不做逐块渐显</td></tr>
+<tr><td>装饰</td><td>不做呼吸灯、循环漂浮、数字滚动、图表生长动画、视差</td></tr>
+<tr><td>高频操作</td><td>勾选、切换芯片、展开树节点不超过 80ms，或者不做</td></tr>
+<tr><td>长于 320ms</td><td>除了骨架循环和定位高亮停留，任何过渡都不超过 320ms</td></tr>
+</tbody></table></div>
+<p class="p">判断标准只有一个：去掉这个动效，用户会不会看不懂刚才发生了什么。不会，就去掉。</p>
+</section>
+
+<nav class="pg-nav" aria-label="翻页"><a href="patterns.html"><span>上一章</span>4 交互模式</a><a href="templates.html"><span>下一章</span>6 页面模板</a></nav>
+</main>
+</div>
+<script src="spec.js"></script>
+</body>
+</html>

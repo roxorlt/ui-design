@@ -1,6 +1,7 @@
-/* 门店通设计变量 v0.1 初稿（2026-10-20）
-   与 tokens.json 一一对应。默认深色（主色黑色，见决策记录）；[data-theme="light"] 为「展厅白」备选，待确认。
-   手机专属尺寸（--tabbar-m 等）只用于手机工作台 #/mobile；其他页面手机宽度下按兼容写法。 */
+/* 门店通设计变量 v1.0（2026-10-20）
+   与 tokens.json 一一对应。主色黑色，默认深色；[data-theme="light"] 为浅色备选，正式产品不用。
+   手机专属尺寸（--tabbar-m 等）只用于手机工作台；其他页面手机宽度下按兼容写法。
+   v1.0 新增：页面动效变量 --dur-* 和 --ease-*（旧的 --m-fast / --m-base / --m-ease 保留，值相同）。 */
 :root{
   /* 颜色 · 深色 */
   --c-bg:#000000; --c-surface-1:#141416; --c-surface-2:#1F1F23; --c-surface-3:#2A2A2F;
@@ -39,6 +40,18 @@
   /* 动效 */
   --m-fast:120ms; --m-base:200ms; --m-ease:cubic-bezier(.2,0,0,1);
   --focus-ring:0 0 0 2px var(--c-bg),0 0 0 4px var(--c-info);
+  /* 动效 v1.0：时长 */
+  --dur-instant:80ms;  /* 按下反馈、勾选 */
+  --dur-fast:120ms;    /* 悬停、离场、轻提示消失 */
+  --dur-base:200ms;    /* 弹窗进场、下拉、数字更替、页面内容切换 */
+  --dur-slow:320ms;    /* 抽屉、整块面板进场 */
+  --dur-highlight:2000ms; /* 定位高亮行停留后淡出 */
+  /* 动效 v1.0：缓动 */
+  --ease-standard:cubic-bezier(.2,0,0,1); /* 位置不变的状态变化（颜色、透明度） */
+  --ease-enter:cubic-bezier(.05,.7,.1,1); /* 进场：先快后慢 */
+  --ease-exit:cubic-bezier(.3,0,.8,.15);  /* 离场：先慢后快 */
+  --shift-sm:4px;  /* 内容进场位移 */
+  --shift-md:8px;  /* 弹窗进场位移 */
 }
 [data-theme="light"]{
   --c-bg:#FFFFFF; --c-surface-1:#F4F4F5; --c-surface-2:#EBEBED; --c-surface-3:#E0E0E3;
@@ -49,4 +62,4 @@
   --c-primary:#000000; --c-on-primary:#FFFFFF; --c-overlay:rgba(0,0,0,.4);
   --sh-overlay:0 12px 32px rgba(0,0,0,.16);
 }
-@media (prefers-reduced-motion:reduce){:root{--m-fast:0ms;--m-base:0ms}}
+@media (prefers-reduced-motion:reduce){:root{--m-fast:0ms;--m-base:0ms;--dur-instant:0ms;--dur-fast:0ms;--dur-base:0ms;--dur-slow:0ms;--dur-highlight:0ms;--shift-sm:0px;--shift-md:0px}}

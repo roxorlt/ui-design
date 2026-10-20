@@ -68,7 +68,7 @@
   .tbl{min-width:720px}
   .tbl td:first-child,.tbl th:first-child{position:sticky;left:0;background:var(--c-surface-1);z-index:1}
   .tbl .row-act{opacity:1}
-  .leadbar{gap:var(--s-2)}
+  .leadbar{gap:var(--s-3) var(--s-2)} /* 换行时行距 8px：36px 芯片 + 8px = 44px，点击区不重叠 */
   .leadbar .stat{margin-left:0;width:100%}
   .filters2{flex-wrap:wrap}
   .filters2 .search{width:100%;margin-left:0}
@@ -76,7 +76,7 @@
   .scope,.filters2 .input{min-height:44px}
   .panel-h .aside{display:inline-flex;align-items:center;min-height:44px}
 }
-/* 手机工作台（#/mobile）专属布局 */
+/* 手机工作台专属布局 */
 .wb{max-width:430px;margin:0 auto;min-height:100vh;padding-bottom:calc(var(--tabbar-m) + env(safe-area-inset-bottom));position:relative;border-left:1px solid var(--c-line);border-right:1px solid var(--c-line)}
 .wb .mbar{display:flex;align-items:center;gap:var(--s-3);height:var(--topbar-m);padding:0 var(--s-5);position:sticky;top:0;background:var(--c-bg);z-index:5}
 .wb .mbar h1{font:600 17px/1 var(--f-ui)}
