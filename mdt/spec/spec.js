@@ -59,6 +59,7 @@ function zones(frame, scale){
   });
   /* 标注文字放在画框下方的图例里，不压在内容上 */
   var host = frame.closest('.frame-wrap') || frame;
+  if (host.parentNode.classList.contains('xs')) { host = host.parentNode; if (host.nextElementSibling && host.nextElementSibling.classList.contains('xs-hint')) host = host.nextElementSibling; }
   var lg = host.nextElementSibling;
   if (!lg || !lg.classList.contains('zone-legend')) {
     lg = document.createElement('ol'); lg.className = 'legend zone-legend';
@@ -66,6 +67,30 @@ function zones(frame, scale){
   }
   lg.innerHTML = items.map(function(t, i){ return '<li><i>' + (i + 1) + '</i>' + t.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</li>'; }).join('');
 }
+/* 横滑容器：外包 .xs，按是否超宽、是否滑到头切换遮罩、提示和首列分隔线 */
+function xsWrap(){
+  document.querySelectorAll('.frame-wrap').forEach(function(w){
+    if (w.parentNode.classList.contains('xs')) return;
+    var x = document.createElement('div'); x.className = 'xs';
+    w.parentNode.insertBefore(x, w); x.appendChild(w);
+    var h = document.createElement('p'); h.className = 'xs-hint'; h.textContent = '左右滑动查看完整画框';
+    x.parentNode.insertBefore(h, x.nextSibling);
+  });
+}
+function xsSync(){
+  document.querySelectorAll('.xs').forEach(function(x){
+    var s = x.querySelector(':scope > .tw, :scope > .stage, :scope > .frame-wrap'); if (!s) return;
+    if (!s._xs) { s._xs = 1; s.addEventListener('scroll', function(){ xsOne(x, s); }, {passive: true}); }
+    xsOne(x, s);
+  });
+}
+function xsOne(x, s){
+  var can = s.scrollWidth > s.clientWidth + 1;
+  x.classList.toggle('can-x', can);
+  x.classList.toggle('at-end', !can || s.scrollLeft + s.clientWidth >= s.scrollWidth - 1);
+  x.classList.toggle('is-x', can && s.scrollLeft > 0);
+}
+xsWrap();
 function frames(){
   document.querySelectorAll('.frame-wrap').forEach(function(w){
     var f = w.querySelector('.frame'), W = +w.dataset.w, H = +w.dataset.h;
@@ -84,13 +109,14 @@ document.querySelectorAll('.frame-wrap, .frame-m').forEach(function(f){
   if (!f.querySelector('[data-zone]')) return;
   var b = document.createElement('button'); b.type = 'button'; b.className = 'btn btn-ghost zone-tg'; b.textContent = '隐藏区块框'; b.setAttribute('aria-pressed', 'false');
   b.addEventListener('click', function(){ var off = f.classList.toggle('nozone'); b.textContent = off ? '显示区块框' : '隐藏区块框'; b.setAttribute('aria-pressed', off ? 'true' : 'false'); });
-  f.parentNode.insertBefore(b, f);
+  var at = f.parentNode.classList.contains('xs') ? f.parentNode : f;
+  at.parentNode.insertBefore(b, at);
 });
-var t; function relayout(){ clearTimeout(t); t = setTimeout(function(){ frames(); pins(); }, 60); }
+var t; function relayout(){ clearTimeout(t); t = setTimeout(function(){ frames(); pins(); xsSync(); }, 60); }
 window.addEventListener('resize', relayout);
-window.addEventListener('load', function(){ frames(); pins(); });
-if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ frames(); pins(); });
-frames(); pins();
+window.addEventListener('load', function(){ frames(); pins(); xsSync(); });
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ frames(); pins(); xsSync(); });
+frames(); pins(); xsSync();
 
 /* 横滑筛选条：单选 + 方向键 + 选中项滚入可视区 */
 document.querySelectorAll('.chipbar').forEach(function(bar){

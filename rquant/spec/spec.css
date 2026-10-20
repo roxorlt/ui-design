@@ -46,6 +46,16 @@ body { background: var(--c-surface); }
 
 /* ---------- 文档表格 ---------- */
 .tscroll { overflow-x: auto; margin-top: 12px; }
+/* 数据表横滑：外层放右侧渐隐，下方一行提示；只有真的放不下（.over）才出现 */
+.tscroll-wrap { position: relative; margin-top: 12px; }
+.tscroll-wrap > .tscroll { margin-top: 0; }
+.tscroll-wrap::after { content: ""; position: absolute; top: 0; right: 0; bottom: 0; width: 32px; pointer-events: none; background: linear-gradient(90deg, rgba(255,255,255,0), var(--c-surface)); opacity: 0; transition: opacity var(--dur-fast) var(--ease-standard); }
+.tscroll-wrap.over::after { opacity: 1; }
+.tscroll-wrap.over.end::after { opacity: 0; }
+.tscroll-hint { display: none; margin: 6px 0 0; font: var(--t-caption); color: var(--c-muted); }
+.tscroll-wrap.over + .tscroll-hint { display: block; }
+.dt.data th:first-child, .dt.data td:first-child { position: sticky; left: 0; z-index: 1; background: var(--c-surface); }
+.tscroll-wrap.over .dt.data td:first-child, .tscroll-wrap.over .dt.data th:first-child { box-shadow: 1px 0 0 var(--c-rule); }
 .dt { width: 100%; border-collapse: collapse; font: 400 13px/20px var(--font-sans); }
 .dt th { text-align: left; font: var(--t-label); color: var(--c-muted); padding: 8px 16px 8px 0; border-bottom: 1px solid var(--c-rule-strong); white-space: nowrap; vertical-align: bottom; }
 .dt td { padding: 9px 16px 9px 0; border-bottom: 1px solid var(--c-rule); vertical-align: top; color: var(--c-ink-2); }
@@ -207,12 +217,18 @@ button.m.is-active { background: var(--c-sunken); }
   .typerow { grid-template-columns: minmax(0, 1fr); gap: 2px; }
   .typerow .spec { text-align: left; }
   .dt { font-size: 13px; }
+  /* 文字表堆叠：每行一块，首列做标题行，其余字段上面一行小灰标签 */
+  .dt.stack, .dt.stack tbody { display: block; }
   .dt.stack thead { display: none; }
-  .dt.stack tr { display: grid; gap: 2px; padding: 10px 0; border-bottom: 1px solid var(--c-rule); }
-  .dt.stack td { border: 0; padding: 0; }
-  .dt.stack td[data-l]::before { content: attr(data-l) "："; color: var(--c-muted); }
-  .dt.stack td.n { text-align: left; }
+  .dt.stack tr { display: grid; gap: 8px; padding: 12px 0; border-bottom: 1px solid var(--c-rule); }
+  .dt.stack td { display: block; border: 0; padding: 0; min-width: 0; white-space: normal; overflow-wrap: anywhere; }
+  .dt.stack td:first-child { font-size: 15px; line-height: 22px; }
+  .dt.stack td[data-l]::before { content: attr(data-l); display: block; font: var(--t-caption); color: var(--c-muted); margin-bottom: 2px; }
+  .dt.stack td.n, .dt.stack td.nw { text-align: left; white-space: normal; }
   .pager { flex-direction: column; }
   .pager a.next { text-align: left; margin-left: 0; }
 }
 @media print { .toc, .mbar, .pager { display: none; } .doc { display: block; } }
+
+/* v1.1：320 宽小屏，示例区和示例面板内部横滑，页面本身不横向滚动 */
+@media (max-width: 374px) { .content .demo, .content .panel-b, .content .tscroll-wrap { overflow-x: auto; } }

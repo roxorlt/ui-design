@@ -414,7 +414,7 @@
     <section class="s" id="responsive">
       <h2>跨端规则</h2>
       <table class="doc-tbl"><thead><tr><th>断点</th><th>宽度</th><th>布局</th></tr></thead><tbody>
-        <tr><td>手机</td><td class="num">&lt; 600px</td><td>单列；顶栏 48px（Logo、页面标题、搜索图标）；底部 5 个标签；表格转列表</td></tr>
+        <tr><td>手机</td><td class="num">&lt; 600px</td><td>单列；顶栏 48px（Logo、页面标题、健康状态点、告警铃铛、搜索图标）；底部 4 个标签（v1.1：全景、资金流、池子、更多，见<a href="../spec/components.html#c-tabbar">设计规范</a>）；表格转列表</td></tr>
         <tr><td>平板</td><td class="num">600–1023px</td><td>保留左侧 212px 文字导航（599px 及以下才换成底部标签栏 + 「更多」）；指标条可横滑；面板两列变一列</td></tr>
         <tr><td>电脑</td><td class="num">1024–1439px</td><td>左侧导航 212px；主区两列（7:5）</td></tr>
         <tr><td>宽屏</td><td class="num">≥ 1440px</td><td>同电脑，主图和表格吃满宽度；不设最大宽度，但单列正文不超过 44em</td></tr>
@@ -432,6 +432,7 @@
         <li>相邻可点元素之间至少 8px。</li>
         <li>悬停才出现的信息（专业词解释、图表数值），在手机上改为点按出现，再点或点空白处关闭。</li>
         <li>底部标签栏避开 iPhone 底部安全区（<code>env(safe-area-inset-bottom)</code>）。</li>
+        <li>顶栏告警铃铛、健康状态点各 44×44px（v1.1）。</li>
       </ul>
     </section>
 

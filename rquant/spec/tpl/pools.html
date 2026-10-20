@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>池子（手机默认打开页）｜rQuant 设计规范</title>
+<!-- 池子页示意：由列表页模板（list.html）改出，只用组件库样式和 tpl.js。手机打开 rQuant 默认进这一页（产品负责人确认 2026-10-20）。数据为示例。 -->
+<link rel="stylesheet" href="../../system/tokens.css">
+<link rel="stylesheet" href="../../system/components.css">
+<link rel="stylesheet" href="../../system/shell.css">
+<link rel="stylesheet" href="tpl.css">
+<style>
+  .pool-seg { display: flex; gap: 8px; align-items: center; overflow-x: auto; scrollbar-width: none; }
+  .pool-seg .m-l { flex: none; }
+  .panel-h .sub { font: var(--t-caption); color: var(--c-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  @media (max-width: 599px) { .panel-h .sub { display: none; } }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top" data-anno="全局顶栏 .top">
+    <div class="brand"><div class="mark"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><path d="M3 2v10M7 4v6M11 2v10"/></svg></div><span>rQuant</span></div>
+    <h1>池子</h1>
+    <span class="note num">10-20 · 3 个池子 · 更新于 14:32:05</span>
+    <span class="grow"></span>
+    <button class="btn only-pc">去选股器</button>
+    <div class="search">代码或名称，如 999001<kbd>/</kbd></div>
+    <button class="icon-btn only-phone" aria-label="搜索股票" data-icon="search"></button>
+  </header>
+  <nav class="rail" aria-label="页面导航" data-anno="左侧导航 .rail"></nav>
+  <main class="main">
+    <div class="pool-seg"><span class="m-l">池子</span>
+      <div class="seg" role="tablist" aria-label="选择池子" data-anno="分段控件 .seg"><button role="tab" aria-selected="true">趋势候选</button><button role="tab" aria-selected="false">低吸观察</button><button role="tab" aria-selected="false">竞价观察</button></div>
+    </div>
+    <section class="panel fill" data-anno="面板 .panel + 表格 .tbl.std" data-main>
+      <div class="panel-h"><h2>趋势候选 · <span class="num">18</span> 只</h2><span class="sub">选股结果快照 · 更新于 10-20 09:15</span>
+        <div class="tools"><a class="btn sm" href="#">看此池的回测</a></div></div>
+      <div class="panel-b" style="padding:0">
+        <div class="tbl-pc" style="padding:0 16px"><table class="tbl std"><thead><tr><th>代码</th><th>名称</th><th class="r" aria-sort="descending"><button class="sort">最新涨跌</button></th><th class="r" aria-sort="none"><button class="sort">日内涨幅</button></th><th class="r">分时</th><th>来源</th></tr></thead><tbody id="rows"></tbody></table></div>
+        <div class="list-m" id="list"></div>
+        <button class="more-row" data-anno="展开全部行 .more-row">展开全部（共 <span class="num">18</span> 行）</button>
+      </div>
+    </section>
+    <p class="demo-flag">示意：股票代码和名称为虚构，数值为示例数据。</p>
+  </main>
+  <nav class="tabbar" aria-label="主导航" data-anno="底部标签栏 .tabbar"></nav>
+</div>
+<script src="tpl.js"></script>
+<script>
+shell("pools");
+const SRC = ["趋势条件 A", "趋势条件 B"];
+const S = stocks(12, 11).map((s, i) => ({ ...s, d: +(s.p * 0.7 + (i % 3 - 1) * 0.4).toFixed(2), src: SRC[i % 2] }));
+document.getElementById("rows").innerHTML = S.map(s => `<tr><td class="num muted">${s.c}</td><td>${s.n}</td><td class="r ${dir(s.p)}">${sign(s.p)}</td><td class="r ${dir(s.d)}">${sign(s.d)}</td><td class="r">${spark(s.vals, s.p >= 0)}</td><td class="muted">${s.src}</td></tr>`).join("");
+document.getElementById("list").innerHTML = S.map((s, i) => `<a class="li2" href="#" ${i === 0 ? 'data-anno="两行列表项 .li2"' : ""}><span class="t">${s.n}<span class="code">${s.c}</span></span><span class="v ${dir(s.p)}">${sign(s.p)}</span><span class="meta"><span>日内 <b class="num ${dir(s.d)}">${sign(s.d)}</b></span><span>现价 <b class="num ${dir(s.p)}">${s.px.toFixed(2)}</b></span><span>${s.src}</span></span></a>`).join("");
+</script>
+</body>
+</html>

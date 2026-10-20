@@ -229,3 +229,11 @@
   const at = document.getElementById("annoToggle");
   if (at) at.addEventListener("change", () => { $$(".shot iframe").forEach((f) => { const u = f.getAttribute("src").replace(/\?anno=1/, ""); f.setAttribute("src", at.checked ? u + "?anno=1" : u); }); });
 })();
+
+// 数据表横滑：放不下才加 .over（显示右侧渐隐和「左右滑动查看全部列」），滑到最右去掉渐隐
+(function () {
+  const wraps = document.querySelectorAll(".tscroll-wrap");
+  function check() { wraps.forEach((w) => { const sc = w.firstElementChild; const over = sc.scrollWidth > sc.clientWidth + 1; w.classList.toggle("over", over); w.classList.toggle("end", over && sc.scrollLeft + sc.clientWidth >= sc.scrollWidth - 2); sc.tabIndex = over ? 0 : -1; if (over) sc.setAttribute("aria-label", "表格可左右滑动"); else sc.removeAttribute("aria-label"); }); }
+  wraps.forEach((w) => w.firstElementChild.addEventListener("scroll", check, { passive: true }));
+  addEventListener("resize", check); addEventListener("load", check); check();
+})();

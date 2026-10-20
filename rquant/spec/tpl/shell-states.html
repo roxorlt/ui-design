@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>外框组件状态（手机）｜rQuant 设计规范</title>
+<!-- 第 3 章外框组件的状态示例：手机底部标签栏、「更多」弹层、顶栏告警铃铛、顶栏健康状态点。只用组件库样式；数据为示例。 -->
+<link rel="stylesheet" href="../../system/tokens.css">
+<link rel="stylesheet" href="../../system/components.css">
+<link rel="stylesheet" href="../../system/shell.css">
+<style>
+  body { margin: 0; background: var(--c-ground); font: var(--t-body); color: var(--c-ink); width: 100%; max-width: 390px; }
+  .blk { position: relative; box-sizing: border-box; }
+  .blk .tabbar { position: absolute !important; }
+  .row { display: flex; align-items: center; justify-content: space-around; height: 72px; background: var(--c-surface); border-bottom: 1px solid var(--c-rule); }
+  .row figure { margin: 0; display: grid; justify-items: center; gap: 0; }
+  .row figcaption { font: var(--t-caption); color: var(--c-muted); white-space: nowrap; }
+  .sheet-blk { position: relative; background: var(--c-scrim); padding-top: 40px; }
+  .sheet-blk .drawer { position: relative !important; inset: auto !important; animation: none !important; max-height: none !important; }
+  .sheet-blk .tabbar { position: relative !important; }
+</style>
+</head>
+<body>
+<div class="blk" style="height:56px" id="b1"><nav class="tabbar" aria-label="主导航（当前页在底栏）"></nav></div>
+<div class="blk" style="height:56px;border-top:8px solid var(--c-ground);box-sizing:content-box" id="b2"><nav class="tabbar" aria-label="主导航（当前页在「更多」里）"></nav></div>
+<div class="row" style="margin-top:8px" id="bells"></div>
+<div class="row" id="hstats"></div>
+<div class="sheet-blk" style="margin-top:8px" id="sheet"><nav class="tabbar" aria-label="主导航（「更多」已打开）"></nav></div>
+<script src="tpl.js"></script>
+<script>
+function bar(el, page, open) {
+  const inBar = TABS.some(([id]) => id === page);
+  el.innerHTML = TABS.map(([id, t]) => `<a href="#" ${id === page ? 'aria-current="page"' : ""}>${svgI(id)}<span>${t}</span></a>`).join("")
+    + `<button type="button" class="more${!inBar && page ? " on" : ""}" aria-haspopup="dialog" aria-expanded="${open ? "true" : "false"}" aria-label="更多页面${!inBar && page ? "，当前：" + pageTitle(page) : ""}">${svgI("more")}<span aria-hidden="true">更多</span></button>`;
+}
+bar(document.querySelector("#b1 .tabbar"), "panorama");
+bar(document.querySelector("#b2 .tabbar"), "screener");
+bar(document.querySelector("#sheet .tabbar"), "screener", true);
+const fig = (h, c) => `<figure>${h.replace(" only-phone", "")}<figcaption>${c}</figcaption></figure>`;
+document.getElementById("bells").innerHTML = fig(bellHTML(0), "没有未读") + fig(bellHTML(3), "1–99：3") + fig(bellHTML(99), "99") + fig(bellHTML(128), "超过 99");
+document.getElementById("hstats").innerHTML = fig(hstatHTML("ok"), "正常") + fig(hstatHTML("warn"), "注意") + fig(hstatHTML("crit"), "异常");
+DEMO.unread = 3; DEMO.health = "warn";
+const tmp = document.createElement("div"); tmp.innerHTML = moreSheetHTML("screener");
+document.getElementById("sheet").prepend(tmp.querySelector(".drawer"));
+</script>
+</body>
+</html>
