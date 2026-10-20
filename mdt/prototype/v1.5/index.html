@@ -6,7 +6,7 @@
 <link rel="icon" href="data:,">
 <title>门店通 v1.5</title>
 <style>
-:root{--bg:#f4f4f5;--pn:#fff;--ln:#d4d4d8;--t1:#18181b;--t2:#52525b;--t3:#71717a;--ac:#18181b;--warn:#a16207;--bad:#b91c1c;--ok:#15803d;--barh:calc(28px + env(safe-area-inset-top,0px))}
+:root{--bg:#f4f4f5;--pn:#fff;--ln:#d4d4d8;--t1:#18181b;--t2:#52525b;--t3:#71717a;--ac:#18181b;--warn:#a16207;--c-negative:#C42030;--bad:var(--c-negative);--c-info:#1A62BD;--ok:#15803d;--barh:calc(28px + env(safe-area-inset-top,0px))}
 *{box-sizing:border-box}html{scroll-padding-top:120px}
 body{margin:0;padding-top:var(--barh);font:14px/1.5 -apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans SC",sans-serif;background:var(--bg);color:var(--t1);overflow-wrap:anywhere}
 a{color:inherit}button{font:inherit}
@@ -60,7 +60,7 @@ input[type=checkbox],input[type=radio]{width:auto;min-height:0}
 .phone{max-width:390px;margin:0 auto;background:#fff;border:1px solid var(--ln);border-radius:16px;padding:16px;min-height:520px}
 .qr{width:max-content;margin:8px auto;display:flex;flex-direction:column;align-items:center;gap:4px}.qr svg{display:block;border:1px solid var(--ln);border-radius:6px}.qrt{font-size:13px;color:var(--t2)}input:disabled,select:disabled,textarea:disabled{background:#f4f4f5;color:var(--t3);border-color:#e4e4e7;-webkit-text-fill-color:var(--t3);opacity:1}.bell{display:inline-flex;align-items:center;justify-content:center;color:var(--t1)}.home-g h2{margin:0 0 8px}.home-g .chips{margin-top:0}.home-g a.chip{display:inline-flex;align-items:center;text-decoration:none}
 .list a{display:block;text-decoration:none;padding:12px;border-bottom:1px solid var(--ln)}
-.msg{padding:10px 0;border-bottom:1px solid var(--ln)}.msg.un::before{content:"● ";color:var(--bad)}
+.msg{padding:10px 0;border-bottom:1px solid var(--ln)}.msg.un::before{content:"● ";color:var(--c-info)}
 .hl{outline:2px solid var(--t1);outline-offset:-2px}
 .flow li{margin:6px 0}
 .bub{max-width:85%;padding:8px 10px;border-radius:10px;background:#f4f4f5;margin:6px 0}.bub.me{margin-left:auto;background:#e4e4e7}.bub .mu{display:block}
@@ -185,7 +185,7 @@ function Q(){const h=(location.hash||"#/").slice(1);const i=h.indexOf("?");retur
 function pathOf(){const h=(location.hash||"#/").slice(1);const i=h.indexOf("?");return decodeURIComponent(i<0?h:h.slice(0,i))}
 function setQ(patch,path){const q={...Q(),...patch};Object.keys(q).forEach(k=>{if(q[k]===""||q[k]==null)delete q[k]});const s=new URLSearchParams(q).toString();go("#"+(path||pathOf())+(s?"?"+s:""))}
 function setRole(r){S.role=r;closeM();const q=Q();if(q.role&&q.role!=r){q.role=r;history.replaceState(null,"","#"+pathOf()+"?"+new URLSearchParams(q).toString())}render()}
-function resetAll(){if(!confirm("重置演示数据？将清空演示中产生的员工、门店、账号、消息、合规整改、素材、分配规则和转派、复盘、积分、日报、会话接管等数据，恢复初始状态。"))return;seed();save();render();toast("已重置演示数据")}
+function resetAll(){if(!confirm("重置演示数据？将清空演示中产生的员工、门店、账号、消息、合规整改、素材、分配规则和转派、复盘、积分、日报、会话接管等数据，恢复初始状态。"))return;seed();save();history.replaceState(null,"","#/");render();toast("已重置演示数据")}
 function drawTop(){
  $("#top").innerHTML=`<b>门店通 v1.5</b><span class="lofi">演示数据</span><span class="sp"></span>
  <button class="bell" aria-label="消息" onclick="go('#/messages')">${BELL}${unread()?`<i>${unread()>99?"99+":unread()}</i>`:""}</button>
