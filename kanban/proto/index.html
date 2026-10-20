@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>GrokBot 看板</title>
+<style>
+:root{--bg:#fff;--fg:#16181d;--sub:#6b7280;--line:#e6e8ec;--soft:#f5f6f8;--accent:#2f5bea;--red:#d92d20;--green:#16a34a;--amber:#d97706}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--fg);font:15px/1.45 -apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Noto Sans CJK SC",sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.app{max-width:760px;margin:0 auto;min-height:100vh;position:relative;padding-bottom:72px}
+.hide{display:none!important}
+/* header */
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:48px;padding:0 16px}
+.bar h1{font-size:17px;font-weight:600}
+.who{font-size:13px;color:var(--sub);display:flex;gap:12px;align-items:center}
+.who button{color:var(--accent);font-size:13px;min-height:44px}
+.pending{display:flex;align-items:center;gap:10px;width:100%;padding:10px 16px;text-align:left;border-top:1px solid var(--line);background:#f2f5fe}
+.pending b{font-size:15px}
+.pending .n{background:var(--accent);color:#fff;border-radius:10px;min-width:22px;height:20px;padding:0 6px;font-size:12px;display:inline-flex;align-items:center;justify-content:center;font-weight:600}
+.pending .s{color:var(--sub);font-size:13px;flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+/* groups */
+.gh{display:flex;align-items:center;gap:6px;width:100%;padding:14px 16px 6px;font-size:13px;color:var(--sub);font-weight:600;text-align:left}
+.gh .c{font-weight:400}
+.gh .ar{margin-left:auto;font-size:11px;transition:transform .15s}
+.gh.closed .ar{transform:rotate(-90deg)}
+.card{display:block;width:100%;text-align:left;padding:9px 16px;border-bottom:1px solid var(--line);min-height:56px}
+.card:active{background:var(--soft)}
+.t{font-size:15px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--sub);margin-top:2px;white-space:nowrap;overflow:hidden}
+.m .dot{color:var(--line)}
+.red{color:var(--red)!important}
+.unc{color:var(--amber)}
+.flag{color:var(--red);font-size:12px;margin-left:auto;flex:none}
+.empty{padding:48px 16px;text-align:center;color:var(--sub)}
+/* status ring */
+.st{display:inline-flex;align-items:center;gap:5px;flex:none}
+.ring{width:12px;height:12px;border-radius:50%;border:1.6px solid currentColor;display:inline-block;flex:none}
+.s-doing{color:var(--amber)}.s-doing .ring{background:conic-gradient(currentColor 0 50%,transparent 0)}
+.s-block{color:var(--red)}.s-block .ring{background:linear-gradient(currentColor,currentColor) center/7px 1.6px no-repeat}
+.s-ask{color:var(--accent)}.s-ask .ring{background:radial-gradient(currentColor 0 3px,transparent 3.5px)}
+.s-review{color:var(--green)}.s-review .ring{background:conic-gradient(currentColor 0 75%,transparent 0)}
+.s-done{color:#7c5cd6}.s-done .ring{background:currentColor}
+/* detail */
+.back{color:var(--accent);min-height:44px;padding-right:12px;font-size:15px}
+.dh{padding:14px 16px 8px}
+.dh h2{font-size:20px;font-weight:600;line-height:1.35}
+.risk.off{color:var(--sub);border-color:var(--line)}
+.risk{display:inline-block;margin-top:8px;color:var(--red);font-size:13px;font-weight:600;border:1px solid #f3c4bf;border-radius:4px;padding:1px 6px}
+.ctag{display:inline-block;vertical-align:middle;margin-left:6px;font-size:12px;font-weight:500;color:var(--sub);background:var(--soft);border:1px solid var(--line);border-radius:4px;padding:0 6px;line-height:18px}
+.t .ctag{margin-left:4px}
+.cxl{display:block;margin:10px 16px 0;color:var(--red);font-size:14px;min-height:44px}
+.chatc{display:inline-block;margin-top:8px;margin-left:6px;color:var(--sub);font-size:13px}
+.props{margin:4px 16px 0;border-top:1px solid var(--line)}
+.pr{display:flex;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px;gap:12px}
+.pr span:first-child{width:72px;color:var(--sub);flex:none}
+.pr button.lnk{color:var(--accent);margin-left:auto;font-size:13px}
+.ev a{color:var(--accent);text-decoration:none;margin-right:10px}
+.miss{color:var(--red)!important}
+.q{margin:12px 16px 0;padding:10px 12px;background:var(--soft);border-radius:6px;font-size:14px}
+.q small{display:block;color:var(--sub);font-size:12px;margin-bottom:2px}
+.tl{padding:8px 16px 16px}
+.tl h3{font-size:13px;color:var(--sub);font-weight:600;margin:12px 0 4px}
+.ev1{font-size:13px;color:var(--sub);padding:5px 0;display:flex;gap:8px}
+.ev1 time{flex:none;width:76px;font-variant-numeric:tabular-nums}
+.msg{border:1px solid var(--line);border-radius:6px;padding:8px 10px;margin:6px 0}
+.msg.me{background:#f7f9ff;border-color:#dbe3fb}
+.msg .h{font-size:12px;color:var(--sub);margin-bottom:2px}
+.msg .b{font-size:15px;white-space:pre-wrap;word-break:break-word}
+.rc{display:flex;justify-content:flex-end;align-items:center;gap:10px;font-size:12px;color:var(--sub);margin-top:4px}
+.rc.bad{color:var(--red)}
+.rc button{color:var(--red);font-weight:600;font-size:12px;min-height:32px;text-decoration:underline}
+/* action bar */
+.acts{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--bg);border-top:1px solid var(--line);padding:8px 12px calc(8px + env(safe-area-inset-bottom))}
+.acts .in{max-width:760px;margin:0 auto;display:flex;gap:8px}
+.btn{flex:1;min-height:44px;border-radius:8px;border:1px solid var(--line);font-weight:500;font-size:15px}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.dng{color:var(--red);border-color:#f3c4bf}
+.btn[disabled]{opacity:.5}
+.btn.loading{opacity:.7}
+/* tabs */
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:4;background:var(--bg);border-top:1px solid var(--line);display:flex;justify-content:center}
+.tabs .in{max-width:760px;width:100%;display:flex}
+.tabs button{flex:1;min-height:52px;font-size:13px;color:var(--sub)}
+.tabs button.on{color:var(--accent);font-weight:600}
+.badge{background:var(--red);color:#fff;border-radius:8px;font-size:11px;padding:0 5px;margin-left:3px}
+/* inbox */
+.ib{padding:12px 16px;border-bottom:1px solid var(--line)}
+.ib .h{font-size:12px;color:var(--sub)}
+.ib .b{margin:3px 0 8px;white-space:pre-wrap;word-break:break-word}
+.ibo{display:block;width:100%;text-align:left}
+.ib.unread .b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-weight:600}
+.ud{display:inline-block;background:var(--accent);color:#fff;border-radius:4px;font-size:11px;padding:0 5px;margin-right:6px;line-height:16px}
+.ib .row{display:flex;gap:8px}
+.ib .row .btn{flex:none;padding:0 14px;min-height:36px;font-size:14px}
+.ib .stt{font-size:12px;color:var(--sub);margin-left:auto;align-self:center}
+/* sheet & modal */
+.mask{position:fixed;inset:0;background:rgba(17,20,28,.35);z-index:20;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--bg);width:100%;max-width:760px;border-radius:14px 14px 0 0;padding:14px 16px calc(14px + env(safe-area-inset-bottom));max-height:86vh;overflow:auto}
+.sheet .grab{width:36px;height:4px;border-radius:2px;background:var(--line);margin:0 auto 10px}
+.sheet h4{font-size:13px;color:var(--sub);font-weight:500;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sheet h4 b{color:var(--fg);font-weight:600}
+textarea,input,select{width:100%;font:inherit;border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:#fff}
+textarea{min-height:96px;resize:vertical}
+.sw{display:flex;align-items:center;justify-content:space-between;margin:10px 0;font-size:14px}
+.sw input{width:auto;transform:scale(1.2)}
+.sheet .btn{width:100%;margin-top:8px}
+.opt{display:block;width:100%;text-align:left;padding:12px 4px;border-bottom:1px solid var(--line);font-size:15px}
+.opt.cur{color:var(--sub)}
+.lbl{font-size:13px;color:var(--sub);margin:10px 0 4px;display:block}
+.mask.center{align-items:center;padding:24px}
+.modal{background:#fff;border-radius:12px;width:100%;max-width:340px;padding:18px 16px 12px}
+.modal h5{font-size:17px;font-weight:600;margin-bottom:8px}
+.modal p{font-size:14px;color:var(--sub);margin-bottom:6px}
+.modal .q2{font-size:14px;background:var(--soft);padding:8px 10px;border-radius:6px;margin:6px 0 10px;color:var(--fg)}
+.modal .row{display:flex;gap:8px;margin-top:10px}
+.sheet .q2{font-size:14px;background:var(--soft);padding:8px 10px;border-radius:6px;margin:4px 0 10px}
+.sheet .cf2{display:flex;gap:8px}.sheet .cf2 .btn{margin-top:8px}
+.pq{padding:12px 0;border-bottom:1px solid var(--line)}
+.pq .t{white-space:normal}
+.pq .row{display:flex;gap:8px;margin-top:8px}
+.pq .row .btn{min-height:38px;font-size:14px}
+/* toast */
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:#1f2430;color:#fff;font-size:14px;padding:10px 14px;border-radius:8px;z-index:40;max-width:340px;text-align:center}
+/* login */
+.login{max-width:360px;margin:0 auto;padding:72px 24px 24px}
+.login h1{font-size:24px;font-weight:600;margin-bottom:24px}
+.seg{display:flex;border:1px solid var(--line);border-radius:8px;padding:2px;margin-bottom:16px}
+.seg button{flex:1;min-height:40px;border-radius:6px;font-size:14px;color:var(--sub)}
+.seg button.on{background:var(--soft);color:var(--fg);font-weight:600}
+.login .lbl{margin-top:12px}
+.login .btn{width:100%;margin-top:20px}
+.cnt{font-size:12px;color:var(--sub);text-align:right;margin-top:4px;min-height:17px}
+.cnt.over{color:var(--red)}
+.err{color:var(--red);font-size:13px;margin-top:10px;min-height:18px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<div id="layer"></div>
+<script>
+(function(){
+const BASE=new Date(2026,9,21,10,0).getTime(), START=Date.now();
+const now=()=>BASE+(Date.now()-START);
+const MIN=60000, LIMIT=30*MIN;
+const BOTS=['涛子','Q-测试','U-设计','老马'];
+const ST={ask:'等你拍板',doing:'进行中',block:'卡住了',review:'待验收',done:'已完成'};
+const MAXLEN=2000,WARNLEN=1800;
+const SEG=typeof Intl!=='undefined'&&Intl.Segmenter?new Intl.Segmenter('zh',{granularity:'grapheme'}):null;
+const glen=s=>{s=String(s);if(SEG){let n=0;for(const _ of SEG.segment(s))n++;return n}return Array.from(s).length};
+const pad=n=>String(n).padStart(2,'0');
+const fmt=t=>{const d=new Date(t);return pad(d.getMonth()+1)+'-'+pad(d.getDate())+' '+pad(d.getHours())+':'+pad(d.getMinutes())};
+const fmtFull=t=>{const d=new Date(t);return d.getFullYear()+'-'+fmt(t)};
+const hm=t=>{const d=new Date(t);return pad(d.getHours())+':'+pad(d.getMinutes())};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let seq=200;
+const ago=m=>BASE-m*MIN;
+
+const cards=[
+ {id:101,title:'首页改版文案定稿',owner:'U-设计',parts:['涛子'],status:'ask',deadline:BASE+8*60*MIN,eta:BASE+6*60*MIN,blocker:'等你选方案',next:'选定后交给涛子上线',question:'首页标题用 A「一页看清每件事」还是 B「每件事做到哪，一眼看到」？我建议 A，更短。',evidence:[],tl:[[ago(180),'U-设计','领了这张卡'],[ago(25),'U-设计','提了问题，等你拍板']],msgs:[]},
+ {id:102,title:'给合作方发本周进展邮件',owner:'涛子',parts:[],status:'ask',risk:'对外发送',deadline:BASE+5*60*MIN,eta:BASE+4*60*MIN,blocker:'等你确认发送',next:'确认后发出',question:'邮件草稿已写好，要不要今天发给合作方？',evidence:[],tl:[[ago(240),'涛子','领了这张卡'],[ago(40),'涛子','提了问题，等你拍板']],msgs:[]},
+ {id:103,title:'登录页样式修复',owner:'涛子',parts:['Q-测试'],status:'review',deadline:BASE+2*60*MIN,eta:BASE,blocker:'—',next:'等你验收',evidence:[{n:'截图 1'},{n:'截图 2'},{n:'预览链接'}],tl:[[ago(300),'涛子','领了这张卡'],[ago(60),'Q-测试','复测通过'],[ago(50),'涛子','交付，等你验收']],msgs:[]},
+ {id:104,title:'周报数据核对',owner:'Q-测试',parts:[],status:'doing',deadline:BASE+10*60*MIN,eta:BASE+3*60*MIN,blocker:'—',next:'核对完发结果',evidence:[],tl:[[ago(200),'Q-测试','领了这张卡']],msgs:[{text:'上周的退款单也一起核一下',type:'补充',sentAt:ago(42),state:'delivered',times:{sent:ago(41),delivered:ago(35)}}]},
+ {id:105,title:'接口偶发超时排查',owner:'涛子',parts:[],status:'block',deadline:BASE+24*60*MIN,eta:BASE+20*60*MIN,blocker:'等云服务商回复工单',next:'拿到回复后复现',evidence:[],tl:[[ago(400),'涛子','领了这张卡'],[ago(90),'涛子','改为卡住了：等云服务商回复工单']],msgs:[{text:'能先加个重试兜底吗？',type:'催办',sentAt:ago(3),state:'failed',times:{}}]},
+ {id:106,title:'价格页上线',owner:'涛子',parts:['U-设计'],status:'doing',deadline:ago(60),eta:ago(120),blocker:'—',next:'修完样式问题后上线',evidence:[],tl:[[ago(600),'涛子','领了这张卡']],msgs:[]},
+ {id:107,title:'竞品资料整理',owner:null,parts:[],status:'doing',deadline:BASE+48*60*MIN,blocker:'—',next:'—',evidence:[],tl:[[ago(30),'老马','建了这张卡']],msgs:[]},
+ {id:108,title:'手机端适配走查',owner:null,parts:[],status:'doing',deadline:BASE+30*60*MIN,blocker:'—',next:'—',evidence:[],tl:[[ago(20),'老马','建了这张卡']],msgs:[]},
+ {id:109,title:'帮助文档更新',owner:'U-设计',parts:[],status:'doing',deadline:BASE+12*60*MIN,eta:BASE+9*60*MIN,blocker:'—',next:'补完常见问题',evidence:[{n:'',path:true}],tl:[[ago(150),'U-设计','领了这张卡']],msgs:[{text:'常见问题里加一条怎么重新发送',type:'补充',sentAt:ago(15),state:'replied',times:{sent:ago(14),delivered:ago(12),replied:ago(6)},reply:'已加，在常见问题第 3 条。'}]},
+ {id:110,title:'上周数据备份核对',owner:'Q-测试',parts:[],status:'done',deadline:ago(1440),blocker:'—',next:'—',evidence:[{n:'核对结果'}],tl:[[ago(1500),'Q-测试','交付'],[ago(1440),'roxor','验收通过']],msgs:[]},
+ {id:111,title:'测试服务器清理旧日志',owner:'Q-测试',parts:['涛子'],status:'ask',risk:'删数据',deadline:BASE+6*60*MIN,eta:BASE+5*60*MIN,blocker:'等你确认删除范围',next:'确认后清理',question:'要删掉 30 天前的旧日志，可以吗？',evidence:[],tl:[[ago(120),'Q-测试','提了问题，等你拍板']],msgs:[]},
+];
+// normalise
+cards.forEach(c=>{c.tl=c.tl.map(([t,who,text])=>({t,who,text,k:'ev'}));c.msgs.forEach(m=>{m.id=++seq;m.from='roxor';m.to=c.owner;addMsgTl(c,m,true)});});
+function addMsgTl(c,m,seed){
+  c.tl.push({t:m.sentAt,who:'roxor',k:'msg',msg:m});
+  if(seed){ if(m.times.sent){c.tl.push({t:m.times.sent,who:'',text:'已发出',k:'ev',mid:m.id});c.tl.push({t:m.times.sent,who:'老马',text:'老马已收到',k:'ev',mid:m.id});}
+    if(m.times.delivered)c.tl.push({t:m.times.delivered,who:m.to,text:m.to+' 已收到',k:'ev',mid:m.id});
+    if(m.times.replied){c.tl.push({t:m.times.replied,who:m.to,k:'reply',text:m.reply,mid:m.id});c.tl.push({t:m.times.replied,who:m.to,text:m.to+' 已回复',k:'ev',mid:m.id});} }
+}
+let loginFails=0,lockUntil=0;
+const READ={};const rk=(u,k)=>u+'|'+k;const isRead=k=>!!READ[rk(S.user,k)];const markRead=k=>{READ[rk(S.user,k)]=1};
+const S={user:null,view:'login',card:null,tab:'board',closed:{done:true},loginMode:'roxor',inboxSeen:{}};
+const isRoxor=()=>S.user==='roxor';
+const byId=id=>cards.find(c=>c.id===id);
+const msgRed=m=>m.state==='failed'||(m.state!=='replied'&&m.state!=='note'&&m.state!=='queued'&&now()-m.sentAt>=LIMIT);
+const cardRed=c=>!c.cancelled&&c.msgs.some(msgRed);
+const overdue=c=>!c.cancelled&&c.status!=='done'&&!!c.deadline&&now()>c.deadline;
+const needsMe=c=>!c.cancelled&&((c.status==='ask'&&!c.chat)||c.status==='review'||cardRed(c));
+
+function stHtml(s){return `<span class="st s-${s}"><i class="ring"></i>${ST[s]}</span>`}
+function cardRow(c){
+  const flag=cardRed(c)?'<span class="flag">未回复</span>':(c.risk&&c.status==='ask'&&!c.chat?'<span class="flag">高风险</span>':(c.chat?'<span class="flag" style="color:var(--sub)">已转到聊天确认</span>':''));
+  return `<button class="card" data-open="${c.id}"><div class="t">${esc(c.title)}${c.cancelled?'<span class="ctag">已取消</span>':''}</div><div class="m">${stHtml(c.status)}<span class="dot">·</span><span>${c.owner?esc(c.owner):'<span class="unc">待领</span>'}</span><span class="dot">·</span><span class="${overdue(c)?'red':''}">${fmt(c.deadline)}</span>${flag}</div></button>`;
+}
+function group(key,name,list){
+  if(!list.length)return '';
+  const cl=S.closed[key];
+  return `<button class="gh ${cl?'closed':''}" data-g="${key}">${name} <span class="c">${list.length}</span><span class="ar">▾</span></button>${cl?'':list.map(cardRow).join('')}`;
+}
+function header(extra){
+  const name=isRoxor()?'roxor':S.user;
+  return `<div class="top"><div class="bar"><h1>GrokBot 看板</h1><div class="who">${esc(name)}<button data-act="logout">退出登录</button></div></div>${extra||''}</div>`;
+}
+function tabs(){
+  if(isRoxor())return '';
+  const mine=inboxFor(S.user).filter(m=>!isRead('m'+m.id)).length+myNotes().filter(n=>!isRead(n.k)).length;
+  const second=S.user==='老马'?['deliver','投递',0]:['inbox','给我的',mine];
+  return `<nav class="tabs"><div class="in"><button class="${S.tab==='board'?'on':''}" data-tab="board">看板</button><button class="${S.tab===second[0]?'on':''}" data-tab="${second[0]}">${second[1]}${second[2]?`<span class="badge">${second[2]}</span>`:''}</button></div></nav>`;
+}
+function renderBoard(){
+  let html='';
+  const by=s=>c=>c.status===s;
+  if(isRoxor()){
+    const pend=cards.filter(needsMe);
+    const top=pend[0];
+    const bar=`<button class="pending" data-act="pending"><b>等你处理</b><span class="n">${pend.length}</span><span class="s">${top?esc(top.title):'都处理完了'}</span></button>`;
+    html+=header(bar);
+    const rest=cards.filter(c=>!needsMe(c));
+    html+=group('me','等你处理',pend)+group('block','卡住了',rest.filter(by('block')))+group('chat','已转到聊天确认',rest.filter(c=>c.status==='ask'&&c.chat))+group('doing','进行中',rest.filter(by('doing')))+group('done','已完成',rest.filter(by('done')));
+  }else{
+    html+=header();
+    const mine=cards.filter(c=>c.owner===S.user&&c.status!=='done');
+    const others=cards.filter(c=>c.owner&&c.owner!==S.user&&c.status!=='done');
+    html+=group('mine','我负责的',mine)+group('todo','待领',cards.filter(c=>!c.owner))+group('others','其他人的',others)+group('done','已完成',cards.filter(by('done')));
+  }
+  if(!cards.length)html+='<div class="empty">还没有卡片</div>';
+  return html+tabs();
+}
+function receipt(m,c){
+  if(m.state==='note')return `<div class="rc">仅备注</div>`;
+  if(m.sending)return `<div class="rc">发送中…</div>`;
+  if(m.state==='queued')return `<div class="rc">稍后一起发</div>`;
+  const rb=isRoxor()&&!c.cancelled?`<button data-resend="${m.id}">重新发送</button>`:'';
+  if(m.state==='failed'&&c.cancelled)return `<div class="rc">没发出去</div>`;
+  if(m.state==='failed')return `<div class="rc bad">没发出去${rb}</div>`;
+  const label={sent:'已发出',delivered:'已送达',replied:'已回复'}[m.state];
+  const t=m.times[m.state];
+  if(msgRed(m)&&!c.cancelled)return `<div class="rc bad">${label} · 30 分钟未回复${rb}</div>`;
+  return `<div class="rc">${label} ${t?hm(t):''}</div>`;
+}
+function tlRank(e){
+  if(e.k==='msg')return 0;
+  if(e.k==='ev'&&e.text==='已发出')return 1;
+  if(e.text==='老马已收到')return 2;
+  if(e.k==='ev'&&/ 已收到$/.test(e.text))return 3;
+  if(e.k==='reply')return 4;
+  if(e.k==='ev'&&/ 已回复$/.test(e.text))return 5;
+  return 0;
+}
+function renderDetail(){
+  const c=byId(S.card);
+  const ev=c.evidence.filter(e=>!e.path);
+  const evHtml=c.cancelled?'—':ev.length?ev.map(e=>`<a href="#" data-act="evi">${esc(e.n)}</a>`).join(''):(c.evidence.length?'<span class="miss">缺证据</span>':'—');
+  const mk=e=>Math.floor(e.t/MIN),mid=e=>e.mid||(e.msg&&e.msg.id)||0;
+  const tl=[...c.tl].sort((a,b)=>mk(a)-mk(b)||mid(a)-mid(b)||tlRank(a)-tlRank(b)||a.t-b.t).map(e=>{
+    if(e.k==='ev')return `<div class="ev1"><time>${fmt(e.t)}</time><span>${!e.who||e.text.indexOf(e.who)===0?esc(e.text):esc(e.who)+' '+esc(e.text)}</span></div>`;
+    if(e.k==='msg'){const m=e.msg;return `<div class="msg me"><div class="h">${fmt(e.t)} · roxor${m.to&&c.owner&&m.to!==c.owner?' · 给 '+esc(m.to):''}${m.type&&m.type!=='补充'&&m.type!=='备注'?' · '+m.type:''}${m.state==='note'?' · 备注':''}</div><div class="b">${esc(m.text)}</div>${m.from==='roxor'?receipt(m,c):''}</div>`;}
+    if(e.k==='note')return `<div class="msg"><div class="h">${fmt(e.t)} · ${esc(e.who)} · 备注</div><div class="b">${esc(e.text)}</div></div>`;
+    return `<div class="msg"><div class="h">${fmt(e.t)} · ${esc(e.who)}</div><div class="b">${esc(e.text)}</div></div>`;
+  }).join('');
+  
+  const statusLink=!isRoxor()&&c.status!=='done'&&c.owner?`<button class="lnk" data-act="status">改状态</button>`:'';
+  let html=`<div class="top"><div class="bar"><button class="back" data-act="back">‹ 返回</button><div class="who">#${c.id}</div></div></div>
+  <div class="dh"><h2>${esc(c.title)}${c.cancelled?'<span class="ctag">已取消</span>':''}</h2>${c.risk?`<span class="risk${c.cancelled?' off':''}">高风险 · ${c.risk}</span>`:''}${c.chat?'<span class="chatc">已转到聊天确认</span>':''}</div>
+  <div class="props">
+   <div class="pr"><span>状态</span>${stHtml(c.status)}${statusLink}</div>
+   <div class="pr"><span>负责</span><span>${c.owner?esc(c.owner):'<span class="unc">待领</span>'}${c.parts.length?'<span style="color:var(--sub)"> · 参与 '+c.parts.map(esc).join('、')+'</span>':''}</span></div>
+   <div class="pr"><span>期限</span><span class="${overdue(c)?'red':''}">${fmtFull(c.deadline)}</span></div>
+   <div class="pr"><span>预计交付</span><span>${c.eta?fmtFull(c.eta):'—'}</span></div>
+   <div class="pr"><span>高风险</span><span class="${c.risk&&!c.cancelled?'red':''}">${c.risk?esc(c.risk):'无'}</span></div>
+   <div class="pr"><span>卡点</span><span>${esc(c.blocker||'—')}</span></div>
+   <div class="pr"><span>下一步</span><span>${esc(c.next||'—')}</span></div>
+   <div class="pr ev"><span>证据</span><span>${evHtml}</span></div>
+  </div>
+  ${isRoxor()&&c.status!=='done'&&!c.cancelled?'<button class="cxl" data-act="cancelask">取消这件事</button>':''}
+  ${c.status==='ask'&&c.question?`<div class="q"><small>${esc(c.owner)} 问</small>${esc(c.question)}</div>`:''}
+  <div class="tl"><h3>进展</h3>${tl}</div>`;
+  const ac=actions(c);if(ac)html+=`<div class="acts"><div class="in">${ac}</div></div>`;
+  return html;
+}
+function actions(c){
+  const r='<button class="btn" data-act="reply">回复…</button>';
+  if(c.cancelled)return '';
+  if(isRoxor()){
+    if(c.status==='ask'&&!c.chat&&c.risk)return `<button class="btn pri" data-act="chat">去聊天里确认</button>${r}`;
+    if(c.status==='ask'&&!c.chat)return `<button class="btn pri" data-act="approve">同意</button><button class="btn dng" data-act="reject">驳回</button>${r}`;
+    if(c.status==='review')return `<button class="btn pri" data-act="accept">验收通过</button><button class="btn dng" data-act="return">退回</button>${r}`;
+    if(c.status==='done')return `<button class="btn" data-act="undo">撤回</button>${r}`;
+    if(c.owner&&(c.status==='doing'||c.status==='block'))return `<button class="btn" data-act="nudge">催一下</button>${r}`;
+    return r;
+  }
+  if(!c.owner)return `<button class="btn pri" data-act="claim">领这张</button><button class="btn" data-act="note">加备注</button>`;
+  if(c.owner===S.user||S.user==='老马')return `<button class="btn pri" data-act="status">改状态</button><button class="btn" data-act="note">加备注</button>`;
+  return `<button class="btn" data-act="note">加备注</button>`;
+}
+function inboxFor(bot){const out=[];cards.forEach(c=>c.msgs.forEach(m=>{if(m.to===bot&&['sent','delivered','replied'].includes(m.state))out.push(Object.assign(m,{card:c}))}));return out.sort((a,b)=>b.sentAt-a.sentAt)}
+function markCardRead(id){const c=byId(id);c.msgs.forEach(m=>{if(m.to===S.user)markRead('m'+m.id)});if(c.owner===S.user)c.tl.forEach(e=>{if(e.k==='note'&&e.who!==S.user)markRead('n'+c.id+'_'+e.t)})}
+function myNotes(){const out=[];cards.filter(c=>c.owner===S.user).forEach(c=>c.tl.filter(e=>e.k==='note'&&e.who!==S.user).forEach(e=>out.push({c,e,k:'n'+c.id+'_'+e.t})));return out}
+function renderInbox(){
+  const list=inboxFor(S.user);
+  const notes=myNotes();
+  let html=header()+'<div class="gh">发给我的消息</div>';
+  html+=list.length?list.map(m=>{const u=!isRead('m'+m.id);return `<div class="ib${u?' unread':''}"><button class="ibo" data-readm="m${m.id}"><div class="h">${u?'<span class="ud">未读</span>':''}#${m.card.id} ${esc(m.card.title)} · ${m.type==='补充'?'roxor 回复':'roxor · '+m.type} · ${fmt(m.sentAt)}</div><div class="b">${esc(m.text)}</div></button><div class="row">${m.state==='sent'?`<button class="btn" data-ack="${m.id}">回复收到</button>`:''}${m.state!=='replied'?`<button class="btn pri" data-result="${m.id}">交结果</button>`:''}<button class="btn" data-open="${m.card.id}">看卡片</button><span class="stt">${{sent:'未回收到',delivered:'已回收到',replied:'已交结果'}[m.state]}</span></div></div>`}).join(''):'<div class="empty">没有新消息</div>';
+  if(notes.length)html+='<div class="gh">我卡片上的新备注</div>'+notes.map(n=>{const u=!isRead(n.k);return `<div class="ib${u?' unread':''}"><button class="ibo" data-readm="${n.k}"><div class="h">${u?'<span class="ud">未读</span>':''}#${n.c.id} ${esc(n.c.title)} · ${esc(n.e.who)} · ${fmt(n.e.t)}</div><div class="b">${esc(n.e.text)}</div></button></div>`}).join('');
+  return html+tabs();
+}
+function renderDeliver(){
+  const all=[];cards.forEach(c=>c.msgs.forEach(m=>{if(m.state!=='note')all.push({c,m})}));all.sort((a,b)=>b.m.sentAt-a.m.sentAt);
+  let html=header()+'<div class="gh">发给老马的消息</div>';
+  html+=all.map(({c,m})=>`<button class="card" data-open="${c.id}"><div class="t">#${c.id} ${esc(m.text)}</div><div class="m"><span>${m.type==='补充'?'回复':m.type}</span><span class="dot">·</span><span>转给 ${esc(m.to||'老马')}</span><span class="dot">·</span><span>${fmt(m.sentAt)}</span><span class="flag" style="${msgRed(m)?'':'color:var(--sub)'}">${m.state==='failed'?'没发出去':m.state==='queued'?'稍后一起发':{sent:'已发出',delivered:'已送达',replied:'已回复'}[m.state]}</span></div></button>`).join('');
+  return html+tabs();
+}
+function renderLogin(){
+  const r=S.loginMode==='roxor';
+  return `<div class="login"><h1>GrokBot 看板</h1>
+  <div class="seg"><button class="${r?'on':''}" data-lm="roxor">roxor 登录</button><button class="${r?'':'on'}" data-lm="bot">bot 登录</button></div>
+  ${r?`<label class="lbl" for="u">账号</label><input id="u" autocomplete="username"><label class="lbl" for="p">密码</label><input id="p" type="password" autocomplete="current-password">`
+     :`<label class="lbl" for="b">选择 bot</label><select id="b">${BOTS.map(b=>`<option>${b}</option>`).join('')}</select><label class="lbl" for="k">身份令牌</label><input id="k" type="password">`}
+  <button class="btn pri" data-act="login">登录</button><div class="err" id="err"></div></div>`;
+}
+function render(){
+  const app=document.getElementById('app');
+  if(!S.user){app.innerHTML=renderLogin();return}
+  if(S.view==='detail')app.innerHTML=renderDetail();
+  else if(S.tab==='inbox')app.innerHTML=renderInbox();
+  else if(S.tab==='deliver')app.innerHTML=renderDeliver();
+  else app.innerHTML=renderBoard();
+}
+function toast(t){document.querySelectorAll('.toast').forEach(x=>x.remove());const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2200)}
+const layer=document.getElementById('layer');
+function closeLayer(){layer.innerHTML=''}
+function sheet(inner){layer.innerHTML=`<div class="mask" data-mask="1"><div class="sheet" role="dialog"><div class="grab"></div>${inner}</div></div>`}
+function modal(inner){layer.innerHTML=`<div class="mask center" data-mask="1"><div class="modal" role="dialog">${inner}</div></div>`}
+
+function tl(c,who,text,k,mid){c.tl.push({t:now(),who,text,k:k||'ev',mid})}
+function send(c,text,type,opt){
+  opt=opt||{};
+  const m={id:++seq,from:'roxor',to:c.owner||'老马',text,type,sentAt:now(),state:type==='备注'?'note':'pending',times:{}};
+  c.msgs.push(m);addMsgTl(c,m,false);
+  if(m.state==='note'){render();return m}
+  if(type==='补充'){m.state='queued';enqueue(c,m);render();return m}
+  m.sending=true;render();
+  setTimeout(()=>deliverToLaoma(c,m),800);
+  return m;
+}
+const BATCH_MS=3000;let batch=null,wakeups=0;
+function enqueue(c,m){if(!batch){batch={start:now(),items:[]};setTimeout(flushBatch,BATCH_MS)}batch.items.push({c,m})}
+function flushBatch(){const b=batch;batch=null;if(!b)return;wakeups++;window.__wakeups=wakeups;b.items.forEach(({c,m})=>deliverToLaoma(c,m,true));render()}
+function deliverToLaoma(c,m,quiet){m.sending=false;m.state='sent';m.times.sent=now();tl(c,'','已发出','ev',m.id);tl(c,'老马','老马已收到','ev',m.id);if(!quiet)render()}
+function openReply(c,mode){
+  const toWho=c.owner||'老马';
+  const title=mode==='result'?'交结果':mode==='note'?'加备注':'回复给';
+  sheet(`<h4>${title} <b>${esc(mode==='reply'?toWho:'')}</b>${mode==='reply'?' · ':''}${esc(c.title)}</h4>
+  <textarea id="rt" placeholder="${mode==='result'?'结果和证据链接':'写点什么'}"></textarea>
+  ${mode==='reply'?'<label class="sw">只记备注，不通知<input type="checkbox" id="onlynote"></label>':''}
+  <div class="cnt" id="rcnt"></div>
+  <button class="btn pri" id="rs" disabled>${mode==='note'?'保存':'发送'}</button>`);
+  const ta=document.getElementById('rt'),b=document.getElementById('rs');
+  limitInput(ta,b);ta.focus();
+  b.onclick=()=>{
+    const v=ta.value;if(!v.trim()||glen(v)>MAXLEN)return;
+    if(mode==='note'){tl(c,S.user,v,'note');closeLayer();render();toast('备注已保存');return}
+    if(mode==='result'){closeLayer();return}
+    const note=document.getElementById('onlynote').checked;
+    b.classList.add('loading');b.textContent='发送中…';b.disabled=true;
+    setTimeout(()=>{closeLayer();send(c,v,note?'备注':'补充')},300);
+  };
+}
+function limitInput(ta,b){
+  const cnt=document.getElementById('rcnt');
+  const upd=()=>{const n=glen(ta.value);const over=n>MAXLEN;b.disabled=!ta.value.trim()||over;
+    if(!cnt)return;cnt.className='cnt'+(over?' over':'');cnt.textContent=over?'最多 2000 字 · '+n+'/2000':n>=WARNLEN?n+'/2000':''};
+  ta.addEventListener('input',upd);upd();
+}
+function confirmDecision(c,ok){
+  sheet(`<h4>${ok?'同意':'驳回'} · <b>${esc(c.title)}</b></h4><div class="q2">${esc(c.question||'')}</div>
+  ${ok?'':'<textarea id="why" placeholder="理由，可不填" style="min-height:64px"></textarea>'}
+  <div class="row cf2"><button class="btn" data-act="cancel">再想想</button><button class="btn ${ok?'pri':'dng'}" id="cf">${ok?'确认同意':'确认驳回'}</button></div>`);
+  document.getElementById('cf').onclick=function(){
+    if(this.disabled)return;this.disabled=true;
+    const why=ok?'':(document.getElementById('why').value||'').trim();
+    closeLayer();
+    tl(c,'roxor',ok?'roxor 已同意':'roxor 已驳回'+(why?'：'+why:''));
+    c.status='doing';
+    send(c,(ok?'同意':'驳回')+(why?'：'+why:''),'拍板');
+    toast(ok?'已同意，已通知 '+c.owner:'已驳回，已通知 '+c.owner);
+  };
+}
+function openStatus(c){
+  if(!(c.owner===S.user||S.user==='老马')){toast('这张卡由 '+c.owner+' 负责，你只能加备注');return}
+  const opts=['doing','block','ask','review'].map(s=>`<button class="opt ${c.status===s?'cur':''}" data-ns="${s}">${stHtml(s)}${c.status===s?' · 当前':''}</button>`).join('');
+  sheet(`<h4>改状态 · <b>${esc(c.title)}</b></h4>${opts}`);
+}
+function needField(c,s){
+  const f={block:['卡点','等谁、等什么'],ask:['问题','要 roxor 定什么'],review:['证据','公网链接或截图链接']}[s];
+  if(!f){applyStatus(c,s);return}
+  sheet(`<h4>改为${ST[s]} · <b>${esc(c.title)}</b></h4><label class="lbl" for="fv">${f[0]}</label><input id="fv" placeholder="${f[1]}">
+  ${s==='ask'?`<label class="lbl" for="rk">高风险类别</label><select id="rk"><option value="">不是高风险</option><option>对外发送</option><option>删数据</option><option>部署</option><option>花钱</option><option>改密钥或权限</option></select>`:''}
+  <button class="btn pri" id="fs">确定</button><div class="err" id="ferr"></div>`);
+  document.getElementById('fs').onclick=()=>{
+    const v=document.getElementById('fv').value.trim();
+    if(!v){document.getElementById('ferr').textContent=s==='review'?'缺证据，请附链接或截图':'请填写'+f[0];return}
+    if(s==='review'&&!/^https?:\/\//.test(v)){document.getElementById('ferr').textContent='缺证据，请附链接或截图';return}
+    if(s==='block')c.blocker=v;
+    if(s==='ask'){c.question=v;const rk=document.getElementById('rk').value;if(rk)c.risk=rk;c.chat=false}
+    if(s==='review')c.evidence.push({n:'交付链接'});
+    applyStatus(c,s);
+  };
+}
+function applyStatus(c,s){c.status=s;c.chat=false;tl(c,S.user,'改为'+ST[s]);closeLayer();render();toast('已改为'+ST[s])}
+function pendingSheet(){
+  const pend=cards.filter(needsMe);
+  if(!pend.length){sheet('<h4><b>等你处理</b></h4><div class="empty">都处理完了</div>');return}
+  sheet(`<h4><b>等你处理 ${pend.length}</b></h4>`+pend.map(c=>{
+    let row;
+    if(cardRed(c)){const m=c.msgs.find(msgRed);row=`<button class="btn dng" data-resend="${m.id}">重新发送</button><button class="btn" data-qreply="${c.id}">回复…</button>`}
+    else if(c.status==='ask'&&c.risk)row=`<button class="btn pri" data-qchat="${c.id}">去聊天里确认</button><button class="btn" data-qreply="${c.id}">回复…</button>`;
+    else if(c.status==='ask')row=`<button class="btn pri" data-qok="${c.id}">同意</button><button class="btn dng" data-qno="${c.id}">驳回</button><button class="btn" data-qreply="${c.id}">回复…</button>`;
+    else row=`<button class="btn pri" data-qacc="${c.id}">验收通过</button><button class="btn" data-qopen="${c.id}">看证据</button>`;
+    const sub=cardRed(c)?(c.msgs.find(msgRed).state==='failed'?'你的回复没发出去':'你的回复 30 分钟未回复'):c.status==='ask'?esc(c.owner)+' 问：'+esc(c.question):esc(c.owner)+' 交付，等你验收';
+    return `<div class="pq"><div class="t">${esc(c.title)}</div><div class="m" style="white-space:normal">${c.risk&&c.status==='ask'?'<span class="red" style="flex:none">高风险 · '+c.risk+'</span><span class="dot">·</span>':''}<span>${sub}</span></div><div class="row">${row}</div></div>`;
+  }).join(''));
+}
+function findMsg(id){for(const c of cards)for(const m of c.msgs)if(m.id===id)return {c,m}}
+function goChat(c){c.chat=true;tl(c,'roxor','roxor 要你去聊天里确认');send(c,'去聊天里确认','去聊天确认');toast('已通知 '+c.owner+'，请在聊天里逐步确认')}
+function sendTo(c,to,text,type){const m={id:++seq,from:'roxor',to,text,type,sentAt:now(),state:'queued',times:{}};c.msgs.push(m);addMsgTl(c,m,false);enqueue(c,m);return m}
+function cancelCard(c){
+  if(c.cancelled)return;
+  c.cancelled=true;c.status='done';c.chat=false;tl(c,'roxor','roxor 已取消');
+  const text='roxor 取消了 #'+c.id+' '+c.title;
+  if(c.owner&&c.owner!=='老马')sendTo(c,c.owner,text,'补充');
+  sendTo(c,'老马',text,'补充');
+  render();toast('已取消');
+}
+function accept(c){c.status='done';tl(c,'roxor','验收通过');send(c,'验收通过','补充');toast('已验收通过')}
+
+document.addEventListener('click',e=>{
+  const t=e.target.closest('button,[data-mask],a');if(!t)return;
+  const d=t.dataset;
+  if(d.mask&&e.target===t){closeLayer();return}
+  if(t.tagName==='A'){e.preventDefault();toast('打开证据');return}
+  if(d.lm){S.loginMode=d.lm;render();return}
+  if(d.g){S.closed[d.g]=!S.closed[d.g];render();return}
+  if(d.tab){S.tab=d.tab;S.view='board';render();window.scrollTo(0,0);return}
+  if(d.readm){markRead(d.readm);render();return}
+  if(d.open){closeLayer();if(S.user&&!isRoxor())markCardRead(+d.open);S.card=+d.open;S.view='detail';render();window.scrollTo(0,0);return}
+  if(d.resend){const {c,m}=findMsg(+d.resend);m.sentAt=now();m.state='pending';m.sending=true;tl(c,'roxor','重新发送');closeLayer();render();setTimeout(()=>deliverToLaoma(c,m),800);return}
+  if(d.ack){const {c,m}=findMsg(+d.ack);m.state='delivered';m.times.delivered=now();tl(c,S.user,S.user+' 已收到','ev',m.id);render();toast('已回复收到');return}
+  if(d.result){const {c,m}=findMsg(+d.result);openReply(c,'result');document.getElementById('rs').onclick=()=>{const v=document.getElementById('rt').value;if(!v.trim()||glen(v)>MAXLEN)return;if(m.state==='sent'){m.times.delivered=now();tl(c,S.user,S.user+' 已收到','ev',m.id)}m.state='replied';m.times.replied=now();c.tl.push({t:now(),who:S.user,k:'reply',text:v,mid:m.id});tl(c,S.user,S.user+' 已回复','ev',m.id);closeLayer();render();toast('结果已交')};return}
+  if(d.ns){const c=byId(S.card);needField(c,d.ns);return}
+  if(d.qreply){openReply(byId(+d.qreply),'reply');return}
+  if(d.qchat){closeLayer();goChat(byId(+d.qchat));return}
+  if(d.qok){confirmDecision(byId(+d.qok),true);return}
+  if(d.qno){confirmDecision(byId(+d.qno),false);return}
+  if(d.qacc){closeLayer();accept(byId(+d.qacc));return}
+  if(d.qopen){closeLayer();S.card=+d.qopen;S.view='detail';render();return}
+  const a=d.act;if(!a)return;
+  const c=S.card&&byId(S.card);
+  switch(a){
+    case 'login':{
+      const err=document.getElementById('err');
+      if(S.loginMode==='roxor'){const u=document.getElementById('u').value.trim(),p=document.getElementById('p').value;if(!u||!p){err.textContent='请输入账号和密码';return}
+        if(now()<lockUntil){err.textContent='输错次数太多，15 分钟后再试';return}
+        if(p==='wrong'){loginFails++;if(loginFails>=5){lockUntil=now()+15*MIN;loginFails=0;err.textContent='输错次数太多，15 分钟后再试'}else err.textContent='账号或密码不对';document.getElementById('p').value='';return}
+        loginFails=0;S.user='roxor'}
+      else{const k=document.getElementById('k').value;if(!k){err.textContent='请输入身份令牌';return}S.user=document.getElementById('b').value}
+      S.view='board';S.tab='board';render();return}
+    case 'logout':S.user=null;S.loginMode='roxor';S.view='login';S.card=null;closeLayer();render();return;
+    case 'back':S.view='board';render();return;
+    case 'pending':pendingSheet();return;
+    case 'cancel':closeLayer();return;
+    case 'reply':openReply(c,'reply');return;
+    case 'note':openReply(c,'note');return;
+    case 'approve':confirmDecision(c,true);return;
+    case 'reject':confirmDecision(c,false);return;
+    case 'chat':goChat(c);return;
+    case 'accept':accept(c);return;
+    case 'undo':c.status='review';tl(c,'roxor','撤回完成，回到待验收');render();toast('已撤回');return;
+    case 'return':sheet(`<h4>退回 · <b>${esc(c.title)}</b></h4><textarea id="rt" placeholder="退回理由"></textarea><div class="cnt" id="rcnt"></div><button class="btn dng" id="rs" disabled>退回</button>`);
+      limitInput(document.getElementById('rt'),document.getElementById('rs'));
+      document.getElementById('rs').onclick=()=>{const v=document.getElementById('rt').value.trim();if(!v||glen(v)>MAXLEN)return;c.status='doing';tl(c,'roxor','退回：'+v);closeLayer();send(c,'退回：'+v,'拍板');toast('已退回给 '+c.owner)};return;
+    case 'nudge':tl(c,'roxor','催了一下');send(c,'催一下：请回个预计完成时间','催办');toast('已催 '+c.owner);return;
+    case 'status':openStatus(c);return;
+    case 'claim':sheet(`<h4>领这张 · <b>${esc(c.title)}</b></h4><label class="lbl" for="eta">预计交付时间</label><input id="eta" type="datetime-local" value="2026-10-21T18:00"><button class="btn pri" id="cl">领这张</button>`);
+      document.getElementById('cl').onclick=()=>{const v=document.getElementById('eta').value;if(!v)return;c.owner=S.user;c.status='doing';c.eta=new Date(v).getTime();tl(c,S.user,'领了这张卡，预计 '+fmt(c.eta));closeLayer();render();toast('已领，状态改为进行中')};return;
+    case 'cancelask':sheet(`<h4>取消这件事 · <b>${esc(c.title)}</b></h4><div class="row" style="display:flex;gap:8px;margin-top:8px"><button class="btn" data-act="cancel">再想想</button><button class="btn dng" id="cxok">确认取消</button></div>`);
+      document.getElementById('cxok').onclick=function(){if(this.disabled)return;this.disabled=true;closeLayer();cancelCard(c)};return;
+    case 'evi':toast('打开证据');return;
+  }
+});
+setInterval(()=>{if(S.user&&!layer.innerHTML&&!document.activeElement.matches('input,textarea'))render()},15000);
+render();
+})();
+</script>
+</body>
+</html>

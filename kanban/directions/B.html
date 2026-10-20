@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>GrokBot 看板</title>
+<style>*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;overflow-x:hidden}
+body.locked{overflow:hidden}
+h1,h2,h3,p,ol,ul,dl,dd{margin:0;padding:0}
+ol,ul{list-style:none}
+button,input,textarea{font:inherit;color:inherit}
+a{color:inherit}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+time{font-variant-numeric:tabular-nums}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;min-width:44px;padding:0 14px;border:1px solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap;font-size:15px;line-height:1}
+.btn:disabled{cursor:not-allowed}
+.btn.loading{cursor:progress}
+.spin{width:14px;height:14px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.top{padding:12px 16px 10px}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px}
+.acct{display:flex;align-items:center;gap:4px}
+.acct-name{display:inline-flex;align-items:center;gap:6px}
+.sync{display:flex;align-items:center;gap:8px;margin-top:4px}
+.sync-fail{display:grid;grid-template-columns:1fr auto;gap:2px 12px;align-items:center;padding:10px 12px;margin-top:8px}
+.sync-fail .sync-t{grid-column:1;display:flex;gap:8px;align-items:baseline}
+.sync-fail .sync-how{grid-column:1}
+.sync-fail .btn-sync{grid-column:2;grid-row:1/3}
+
+.board{padding:0 16px 40px}
+.filter{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 8px}
+.cols{display:flex;flex-direction:column;gap:20px}
+.col-h{display:flex;align-items:center;gap:8px;min-height:44px}
+.col-toggle{display:flex;align-items:center;gap:8px;width:100%;min-height:44px;background:none;border:0;padding:0;cursor:pointer;text-align:left;font:inherit}
+.tog-ic{margin-left:auto;margin-right:6px;width:10px;height:10px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-3px)}
+.col-toggle[aria-expanded="true"] .tog-ic{transform:rotate(-135deg) translateY(-2px)}
+.col.collapsed .cards,.col.collapsed .empty{display:none}
+.ring{width:16px;height:16px;flex:none}
+.cards{display:flex;flex-direction:column}
+.card{position:relative;display:flex;gap:12px;min-width:0}
+.card-main{flex:1;min-width:0}
+.card-title{display:block;text-decoration:none;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-title::after{content:"";position:absolute;inset:0}
+.card .btn,.card .rcpt{position:relative;z-index:1}
+.meta{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:4px}
+.acts{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.acts .btn{flex:1 1 0;padding:0 8px}
+.acts-risk .btn{flex:1 1 100%}
+.why{margin-top:6px}
+.rcpt{display:flex;align-items:center;flex-wrap:wrap;gap:0 10px;margin-top:6px;min-height:20px}
+.rc-ic{display:inline-block;min-width:1.4em;margin-right:4px}
+.btn-resend{min-height:44px;padding:0 8px;margin:-10px 0}
+.run{display:flex;align-items:center;gap:6px}
+.run-dot{width:8px;height:8px;border-radius:50%}
+.risk{display:flex;align-items:center;gap:6px;margin-top:6px}
+
+.layer{position:fixed;inset:0;z-index:20}
+.scrim{position:absolute;inset:0}
+.detail{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden}
+.d-bar{display:flex;align-items:center;padding:6px 8px;flex:none}
+.d-scroll{flex:1;overflow-y:auto;overflow-x:hidden;padding:4px 16px 24px}
+.d-head{display:flex;gap:12px;align-items:flex-start}
+.d-title{overflow-wrap:anywhere}
+.props{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;margin-top:16px}
+.props>div{display:contents}
+.props dd{display:flex;align-items:center;gap:6px;min-width:0;overflow-wrap:anywhere}
+.d-ask,.risk-note{margin-top:16px}
+.d-acts{margin-top:8px}
+.d-sec{margin-top:28px}
+.tl{margin-top:10px;display:flex;flex-direction:column;gap:12px}
+.tl-sys{display:flex;align-items:center;gap:10px}
+.tl-sys time{margin-left:auto}
+.tl-dot{width:7px;height:7px;flex:none}
+.tl-msg{display:flex;gap:10px}
+.tl-m{flex:1;min-width:0}
+.tl-head{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.tl-body{margin-top:4px;overflow-wrap:anywhere}
+.tl-mine{margin-left:15%}
+.tl-mine .rcpt{justify-content:flex-end}
+.composer{flex:none;padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+.comp-inline{display:none}
+.comp-open{width:100%}
+.comp-label{display:block;margin-bottom:6px}
+.comp-inline textarea,.sheet textarea,.field input{width:100%;display:block;resize:vertical;min-height:44px}
+.comp-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:8px}
+
+.layer-sheet{z-index:30;display:flex;align-items:flex-end}
+.sheet{position:relative;width:100%;max-height:90vh;overflow:auto;padding:20px 16px calc(16px + env(safe-area-inset-bottom))}
+.sh-sub,.sh-desc,.sh-route{margin-top:6px}
+.sheet textarea{margin-top:14px}
+.sh-label{display:block;margin-top:14px}
+.sh-label + textarea{margin-top:6px}
+.sh-acts{display:flex;gap:10px;margin-top:16px}
+.sh-acts .btn{flex:1}
+@media (prefers-reduced-motion:no-preference){
+  .layer-sheet .sheet{animation:up .22s ease-out}
+  .layer-detail .detail{animation:fade .18s ease-out}
+}
+@keyframes up{from{transform:translateY(100%)}to{transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:40;padding:12px 16px;max-width:calc(100% - 32px)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+.login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px}
+.login-card{width:100%;max-width:360px;display:flex;flex-direction:column;gap:16px}
+.field{display:flex;flex-direction:column;gap:6px}
+.btn-login{width:100%;margin-top:8px}
+
+@media (min-width:900px){
+  .top{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:24px;padding:14px 28px}
+  .top-row{display:contents}
+  .brand{grid-column:1}
+  .sync{grid-column:2;margin:0}
+  .acct{grid-column:3;grid-row:1}
+  .sync-fail{margin:0;justify-self:start}
+  .board{padding:0 28px 40px}
+  .cols{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;align-items:start}
+  .col.collapsed .cards{display:flex}
+  .col-toggle{pointer-events:none}
+  .tog-ic{display:none}
+  .layer-detail .scrim{display:block}
+  .detail{left:auto;width:520px}
+  .d-bar{justify-content:flex-end;padding:8px 12px}
+  .d-scroll{padding:4px 28px 24px}
+  .comp-inline{display:block}
+  .comp-open{display:none}
+  .composer{padding:14px 28px 18px}
+  .layer-sheet{align-items:center;justify-content:center}
+  .sheet{max-width:460px;padding:24px}
+  @media (prefers-reduced-motion:no-preference){ .layer-sheet .sheet{animation:fade .16s ease-out} }
+}
+@media (min-width:900px){ .cols{grid-template-columns:minmax(0,1.35fr) repeat(3,minmax(0,1fr)) minmax(0,.9fr)} }
+.meta .risk{margin-top:0}
+
+.conflict{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 8px 8px 14px;margin:4px 0 12px}
+.conflict p{font-weight:600}
+.props .risk-mark{flex:none}
+
+/* B 安灯 */
+:root{--bg:#F2F4F6;--surface:#FFFFFF;--text:#1A1D21;--muted:#565E69;--line:#D5DAE0;--line-2:#E6E9ED;
+  --amber:#F2B705;--amber-ink:#5C4300;--red:#C1301B;--red-bg:#FDEEEB;--green:#2E7D4F;--blue:#2257C9;
+  --ui:"Inter","Noto Sans CJK SC","Noto Sans SC",sans-serif}
+body{background:var(--bg);color:var(--text);font:14px/1.55 var(--ui)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.top{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.brand{font-size:17px;font-weight:700}
+.sync{font-size:13px;color:var(--muted)}
+.sync-dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+.sync-fail{background:var(--red-bg);border:1px solid #F0B8AE;border-radius:4px;color:var(--red)}
+.sync-fail .sync-t{font-weight:600}
+.sync-how{font-size:13px;color:#7D1E10}
+.sync-ic{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;background:var(--red);color:#fff;font-size:11px;font-weight:700;flex:none;align-self:center}
+.btn{border-radius:4px;background:var(--surface);border-color:var(--line);color:var(--text);font-weight:500;font-size:14px}
+.btn:hover{border-color:#AEB5BE}
+.btn-primary{background:var(--text);border-color:var(--text);color:#fff}
+.btn-primary:hover{background:#353A42}
+.btn-danger{background:var(--red);border-color:var(--red);color:#fff}
+.btn-quiet{border-color:transparent;background:transparent;color:var(--muted)}
+.btn-quiet:hover{color:var(--text);border-color:transparent}
+.btn:disabled{background:var(--bg);color:#626973;border-color:var(--line-2)}
+.btn-sync{background:var(--red);border-color:var(--red);color:#fff}
+/* 记忆点：安灯条 */
+.andon{margin:10px -16px -10px;border-top:1px solid var(--line-2)}
+.andon ul{display:grid;grid-template-columns:repeat(6,minmax(0,1fr))}
+.lamp{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:2px;min-height:46px;padding:12px 2px 4px;text-decoration:none;color:var(--muted);font-size:12px}
+.lamp + .lamp{border-left:1px solid var(--line-2)}
+.andon li + li .lamp{border-left:1px solid var(--line-2)}
+.lamp-light{position:absolute;top:0;left:0;right:0;height:6px;background:#CDD2D9}
+.lamp-decide .lamp-light{background:var(--amber)}
+.lamp-stuck .lamp-light{background:var(--red)}
+.lamp-doing .lamp-light{background:var(--green)}
+.lamp-decide,.lamp-stuck{color:var(--text);font-weight:600}
+.lamp.on{background:var(--bg);box-shadow:inset 0 -2px 0 var(--text);color:var(--text)}
+.lamp-st{display:none}
+.ln-full{display:none}
+@media (prefers-reduced-motion:no-preference){
+  .lamp-decide .lamp-light{animation:andon 2.4s ease-in-out 3}
+}
+@keyframes andon{50%{opacity:.35}}
+.board{padding-top:14px}
+.col-h{font-size:14px;font-weight:600}
+.col-n{color:var(--muted);font-weight:500;font-variant-numeric:tabular-nums}
+.r-track{fill:none;stroke:#8A929C;stroke-width:1.5}
+.r-fill{stroke:none}
+.ring-decide .r-track{stroke:#B98A00}.ring-decide .r-fill{fill:#B98A00}
+.ring-stuck .r-track{stroke:var(--red)}.ring-stuck .r-fill{fill:var(--red)}
+.ring-doing .r-track{stroke:var(--green)}.ring-doing .r-fill{fill:var(--green)}
+.ring-review .r-track{stroke:var(--blue)}.ring-review .r-fill{fill:none}
+.ring-todo .r-track{stroke-dasharray:2.4 2}
+.ring-done .r-track{stroke:#6C5DD3}.ring-done .r-fill{fill:#6C5DD3}
+.r-check{fill:none;stroke:#fff;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.cards{background:var(--surface);border:1px solid var(--line);border-radius:4px}
+.card{padding:10px 14px}
+.acts{margin-top:8px}
+.rcpt{margin-top:4px}
+.card + .card{border-top:1px solid var(--line-2)}
+.card-title{font-size:15px;font-weight:600;line-height:1.45}
+.meta{font-size:13px;color:var(--muted)}
+.owner{color:var(--text)}
+.due.today{color:var(--text);font-weight:600}
+.due.late{color:var(--red);font-weight:600}
+.blk{margin-top:4px;font-size:13px;color:var(--red)}
+.run{margin-top:4px;font-size:13px;color:var(--green)}
+.run-dot{background:var(--green)}
+@media (prefers-reduced-motion:no-preference){.run-dot{animation:pulse 1.8s ease-in-out infinite}}
+@keyframes pulse{50%{opacity:.3}}
+.evi{margin-top:4px;font-size:13px;color:var(--muted)}
+.risk{font-size:12px;font-weight:500;color:var(--text)}
+.risk-mark{width:8px;height:8px;border:2px solid var(--red);transform:rotate(45deg)}
+.why{font-size:12px;color:var(--muted)}
+.acts .btn{min-height:44px}
+.rcpt{font-size:12px;color:var(--muted)}
+.rcpt-replied{color:var(--blue)}
+.rcpt.bad{color:var(--red);font-weight:500}
+.btn-resend{color:var(--red);font-weight:600;font-size:12px;text-decoration:underline;text-underline-offset:3px}
+.empty{color:var(--muted);font-size:13px;padding:12px 14px;background:var(--surface);border:1px dashed var(--line);border-radius:4px}
+.filter{font-size:13px}
+.layer-detail .scrim{background:rgba(26,29,33,.32)}
+.detail{background:var(--surface)}
+.d-bar{border-bottom:1px solid var(--line-2)}
+.d-title{font-size:20px;font-weight:700;line-height:1.4;margin-top:8px}
+.props{font-size:13px}
+.props dt{color:var(--muted)}
+.blk-dd,.risk-dd{color:var(--red);font-weight:600}
+.d-ask{font-size:15px;line-height:1.7;background:var(--bg);padding:10px 12px;border-radius:4px}
+.risk-note{font-size:13px;color:var(--red)}
+.d-sec{font-size:14px;font-weight:600}
+.tl{gap:10px;border-left:1px solid var(--line);margin-left:3px;padding-left:14px}
+.tl-sys{font-size:13px;color:var(--muted);position:relative}
+.tl-dot{position:absolute;left:-18px;width:7px;height:7px;border-radius:50%;background:#9AA1AA;box-shadow:0 0 0 3px var(--surface)}
+.tl-sys time,.tl-head time{font-size:12px;color:var(--muted)}
+.tl-msg,.tl-mine{border:1px solid var(--line);border-radius:4px;padding:10px 12px}
+.tl-mine{margin-left:0;background:var(--bg)}
+.tl-who{font-weight:600;font-size:13px}
+.composer{border-top:1px solid var(--line)}
+.comp-label{font-size:13px;font-weight:600}
+textarea,.field input{border:1px solid var(--line);border-radius:4px;background:var(--surface);padding:10px 12px;font-size:16px;line-height:1.5}
+textarea:focus-visible,.field input:focus-visible{outline:2px solid var(--blue);outline-offset:0;border-color:var(--blue)}
+.comp-route,.sh-route{font-size:12px;color:var(--muted)}
+.layer-sheet .scrim{background:rgba(26,29,33,.4)}
+.sheet{background:var(--surface);border-radius:8px 8px 0 0}
+.sh-title{font-size:17px;font-weight:700;line-height:1.45}
+.sh-sub,.sh-desc,.sh-label{font-size:14px;color:var(--muted)}
+.toast{background:var(--text);color:#fff;border-radius:4px;font-size:13px}
+body[data-view="login"]{background:var(--bg)}
+.login-card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:0 24px 24px;overflow:hidden}
+.login-title{font-size:20px;font-weight:700;margin-top:4px}
+.f-label{font-size:13px;font-weight:600}
+.login-lamps{display:grid;grid-template-columns:repeat(6,1fr);margin:0 -24px 8px;height:6px}
+.login-lamps span{background:#CDD2D9}
+.login-lamps span+span{border-left:1px solid var(--surface)}
+@media (min-width:900px){
+  .andon{margin:0;border:0;grid-column:1/-1}
+  .andon ul{grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+  .lamp{flex-direction:row;justify-content:flex-start;gap:10px;min-height:44px;padding:8px 12px 6px;border:1px solid var(--line-2)!important;border-radius:4px;overflow:hidden;font-size:13px}
+  .lamp-light{top:0;height:4px}
+  .ln-full{display:inline}.ln-short{display:none}
+  .lamp-st{display:inline;margin-left:auto;font-weight:500;color:var(--muted);white-space:nowrap}
+  .lamp-decide .lamp-st{color:var(--amber-ink)}
+  .lamp-stuck .lamp-st{color:var(--red)}
+  .top{row-gap:12px;padding-bottom:12px}
+  .sheet{border-radius:8px}
+}
+.conflict{background:#FFF4CC;border:1px solid #E6C34D;border-radius:4px;color:var(--amber-ink)}
+</style></head>
+<body><div id="app"></div>
+<script>window.DIR={key:'B',andon:true,loginDeco:function(){return '<div class="login-lamps" aria-hidden="true">'+'<span></span>'.repeat(6)+'</div>'}};</script>
+<script>(function(){
+const D = window.DIR;
+const BOTS = {
+  laoma:{name:'老马',short:'老马',g:'马'}, taozi:{name:'涛子',short:'涛子',g:'涛'},
+  q:{name:'Q-测试',short:'Q',g:'测'}, pm:{name:'PM-产品经理',short:'PM',g:'产'},
+  u:{name:'U-设计',short:'U',g:'设'}, f:{name:'F-金融顾问',short:'F',g:'金'}
+};
+const STATUS = [
+  {k:'decide',n:'等你拍板'},{k:'doing',n:'进行中'},{k:'stuck',n:'卡住了'},
+  {k:'review',n:'待验收'},{k:'done',n:'已完成'}
+];
+const SN = Object.fromEntries(STATUS.map(s=>[s.k,s.n]));
+const CARDS = [
+ {id:'c1',s:'decide',o:'pm',t:'首页改版按方案 B 走',due:'2026年10月20日',
+  ask:'方案 B 砍掉推荐位，首屏能放下核心数据。同意就按 B 出高保真。',
+  r:{st:'replied',at:'22:41'},
+  tl:[
+   {k:'msg',who:'pm',at:'21:52',head:'PM-产品经理提问',body:'首页改版按方案 B 走吗？A 首屏太挤，B 砍掉推荐位。'},
+   {k:'mine',at:'22:30',body:'推荐位砍掉之后，核心数据放得下吗？'},
+   {k:'sys',at:'22:30',text:'已发出'},
+   {k:'sys',at:'22:31',text:'老马已收到'},
+   {k:'sys',at:'22:33',text:'PM-产品经理已收到'},
+   {k:'msg',who:'pm',at:'22:41',head:'PM-产品经理已回复',body:'放得下，首屏四项核心数据都在。等你拍板。'}
+  ]},
+ {id:'c2',s:'decide',o:'laoma',t:'周报改到每周五 18:00 自动发',due:'2026年10月21日',
+  ask:'现在是周一早上发，周五发能赶上周末复盘。',
+  r:{st:'delivered',at:'22:36'},
+  tl:[
+   {k:'msg',who:'laoma',at:'22:05',head:'老马提问',body:'周报改到每周五 18:00 自动发，行吗？'},
+   {k:'mine',at:'22:35',body:'周五晚上我不一定看，改 17:00 呢？'},
+   {k:'sys',at:'22:35',text:'已发出'},{k:'sys',at:'22:36',text:'老马已收到'}
+  ]},
+ {id:'c3',s:'decide',o:'pm',t:'给三家合作方发上线通知邮件',due:'2026年10月21日',risk:'对外发送',
+  ask:'邮件草稿写好了，收件人是三家合作方的对接人。',
+  tl:[
+   {k:'msg',who:'pm',at:'21:20',head:'PM-产品经理提问',body:'上线通知邮件草稿已写好，发给三家合作方，等你确认。'},
+   {k:'sys',at:'21:21',text:'老马已收到'},
+   {k:'sys',at:'21:24',text:'Q-测试已收到'},
+   {k:'msg',who:'q',at:'21:40',head:'Q-测试已回复',body:'邮件里的链接都能打开，退订链接也在。'}
+  ]},
+ {id:'c4',s:'decide',o:'taozi',t:'看板 v0.3 上线正式环境',due:'2026年10月22日',risk:'部署',
+  ask:'测试全部通过，等你定上线时间。',
+  tl:[{k:'msg',who:'taozi',at:'20:58',head:'涛子提问',body:'v0.3 测试全部通过，今晚还是明早上线？'},{k:'sys',at:'20:59',text:'老马已收到'}]},
+ {id:'c5',s:'stuck',o:'q',t:'回归测试卡在登录验证码',due:'2026年10月20日',blk:'等涛子关掉测试环境的验证码',
+  r:{st:'sent',at:'22:40'},
+  tl:[{k:'msg',who:'q',at:'22:10',head:'Q-测试报卡住',body:'测试环境登录要验证码，自动化跑不下去。'},{k:'mine',at:'22:40',body:'涛子今晚能关吗？关不了就先手测。'},{k:'sys',at:'22:40',text:'已发出'}]},
+ {id:'c6',s:'stuck',o:'f',t:'行情接口偶发超时',due:'2026年10月19日',dueS:'late',blk:'等涛子查服务端日志',
+  r:{st:'late',at:'21:58'},
+  tl:[
+   {k:'msg',who:'f',at:'21:40',head:'F-金融顾问报卡住',body:'今晚有 6 次请求超时，要看服务端日志才能定位。'},
+   {k:'mine',at:'21:57',body:'先把超时的那几笔重试一遍，结果发我。'},
+   {k:'sys',at:'21:57',text:'已发出'},
+   {k:'sys',at:'21:57',text:'老马已收到'},
+   {k:'sys',at:'21:58',text:'F-金融顾问已收到'}
+  ]},
+ {id:'c7',s:'doing',o:'taozi',t:'看板登录页',due:'2026年10月21日',run:true,
+  tl:[{k:'msg',who:'taozi',at:'21:30',head:'涛子接活',body:'预计明天 18:00 前交付。'},{k:'msg',who:'taozi',at:'22:20',head:'涛子报进展',body:'账号密码登录已通，在做登录失败提示。'}]},
+ {id:'c8',s:'doing',o:'u',t:'设计规范第一稿',due:'2026年10月22日',
+  r:{st:'failed',at:'22:12'},
+  tl:[{k:'msg',who:'u',at:'20:40',head:'U-设计接活',body:'预计 10 月 22 日交第一稿。'},{k:'mine',at:'22:12',body:'颜色先定浅色一套就行。'}]},
+ {id:'c9',s:'doing',o:'laoma',t:'台账改成固定字段',due:'2026年10月20日',run:true,
+  tl:[{k:'msg',who:'laoma',at:'21:45',head:'老马接活',body:'先改最近 30 条。'}]},
+ {id:'c10',s:'review',o:'taozi',t:'告警转发修复',due:'2026年10月20日',evi:'复测截图 2 张',
+  tl:[{k:'msg',who:'taozi',at:'19:40',head:'涛子交付',body:'修好了，附复测截图 2 张。'},{k:'msg',who:'q',at:'20:05',head:'Q-测试复测',body:'连发 20 条告警都转出去了。'}]},
+ {id:'c11',s:'doing',o:'taozi',t:'测试服务器续费三个月',due:'2026年10月25日',risk:'花钱',
+  tl:[{k:'msg',who:'taozi',at:'18:10',head:'涛子提问',body:'测试服务器 10 月 26 日到期，续三个月要付费，等你在聊天里确认。'},{k:'sys',at:'18:11',text:'老马已收到'}]},
+ {id:'c12',s:'done',o:'q',t:'测试台账独立出来',due:'2026年10月19日',tl:[]},
+ {id:'c13',s:'done',o:'pm',t:'回复回执改成三档',due:'2026年10月20日',tl:[]},
+ {id:'c14',s:'done',o:'u',t:'对标截图整理',due:'2026年10月20日',tl:[]}
+];
+
+const dueTxt = c => c.dueS==='late' ? `${c.due} 已超期` : c.due;
+const esc = s => String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const bn = k => k ? BOTS[k].name : '';
+let uid = 0; let CURWHO = 'roxor';
+
+function params(){
+  const p = {}; location.hash.replace(/^#/,'').split('&').forEach(kv=>{ if(!kv) return; const [k,v=''] = kv.split('='); p[k]=decodeURIComponent(v); });
+  return p;
+}
+function viewer(p){ return p.as && BOTS[p.as] ? p.as : 'roxor'; }
+
+function glyph(k, size){
+  if(!D.glyph) return '';
+  if(!k) return `<span class="glyph glyph-none ${size||''}" aria-hidden="true">派</span>`;
+  return `<span class="glyph ${size||''}" data-bot="${k}" aria-hidden="true">${BOTS[k].g}</span>`;
+}
+function ring(s){
+  return `<svg class="ring ring-${s}" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.25" class="r-track"/><path class="r-fill" d="${({decide:'M8 1.75A6.25 6.25 0 1 1 1.75 8H8z',stuck:'M8 1.75A6.25 6.25 0 1 1 8 14.25V8z',doing:'M8 1.75A6.25 6.25 0 0 1 14.25 8H8z',review:'M8 1.75A6.25 6.25 0 1 1 1.75 8 6.25 6.25 0 0 1 8 1.75z',todo:'',done:'M8 1.75A6.25 6.25 0 1 1 1.75 8 6.25 6.25 0 0 1 8 1.75z'})[s]}"/>${s==='done'?'<path class="r-check" d="M5 8.2l2 2 4-4.2"/>':''}</svg>`;
+}
+
+const RC = {
+  sent:{ic:'✓',t:'已发出'}, delivered:{ic:'✓✓',t:'已送达'}, replied:{ic:'↩',t:'已回复'},
+  failed:{ic:'!',t:'没发出去',bad:true}, late:{ic:'!',t:'已送达',bad:true,tail:'，30 分钟没回复'}
+};
+function receipt(r, onCard, cid, owner){
+  if(!r) return '';
+  const m = RC[r.st];
+  const time = r.st==='failed' ? '' : ` ${r.at}`;
+  const lead = !onCard ? '' : (r.st==='replied' ? bn(owner) : '你的回复');
+  return `<div class="rcpt ${m.bad?'bad':''} rcpt-${r.st}" ${m.bad?'role="status"':''}>
+    <span class="rc-text"><span class="rc-ic" aria-hidden="true">${m.ic}</span>${lead}${m.t}${time}${m.tail||''}</span>
+    ${m.bad?`<button class="btn btn-quiet btn-resend" data-act="resend" data-id="${cid}">重新发送</button>`:''}
+  </div>`;
+}
+
+function actions(c, who, inDetail){
+  const out = []; let reason = '';
+  const rid = 'r'+(++uid);
+  if(who==='roxor'){
+    if(c.risk && c.s!=='done'){
+      out.push(`<button class="btn btn-primary btn-chat" data-act="chat" data-id="${c.id}">去聊天里确认</button>`);
+    } else if(c.s==='decide'){
+      out.push(`<button class="btn btn-primary" data-act="agree" data-id="${c.id}">同意</button>`);
+      out.push(`<button class="btn" data-act="reject" data-id="${c.id}">驳回</button>`);
+      out.push(`<button class="btn" data-act="reply" data-id="${c.id}">回复…</button>`);
+    } else if(c.s==='review'){
+      out.push(`<button class="btn btn-primary" data-act="done" data-id="${c.id}">标完成</button>`);
+      out.push(`<button class="btn" data-act="reply" data-id="${c.id}">退回</button>`);
+    } else if(c.s==='stuck' && !inDetail){
+      out.push(`<button class="btn" data-act="reply" data-id="${c.id}">回复…</button>`);
+    }
+  } else {
+    if(c.s==='done') return '';
+    if(c.s==='review'){
+      out.push(`<button class="btn" disabled aria-describedby="${rid}">标完成</button>`);
+      reason = '只有 roxor 能标完成';
+    } else if(c.o===who){
+      out.push(`<button class="btn btn-primary" data-act="status" data-id="${c.id}">改状态</button>`);
+    } else {
+      out.push(`<button class="btn" disabled aria-describedby="${rid}">改状态</button>`);
+      reason = `只有${/^[A-Za-z]/.test(bn(c.o))?' ':''}${bn(c.o)}能改这张卡`;
+    }
+  }
+  if(!out.length) return '';
+  return `<div class="acts ${c.risk&&who==='roxor'?'acts-risk':''}">${out.join('')}</div>${reason?`<p class="why" id="${rid}">${reason}</p>`:''}`;
+}
+
+function card(c, who){
+  const risk = c.risk ? `<p class="risk"><span class="risk-mark" aria-hidden="true"></span>${c.risk}</p>` : '';
+  const owner = c.o ? `<span class="owner">负责：${bn(c.o)}</span>` : `<span class="owner owner-none">还没派给 bot</span>`;
+  const due = `<span class="due ${c.dueS||''}">期限：${dueTxt(c)}</span>`;
+  const blk = c.blk ? `<p class="blk">卡在：${c.blk}</p>` : '';
+  const run = c.run ? `<p class="run"><span class="run-dot" aria-hidden="true"></span>正在处理</p>` : '';
+  const evi = c.evi ? `<p class="evi">附 ${c.evi}</p>` : '';
+  const acts = actions(c, who, false);
+  const rc = who==='roxor' ? receipt(c.r, true, c.id, c.o) : '';
+  const body = `<a class="card-title" href="#card=${c.id}${who!=='roxor'?'&as='+who:''}">${esc(c.t)}</a>
+      <p class="meta">${owner}${due}${c.risk?`<span class="risk" title="高风险"><span class="risk-mark" aria-hidden="true"></span><span class="vh">高风险：</span>${c.risk}</span>`:''}</p>${blk}${run}${evi}`;
+  if(D.stub){
+    return `<li class="card s-${c.s} ${c.risk?'is-risk':''}"><div class="card-main">${body}${acts}</div>${rc?`<div class="stub">${rc}</div>`:''}</li>`;
+  }
+  return `<li class="card s-${c.s} ${c.risk?'is-risk':''}">${glyph(c.o)}<div class="card-main">${body}${rc}${acts}</div></li>`;
+}
+
+function botState(k){
+  const mine = CARDS.filter(c=>c.o===k && c.s!=='done');
+  const n = s => mine.filter(c=>c.s===s).length;
+  if(n('decide')) return {st:'decide',t:`等你拍板 ${n('decide')}`};
+  if(n('stuck')) return {st:'stuck',t:`卡住 ${n('stuck')}`};
+  if(n('doing')||n('review')) return {st:'doing',t:n('doing')?'在干活':'等你验收'};
+  return {st:'idle',t:'空闲'};
+}
+function andon(p){
+  if(!D.andon) return '';
+  const f = p.bot;
+  return `<nav class="andon" aria-label="bot 状态"><ul>${Object.keys(BOTS).map(k=>{
+    const s = botState(k);
+    const href = f===k ? '#' : `#bot=${k}`;
+    return `<li><a class="lamp lamp-${s.st} ${f===k?'on':''}" href="${href}" aria-label="${BOTS[k].name}，${s.t}${f===k?'，已筛选':''}" ${f===k?'aria-current="true"':''}>
+      <span class="lamp-light" aria-hidden="true"></span><span class="lamp-name"><span class="ln-full">${BOTS[k].name}</span><span class="ln-short">${BOTS[k].short}</span></span><span class="lamp-st">${s.t}</span></a></li>`;
+  }).join('')}</ul></nav>`;
+}
+
+function header(p, who){
+  const fail = p.sync==='fail';
+  const sync = fail
+    ? `<div class="sync sync-fail" role="alert"><p class="sync-t"><span class="sync-ic" aria-hidden="true">!</span>和台账同步失败</p><p class="sync-how">卡片停在 22:41。点「重新同步」再试；还不行，在聊天里告诉老马。</p><button class="btn btn-sync" data-act="resync">重新同步</button></div>`
+    : `<p class="sync sync-ok"><span class="sync-dot" aria-hidden="true"></span>和台账同步于 22:41</p>`;
+  const name = who==='roxor' ? 'roxor' : BOTS[who].name;
+  return `<header class="top"><div class="top-row"><h1 class="brand">GrokBot 看板</h1>
+    <div class="acct"><span class="acct-name">${D.glyph && who!=='roxor' ? glyph(who,'g-xs') : ''}${name}</span><a class="btn btn-quiet btn-out" href="#view=login">退出</a></div></div>
+    ${sync}${andon(p)}</header>`;
+}
+
+function board(p, who){
+  const f = p.bot;
+  const cols = STATUS.map(s=>{
+    const list = CARDS.filter(c=>c.s===s.k && (!f || c.o===f));
+    const isDone = s.k==='done';
+    return `<section class="col col-${s.k} ${isDone?'collapsed':''}" aria-labelledby="h-${s.k}">
+      <h2 class="col-h" id="h-${s.k}">${isDone?`<button class="col-toggle" aria-expanded="false" data-act="toggle">`:''}${D.rings!==false?ring(s.k):''}<span class="col-name">${s.n}</span><span class="col-n">${list.length}</span>${isDone?`<span class="tog-ic" aria-hidden="true"></span></button>`:''}</h2>
+      ${list.length?`<ol class="cards">${list.map(c=>card(c,who)).join('')}</ol>`:`<p class="empty">这一栏没有卡</p>`}
+    </section>`;
+  }).join('');
+  const filt = f ? `<p class="filter">只看${BOTS[f].name}的卡 <a class="btn btn-quiet" href="#">看全部</a></p>` : '';
+  return `<main class="board" id="main">${filt}<div class="cols">${cols}</div></main>`;
+}
+
+function tlItem(e, c, last){
+  if(e.k==='sys') return `<li class="tl-sys"><span class="tl-dot" aria-hidden="true"></span><span class="tl-text">${esc(e.text)}</span><time>${e.at}</time></li>`;
+  if(e.k==='mine') return `<li class="tl-mine"><div class="tl-head"><span class="tl-who">${CURWHO==='roxor'?'你的回复':'roxor 回复'}</span><time>${e.at}</time></div><p class="tl-body">${esc(e.body)}</p>${last && c.r ? receipt(c.r,false,c.id) : ''}</li>`;
+  return `<li class="tl-msg">${D.glyph?glyph(e.who,'g-sm'):''}<div class="tl-m"><div class="tl-head"><span class="tl-who">${esc(e.head)}</span><time>${e.at}</time></div><p class="tl-body">${esc(e.body)}</p></div></li>`;
+}
+
+function detail(c, who, p){
+  const lastMine = c.tl.map((e,i)=>e.k==='mine'?i:-1).filter(i=>i>=0).pop();
+  const tl = c.tl.length ? `<ol class="tl">${c.tl.map((e,i)=>tlItem(e,c,i===lastMine)).join('')}</ol>` : `<p class="empty">还没有进展记录</p>`;
+  const props = `<dl class="props">
+     <div><dt>状态</dt><dd>${D.rings!==false?ring(c.s):''}${SN[c.s]}</dd></div>
+     <div><dt>负责</dt><dd>${c.o?bn(c.o):'还没派给 bot'}</dd></div>
+     <div><dt>期限</dt><dd class="due ${c.dueS||''}">${dueTxt(c)}</dd></div>
+     ${c.blk?`<div><dt>卡点</dt><dd class="blk-dd">${c.blk}</dd></div>`:''}
+     <div><dt>高风险</dt><dd class="${c.risk?'risk-dd':''}">${c.risk?`<span class="risk-mark" aria-hidden="true"></span>${c.risk}`:'无'}</dd></div>
+   </dl>`;
+  const canWrite = !(c.risk && who==='roxor') && c.s!=='done';
+  const target = c.o ? bn(c.o) : '老马';
+  const label = who==='roxor' ? `回复${target}` : (c.o===who ? '写进展' : '加备注');
+  const composer = canWrite ? `<div class="composer">
+      <form class="comp-inline" data-form="reply" data-id="${c.id}">
+        <label class="comp-label" for="ta-${c.id}">${label}</label>
+        <textarea id="ta-${c.id}" rows="2" placeholder="写给${who==='roxor'?target:'这张卡'}"></textarea>
+        <div class="comp-row"><span class="comp-route">${who==='roxor'?`经老马转给${target}`:'写在这张卡的进展里'}</span><button class="btn btn-primary btn-send" type="submit">发送</button></div>
+      </form>
+      <button class="btn btn-primary comp-open" data-act="reply" data-id="${c.id}">${label}…</button>
+    </div>` : '';
+  const riskNote = c.risk && who==='roxor' ? `<p class="risk-note">这张卡涉及${c.risk}，要在聊天里一步步确认。</p>` : '';
+  const conflict = p.conflict ? `<div class="conflict" role="alert"><p>已被别人改过，请刷新</p><button class="btn btn-refresh" data-act="refresh">刷新</button></div>` : '';
+  return `<div class="layer layer-detail" data-layer="detail">
+    <a class="scrim" href="#${who!=='roxor'?'as='+who:''}" tabindex="-1" aria-hidden="true"></a>
+    <article class="detail" role="dialog" aria-modal="true" aria-labelledby="dt-${c.id}">
+      <div class="d-bar"><a class="btn btn-quiet d-back" href="#${who!=='roxor'?'as='+who:''}">返回看板</a></div>
+      <div class="d-scroll">
+        ${conflict}
+        <div class="d-head">${glyph(c.o,'g-lg')}<h2 class="d-title" id="dt-${c.id}">${esc(c.t)}</h2></div>
+        ${props}
+        ${c.ask?`<p class="d-ask">${esc(c.ask)}</p>`:''}
+        ${riskNote}
+        <div class="d-acts">${actions(c, who, true)}</div>
+        <h3 class="d-sec">进展</h3>
+        ${tl}
+      </div>
+      ${composer}
+    </article></div>`;
+}
+
+function sheet(kind, c, who){
+  const target = c.o ? bn(c.o) : '老马';
+  if(kind==='reply'){
+    return `<div class="layer layer-sheet" data-layer="sheet"><div class="scrim" data-act="close"></div>
+      <form class="sheet" role="dialog" aria-modal="true" aria-labelledby="sh-t" data-form="reply" data-id="${c.id}">
+        <h2 class="sh-title" id="sh-t">回复${target}</h2>
+        <p class="sh-sub">${esc(c.t)}</p>
+        <label class="vh" for="sh-ta">回复内容</label>
+        <textarea id="sh-ta" rows="4" placeholder="写给${target}"></textarea>
+        <p class="sh-route">经老马转给${target}</p>
+        <div class="sh-acts"><button type="button" class="btn" data-act="close">取消</button><button type="submit" class="btn btn-primary btn-send">发送</button></div>
+      </form></div>`;
+  }
+  const agree = kind==='agree';
+  return `<div class="layer layer-sheet" data-layer="sheet"><div class="scrim" data-act="close"></div>
+    <div class="sheet sheet-confirm" role="alertdialog" aria-modal="true" aria-labelledby="cf-t" aria-describedby="cf-d">
+      <h2 class="sh-title" id="cf-t">${agree?'同意':'驳回'}「${esc(c.t)}」</h2>
+      <p class="sh-desc" id="cf-d">${agree?`确认后就算你拍板，${target}按这个方案往下做。`:`确认后就算你拍板，${target}会收到驳回，重新出方案。`}</p>
+      ${agree?'':`<label class="sh-label" for="cf-ta">驳回理由，可以不写</label><textarea id="cf-ta" rows="2"></textarea>`}
+      <div class="sh-acts"><button type="button" class="btn" data-act="close">取消</button><button type="button" class="btn ${agree?'btn-primary':'btn-danger'}" data-act="${agree?'doAgree':'doReject'}" data-id="${c.id}">${agree?'确认同意':'确认驳回'}</button></div>
+    </div></div>`;
+}
+
+function login(){
+  const deco = D.loginDeco ? D.loginDeco(BOTS) : '';
+  return `<main class="login" id="main"><form class="login-card" onsubmit="location.hash='';return false;">
+    ${deco}
+    <h1 class="login-title">GrokBot 看板</h1>
+    <label class="field"><span class="f-label">账号</span><input name="u" autocomplete="username" required></label>
+    <label class="field"><span class="f-label">密码</span><input name="p" type="password" autocomplete="current-password" required></label>
+    ${D.stub?'<div class="login-stub">':''}<button class="btn btn-primary btn-login" type="submit">登录</button>${D.stub?'</div>':''}
+  </form></main>`;
+}
+
+let toastT;
+function toast(msg){
+  let t = document.querySelector('.toast');
+  if(!t){ t = document.createElement('div'); t.className='toast'; t.setAttribute('role','status'); document.body.appendChild(t); }
+  t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove('show'), 2600);
+}
+
+function render(){
+  const p = params(); const who = viewer(p); CURWHO = who;
+  const app = document.getElementById('app');
+  document.body.dataset.view = p.view||'board';
+  if(p.view==='login'){ app.innerHTML = login(); document.body.classList.remove('locked'); return; }
+  let html = header(p, who) + board(p, who);
+  const c = p.card && CARDS.find(x=>x.id===p.card);
+  if(c) html += detail(c, who, p);
+  const sc = p.sheet && CARDS.find(x=>x.id===p.sheet);
+  if(sc) html += sheet(p.kind||'reply', sc, who);
+  app.innerHTML = html;
+  document.body.classList.toggle('locked', !!(c||sc));
+  const f = document.querySelector('.layer-sheet .sheet button.btn-primary, .layer-sheet .btn-danger, .layer-sheet textarea') || (c && document.querySelector('.d-back'));
+  if(f && !p.nofocus) f.focus({preventScroll:true});
+}
+
+function setHash(extra){
+  const p = params(); const keep = [];
+  if(p.as) keep.push('as='+p.as); if(p.sync) keep.push('sync='+p.sync); if(p.bot) keep.push('bot='+p.bot);
+  if(p.card && !('card' in extra)) keep.push('card='+p.card);
+  Object.entries(extra).forEach(([k,v])=>{ if(v!=null) keep.push(k+'='+v); });
+  location.hash = keep.join('&');
+}
+let demoMin = 22*60+43;
+function now(){ const m = demoMin++; return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0'); }
+
+document.addEventListener('click', e=>{
+  const b = e.target.closest('[data-act]'); if(!b) return;
+  const act = b.dataset.act, c = CARDS.find(x=>x.id===b.dataset.id);
+  if(act==='toggle'){ const col=b.closest('.col'); const open=col.classList.toggle('collapsed')===false; b.setAttribute('aria-expanded',open); return; }
+  if(act==='close'){ setHash({}); return; }
+  if(act==='reply'||act==='agree'||act==='reject'){ setHash({sheet:c.id, kind:act}); return; }
+  if(act==='chat'){ toast('已打开和'+bn(c.o)+'的聊天'); return; }
+  if(act==='refresh'){ setHash({conflict:null}); toast('已刷新'); return; }
+  if(act==='resync'){ toast('正在重新同步'); return; }
+  if(act==='resend'){ c.r={st:'sent',at:now()}; render(); toast('已重新发送'); return; }
+  if(act==='done'){ c.s='done'; render(); toast('已标完成，可在已完成里撤回'); return; }
+  if(act==='claim'){ toast('已领这张卡'); return; }
+  if(act==='status'){ toast('选一个新状态'); return; }
+  if(act==='doAgree'||act==='doReject'){
+    const ok = act==='doAgree';
+    c.s = 'doing'; c.tl.push({k:'sys',at:now(),text:ok?'roxor 拍板同意':'roxor 拍板驳回'});
+    setHash({}); toast(ok?`已同意，老马会转给${bn(c.o)}`:`已驳回，老马会转给${bn(c.o)}`); return;
+  }
+});
+document.addEventListener('submit', e=>{
+  const f = e.target.closest('[data-form="reply"]'); if(!f) return;
+  e.preventDefault();
+  const c = CARDS.find(x=>x.id===f.dataset.id); const ta = f.querySelector('textarea'); const txt = ta.value.trim();
+  if(!txt){ ta.focus(); return; }
+  const btn = f.querySelector('.btn-send'); btn.disabled = true; btn.classList.add('loading'); btn.innerHTML = '<span class="spin" aria-hidden="true"></span>发送中';
+  setTimeout(()=>{ c.tl.push({k:'mine',at:now(),body:txt}); c.r={st:'sent',at:now()}; c.tl.push({k:'sys',at:now(),text:'已发出'}); setHash({sheet:null, kind:null}); render(); }, 1200);
+});
+document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ const p=params(); if(p.sheet) setHash({}); else if(p.card) setHash({card:null}); } });
+window.addEventListener('hashchange', render);
+render();
+})();
+</script></body></html>

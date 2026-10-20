@@ -1,0 +1,100 @@
+/* C 名牌 · 夜间 */
+:root{--bg:#18212C;--surface:#202B38;--surface-2:#273444;--line:#33414F;--text:#EAEFF4;--muted:#A9B4C0;--accent:#A8CBFF;--accent-ink:#0F2547;--red:#FF9C94;--red-bg:#3A2329;
+  --ui:"Noto Sans CJK SC","Noto Sans SC",sans-serif;--seal:"Noto Serif CJK SC","Noto Serif SC",serif;--num:"Instrument Sans","Noto Sans CJK SC",sans-serif}
+body{background:var(--bg);color:var(--text);font:15px/1.6 var(--ui)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.brand{font:900 19px/1.3 var(--seal);letter-spacing:.04em}
+.sync{font-size:13px;color:var(--muted)}
+.sync-dot{width:8px;height:8px;border-radius:50%;background:#93D3A2}
+.sync-fail{background:var(--red-bg);border:1px solid #6B3A40;border-radius:10px;color:var(--red)}
+.sync-fail .sync-t{font-weight:700}
+.sync-how{font-size:13px;color:#F3C9C5}
+.sync-ic{font-weight:900}
+.btn{border-radius:10px;background:var(--surface-2);border-color:var(--line);color:var(--text);font-weight:500}
+.btn:hover{background:#2F3E50}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700}
+.btn-primary:hover{background:#C2DAFF}
+.btn-danger{background:var(--red);border-color:var(--red);color:#3A0E0A;font-weight:700}
+.btn-quiet{background:transparent;border-color:transparent;color:var(--muted)}
+.btn-quiet:hover{background:var(--surface-2);color:var(--text)}
+.btn:disabled{background:transparent;border-color:var(--line);color:#8794A2}
+.btn-sync{background:var(--red);border-color:var(--red);color:#3A0E0A;font-weight:700}
+/* 记忆点：一字名牌 */
+.glyph{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:12px;font:900 22px/1 var(--seal);color:#18212C;background:#C9D2DC}
+.glyph[data-bot="laoma"]{background:#E6B566}.glyph[data-bot="taozi"]{background:#7DB6F0}.glyph[data-bot="q"]{background:#93D3A2}
+.glyph[data-bot="pm"]{background:#E4A6C8}.glyph[data-bot="u"]{background:#86D4D0}.glyph[data-bot="f"]{background:#C6B8F2}
+.glyph-none{background:transparent;border:1.5px dashed var(--muted);color:var(--muted);font-weight:700}
+.g-xs{width:24px;height:24px;border-radius:7px;font-size:13px}
+.g-sm{width:32px;height:32px;border-radius:9px;font-size:16px}
+.g-lg{width:64px;height:64px;border-radius:16px;font-size:34px}
+.ring{display:none}
+.board{padding-top:8px}
+.col-h{font-size:15px;font-weight:700}
+.col-n{font:600 14px var(--num);color:var(--muted)}
+.col-decide .col-n{background:var(--accent);color:var(--accent-ink);padding:0 8px;border-radius:999px;line-height:22px}
+.cards{gap:2px;border-radius:14px;overflow:hidden}
+.card{background:var(--surface);padding:14px 14px 14px 12px}
+.card-title{font-size:16px;font-weight:600;line-height:1.45}
+.meta{font-size:13px;color:var(--muted)}
+.owner{color:var(--text)}
+.due{font-family:var(--num),var(--ui)}
+.due.today{color:var(--text);font-weight:700}
+.due.late{color:var(--red);font-weight:700}
+.blk{margin-top:4px;font-size:13px;color:var(--red)}
+.run{margin-top:4px;font-size:13px;color:#93D3A2}
+.run-dot{background:#93D3A2}
+@media (prefers-reduced-motion:no-preference){.run-dot{animation:pulse 1.8s ease-in-out infinite}}
+@keyframes pulse{50%{opacity:.3}}
+.evi{margin-top:4px;font-size:13px;color:var(--muted)}
+.risk{font-size:13px;font-weight:500;color:var(--text)}
+.risk-mark{width:8px;height:8px;border-radius:50%;background:var(--red)}
+.why{font-size:13px;color:var(--muted)}
+.rcpt{font-size:13px;color:var(--muted);font-family:var(--num),var(--ui)}
+.rcpt-replied{color:var(--accent)}
+.rcpt.bad{color:var(--red);font-weight:500}
+.btn-resend{color:var(--red);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.empty{color:var(--muted);font-size:14px;padding:12px 14px;background:var(--surface);border-radius:14px}
+.filter{font-size:14px}
+.layer-detail .scrim{background:rgba(8,12,18,.6)}
+.detail{background:var(--bg)}
+.d-title{font-size:21px;font-weight:700;line-height:1.4;padding-top:6px}
+.props{font-size:14px;background:var(--surface);border-radius:14px;padding:12px 14px}
+.props dt{color:var(--muted)}
+.blk-dd,.risk-dd{color:var(--red);font-weight:600}
+.d-ask{font-size:16px;line-height:1.75}
+.risk-note{font-size:14px;color:var(--red)}
+.d-sec{font-size:15px;font-weight:700}
+.tl-sys{font-size:13px;color:var(--muted);padding-left:42px}
+.tl-dot{border-radius:50%;background:var(--muted)}
+.tl-sys time,.tl-head time{font-family:var(--num);font-size:13px;color:var(--muted)}
+.tl-m{background:var(--surface);border-radius:4px 14px 14px 14px;padding:10px 12px}
+.tl-mine{background:#2C4466;border-radius:14px 4px 14px 14px;padding:10px 12px}
+.tl-mine .rcpt{margin-top:6px}
+.tl-mine .rcpt:not(.bad){color:#C9D6E6}
+.tl-mine .rcpt-replied{color:var(--accent)}
+.tl-who{font-weight:700;font-size:14px}
+.composer{border-top:1px solid var(--line);background:var(--surface)}
+.comp-label{font-size:14px;font-weight:700}
+textarea,.field input{border:1px solid var(--line);border-radius:10px;background:var(--bg);padding:10px 12px;font-size:16px;line-height:1.5;color:var(--text)}
+textarea::placeholder,input::placeholder{color:#8794A2}
+textarea:focus-visible,.field input:focus-visible{outline:3px solid var(--accent);outline-offset:0}
+.comp-route,.sh-route{font-size:13px;color:var(--muted)}
+.layer-sheet .scrim{background:rgba(8,12,18,.65)}
+.sheet{background:var(--surface);border-radius:18px 18px 0 0}
+.sh-title{font-size:18px;font-weight:700;line-height:1.45}
+.sh-sub,.sh-desc,.sh-label{font-size:14px;color:var(--muted)}
+.toast{background:var(--accent);color:var(--accent-ink);font-weight:600;border-radius:10px;font-size:14px}
+.login-card{gap:18px}
+.login-title{font:900 26px/1.3 var(--seal);letter-spacing:.04em}
+.f-label{font-size:14px;font-weight:600}
+.login-seals{display:flex;gap:8px;margin-bottom:6px}
+.login-seals .glyph{width:40px;height:40px;font-size:20px;border-radius:11px}
+@media (min-width:900px){
+  .board{padding-top:12px}
+  .detail{border-left:1px solid var(--line)}
+  .sheet{border-radius:18px}
+  .card{padding:12px}
+  .card .glyph{width:32px;height:32px;font-size:17px;border-radius:9px}
+  .card{gap:10px}
+}
+.conflict{background:var(--surface-2);border:1px solid var(--accent);border-radius:12px;color:var(--text)}
