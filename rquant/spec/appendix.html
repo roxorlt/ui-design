@@ -13,7 +13,7 @@
   <header class="mbar"><a href="index.html">rQuant 设计规范</a><span class="num">v1.1</span><button class="btn quiet" id="tocBtn" aria-expanded="false" aria-controls="toc">目录</button></header>
   <nav class="toc" id="toc" aria-label="规范目录">
     <div class="toc-brand"><a href="index.html">rQuant 设计规范</a><span class="num">v1.1</span></div>
-    <ol><li><a href="index.html"><span class="n"></span><span>概述</span></a></li><li><a href="principles.html"><span class="n">1</span><span>设计原则</span></a></li><li><a href="foundations.html"><span class="n">2</span><span>基础</span></a></li><li><a href="components.html"><span class="n">3</span><span>组件</span></a></li><li><a href="patterns.html"><span class="n">4</span><span>交互模式</span></a></li><li><a href="motion.html"><span class="n">5</span><span>页面动效</span></a></li><li><a href="templates.html"><span class="n">6</span><span>页面模板</span></a></li><li><a href="guidelines.html"><span class="n">7</span><span>跨端、无障碍、文案</span></a></li><li><a href="appendix.html" aria-current="page"><span class="n"></span><span>附录</span></a><div class="sub"><a href="#audit">A. v0.1 走查记录</a><a href="#density">B. 屏效前后对比</a><a href="#why">C. 改版说明</a><a href="#decisions">D. 产品决定记录</a></div></li></ol>
+    <ol><li><a href="index.html"><span class="n"></span><span>概述</span></a></li><li><a href="principles.html"><span class="n">1</span><span>设计原则</span></a></li><li><a href="foundations.html"><span class="n">2</span><span>基础</span></a></li><li><a href="components.html"><span class="n">3</span><span>组件</span></a></li><li><a href="patterns.html"><span class="n">4</span><span>交互模式</span></a></li><li><a href="motion.html"><span class="n">5</span><span>页面动效</span></a></li><li><a href="templates.html"><span class="n">6</span><span>页面模板</span></a></li><li><a href="guidelines.html"><span class="n">7</span><span>跨端、无障碍、文案</span></a></li><li><a href="appendix.html" aria-current="page"><span class="n"></span><span>附录</span></a><div class="sub"><a href="#audit">A. v0.1 走查记录</a><a href="#density">B. 屏效前后对比</a><a href="#why">C. 改版说明</a></div></li></ol>
     <div class="toc-foot"><a href="../index.html">返回资料首页</a><a href="../system/index.html">组件库（v0.1 状态页）</a><a href="../system/tokens.css">tokens.css</a><a href="../system/tokens.json">tokens.json</a><a href="../system/components.css">components.css</a></div>
   </nav>
   <main class="content" id="main">
@@ -21,7 +21,7 @@
 <p class="lede">v0.1 阶段的走查记录、屏效前后对比和改版说明。正文的规则都从这里来；做新页面不需要读这一页。</p>
 
 <h2 id="audit">A. v0.1 走查记录</h2>
-<p>2026-10-20 对线上页面首屏做的走查，按页记录发现的问题和对应到正文的规则。截图含真实业务数据，不随本规范公开。</p>
+<p>2026-10-20 对线上页面首屏做的走查，按页记录发现的问题和对应到正文的规则。</p>
 <div class="tscroll"><table class="dt stack">
 <thead><tr><th>页面</th><th>端</th><th>发现</th><th>对应规则</th></tr></thead>
 <tbody>
@@ -40,7 +40,7 @@
 </tbody></table></div>
 
 <h2 id="density">B. 屏效前后对比</h2>
-<p>改前是线上页面首屏实测，改后是按本规范做的示意稿在同尺寸下的 DOM 实测。「主功能区」指首屏内主图或主表的可见高度，手机不含底部导航。</p>
+<p>改前是线上页面首屏实测，改后是按本规范做的改版稿在同尺寸下的 DOM 实测。「主功能区」指首屏内主图或主表的可见高度，手机不含底部导航。</p>
 <div class="tscroll-wrap"><div class="tscroll"><table class="dt data">
 <thead><tr><th>页面</th><th>端</th><th class="n">主功能开始位置（px）</th><th class="n">顶部数据区（px）</th><th class="n">首屏主功能区（px，占比）</th></tr></thead>
 <tbody>
@@ -63,7 +63,7 @@
 <p class="cap" style="margin:0">灰条为改前，蓝条为改后。电脑 1440×900，手机 390×844。</p>
 </div>
 <h3>改后首屏</h3>
-<p>下面是三张改后示意稿的首屏，直接嵌入页面实时渲染，股票、数值全部为虚构。改前截图来自线上页面，含真实数据，不随本稿公开，改前只给上表的实测数字。</p>
+<p>下面是三张改版稿的首屏，直接嵌入页面实时渲染，股票、数值全部为虚构。改前只给上表的实测数字。</p>
 <div class="demo" style="display:grid;grid-template-columns:minmax(0,3fr) minmax(0,1fr);gap:12px;align-items:start"><div><div class="shot" data-src="../mockups/panorama.html" data-w="1440" data-h="900" data-x="0" data-y="0" data-cw="1440" data-ch="900" role="img" aria-label="市场全景改后，电脑首屏"></div><p class="cap">市场全景　电脑 1440×900</p></div><div><div class="shot" data-src="../mockups/panorama.html" data-w="390" data-h="844" data-x="0" data-y="0" data-cw="390" data-ch="844" role="img" aria-label="市场全景改后，手机首屏"></div><p class="cap">手机 390×844</p></div></div>
 <div class="demo" style="display:grid;grid-template-columns:minmax(0,3fr) minmax(0,1fr);gap:12px;align-items:start"><div><div class="shot" data-src="../mockups/overview.html" data-w="1440" data-h="900" data-x="0" data-y="0" data-cw="1440" data-ch="900" role="img" aria-label="总览改后，电脑首屏"></div><p class="cap">总览　电脑 1440×900</p></div><div><div class="shot" data-src="../mockups/overview.html" data-w="390" data-h="844" data-x="0" data-y="0" data-cw="390" data-ch="844" role="img" aria-label="总览改后，手机首屏"></div><p class="cap">手机 390×844</p></div></div>
 <div class="demo" style="display:grid;grid-template-columns:minmax(0,3fr) minmax(0,1fr);gap:12px;align-items:start"><div><div class="shot" data-src="../mockups/stock.html" data-w="1440" data-h="900" data-x="0" data-y="0" data-cw="1440" data-ch="900" role="img" aria-label="个股档案改后，电脑首屏"></div><p class="cap">个股档案　电脑 1440×900</p></div><div><div class="shot" data-src="../mockups/stock.html" data-w="390" data-h="844" data-x="0" data-y="0" data-cw="390" data-ch="844" role="img" aria-label="个股档案改后，手机首屏"></div><p class="cap">手机 390×844</p></div></div>
@@ -79,19 +79,8 @@
 <tr><td>数字用 IBM Plex Sans Condensed 加等宽数字</td><td>照样上下对齐，同一串数字比 Plex Mono 窄约 18%（实测 208px 对 253px）</td></tr>
 <tr><td>手机不用宽表、不横排状态卡</td><td>宽表在手机上只露出第一列；横排状态卡文字互相覆盖</td></tr>
 <tr><td>默认浅色，深色跟随系统</td><td>考虑过「深底 + 荧光绿」的交易终端风格，对新手白天看吃力，也是常见套路</td></tr>
-<tr><td>圆角 4 / 6 / 10 三档</td><td>初稿全部 8px；改为按容器层级递增</td></tr>
+<tr><td>圆角 4 / 6 / 10 三档</td><td>按容器层级递增，容器越大圆角越大</td></tr>
 <tr><td>v1.0：补齐组件和动效</td><td>v0.1 只覆盖改版涉及的组件，新页面需要的弹窗、抽屉、轻提示、排序、展开全部没有规范</td></tr>
-</tbody></table></div>
-
-<h2 id="decisions">D. 产品决定记录</h2>
-<div class="tscroll"><table class="dt stack">
-<thead><tr><th>日期</th><th>事项</th><th>定了什么</th><th>为什么</th></tr></thead>
-<tbody>
-<tr><td class="n">2026-10-20</td><td data-l="事项">总览下半屏</td><td data-l="定了什么">放「市场速览」：涨跌分布条，加上涨占比、涨跌中位数、成交额 3 个数，整块点进市场全景；不和顶部数字重复</td><td data-l="为什么">让新手一眼看到大盘冷热，不加新功能</td></tr>
-<tr><td class="n">2026-10-20</td><td data-l="事项">成交额精确值</td><td data-l="定了什么">显示「1.45 万亿」；电脑悬停、手机点按显示「14,487.92 亿」</td><td data-l="为什么">短数字好读，原值可查</td></tr>
-<tr><td class="n">2026-10-20</td><td data-l="事项">个股页手机首屏</td><td data-l="定了什么">6 项：今开、最高、最低、成交额、换手率、总市值；其余进「全部 29 项」</td><td data-l="为什么">现价和涨跌幅已在现价行，这 6 个最常用</td></tr>
-<tr><td class="n">2026-10-20</td><td data-l="事项">宏观明细表</td><td data-l="定了什么">默认 20 行，「展开全部（共 N 行）」，不分页</td><td data-l="为什么">一页能搜到全部，比翻页简单</td></tr>
-<tr><td class="n">2026-10-20</td><td data-l="事项">改版范围</td><td data-l="定了什么">「市场全览」指总览和市场全景两页；板块资金流同一批改</td><td data-l="为什么">省一次回归测试</td></tr>
 </tbody></table></div>
 
 <nav class="pager" aria-label="翻页"><a class="prev" href="guidelines.html"><span>上一章</span>7 跨端、无障碍、文案</a></nav>
