@@ -117,7 +117,7 @@ time{font-variant-numeric:tabular-nums}
   .acct{grid-column:3;grid-row:1}
   .sync-fail{margin:0;justify-self:start}
   .board{padding:0 28px 40px}
-  .cols{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;align-items:start}
+  .cols{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;align-items:start}
   .col.collapsed .cards{display:flex}
   .col-toggle{pointer-events:none}
   .tog-ic{display:none}
@@ -141,7 +141,7 @@ time{font-variant-numeric:tabular-nums}
 
 /* B 安灯 */
 :root{--bg:#F2F4F6;--surface:#FFFFFF;--text:#1A1D21;--muted:#565E69;--line:#D5DAE0;--line-2:#E6E9ED;
-  --amber:#F2B705;--amber-ink:#5C4300;--red:#C1301B;--red-bg:#FDEEEB;--green:#2E7D4F;--blue:#2257C9;
+  --amber:#F2B705;--amber-ink:#5C4300;--red:#C1301B;--red-bg:#FDEEEB;--green:#2E7D4F;--blue:#2257C9;--blue-ink:#1B47A8;--blue-tint:#EAF0FB;--fill:#EEF0F3;--red-line:#E3A196;
   --ui:"Inter","Noto Sans CJK SC","Noto Sans SC",sans-serif}
 body{background:var(--bg);color:var(--text);font:14px/1.55 var(--ui)}
 :focus-visible{outline:2px solid var(--blue);outline-offset:2px}
@@ -153,15 +153,26 @@ body{background:var(--bg);color:var(--text);font:14px/1.55 var(--ui)}
 .sync-fail .sync-t{font-weight:600}
 .sync-how{font-size:13px;color:#7D1E10}
 .sync-ic{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;background:var(--red);color:#fff;font-size:11px;font-weight:700;flex:none;align-self:center}
+/* 按钮：整屏最多一个实心主按钮；主色用 B 自带强调蓝 --blue（白字 6.41:1），不用纯黑。
+   卡片上的同意/标完成/改状态 = 浅蓝调底；其余 = 白底细描边或浅灰底；危险 = 红字红描边，不用红实底。 */
 .btn{border-radius:4px;background:var(--surface);border-color:var(--line);color:var(--text);font-weight:500;font-size:14px}
 .btn:hover{border-color:#AEB5BE}
-.btn-primary{background:var(--text);border-color:var(--text);color:#fff}
-.btn-primary:hover{background:#353A42}
-.btn-danger{background:var(--red);border-color:var(--red);color:#fff}
+.btn-primary{background:var(--blue-tint);border-color:var(--blue-tint);color:var(--blue-ink);font-weight:600}
+.btn-primary:hover{background:#DCE6F8;border-color:#DCE6F8}
+.d-acts .btn-primary,.sheet .btn-primary,.btn-login{background:var(--blue);border-color:var(--blue);color:#fff}
+.d-acts .btn-primary:hover,.sheet .btn-primary:hover,.btn-login:hover{background:var(--blue-ink);border-color:var(--blue-ink)}
+body:has(.layer-sheet) .detail .btn-primary:not(.comp-open){background:var(--blue-tint);border-color:var(--blue-tint);color:var(--blue-ink)}
+.card .btn-chat{background:var(--surface);border-color:var(--line);color:var(--text);font-weight:500}
+.card .btn-chat:hover{border-color:#AEB5BE}
+.comp-open,.sh-acts .btn[data-act="close"]{background:var(--fill);border-color:var(--fill);color:var(--text);font-weight:500}
+.comp-open:hover,.sh-acts .btn[data-act="close"]:hover{background:#E4E7EB;border-color:#E4E7EB}
+.btn-danger,.btn-sync{background:var(--surface);border-color:var(--red-line);color:var(--red);font-weight:600}
+.btn-danger:hover,.btn-sync:hover{background:var(--red-bg);border-color:var(--red)}
+.acts .btn[data-act="reject"]{color:var(--red)}
+.acts .btn[data-act="reject"]:hover{border-color:var(--red-line)}
 .btn-quiet{border-color:transparent;background:transparent;color:var(--muted)}
 .btn-quiet:hover{color:var(--text);border-color:transparent}
 .btn:disabled{background:var(--bg);color:#626973;border-color:var(--line-2)}
-.btn-sync{background:var(--red);border-color:var(--red);color:#fff}
 /* 记忆点：安灯条 */
 .andon{margin:10px -16px -10px;border-top:1px solid var(--line-2)}
 .andon ul{display:grid;grid-template-columns:repeat(6,minmax(0,1fr))}
