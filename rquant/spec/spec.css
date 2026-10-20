@@ -231,4 +231,5 @@ button.m.is-active { background: var(--c-sunken); }
 @media print { .toc, .mbar, .pager { display: none; } .doc { display: block; } }
 
 /* v1.1：320 宽小屏，示例区和示例面板内部横滑，页面本身不横向滚动 */
-@media (max-width: 374px) { .content .demo, .content .panel-b, .content .tscroll-wrap { overflow-x: auto; } }
+@media (max-width: 374px) { .content .demo, .content .tscroll-wrap { overflow-x: auto; } }
+@media (max-width: 599px) { .content .demo .panel-b { overflow-x: auto; } }
