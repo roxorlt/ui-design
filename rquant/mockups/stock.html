@@ -24,7 +24,7 @@
   .ohlc b { font-family: var(--font-num); font-weight: 500; color: var(--c-ink); }
   .key3 { display: none; }
   .more { display: none; }
-  /* 平板 600–1023px：现价块放上面，全部指标改 4 列两行（v1.0 补，修 768 宽横向滚动） */
+  /* 平板 600–1023px：现价块放上面，全部指标改 4 列两行 */
   @media (min-width: 600px) and (max-width: 1279px) { .qg { grid-template-columns: 44px repeat(4, minmax(0, 1fr)); } .qg .g { grid-row: span 2; } }
   @media (min-width: 600px) and (max-width: 1023px) {
     .quote { grid-template-columns: minmax(0, 1fr); }
