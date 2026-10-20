@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>跨端、无障碍、文案｜rQuant 设计规范 v1.1</title>
+<title>跨端、无障碍、文案｜rQuant 设计规范 v1.3</title>
 <link rel="stylesheet" href="../system/tokens.css">
 <link rel="stylesheet" href="../system/components.css">
 <link rel="stylesheet" href="spec.css">
 </head>
 <body data-page="guidelines.html">
 <div class="doc">
-  <header class="mbar"><a href="index.html">rQuant 设计规范</a><span class="num">v1.1</span><button class="btn quiet" id="tocBtn" aria-expanded="false" aria-controls="toc">目录</button></header>
+  <header class="mbar"><a href="index.html">rQuant 设计规范</a><span class="num">v1.3</span><button class="btn quiet" id="tocBtn" aria-expanded="false" aria-controls="toc">目录</button></header>
   <nav class="toc" id="toc" aria-label="规范目录">
-    <div class="toc-brand"><a href="index.html">rQuant 设计规范</a><span class="num">v1.1</span></div>
+    <div class="toc-brand"><a href="index.html">rQuant 设计规范</a><span class="num">v1.3</span></div>
     <ol><li><a href="index.html"><span class="n"></span><span>概述</span></a></li><li><a href="principles.html"><span class="n">1</span><span>设计原则</span></a></li><li><a href="foundations.html"><span class="n">2</span><span>基础</span></a></li><li><a href="components.html"><span class="n">3</span><span>组件</span></a></li><li><a href="patterns.html"><span class="n">4</span><span>交互模式</span></a></li><li><a href="motion.html"><span class="n">5</span><span>页面动效</span></a></li><li><a href="templates.html"><span class="n">6</span><span>页面模板</span></a></li><li><a href="guidelines.html" aria-current="page"><span class="n">7</span><span>跨端、无障碍、文案</span></a><div class="sub"><a href="#breakpoints">断点行为</a><a href="#platforms">iOS、安卓、网页的差异</a><a href="#a11y">无障碍</a><a href="#copy">文案规范</a></div></li><li><a href="appendix.html"><span class="n"></span><span>附录</span></a></li></ol>
-    <div class="toc-foot"><a href="../index.html">返回资料首页</a><a href="../system/index.html">组件库（v0.1 状态页）</a><a href="../system/tokens.css">tokens.css</a><a href="../system/tokens.json">tokens.json</a><a href="../system/components.css">components.css</a></div>
+    <div class="toc-foot"><a href="../index.html">返回资料首页</a><a href="../system/index.html">组件库状态页</a><a href="../system/tokens.css">tokens.css</a><a href="../system/tokens.json">tokens.json</a><a href="../system/components.css">components.css</a></div>
   </nav>
   <main class="content" id="main">
 <p class="chap">第 7 章</p>
@@ -34,16 +34,17 @@
 <tr><td>主区两列</td><td data-l="手机 &lt; 600">单列</td><td data-l="平板 600–1023">单列</td><td data-l="电脑 ≥ 1024">7 : 5 两列</td></tr>
 <tr><td>抽屉</td><td data-l="手机 &lt; 600">底部弹层</td><td data-l="平板 600–1023">右侧 400px</td><td data-l="电脑 ≥ 1024">右侧 400px</td></tr>
 <tr><td>悬停信息</td><td data-l="手机 &lt; 600">点按出现</td><td data-l="平板 600–1023">点按出现</td><td data-l="电脑 ≥ 1024">悬停出现</td></tr>
-<tr><td>按钮、输入框</td><td data-l="手机 &lt; 600">44px</td><td data-l="平板 600–1023">44px（触屏）/ 32px（鼠标）</td><td data-l="电脑 ≥ 1024">32px</td></tr>
+<tr><td>按钮、输入框、下拉选择</td><td data-l="手机 &lt; 600">44px，输入框和下拉 16px 字</td><td data-l="平板 600–1023">44px、16px 字（触屏）/ 32px、14px 字（鼠标）</td><td data-l="电脑 ≥ 1024">32px，输入框和下拉 14px 字</td></tr>
+<tr><td>分段选项、可排序表头、提示条操作</td><td data-l="手机 &lt; 600">44px</td><td data-l="平板 600–1023">44px（触屏）/ 32px（鼠标）</td><td data-l="电脑 ≥ 1024">32px</td></tr>
 </tbody></table></div>
-<p>判断依据：宽度用断点；按钮大小再看指针类型 <code>(pointer: coarse)</code>，平板接了鼠标按电脑尺寸。</p>
+<p>判断依据：宽度用断点；控件大小和字号再看指针类型 <code>(pointer: coarse)</code>：宽度 ≤ 599px 或触屏按手机尺寸，平板接了鼠标按电脑尺寸。</p>
 
 <h2 id="platforms">iOS、安卓、网页的差异</h2>
 <div class="tscroll"><table class="dt stack">
 <thead><tr><th>项</th><th>iOS（Safari）</th><th>安卓（Chrome、系统浏览器）</th><th>电脑网页</th></tr></thead>
 <tbody>
 <tr><td>安全区</td><td data-l="iOS（Safari）">底部标签栏加 <code>env(safe-area-inset-bottom)</code>；<code>viewport-fit=cover</code></td><td data-l="安卓（Chrome、系统浏览器）">同左（全面屏手势条）</td><td data-l="电脑网页">不需要</td></tr>
-<tr><td>输入框字号</td><td data-l="iOS（Safari）">≥ 16px，否则聚焦时页面放大</td><td data-l="安卓（Chrome、系统浏览器）">16px，保持一致</td><td data-l="电脑网页">13px</td></tr>
+<tr><td>输入框、下拉字号</td><td data-l="iOS（Safari）">16px，小于 16px 聚焦时页面放大</td><td data-l="安卓（Chrome、系统浏览器）">16px，保持一致</td><td data-l="电脑网页">14px</td></tr>
 <tr><td>返回</td><td data-l="iOS（Safari）">左滑返回：先关浮层，再回上一页</td><td data-l="安卓（Chrome、系统浏览器）">系统返回键：同左</td><td data-l="电脑网页">浏览器返回：同左</td></tr>
 <tr><td>数字键盘</td><td data-l="iOS（Safari）">代码框 <code>inputmode="numeric"</code></td><td data-l="安卓（Chrome、系统浏览器）">同左</td><td data-l="电脑网页">—</td></tr>
 <tr><td>字体回落</td><td data-l="iOS（Safari）">苹方</td><td data-l="安卓（Chrome、系统浏览器）">鸿蒙黑体、Noto Sans SC</td><td data-l="电脑网页">苹方、微软雅黑</td></tr>
@@ -57,8 +58,8 @@
 <div class="tscroll"><table class="dt stack">
 <thead><tr><th>项</th><th>要求</th><th>怎么做到</th></tr></thead>
 <tbody>
-<tr><td>对比度</td><td data-l="要求">正文和数字 ≥ 4.5:1；≥ 18px 半粗和图形 ≥ 3:1</td><td data-l="怎么做到">只用色板里的文字色。浅色：说明文字 5.71、上涨 5.63、下跌 5.65、琥珀 5.73、失败 6.53（对白色面板）。<code>--c-faint</code> 3.13 只给禁用和装饰</td></tr>
-<tr><td>触控区</td><td data-l="要求">≥ 44×44px，相邻 ≥ 8px</td><td data-l="怎么做到">手机按钮、行、标签栏、顶栏告警铃铛和健康状态点、指标格都按 44px 做；视觉小的靠内边距补足</td></tr>
+<tr><td>对比度</td><td data-l="要求">正文和数字 ≥ 4.5:1；≥ 18px 半粗和图形 ≥ 3:1</td><td data-l="怎么做到">只用色板里的文字色。浅色：说明文字 5.71、上涨 5.63、下跌 5.65、琥珀 5.73、失败 6.53（对白色面板）。<code>--c-faint</code> 3.13 只给禁用和装饰。禁用控件不要求 4.5:1：禁用按钮、输入框、下拉保持字 <code>--c-faint</code>、底 <code>--c-sunken</code></td></tr>
+<tr><td>点按区</td><td data-l="要求">手机和触屏：所有可点元素 ≥ 44×44px。电脑：≥ 32px 高，只有图标的按钮 ≥ 32×32px。相邻 ≥ 8px</td><td data-l="怎么做到">手机和触屏指宽度 ≤ 599px 或 <code>(pointer: coarse)</code>：按钮、输入框、下拉、行、标签栏、顶栏告警铃铛和健康状态点、指标格都按 44px 做，视觉小的靠内边距补足。电脑：按钮、输入框、下拉、分段选项、可排序表头、提示条操作都是 32px 高；面板标题行工具间距 8px</td></tr>
 <tr><td>键盘焦点</td><td data-l="要求">所有可点元素 Tab 能到，焦点可见</td><td data-l="怎么做到">组件已统一 <code>:focus-visible</code> 2px 主色框外偏 2px。不写 <code>outline: none</code> 而不给替代</td></tr>
 <tr><td>浮层焦点</td><td data-l="要求">打开时焦点进去，关闭时回来</td><td data-l="怎么做到">见<a href="patterns.html#overlay">弹窗和抽屉</a></td></tr>
 <tr><td>减少动态效果</td><td data-l="要求">系统开启后不播放动画</td><td data-l="怎么做到">tokens 里时长变 0；闪烁改静态浅底；骨架不闪。见<a href="motion.html#none">动效章</a></td></tr>

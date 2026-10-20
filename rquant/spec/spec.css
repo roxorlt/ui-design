@@ -1,4 +1,4 @@
-/* rQuant 设计规范 v1.0 文档排版。只管规范页自己的版式；组件样式全部来自 ../system/components.css。 */
+/* rQuant 设计规范 v1.3 文档排版。只管规范页自己的版式；组件样式全部来自 ../system/components.css。 */
 body { background: var(--c-surface); }
 .doc { display: grid; grid-template-columns: 248px minmax(0, 1fr); min-height: 100vh; }
 
@@ -117,7 +117,9 @@ body { background: var(--c-surface); }
 .btn.is-focus { outline: 2px solid var(--c-focus); outline-offset: 2px; }
 .seg button.is-hover, .tabs button.is-hover { color: var(--c-ink); }
 .input.is-hover { border-color: var(--c-faint); }
-.input.is-focus { outline: 2px solid var(--c-focus); outline-offset: 0; border-color: var(--c-focus); }
+.input.is-focus { outline: 2px solid var(--c-focus); outline-offset: 2px; }
+.select.is-hover { border-color: var(--c-faint); }
+.select.is-focus { outline: 2px solid var(--c-focus); outline-offset: 2px; }
 button.m.is-hover { background: var(--c-surface-2); }
 button.m.is-active { background: var(--c-sunken); }
 .tbl tbody tr.is-hover td { background: var(--c-surface-2); }
@@ -230,6 +232,6 @@ button.m.is-active { background: var(--c-sunken); }
 }
 @media print { .toc, .mbar, .pager { display: none; } .doc { display: block; } }
 
-/* v1.1：320 宽小屏，示例区和示例面板内部横滑，页面本身不横向滚动 */
+/* 320 宽小屏，示例区和示例面板内部横滑，页面本身不横向滚动 */
 @media (max-width: 374px) { .content .demo, .content .tscroll-wrap { overflow-x: auto; } }
 @media (max-width: 599px) { .content .demo .panel-b { overflow-x: auto; } }

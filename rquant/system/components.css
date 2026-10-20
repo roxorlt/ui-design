@@ -1,4 +1,5 @@
-/* rQuant 组件样式 v1.0（2026-10-20）：只依赖 tokens.css。v0.1 部分原样保留，v1.0 新增组件在文件末尾。 */
+/* rQuant 组件样式 v1.3（2026-10-21）：只依赖 tokens.css。v0.1 部分原样保留，v1.0 / v1.2 / v1.3 新增组件在文件末尾。
+   v1.3：新增下拉选择 .select；电脑端可点元素 ≥ 32px 高（分段选项、可排序表头、提示条操作）；输入框字号电脑 14px、手机 16px，左内边距 12px / 16px，焦点用全站焦点环；面板标题行工具间距 8px。 */
 @import url("https://cdn.jsdelivr.net/npm/@fontsource/ibm-plex-sans-condensed@5/latin-400.css");
 @import url("https://cdn.jsdelivr.net/npm/@fontsource/ibm-plex-sans-condensed@5/latin-500.css");
 @import url("https://cdn.jsdelivr.net/npm/@fontsource/ibm-plex-sans-condensed@5/latin-600.css");
@@ -77,12 +78,12 @@ a:hover { text-decoration: underline; }
 .panel-h { display: flex; align-items: center; gap: 12px; min-height: 40px; padding: 0 16px; }
 .panel-h h2 { font: var(--t-section); white-space: nowrap; }
 .panel-h .note { font: var(--t-label); color: var(--c-muted); min-width: 0; }
-.panel-h .tools { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.panel-h .tools { margin-left: auto; display: flex; gap: 8px; align-items: center; }
 .panel-b { padding: 0 16px 14px; flex: 1; min-height: 0; }
 
 /* ---------- 标签页（分段） ---------- */
 .seg { display: inline-flex; background: var(--c-sunken); border-radius: var(--r-sm); padding: 2px; gap: 2px; }
-.seg button { white-space: nowrap; border: 0; background: transparent; height: 26px; padding: 0 10px; border-radius: var(--r-xs); font: 500 12px/1 var(--font-sans); color: var(--c-muted); cursor: pointer; }
+.seg button { white-space: nowrap; border: 0; background: transparent; height: 32px; padding: 0 10px; border-radius: var(--r-xs); font: 500 12px/1 var(--font-sans); color: var(--c-muted); cursor: pointer; }
 .seg button:hover { color: var(--c-ink); }
 .seg button[aria-selected="true"] { background: var(--c-surface); color: var(--c-ink); box-shadow: 0 0 0 1px var(--c-rule); }
 .seg button[disabled] { color: var(--c-faint); cursor: not-allowed; }
@@ -106,14 +107,14 @@ a:hover { text-decoration: underline; }
 /* ---------- 输入 ---------- */
 .field { display: grid; gap: 4px; }
 .field label { font: var(--t-label); color: var(--c-muted); }
-.input { height: var(--h-control-pc); border: 1px solid var(--c-rule-strong); border-radius: var(--r-sm); padding: 0 10px; font: var(--t-body); font-family: var(--font-sans); background: var(--c-surface); color: var(--c-ink); width: 100%; }
+.input { height: var(--h-control-pc); border: 1px solid var(--c-rule-strong); border-radius: var(--r-sm); padding: 0 var(--input-pad-x-desktop); font: 400 var(--input-font-size-desktop)/1.4 var(--font-sans); background: var(--c-surface); color: var(--c-ink); width: 100%; }
 .input::placeholder { color: var(--c-muted); }
 .input:hover { border-color: var(--c-faint); }
-.input:focus-visible { outline: 2px solid var(--c-focus); outline-offset: 0; border-color: var(--c-focus); }
+.input:focus-visible { outline: 2px solid var(--c-focus); outline-offset: 2px; }
 .input[disabled] { background: var(--c-sunken); color: var(--c-faint); }
 .input[aria-invalid="true"] { border-color: var(--c-crit); }
 .field .err { font: var(--t-label); color: var(--c-crit); }
-@media (max-width: 599px) { .input { height: var(--h-control-phone); font-size: 16px; } }
+@media (max-width: 599px), (pointer: coarse) { .input { height: var(--h-control-phone); padding: 0 var(--input-pad-x-mobile); font-size: var(--input-font-size-mobile); } }
 
 /* ---------- 状态点与状态词 ---------- */
 .st { display: inline-flex; align-items: center; gap: 6px; font: var(--t-label); white-space: nowrap; }
@@ -124,7 +125,7 @@ a:hover { text-decoration: underline; }
 .notice { display: flex; gap: 10px; align-items: flex-start; padding: 10px 14px; border-radius: var(--r-sm); font: var(--t-body); background: var(--c-surface-2); color: var(--c-ink-2); }
 .notice.warn { background: var(--c-warn-weak); color: var(--c-warn); }
 .notice.crit { background: var(--c-crit-weak); color: var(--c-crit); }
-.notice .act { margin-left: auto; white-space: nowrap; font-weight: 500; }
+.notice .act { margin-left: auto; white-space: nowrap; font-weight: 500; display: inline-flex; align-items: center; min-height: 32px; margin-top: -6px; margin-bottom: -6px; }
 .tip { position: relative; text-decoration: underline dotted var(--c-faint); text-underline-offset: 3px; cursor: help; }
 .tip-pop { position: absolute; z-index: 5; left: 0; top: calc(100% + 6px); width: 240px; padding: 8px 10px; border-radius: var(--r-sm); background: var(--c-ink); color: var(--c-surface); font: var(--t-label); box-shadow: var(--shadow-pop); }
 
@@ -183,7 +184,7 @@ a.li2:active { background: var(--c-sunken); }
 .li2 .v { grid-column: 2; grid-row: 1 / span 2; text-align: right; font: 600 15px/20px var(--font-num); font-feature-settings: var(--num-features); white-space: nowrap; }
 
 /* ---------- 表头排序 ---------- */
-.tbl th .sort { all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; height: 28px; }
+.tbl th .sort { all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; height: 32px; }
 .tbl th .sort:hover { color: var(--c-ink); }
 .tbl th .sort:focus-visible { outline: 2px solid var(--c-focus); outline-offset: 2px; border-radius: var(--r-xs); }
 .tbl th .sort::after { content: ""; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid var(--c-rule-strong); }
@@ -258,4 +259,62 @@ a.li2:active { background: var(--c-sunken); }
   .flash-up { animation: none; background-color: var(--c-up-weak); }
   .flash-down { animation: none; background-color: var(--c-down-weak); }
   .skel { animation: none; background: var(--c-sunken); }
+}
+
+/* ---------- v1.2（2026-10-21）：底部弹层把手、日志块、轻提示撤销按钮补足 ---------- */
+/* 底部弹层把手 .drawer-grab：放在 .drawer 第一个子元素，只在手机（≤ 599px）显示。看得见的是 36×4px 横条，
+   把手区 20px 高，和下面 52px 的 .drawer-h 一起组成 72px 的下滑区。装饰元素，aria-hidden="true"。 */
+.drawer-grab { display: none; }
+.drawer-b { overscroll-behavior: contain; }
+/* 日志块 .logview：抽屉或面板里显示多行日志。不自己滚动，由外层 .drawer-b 滚动；长行折行，不出横向滚动。 */
+.logview { margin: 0; padding: 8px 12px; border-radius: var(--r-sm); background: var(--c-surface-2); color: var(--c-ink-2); font: 400 12px/18px var(--font-mono); white-space: pre-wrap; overflow-wrap: anywhere; tab-size: 2; }
+.logview .ln { display: block; }
+.logview .ln.err { color: var(--c-crit); }
+.logview .ln.warn { color: var(--c-warn); }
+.logview time { color: var(--c-muted); }
+/* 禁用按钮：悬停、按下不变色；文字按钮禁用时不加底色 */
+.btn[disabled]:hover, .btn[disabled]:active, .btn[aria-disabled="true"]:hover, .btn[aria-disabled="true"]:active { background: var(--c-sunken); border-color: var(--c-sunken); color: var(--c-faint); transform: none; }
+.btn.quiet[disabled], .btn.quiet[aria-disabled="true"], .btn.quiet[disabled]:hover, .btn.quiet[aria-disabled="true"]:hover, .btn.quiet[aria-disabled="true"]:active { background: transparent; border-color: transparent; color: var(--c-faint); }
+/* 轻提示里的撤销按钮：深底上用浅色焦点框；触屏（含平板）点按区 44px */
+.toast .act:hover { background: color-mix(in srgb, var(--c-surface) 12%, transparent); }
+.toast .act:focus-visible { outline: 2px solid var(--c-surface); outline-offset: -2px; }
+@media (max-width: 599px) {
+  .drawer-grab { display: flex; justify-content: center; align-items: center; height: 20px; flex: none; cursor: grab; touch-action: none; }
+  .drawer-grab::before { content: ""; width: 36px; height: 4px; border-radius: var(--r-pill); background: var(--c-rule-strong); }
+  .drawer-grab + .drawer-h { min-height: 52px; touch-action: none; }
+}
+@media (pointer: coarse) { .toast .act { min-height: 44px; min-width: 44px; } }
+
+/* ---------- v1.3（2026-10-21）：下拉选择 .select ---------- */
+/* 用浏览器原生 <select class="select">，弹出列表由系统画；appearance: none，右侧 12px chevron 是背景 SVG，颜色同 --c-muted，禁用同 --c-faint，深色主题另给一份。
+   电脑高 32px、字号 14px；手机和触屏（≤ 599px 或 pointer: coarse，和按钮一致）高 44px、字号 16px。左内边距和按钮一致：电脑 12px、手机 16px。
+   背景 SVG 里不能读 CSS 变量，所以 chevron 颜色写成十六进制，改 --c-muted / --c-faint 时要一起改。 */
+.select {
+  --select-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5 6 7.5 9 4.5' fill='none' stroke='%235E6776' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --select-chevron-off: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5 6 7.5 9 4.5' fill='none' stroke='%238A92A0' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  -webkit-appearance: none; appearance: none;
+  display: inline-block; height: var(--select-h-desktop); max-width: 100%; min-width: 0;
+  padding: 0 var(--select-pad-r) 0 var(--select-pad-x-desktop);
+  border: 1px solid var(--c-rule-strong); border-radius: var(--r-sm);
+  background: var(--c-surface) var(--select-chevron) no-repeat right 10px center / 12px 12px;
+  color: var(--c-ink); font: 400 var(--select-font-size-desktop)/1.2 var(--font-sans);
+  text-overflow: ellipsis; white-space: nowrap; cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-standard);
+}
+.select:hover { border-color: var(--c-faint); }
+.select:focus-visible { outline: 2px solid var(--c-focus); outline-offset: 2px; }
+.select[disabled], .select[disabled]:hover { background-color: var(--c-sunken); background-image: var(--select-chevron-off); border-color: var(--c-sunken); color: var(--c-faint); cursor: not-allowed; opacity: 1; }
+.select[aria-invalid="true"], .select[aria-invalid="true"]:hover { border-color: var(--c-crit); }
+.field .select { width: 100%; }
+.select-err { display: block; margin-top: 4px; font: 400 12px/16px var(--font-sans); color: var(--c-crit); }
+/* 面板标题行里：靠右，和标题垂直居中；标题放不下时标题省略，下拉保留 */
+.panel-h > .select { margin-left: auto; flex: none; }
+.panel-h .tools .select { flex: none; }
+.panel-h:has(> .select) h2 { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 599px), (pointer: coarse) {
+  .select { height: var(--select-h-mobile); padding-left: var(--select-pad-x-mobile); font-size: var(--select-font-size-mobile); }
+}
+:root[data-theme="dark"] .select { --select-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5 6 7.5 9 4.5' fill='none' stroke='%2397A0AF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); --select-chevron-off: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5 6 7.5 9 4.5' fill='none' stroke='%236F7887' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .select { --select-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5 6 7.5 9 4.5' fill='none' stroke='%2397A0AF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); --select-chevron-off: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5 6 7.5 9 4.5' fill='none' stroke='%236F7887' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
 }

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>rQuant 设计规范 v0.1</title>
+<title>rQuant 组件库状态页 v1.3</title>
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="components.css">
 <style>
@@ -76,6 +76,11 @@
   .dodont .yes figcaption { color: var(--c-ok); } .dodont .no figcaption { color: var(--c-crit); }
   .shot { width: 100%; border-radius: var(--r-sm); box-shadow: 0 0 0 1px var(--c-rule); display: block; }
   .phone-toc { display: none; }
+  .sel-states { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px 20px; align-items: start; }
+  .sel-states > div { display: grid; gap: 6px; justify-items: start; min-width: 0; }
+  .sel-states .lbl { font: var(--t-label); color: var(--c-muted); }
+  .sel-panels { display: grid; gap: 12px; }
+  .sel-panels .panel-h h2 { margin: 0; }
   .demo-strip-wrap { max-width: 100%; }
   .old-kpi { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--c-rule); border-radius: 8px; overflow: hidden; max-width: 420px; }
   .old-kpi div { background: var(--c-surface); padding: 12px 16px; display: grid; gap: 2px; }
@@ -117,22 +122,15 @@
 </nav>
 <div class="doc">
   <nav class="toc" aria-label="目录">
-    <b>rQuant 设计规范</b>
-    <a href="#top">屏效目标</a><a href="#principles">设计原则</a><a href="#density">信息密度</a><a href="#metrics">指标区写法</a><a href="#type">字阶</a><a href="#color">色板</a><a href="#space">间距、圆角、阴影</a><a href="#components">组件与状态</a><a href="#text">文本、表格、长页面</a><a href="#responsive">跨端规则</a><a href="#quality">质量底线</a><a href="#plan">设计方案与自查</a>
+    <b>rQuant 组件库</b>
+    <a href="#top">概述</a><a href="#principles">设计原则</a><a href="#density">信息密度</a><a href="#metrics">指标区写法</a><a href="#type">字阶</a><a href="#color">色板</a><a href="#space">间距、圆角、阴影</a><a href="#components">组件与状态</a><a href="#text">文本、表格、长页面</a><a href="#responsive">跨端规则</a><a href="#quality">质量底线</a>
     <a href="../index.html" style="margin-top:16px">回汇总页</a>
   </nav>
   <div class="body">
     <section class="s" id="top">
-      <h1 class="doc-t">rQuant 设计规范　v0.1</h1>
+      <h1 class="doc-t">rQuant 组件库状态页　v1.3</h1>
       <p class="lede">这份规范围绕一件事：把首屏让给主功能。数字要多，但要排得紧；标题、说明、装饰要少。</p>
-      <div class="ruler" aria-label="市场全景首屏构成，改前与改后">
-        <figure class="rcol"><div class="rbar d"><span class="seg-chrome" style="height:6.22%"><em>顶栏 56</em></span><span class="seg-top" style="height:27.22%"><em>标题 + 指标 245</em></span><span class="seg-main" style="height:66.56%"><em>主功能 599</em></span></div><figcaption>电脑改前</figcaption></figure>
-        <figure class="rcol"><div class="rbar d"><span class="seg-chrome" style="height:5.78%"><em>顶栏 52</em></span><span class="seg-top" style="height:9.11%"><em>指标 82</em></span><span class="seg-main" style="height:85.11%"><em>主功能 766</em></span></div><figcaption>电脑改后</figcaption></figure>
-        <figure class="rcol"><div class="rbar p"><span class="seg-chrome" style="height:13.03%"><em>顶栏 110</em></span><span class="seg-top" style="height:45.02%"><em>标题 + 指标 380</em></span><span class="seg-main" style="height:35.19%"><em>主功能 297</em></span><span class="seg-chrome" style="height:6.75%"><em>导航</em></span></div><figcaption>手机改前</figcaption></figure>
-        <figure class="rcol"><div class="rbar p"><span class="seg-chrome" style="height:5.69%"><em>顶栏 48</em></span><span class="seg-top" style="height:20.26%"><em>指标 171</em></span><span class="seg-main" style="height:67.42%"><em>主功能 569</em></span><span class="seg-chrome" style="height:6.64%"><em>导航</em></span></div><figcaption>手机改后</figcaption></figure>
-        <p class="ruler-note"><strong class="num">599 → 766 px</strong>市场全景在 1440×900 首屏里，主功能区从 599px（67%）增加到 766px（85%）；手机 390×844 从 297px（35%）增加到 569px（67%）。改前、改后均为同尺寸首屏实测。</p>
-      </div>
-      <p class="cap">柱高按首屏像素等比画出。灰：全局顶栏与底部导航；红：页面标题和顶部数据区；蓝：主功能区。</p>
+      <p>完整规则见<a href="../spec/index.html">rQuant 设计规范</a>；这一页集中展示组件和各状态的样子。</p>
     </section>
 
     <section class="s" id="principles">
@@ -153,7 +151,7 @@
         <tr><td>主功能区占首屏</td><td class="num">≥ 75%</td><td class="num">≥ 60%</td><td>主图或主表在首屏内的可见高度 ÷ 视口高度（手机不含底部导航）</td></tr>
         <tr><td>顶部数据区高度（汇总类页面）</td><td class="num">≤ 15% 内容区（≤ 127px）</td><td class="num">≤ 25% 可视区（≤ 185px）</td><td>从全局顶栏下沿到主功能区上沿</td></tr>
         <tr><td>顶部数据区高度（详情类页面）</td><td class="num">≤ 20%（≤ 170px）</td><td class="num">≤ 30%（≤ 222px）</td><td>个股档案这类以一组属性为主的页面</td></tr>
-        <tr><td>每个指标占用面积</td><td class="num" colspan="2">≤ 7,000 px²</td><td>数据区面积 ÷ 指标个数；现状市场全景约 14,000，个股档案约 6,300</td></tr>
+        <tr><td>每个指标占用面积</td><td class="num" colspan="2">≤ 7,000 px²</td><td>数据区面积 ÷ 指标个数</td></tr>
         <tr><td>首屏信息量</td><td class="num">≥ 12 个关键数字 + 1 个主图或主表</td><td class="num">≥ 6 个关键数字 + 主图露出 ≥ 50%</td><td>只数对用户有意义的数字，不数时间戳</td></tr>
       </tbody></table>
       <h3>选哪种写法</h3>
@@ -167,7 +165,7 @@
       <div class="dodont">
         <figure class="no"><figcaption>不要：一个数字一张卡</figcaption>
           <div class="old-kpi"><div><span>涨停</span><b class="up num">50</b></div><div><span>炸板</span><b class="num">24</b></div><div><span>跌停</span><b class="down num">27</b></div></div>
-          <p class="cap">现状写法：3 个数字占 420×80px，每个约 11,000 px²。</p></figure>
+          <p class="cap">3 个数字占 420×80px，每个约 11,000 px²。</p></figure>
         <figure class="yes"><figcaption>要：指标条</figcaption>
           <div class="mstrip" style="min-height:48px"><div class="m"><span class="m-l">涨停</span><span class="m-v up">50</span></div><div class="m"><span class="m-l">炸板</span><span class="m-v">24<small>封板率 68%</small></span></div><div class="m"><span class="m-l">跌停</span><span class="m-v down">27</span></div></div>
           <p class="cap">同样 3 个数字加封板率，约 300×48px，每个约 4,800 px²。</p></figure>
@@ -187,7 +185,7 @@
           <div class="m"><span class="m-l">跌停</span><span class="m-v down">27</span></div>
           <div class="m"><span class="m-l">成交额</span><span class="m-v">1.45<small>万亿</small><span class="d down">−7.7%</span></span></div>
         </section>
-        <p class="cap">示例数值；字段名与现有页面一致。这一条高 58px，现状是 84px 放 7 个数。</p>
+        <p class="cap">示例数值。这一条高 58px。</p>
       </div>
       <h3>指标网格</h3>
       <p>用于个股档案这类「一组属性」。键左值右，值右对齐、用等宽数字，这样同一列的小数点能上下对齐。按主题分行，组名放在每行最左。</p>
@@ -238,14 +236,14 @@
       </tbody></table></div>
       <ul class="rules">
         <li><b>中文：</b>苹方、鸿蒙黑体、微软雅黑等系统字体，不加载中文网络字体。正文行高 1.5–1.6 倍。</li>
-        <li><b>数字：</b>IBM Plex Sans Condensed（现有代码已打包 Plex 家族的 Mono 和 Condensed 两款），实测同一串数字（1812.96 −0.38% 14487.92，18px）宽 208px，Plex Mono 是 253px、Plex Sans 是 227px，窄约 18% 和 8%，这是屏效的一部分。</li>
-        <li><b>标题不做花样：</b>不用全大写、不给单个词换色、不在标题上方加小标签。现状里「跟踪与告警」这类眉标和左侧导航重复，取消。</li>
+        <li><b>数字：</b>IBM Plex Sans Condensed 加等宽数字，同一串数字比 Plex Mono 窄约 18%、比 Plex Sans 窄约 8%，这是屏效的一部分。不用等宽编程字体。</li>
+        <li><b>标题不做花样：</b>不用全大写、不给单个词换色、不在标题上方加小标签，不加和左侧导航重复的眉标。</li>
       </ul>
     </section>
 
     <section class="s" id="color">
       <h2>色板</h2>
-      <p>冷灰底配靛蓝主色，和现有页面同一方向，只把对比度调到达标。数字右侧是该颜色放在白色面板上的对比度，正文要求 4.5:1 以上；「禁用 / 装饰」只用于禁用控件和分隔，不用于有信息的文字。</p>
+      <p>冷灰底配靛蓝主色。数字右侧是该颜色放在白色面板上的对比度，正文要求 4.5:1 以上；「禁用 / 装饰」只用于禁用控件和分隔，不用于有信息的文字。</p>
       <h3>浅色（默认）</h3>
       <ul class="sw"><li><i style="background:#F3F5F7"></i><span><b>页面底</b><code>--c-ground</code></span><span class="num hex">#F3F5F7</span></li>
 <li><i style="background:#FFFFFF"></i><span><b>面板</b><code>--c-surface</code></span><span class="num hex">#FFFFFF</span></li>
@@ -295,7 +293,7 @@
         <li><b>面板之间 12px，</b>面板内边距电脑 16px、手机 14px；同一面板内的分组之间 8px。</li>
         <li><b>行高三档：</b>紧凑 28px（电脑表格、指标网格）、标准 36px（需要更多呼吸的列表）、触控 44px（手机所有可点行）。</li>
         <li><b>控件高度：</b>电脑 32px，手机 44px。</li>
-        <li><b>全局顶栏：</b>电脑 52px，手机 48px 单行（现状手机 110px 三行）。页面标题放进顶栏，不再单独占一行。</li>
+        <li><b>全局顶栏：</b>电脑 52px，手机 48px，单行。页面标题放进顶栏，不再单独占一行。</li>
       </ul>
       <h3>圆角：容器越大圆角越大</h3>
       <div class="stage"><div class="radii"><div style="border-radius:4px">4px<br>标签、分段按钮内块</div><div style="border-radius:6px">6px<br>按钮、输入框</div><div style="border-radius:10px">10px<br>面板、弹层</div></div></div>
@@ -312,6 +310,7 @@
         <span class="lbl">文字</span><button class="btn quiet">全部告警</button><button class="btn quiet" style="background:var(--c-accent-weak)">悬停</button><button class="btn quiet" style="outline:2px solid var(--c-focus);outline-offset:2px">键盘焦点</button><button class="btn quiet" disabled>禁用</button>
       </div></div>
       <p>按钮文字是动作本身：「保存方案」「去盯盘」「导出 CSV」，后面不加箭头。一个区域最多一个主要按钮。</p>
+      <p>禁用按钮：字 <code>--c-faint</code>，底和描边 <code>--c-sunken</code>，悬停、按下不变色。禁用控件不要求 4.5:1 对比度。</p>
       <h3>标签页与分段</h3>
       <div class="stage row">
         <div class="seg" role="tablist" aria-label="K 线周期"><button role="tab" aria-selected="true">日K</button><button role="tab" aria-selected="false">分时</button><button role="tab" aria-selected="false">5日</button><button role="tab" aria-selected="false" disabled>周K</button></div>
@@ -345,6 +344,45 @@
         <div class="field"><label for="i3">已锁定的参数</label><input class="input" id="i3" value="v1 冻结" disabled></div>
         <div class="field"><label for="i4">搜索</label><input class="input" id="i4" placeholder="代码 / 名称，如 999001 或 澜屿科技"></div>
       </div>
+      <h3 id="select">下拉选择</h3>
+      <p>从一组选项里选一个：数据时间、排序方式、指标、示例条件。统一用浏览器原生 <code>&lt;select class="select"&gt;</code>，弹出的选项列表由系统画；不用按钮或自绘菜单模拟下拉，同一行里也不混用两种下拉。</p>
+      <div class="stage">
+        <div class="sel-states">
+          <div><span class="lbl">默认</span><select class="select" aria-label="排序指标，默认示例"><option>涨跌幅 %</option><option>成交额</option><option>换手率</option></select></div>
+          <div><span class="lbl">悬停</span><select class="select" aria-label="排序指标，悬停示例" style="border-color:var(--c-faint)"><option>涨跌幅 %</option><option>成交额</option><option>换手率</option></select></div>
+          <div><span class="lbl">键盘焦点</span><select class="select" aria-label="排序指标，键盘焦点示例" style="outline:2px solid var(--c-focus);outline-offset:2px"><option>涨跌幅 %</option><option>成交额</option><option>换手率</option></select></div>
+          <div><span class="lbl">禁用</span><select class="select" aria-label="排序指标，禁用示例" disabled><option>涨跌幅 %</option></select></div>
+          <div><span class="lbl">错误</span><select class="select" aria-label="演示条件，错误示例" aria-invalid="true" aria-describedby="sel-e1"><option>请选择条件</option><option>放量突破</option><option>低估值高股息</option></select><span class="select-err" id="sel-e1">先选一个演示条件</span></div>
+        </div>
+        <p class="cap">每个示例都能点开选择。悬停、键盘焦点为静态展示；用 Tab 键移到任一下拉上可以看到真实焦点环。</p>
+      </div>
+      <div class="stage sel-panels">
+        <div class="panel"><div class="panel-h"><h2>板块累计净流入</h2><select class="select" aria-label="数据时间"><option>今天</option><option>最新</option></select></div><p class="cap" style="padding:0 16px 12px">数据时间：放在面板标题行右侧。</p></div>
+        <div class="panel"><div class="panel-h"><h2>排名</h2><div class="tools"><select class="select" aria-label="排序指标"><option>涨跌幅 %</option><option>成交额</option><option>换手率</option><option>主力净流入</option></select><select class="select" aria-label="排序方向"><option>降序</option><option>升序</option></select></div></div><p class="cap" style="padding:0 16px 12px">排序指标和方向：两个下拉同高、同样式，间距 8px。</p></div>
+        <div class="panel"><div class="panel-h"><h2>条件选股</h2><select class="select" aria-label="演示条件"><option>放量突破</option><option>低估值高股息</option><option>连续三日净流入</option></select></div><p class="cap" style="padding:0 16px 12px">演示条件：选中后条件填入下方，例如 999001 示例科技符合「放量突破」。</p></div>
+      </div>
+      <div class="tblscroll"><table class="doc-tbl"><thead><tr><th>项</th><th>电脑：宽度 ≥ 600px，用鼠标</th><th>手机和触屏：宽度 ≤ 599px 或触屏</th></tr></thead><tbody>
+        <tr><td>高度</td><td class="num">32px <code>--select-h-desktop</code></td><td class="num">44px <code>--select-h-mobile</code></td></tr>
+        <tr><td>左内边距</td><td class="num">12px，和按钮一致</td><td class="num">16px，和按钮一致</td></tr>
+        <tr><td>右内边距</td><td colspan="2">32px，给 12px 的 chevron 留位，chevron 距右边 10px</td></tr>
+        <tr><td>字号</td><td class="num">14px <code>--select-font-size-desktop</code></td><td class="num">16px <code>--select-font-size-mobile</code>，避免 iOS 聚焦时页面放大</td></tr>
+        <tr><td>文字</td><td colspan="2"><code>--c-ink</code>；选项太长时单行省略</td></tr>
+        <tr><td>底色、描边、圆角</td><td colspan="2">白底 <code>--c-surface</code>，1px <code>--c-rule-strong</code>，<code>--r-sm</code> 6px</td></tr>
+        <tr><td>chevron</td><td colspan="2">背景 SVG，颜色同 <code>--c-muted</code>，禁用时同 <code>--c-faint</code>；<code>appearance: none</code> 去掉系统箭头</td></tr>
+      </tbody></table></div>
+      <div class="tblscroll"><table class="doc-tbl"><thead><tr><th>状态</th><th>样式</th><th>写法</th></tr></thead><tbody>
+        <tr><td>默认</td><td>白底，描边 <code>--c-rule-strong</code>，字 <code>--c-ink</code></td><td><code>select.select</code></td></tr>
+        <tr><td>悬停</td><td>描边加深为 <code>--c-faint</code></td><td><code>:hover</code></td></tr>
+        <tr><td>键盘焦点</td><td>2px <code>--c-focus</code> 描边，外偏 2px，和全站焦点环相同</td><td><code>:focus-visible</code></td></tr>
+        <tr><td>禁用</td><td>字 <code>--c-faint</code>，底和描边 <code>--c-sunken</code>，和禁用按钮一致；不要求 4.5:1 对比度</td><td><code>disabled</code></td></tr>
+        <tr><td>错误</td><td>描边 <code>--c-crit</code>，下方 12px 错误文字，颜色 <code>--c-crit</code>，写清怎么改</td><td><code>aria-invalid="true"</code>，<code>aria-describedby</code> 指向错误文字</td></tr>
+      </tbody></table></div>
+      <ul class="rules">
+        <li><b>放在面板标题行里：</b>靠右对齐，和标题垂直居中，不单独占一行。标题放不下时标题省略，下拉保留。</li>
+        <li><b>同一行有两个下拉：</b>高度、样式完全相同，中间 8px。</li>
+        <li><b>没有可见标签时</b>用 <code>aria-label</code> 写清选的是什么，例如「数据时间」「排序方向」。</li>
+        <li><b>选哪个：</b>2–5 个选项、要来回切换着看，用分段控件；超过 5 个选项或标题行放不下分段，用下拉。</li>
+      </ul>
       <h3>提示</h3>
       <div class="stage" style="display:grid;gap:8px">
         <div class="notice">今天还没有快照：行情 09:15 开始更新，开盘后出图。</div>
@@ -352,6 +390,12 @@
         <div class="notice crit"><span>数据采集需处理：收盘数据采集运行超时。</span><a class="act" href="#">看健康</a></div>
         <p>专业词：<span class="tip" tabindex="0" title="炸板：盘中封过涨停、收盘没封住。封板率 = 收盘仍封住的 ÷ 盘中封过的。">炸板</span>（虚线下划线，悬停或点按看解释）。</p>
       </div>
+      <h3>抽屉把手与日志块</h3>
+      <div class="stage cols2">
+        <div class="panel" style="border-radius:var(--r-md) var(--r-md) 0 0;box-shadow:var(--shadow-pop)"><div style="display:flex;justify-content:center;align-items:center;height:20px" aria-hidden="true"><span style="width:36px;height:4px;border-radius:var(--r-pill);background:var(--c-rule-strong)"></span></div><div class="drawer-h"><h2>每日行情采集</h2><span class="m-l">日志</span><button class="x" aria-label="关闭">×</button></div><p class="cap" style="padding:8px 16px 12px">手机底部弹层：把手区 20px + 标题行 52px，一起作为下滑区。</p></div>
+        <pre class="logview"><span class="ln err"><time>10-20 17:31:10</time> 读不到数据源：连接超时，5 分钟后重试</span><span class="ln warn"><time>10-20 17:30:42</time> 999005 当日停牌，跳过</span><span class="ln"><time>10-20 17:30:41</time> 写入 5 行，用时 39 秒</span><span class="ln"><time>10-20 17:30:02</time> 开始采集 999001 等 5 只</span></pre>
+      </div>
+      <p>日志块用等宽字 <code>--font-mono</code> 12px/18px，最新在上，长行折行；不自己滚动，由抽屉内容区滚动。</p>
       <h3>空状态与错误状态</h3>
       <div class="stage cols2">
         <div class="panel"><div class="empty"><b>今天还没有告警</b><span>盯盘规则在运行，还没有被触发。想调整触发条件，去「盯盘与告警」改规则。</span><a class="btn" href="#">去改规则</a></div></div>
@@ -365,8 +409,8 @@
       <h3>长文本截断与换行</h3>
       <ul class="rules">
         <li><b>数字永不换行</b>（<code>white-space: nowrap</code>），宁可缩短单位（14487.92亿 写成 1.45万亿）。</li>
-        <li><b>页面标题永不换行，也不被挤压：</b>标题 <code>flex: none</code>，副标题和说明可以省略号截断；放不下的步骤条、按钮移到第二行或「更多」菜单。中文页面标题不超过 8 个字。选股器标题被挤成「选股 / 器」属于违规。</li>
-        <li><b>内部标识（服务名、文件名）：</b>允许任意位置断行（<code>overflow-wrap: anywhere</code>），最多 2 行，超出用省略号，全文放在悬停提示或详情里。长名称溢出到隔壁卡，就是缺这条规则。</li>
+        <li><b>页面标题永不换行，也不被挤压：</b>标题 <code>flex: none</code>，副标题和说明可以省略号截断；放不下的步骤条、按钮移到第二行或「更多」菜单。中文页面标题不超过 8 个字。</li>
+        <li><b>内部标识（服务名、文件名）：</b>允许任意位置断行（<code>overflow-wrap: anywhere</code>），最多 2 行，超出用省略号，全文放在悬停提示或详情里。</li>
         <li><b>说明文字：</b>正常换行，每行不超过 40 个汉字左右；超过 2 行的规则说明默认折叠成一行加「说明」入口。</li>
         <li><b>卡片和格子里的文字必须有 <code>min-width: 0</code>，</b>否则 flex / grid 子项会被内容撑破。</li>
       </ul>
@@ -382,7 +426,7 @@
       </div>
       <h3>表格跨端规则</h3>
       <ul class="rules">
-        <li><b>电脑（≥ 1024px）：</b>表格不能撑出页面横向滚动。列太多时先隐藏次要列（列选择器里可加回），再允许表格容器自身横滑，并冻结第一列。回测表在 1440 宽下多出 23px、宏观页多出 85px，都属于违规。</li>
+        <li><b>电脑（≥ 1024px）：</b>表格不能撑出页面横向滚动。列太多时先隐藏次要列（列选择器里可加回），再允许表格容器自身横滑，并冻结第一列。</li>
         <li><b>手机（&lt; 600px）：</b>默认不用宽表。每行改成两行列表项：第一行名称（加代码），第二行 2–3 个关键数字；右侧放最关键的一个数。点一行打开详情弹层看全部列。</li>
         <li><b>确实需要横滑的表（如数据查询结果）：</b>首列冻结，右侧边缘加渐隐提示还有内容，表头写出总列数。</li>
         <li><b>空表不画表头：</b>没有数据时直接显示一行空状态，不要先画一排需要横滑的表头。</li>
@@ -397,14 +441,14 @@
       <h3>长页面分区与折叠</h3>
       <ul class="rules">
         <li><b>超过 3 屏的页面必须分区：</b>顶部放页内分段（如宏观：总览 / 资金 / 情绪 / 事件研究），一次只展开一个分区，或用锚点导航。</li>
-        <li><b>明细表默认 20 行，</b>配筛选、排序和「展开全部（共 N 行）」或分页。宏观页底部的事件研究表从约 6,700px 一直铺到 25,600px，应默认收起。</li>
+        <li><b>明细表默认 20 行，</b>配筛选、排序和「展开全部（共 N 行）」或分页，长明细表默认收起。</li>
         <li><b>次要说明默认折叠，</b>首屏只留一句话。</li>
       </ul>
       <h3>空值与无数据</h3>
       <table class="doc-tbl"><thead><tr><th>情况</th><th>显示</th><th>说明</th></tr></thead><tbody>
         <tr><td>值为 0</td><td class="num">0　0.00%</td><td>0 是真实的值，正常显示，平盘色</td></tr>
         <tr><td>单个指标无数据</td><td class="muted">—</td><td>说明色的长横线，悬停提示原因（数据源未提供 / 尚未计算 / 停牌）</td></tr>
-        <tr><td>整列都是「—」</td><td>隐藏该列，或整块显示空状态</td><td>系统健康「数据新鲜度」整列为「—」是接口问题，但界面上也不该出现一整列横线；应显示「新鲜度暂时读不到」加重试</td></tr>
+        <tr><td>整列都是「—」</td><td>隐藏该列，或整块显示空状态</td><td>界面上不出现一整列横线；改为一句「暂时读不到」加重试，例如「新鲜度暂时读不到」</td></tr>
         <tr><td>加载中</td><td><span class="skel">0000.00</span></td><td>骨架占位，尺寸与真实内容一致，不出现跳动</td></tr>
         <tr><td>数据过期</td><td style="color:var(--c-warn)">09:12 已过期 18 分钟</td><td>保留旧值，时间改提醒色</td></tr>
         <tr><td>请求失败</td><td>保留旧值标灰 + 提示条</td><td>提示写清原因和下一步，带「重试」</td></tr>
@@ -414,7 +458,7 @@
     <section class="s" id="responsive">
       <h2>跨端规则</h2>
       <table class="doc-tbl"><thead><tr><th>断点</th><th>宽度</th><th>布局</th></tr></thead><tbody>
-        <tr><td>手机</td><td class="num">&lt; 600px</td><td>单列；顶栏 48px（Logo、页面标题、健康状态点、告警铃铛、搜索图标）；底部 4 个标签（v1.1：全景、资金流、池子、更多，见<a href="../spec/components.html#c-tabbar">设计规范</a>）；表格转列表</td></tr>
+        <tr><td>手机</td><td class="num">&lt; 600px</td><td>单列；顶栏 48px（Logo、页面标题、健康状态点、告警铃铛、搜索图标）；底部 4 个标签：全景、资金流、池子、更多，见<a href="../spec/components.html#c-tabbar">设计规范</a>；表格转列表</td></tr>
         <tr><td>平板</td><td class="num">600–1023px</td><td>保留左侧 212px 文字导航（599px 及以下才换成底部标签栏 + 「更多」）；指标条可横滑；面板两列变一列</td></tr>
         <tr><td>电脑</td><td class="num">1024–1439px</td><td>左侧导航 212px；主区两列（7:5）</td></tr>
         <tr><td>宽屏</td><td class="num">≥ 1440px</td><td>同电脑，主图和表格吃满宽度；不设最大宽度，但单列正文不超过 44em</td></tr>
@@ -426,13 +470,14 @@
         <li><b>超过 12 个（个股档案）：</b>首屏只放 6 个关键指标，其余收进「全部 29 项」，点开后两列展开。不允许两列直接铺满 15 行。</li>
         <li><b>不出现空格子：</b>网格最后一行凑不满时，让最后一项横跨剩余列，或减少一项。</li>
       </ul>
-      <h3>触控</h3>
+      <h3 id="hit">触控与点按区</h3>
       <ul class="rules">
-        <li>所有可点元素的点按区域不小于 44×44px，视觉尺寸可以更小，靠内边距补足。</li>
+        <li><b>手机和触屏，宽度 ≤ 599px 或触屏设备：</b>所有可点元素的点按区域不小于 44×44px，视觉尺寸可以更小，靠内边距或透明扩展区补足。</li>
+        <li><b>电脑，宽度 ≥ 600px 且用鼠标：</b>所有可点元素高度不小于 32px；只有图标的按钮不小于 32×32px。按钮、输入框、下拉选择、分段选项、可排序表头、提示条里的操作都是 32px 高。</li>
         <li>相邻可点元素之间至少 8px。</li>
         <li>悬停才出现的信息（专业词解释、图表数值），在手机上改为点按出现，再点或点空白处关闭。</li>
         <li>底部标签栏避开 iPhone 底部安全区（<code>env(safe-area-inset-bottom)</code>）。</li>
-        <li>顶栏告警铃铛、健康状态点各 44×44px（v1.1）。</li>
+        <li>顶栏告警铃铛、健康状态点各 44×44px。</li>
       </ul>
     </section>
 
@@ -441,32 +486,13 @@
       <ul class="rules">
         <li><b>键盘焦点可见：</b>所有可聚焦元素用 2px 主色描边、外偏 2px（<code>:focus-visible</code>），不允许 <code>outline: none</code> 而不给替代。可以按 Tab 键从这一页走一遍试试。</li>
         <li><b>减少动态效果：</b>系统打开「减少动态效果」时，骨架闪烁、加载转圈、展开动画全部停掉（<code>prefers-reduced-motion</code>）。非用户触发的动画只用于数据更新提示，一页最多一处。</li>
-        <li><b>对比度：</b>正文和数字 ≥ 4.5:1，大字（≥ 18px 半粗）和图形元素 ≥ 3:1。色板里每个文字色都标了实测值。</li>
+        <li><b>对比度：</b>正文和数字 ≥ 4.5:1，大字（≥ 18px 半粗）和图形元素 ≥ 3:1。色板里每个文字色都标了实测值。禁用控件不要求 4.5:1：禁用按钮、禁用下拉保持字 <code>--c-faint</code>、底 <code>--c-sunken</code>。</li>
+        <li><b>点按区：</b>手机和触屏所有可点元素 ≥ 44×44px；电脑 ≥ 32px 高，图标按钮 32×32px。见<a href="#hit">触控与点按区</a>。</li>
         <li><b>不只靠颜色：</b>涨跌带符号，状态带文字，图表有文字标签或 <code>aria-label</code>。</li>
-        <li><b>手机输入框字号 ≥ 16px，</b>避免 iOS 聚焦时页面自动放大。</li>
+        <li><b>输入框和下拉选择字号：</b>电脑 14px；手机和触屏 16px，避免 iOS 聚焦时页面自动放大。</li>
       </ul>
     </section>
-
-    <section class="s" id="plan">
-      <h2>设计方案与自查</h2>
-      <p>按「先出方案、对照需求自查、再写页面」两遍法做的，下面是第一遍的方案和自查后改掉的地方。</p>
-      <h3>方案</h3>
-      <ul class="rules">
-        <li><b>颜色：</b>页面底 #F3F5F7，面板 #FFFFFF，主文字 #161A21，说明 #5E6776，主色靛蓝 #2448D0，涨 #C8232C，跌 #07773F。</li>
-        <li><b>字体：</b>中文系统黑体；数字 IBM Plex Sans Condensed 等宽数字。</li>
-        <li><b>布局：</b>一条顶栏（含页面标题）+ 一条指标带 + 主区。主区左宽右窄（7:5），左边图和表，右边热力图吃满剩余高度。全部左对齐，数字右对齐。</li>
-        <li><b>唯一的强调：</b>涨跌分布条，它是市场全景首屏最先被看到的东西，也替代了三张卡。</li>
-      </ul>
-      <h3>自查后改掉的</h3>
-      <ul class="rules">
-        <li><b>数字字体：</b>原写法沿用现有的 IBM Plex Mono。等宽编程字体是「数据标签用等宽字」的俗套，而且同一串数字比窄体宽约 22%（253px 对 208px），和屏效目标冲突。改为 Plex Sans Condensed 加 <code>tnum</code>，照样上下对齐。</li>
-        <li><b>指标条的格子线：</b>原写法每个指标一个描边格子（现状写法），读起来就是「一排小卡片」。改为整条一个面板，格间只用短竖线。</li>
-        <li><b>页面标题：</b>原写法保留「眉标 + 大标题 + 副标题」三行。这是模板化的标题区，且眉标和左侧导航重复。改为标题进顶栏，副标题缩成一行说明。</li>
-        <li><b>暗色作为默认：</b>考虑过「深底 + 荧光绿」的交易终端风格，但这是另一种俗套，金融小白在白天看也吃力。默认浅色，深色作为跟随系统的备选。</li>
-        <li><b>圆角统一：</b>原写法所有东西 8px。改为 4 / 6 / 10 三档，按容器层级递增。</li>
-      </ul>
-    </section>
-    <p class="cap" style="margin-top:40px">变量文件：<a href="tokens.css">tokens.css</a>、<a href="tokens.json">tokens.json</a>；组件样式：<a href="components.css">components.css</a>。v0.1，2026-10-20。</p>
+    <p class="cap" style="margin-top:40px">变量文件：<a href="tokens.css">tokens.css</a>、<a href="tokens.json">tokens.json</a>；组件样式：<a href="components.css">components.css</a>。v1.3，2026-10-21。</p>
   </div>
 </div>
 </body>

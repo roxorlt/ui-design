@@ -1,4 +1,4 @@
-/* rQuant 设计变量 v1.0（2026-10-20）。与 tokens.json 同一份数据。v1.0 新增动效变量 --dur-* / --ease-*。 */
+/* rQuant 设计变量 v1.3（2026-10-21）。与 tokens.json 同一份数据。v1.0 新增动效变量 --dur-* / --ease-*；v1.2 新增等宽字体 --font-mono（只给日志块 .logview）；v1.3 新增下拉选择 --select-* 和输入框 --input-*。 */
 :root {
   --c-ground: #F3F5F7;
   --c-surface: #FFFFFF;
@@ -29,6 +29,7 @@
   --c-scrim: rgba(22,26,33,0.40);
   --font-sans: "PingFang SC", "HarmonyOS Sans SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
   --font-num: "IBM Plex Sans Condensed", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-mono: "SF Mono", "JetBrains Mono", Menlo, Consolas, "PingFang SC", "Microsoft YaHei", monospace;
   --num-features: "tnum" 1, "lnum" 1;
   --t-hero: 600 32px/36px var(--font-sans);
   --t-hero-size: 32px;
@@ -63,6 +64,17 @@
   --h-metric-strip-pc: 56px;
   --h-metric-cell-phone: 48px;
   --h-tabbar-phone: 56px;
+  --select-h-desktop: 32px;
+  --select-h-mobile: 44px;
+  --select-pad-x-desktop: 12px;
+  --select-pad-x-mobile: 16px;
+  --select-pad-r: 32px;
+  --select-font-size-desktop: 14px;
+  --select-font-size-mobile: 16px;
+  --input-pad-x-desktop: 12px;
+  --input-pad-x-mobile: 16px;
+  --input-font-size-desktop: 14px;
+  --input-font-size-mobile: 16px;
   --r-xs: 4px;
   --r-sm: 6px;
   --r-md: 10px;

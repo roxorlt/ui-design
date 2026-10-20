@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>rQuant 设计规范 v1.1</title>
+<title>rQuant 设计规范 v1.3</title>
 <link rel="stylesheet" href="../system/tokens.css">
 <link rel="stylesheet" href="../system/components.css">
 <link rel="stylesheet" href="spec.css">
 </head>
 <body data-page="index.html">
 <div class="doc">
-  <header class="mbar"><a href="index.html">rQuant 设计规范</a><span class="num">v1.1</span><button class="btn quiet" id="tocBtn" aria-expanded="false" aria-controls="toc">目录</button></header>
+  <header class="mbar"><a href="index.html">rQuant 设计规范</a><span class="num">v1.3</span><button class="btn quiet" id="tocBtn" aria-expanded="false" aria-controls="toc">目录</button></header>
   <nav class="toc" id="toc" aria-label="规范目录">
-    <div class="toc-brand"><a href="index.html">rQuant 设计规范</a><span class="num">v1.1</span></div>
+    <div class="toc-brand"><a href="index.html">rQuant 设计规范</a><span class="num">v1.3</span></div>
     <ol><li><a href="index.html" aria-current="page"><span class="n"></span><span>概述</span></a><div class="sub"><a href="#owners">负责人</a><a href="#changelog">更新记录</a><a href="#start">做一个新页面</a><a href="#chapters">章节</a><a href="#change">新增或修改组件的流程</a></div></li><li><a href="principles.html"><span class="n">1</span><span>设计原则</span></a></li><li><a href="foundations.html"><span class="n">2</span><span>基础</span></a></li><li><a href="components.html"><span class="n">3</span><span>组件</span></a></li><li><a href="patterns.html"><span class="n">4</span><span>交互模式</span></a></li><li><a href="motion.html"><span class="n">5</span><span>页面动效</span></a></li><li><a href="templates.html"><span class="n">6</span><span>页面模板</span></a></li><li><a href="guidelines.html"><span class="n">7</span><span>跨端、无障碍、文案</span></a></li><li><a href="appendix.html"><span class="n"></span><span>附录</span></a></li></ol>
-    <div class="toc-foot"><a href="../index.html">返回资料首页</a><a href="../system/index.html">组件库（v0.1 状态页）</a><a href="../system/tokens.css">tokens.css</a><a href="../system/tokens.json">tokens.json</a><a href="../system/components.css">components.css</a></div>
+    <div class="toc-foot"><a href="../index.html">返回资料首页</a><a href="../system/index.html">组件库状态页</a><a href="../system/tokens.css">tokens.css</a><a href="../system/tokens.json">tokens.json</a><a href="../system/components.css">components.css</a></div>
   </nav>
   <main class="content" id="main">
 <h1>rQuant 设计规范</h1>
@@ -22,8 +22,8 @@
 
 <div class="tscroll"><table class="dt" style="max-width:640px">
 <tbody>
-<tr><td>版本</td><td><span class="num">v1.1</span></td></tr>
-<tr><td>日期</td><td><span class="num">2026-10-20</span></td></tr>
+<tr><td>版本</td><td><span class="num">v1.3</span></td></tr>
+<tr><td>日期</td><td><span class="num">2026-10-21</span></td></tr>
 <tr><td>适用范围</td><td>rQuant 全部页面，电脑浏览器和手机浏览器（含 iOS、安卓）</td></tr>
 <tr><td>变量和样式</td><td><a href="../system/tokens.css">tokens.css</a>、<a href="../system/tokens.json">tokens.json</a>、<a href="../system/components.css">components.css</a>。页面只引用这三个文件，不写死色值和像素</td></tr>
 </tbody></table></div>
@@ -39,11 +39,13 @@
 
 <h2 id="changelog">更新记录</h2>
 <div class="tscroll"><table class="dt stack">
-<thead><tr><th>版本</th><th>日期</th><th>改了什么</th><th>为什么</th><th>影响哪些组件</th></tr></thead>
+<thead><tr><th>版本</th><th>日期</th><th>改了什么</th><th>影响哪些组件</th></tr></thead>
 <tbody>
-<tr><td class="nw"><span class="num">v1.1</span></td><td class="n" data-l="日期">2026-10-20</td><td data-l="改了什么">手机底部标签栏改为 4 项：全景、资金流、池子、更多（原：总览、告警、全景、健康、更多）。新增 3 个外框组件：「更多」弹层（只列不在底栏的页面，总览置顶）、顶栏告警铃铛（未读数：无 / 1–99 / 99+）、顶栏健康状态点（正常 / 注意 / 异常，形状不同）。告警角标只数最近一个交易日未确认的告警，点「确认」才减少，15 秒刷新；健康某层未知或整体读取失败都按「注意」显示。手机默认打开池子，平板和电脑默认打开总览。</td><td data-l="为什么">行情三页（市场全景、板块资金流、池子）盘中最常用，放到拇指够得着的位置；告警、健康改到顶栏，每页可见</td><td data-l="影响哪些组件">手机底部标签栏、「更多」弹层、顶栏告警铃铛、顶栏健康状态点、全局顶栏（手机右侧）；system/shell.css、mockups/mock.js、spec/tpl/tpl.js</td></tr>
-<tr><td class="nw"><span class="num">v1.0</span></td><td class="n" data-l="日期">2026-10-20</td><td data-l="改了什么">补成正式手册：设计原则正反例、组件状态、交互模式、页面动效、页面模板、跨端和文案规范。新增动效变量 <code>--dur-*</code>、<code>--ease-*</code>。外框样式移入组件库 system/shell.css。手机上分段控件、标签页、提示条操作、表头排序的点按区补到 44px。组件库新增并列字段、可筛选指标、手机指标网格、两行列表项、表头排序、展开全部行、弹窗、抽屉、轻提示、行情闪烁。原走查和改版说明移入附录</td><td data-l="为什么">v0.1 只说明了改什么，新人照着做不出新页面</td><td data-l="影响哪些组件">新增组件见上；原有组件样式未改</td></tr>
-<tr><td class="nw"><span class="num">v0.1</span></td><td class="n" data-l="日期">2026-10-20</td><td data-l="改了什么">初版定稿：色板、字阶、间距、圆角、基础组件和屏效规则</td><td data-l="为什么">统一现有页面的视觉和信息密度</td><td data-l="影响哪些组件">全部</td></tr>
+<tr><td class="nw"><span class="num">v1.3</span></td><td class="n" data-l="日期">2026-10-21</td><td data-l="改了什么">新增组件「下拉选择」<code>.select</code>：浏览器原生 select，电脑 32px 高、14px，手机和触屏 44px 高、16px，右侧 chevron，五种状态，放在面板标题行右侧；新增变量 <code>--select-*</code>、<code>--input-*</code>。电脑端所有可点元素 ≥ 32px 高、图标按钮 32×32px：分段选项 26 → 32px，可排序表头 28 → 32px，提示条操作 ≥ 32px。输入框字号电脑 13 → 14px、手机和触屏 16px，左内边距 10 → 12px、手机 16px，焦点改用全站焦点环。面板标题行工具间距 4 → 8px。写明禁用控件不要求 4.5:1 对比度</td><td data-l="影响哪些组件">下拉选择（新）、分段控件、表头排序、输入框和表单字段、提示条操作、面板标题行工具；tokens.css、tokens.json、components.css</td></tr>
+<tr><td class="nw"><span class="num">v1.2</span></td><td class="n" data-l="日期">2026-10-21</td><td data-l="改了什么">新增组件「日志块」<code>.logview</code>（等宽 12px/18px，浅底，长行折行，不自己滚动）和变量 <code>--font-mono</code>；抽屉补底部弹层把手 <code>.drawer-grab</code>（手机，36×4px 横条，和标题行一起组成 72px 下滑区），写清下滑关闭的距离和速度；抽屉内容区加 <code>overscroll-behavior: contain</code>；轻提示撤销按钮补深底浅色焦点框、悬停底色，触屏（含平板）点按区 44px，写清连续操作只留最新一条；禁用按钮悬停、按下不再变色，文字按钮禁用时不加底色</td><td data-l="影响哪些组件">抽屉和底部弹层、轻提示、日志块（新）、按钮禁用态；tokens.css、tokens.json、components.css</td></tr>
+<tr><td class="nw"><span class="num">v1.1</span></td><td class="n" data-l="日期">2026-10-20</td><td data-l="改了什么">手机底部标签栏改为 4 项：全景、资金流、池子、更多。新增 3 个外框组件：「更多」弹层（只列不在底栏的页面，总览置顶）、顶栏告警铃铛（未读数：无 / 1–99 / 99+）、顶栏健康状态点（正常 / 注意 / 异常，形状不同）。告警角标只数最近一个交易日未确认的告警，点「确认」才减少，15 秒刷新；健康某层未知或整体读取失败都按「注意」显示。手机默认打开池子，平板和电脑默认打开总览。</td><td data-l="影响哪些组件">手机底部标签栏、「更多」弹层、顶栏告警铃铛、顶栏健康状态点、全局顶栏（手机右侧）；system/shell.css、mockups/mock.js、spec/tpl/tpl.js</td></tr>
+<tr><td class="nw"><span class="num">v1.0</span></td><td class="n" data-l="日期">2026-10-20</td><td data-l="改了什么">补成正式手册：设计原则正反例、组件状态、交互模式、页面动效、页面模板、跨端和文案规范。新增动效变量 <code>--dur-*</code>、<code>--ease-*</code>。外框样式移入组件库 system/shell.css。手机上分段控件、标签页、提示条操作、表头排序的点按区补到 44px。组件库新增并列字段、可筛选指标、手机指标网格、两行列表项、表头排序、展开全部行、弹窗、抽屉、轻提示、行情闪烁。屏效基准移入附录</td><td data-l="影响哪些组件">新增组件见上；原有组件样式未改</td></tr>
+<tr><td class="nw"><span class="num">v0.1</span></td><td class="n" data-l="日期">2026-10-20</td><td data-l="改了什么">初版定稿：色板、字阶、间距、圆角、基础组件和屏效规则</td><td data-l="影响哪些组件">全部</td></tr>
 </tbody></table></div>
 
 <h2 id="start">做一个新页面</h2>
@@ -62,19 +64,19 @@
 <tbody>
 <tr><td class="nw"><a href="principles.html">1 设计原则</a></td><td>5 条原则，每条配「这样做 / 不要这样」实物对照</td></tr>
 <tr><td class="nw"><a href="foundations.html">2 基础</a></td><td>色彩、字体字号、间距、栅格和断点、圆角阴影、图标、屏效规则</td></tr>
-<tr><td class="nw"><a href="components.html">3 组件</a></td><td>35 个组件的用途、结构、尺寸、状态、什么时候用</td></tr>
+<tr><td class="nw"><a href="components.html">3 组件</a></td><td>37 个组件的用途、结构、尺寸、状态、什么时候用</td></tr>
 <tr><td class="nw"><a href="patterns.html">4 交互模式</a></td><td>导航、筛选搜索、表格列表、表单、弹窗抽屉、反馈、空状态、加载、错误</td></tr>
 <tr><td class="nw"><a href="motion.html">5 页面动效</a></td><td>时长和曲线变量、行情跳动、弹层进出、什么时候不用动效</td></tr>
 <tr><td class="nw"><a href="templates.html">6 页面模板</a></td><td>列表页、个股详情页、总览看板页，电脑和手机各一套</td></tr>
 <tr><td class="nw"><a href="guidelines.html">7 跨端、无障碍、文案</a></td><td>断点行为、iOS 安卓网页差异、对比度和触控、数字和时间写法</td></tr>
-<tr><td class="nw"><a href="appendix.html">附录</a></td><td>v0.1 走查记录、屏效前后对比、改版说明</td></tr>
+<tr><td class="nw"><a href="appendix.html">附录</a></td><td>屏效基准和首屏示例</td></tr>
 </tbody></table></div>
 
 <h2 id="change">新增或修改组件的流程</h2>
 <p>页面里不临时造组件。库里没有或不合适，先进库再用。</p>
 <ol class="flow" aria-label="组件变更流程">
 <li><span class="who">任何人：产品、开发、测试</span><b>提需求</b><p>发现库里没有或不合适，提给 UI 设计。写清页面、场景，附截图。</p></li>
-<li><span class="who">UI 设计</span><b>改库</b><p>先改组件库和 tokens，写更新记录：改了什么、为什么、影响哪些组件。按规则升版本号。</p></li>
+<li><span class="who">UI 设计</span><b>改库</b><p>先改组件库和 tokens，写更新记录：改了什么、影响哪些组件。按规则升版本号。</p></li>
 <li><span class="who">UI 设计</span><b>同步</b><p>按组件使用清单列出受影响页面，把 tokens 文件和变更清单发给前端开发和测试。</p></li>
 <li><span class="who">前端开发</span><b>实现</b><p>引用新的 tokens 和组件样式改页面，不在页面里覆盖组件样式。</p></li>
 <li><span class="who">UI 设计，测试配合</span><b>走查</b><p>逐页走查受影响页面，全部对上才算变更结束。</p></li>
@@ -89,7 +91,6 @@
 <tr><td>新增：加组件、加 token、加组件状态</td><td data-l="升哪一位">次版本 <span class="num">1.0 → 1.1</span></td><td data-l="例子">新增「日期选择」组件；新增 <code>--dur-slow</code></td></tr>
 <tr><td>微调：不影响用法的修正</td><td data-l="升哪一位">修订号 <span class="num">1.1.0 → 1.1.1</span></td><td data-l="例子">修正注释、修正某个状态的边框色</td></tr>
 </tbody></table></div>
-<p>组件使用清单见 <a href="../system/usage.md">usage.md</a>：每个组件用在哪些页面。同步时按它列受影响页面。</p>
 
 <nav class="pager" aria-label="翻页"><a class="next" href="principles.html"><span>下一章</span>1 设计原则</a></nav>
   </main>

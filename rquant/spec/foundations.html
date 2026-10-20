@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>基础｜rQuant 设计规范 v1.1</title>
+<title>基础｜rQuant 设计规范 v1.3</title>
 <link rel="stylesheet" href="../system/tokens.css">
 <link rel="stylesheet" href="../system/components.css">
 <link rel="stylesheet" href="spec.css">
 </head>
 <body data-page="foundations.html">
 <div class="doc">
-  <header class="mbar"><a href="index.html">rQuant 设计规范</a><span class="num">v1.1</span><button class="btn quiet" id="tocBtn" aria-expanded="false" aria-controls="toc">目录</button></header>
+  <header class="mbar"><a href="index.html">rQuant 设计规范</a><span class="num">v1.3</span><button class="btn quiet" id="tocBtn" aria-expanded="false" aria-controls="toc">目录</button></header>
   <nav class="toc" id="toc" aria-label="规范目录">
-    <div class="toc-brand"><a href="index.html">rQuant 设计规范</a><span class="num">v1.1</span></div>
+    <div class="toc-brand"><a href="index.html">rQuant 设计规范</a><span class="num">v1.3</span></div>
     <ol><li><a href="index.html"><span class="n"></span><span>概述</span></a></li><li><a href="principles.html"><span class="n">1</span><span>设计原则</span></a></li><li><a href="foundations.html" aria-current="page"><span class="n">2</span><span>基础</span></a><div class="sub"><a href="#color">色彩</a><a href="#type">字体和字号</a><a href="#space">间距</a><a href="#grid">栅格和断点</a><a href="#radius">圆角和阴影</a><a href="#icons">图标</a><a href="#density">屏效规则</a></div></li><li><a href="components.html"><span class="n">3</span><span>组件</span></a></li><li><a href="patterns.html"><span class="n">4</span><span>交互模式</span></a></li><li><a href="motion.html"><span class="n">5</span><span>页面动效</span></a></li><li><a href="templates.html"><span class="n">6</span><span>页面模板</span></a></li><li><a href="guidelines.html"><span class="n">7</span><span>跨端、无障碍、文案</span></a></li><li><a href="appendix.html"><span class="n"></span><span>附录</span></a></li></ol>
-    <div class="toc-foot"><a href="../index.html">返回资料首页</a><a href="../system/index.html">组件库（v0.1 状态页）</a><a href="../system/tokens.css">tokens.css</a><a href="../system/tokens.json">tokens.json</a><a href="../system/components.css">components.css</a></div>
+    <div class="toc-foot"><a href="../index.html">返回资料首页</a><a href="../system/index.html">组件库状态页</a><a href="../system/tokens.css">tokens.css</a><a href="../system/tokens.json">tokens.json</a><a href="../system/components.css">components.css</a></div>
   </nav>
   <main class="content" id="main">
 <p class="chap">第 2 章</p>
@@ -59,6 +59,7 @@
 
 <h2 id="type">字体和字号</h2>
 <p>中文用系统字体，不加载中文网络字体。数字统一用 IBM Plex Sans Condensed 并打开等宽数字。字阶大致按 1.2 倍递进，主数字跳到 28–32px。</p>
+<p>输入框和下拉选择的文字：电脑 14px，变量 <code>--input-font-size-desktop</code>、<code>--select-font-size-desktop</code>；手机和触屏 16px，变量 <code>--input-font-size-mobile</code>、<code>--select-font-size-mobile</code>，避免 iOS 聚焦时页面放大。</p>
 <div class="tscroll-wrap"><div class="tscroll"><table class="dt data"><thead><tr><th>token</th><th>样例（电脑）</th><th class="n">电脑 字号/行高</th><th class="n">手机</th><th class="n">字重</th><th>用途</th></tr></thead><tbody><tr><td class="nw"><code>--t-hero</code></td><td class="nw" style="font:600 32px/36px var(--font-sans); font-family:var(--font-num);font-feature-settings:var(--num-features);color:var(--c-ink)">24.86</td><td class="n">32 / 36</td><td class="n">28 / 32</td><td class="n">600</td><td>每页唯一的大数字（如个股现价）</td></tr><tr><td class="nw"><code>--t-title</code></td><td class="nw" style="font:600 20px/28px var(--font-sans);color:var(--c-ink)">市场全景</td><td class="n">20 / 28</td><td class="n">17 / 24</td><td class="n">600</td><td>页面标题（单行）</td></tr><tr><td class="nw"><code>--t-section</code></td><td class="nw" style="font:600 15px/22px var(--font-sans);color:var(--c-ink)">行业热力图</td><td class="n">15 / 22</td><td class="n">15 / 22</td><td class="n">600</td><td>面板标题</td></tr><tr><td class="nw"><code>--t-metric</code></td><td class="nw" style="font:600 18px/22px var(--font-sans); font-family:var(--font-num);font-feature-settings:var(--num-features);color:var(--c-ink)">−0.38%</td><td class="n">18 / 22</td><td class="n">18 / 22</td><td class="n">600</td><td>指标条/指标网格里的数值</td></tr><tr><td class="nw"><code>--t-body</code></td><td class="nw" style="font:400 13px/20px var(--font-sans);color:var(--c-ink)">全部 A 股每 3 秒刷新一次</td><td class="n">13 / 20</td><td class="n">14 / 21</td><td class="n">400</td><td>正文、表格</td></tr><tr><td class="nw"><code>--t-label</code></td><td class="nw" style="font:400 12px/16px var(--font-sans);color:var(--c-ink)">涨跌中位数</td><td class="n">12 / 16</td><td class="n">12 / 16</td><td class="n">400</td><td>指标名、表头、说明</td></tr><tr><td class="nw"><code>--t-caption</code></td><td class="nw" style="font:400 11px/14px var(--font-sans);color:var(--c-ink)">更新于 14:32:05</td><td class="n">11 / 14</td><td class="n">12 / 16</td><td class="n">400</td><td>时间戳、脚注；最小字号</td></tr></tbody></table></div></div><p class="tscroll-hint" aria-hidden="true">左右滑动查看全部列</p>
 <h3 id="numerals">数字等宽规则</h3>
 <div class="tscroll"><table class="dt">
@@ -109,7 +110,8 @@
 <tr><td><code>--h-row-dense</code></td><td class="n">28px</td><td>紧凑表格、指标网格（电脑）</td></tr>
 <tr><td><code>--h-row</code></td><td class="n">36px</td><td>标准表格 <code>.tbl.std</code>、列表（电脑）</td></tr>
 <tr><td><code>--h-row-touch</code></td><td class="n">44px</td><td>手机所有可点的行</td></tr>
-<tr><td><code>--h-control-pc</code> / <code>--h-control-phone</code></td><td class="n">32 / 44px</td><td>按钮、输入框</td></tr>
+<tr><td><code>--h-control-pc</code> / <code>--h-control-phone</code></td><td class="n">32 / 44px</td><td>按钮、输入框；电脑端所有可点元素的最小高度</td></tr>
+<tr><td><code>--select-h-desktop</code> / <code>--select-h-mobile</code></td><td class="n">32 / 44px</td><td>下拉选择</td></tr>
 <tr><td><code>--h-header-pc</code> / <code>--h-header-phone</code></td><td class="n">52 / 48px</td><td>全局顶栏</td></tr>
 <tr><td><code>--h-metric-strip-pc</code></td><td class="n">56px</td><td>指标条（电脑）</td></tr>
 <tr><td><code>--h-metric-cell-phone</code></td><td class="n">48px</td><td>手机指标网格每格</td></tr>
