@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>列表页模板｜rQuant 设计规范</title>
+<link rel="stylesheet" href="../../system/tokens.css">
+<link rel="stylesheet" href="../../system/components.css">
+<link rel="stylesheet" href="../../system/shell.css">
+<link rel="stylesheet" href="tpl.css">
+</head>
+<body>
+<div class="app">
+  <header class="top" data-anno="全局顶栏 .top">
+    <div class="brand"><div class="mark"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><path d="M3 2v10M7 4v6M11 2v10"/></svg></div><span>rQuant</span></div>
+    <h1>选股器</h1>
+    <span class="note num">条件 3 个　命中 128 只　更新于 14:32:05</span>
+    <span class="grow"></span>
+    <button class="btn only-pc">导出表格</button>
+    <div class="search">代码或名称，如 999001<kbd>/</kbd></div>
+    <button class="icon-btn only-phone" aria-label="搜索股票" data-icon="search"></button>
+  </header>
+  <nav class="rail" aria-label="页面导航" data-anno="左侧导航 .rail"></nav>
+  <main class="main">
+    <div class="mstrip grid-m" role="group" aria-label="按指标筛选" data-anno="指标条（可筛选）.mstrip">
+      <button class="m lead" aria-pressed="true"><span class="m-l">全部结果</span><span class="m-v">128</span></button>
+      <button class="m" aria-pressed="false"><span class="m-l">上涨</span><span class="m-v up">71</span></button>
+      <button class="m" aria-pressed="false"><span class="m-l">下跌</span><span class="m-v down">52</span></button>
+      <button class="m" aria-pressed="false"><span class="m-l">涨停</span><span class="m-v up">4</span></button>
+      <button class="m" aria-pressed="false"><span class="m-l">跌停</span><span class="m-v down">1</span></button>
+      <button class="m" aria-pressed="false"><span class="m-l">在自选里</span><span class="m-v">9</span></button>
+    </div>
+    <section class="panel fill" data-anno="面板 .panel + 表格 .tbl.std" data-main>
+      <div class="panel-h"><h2>全部结果</h2><span class="note num hide-m">按涨跌幅从高到低</span>
+        <div class="tools"><div class="seg" role="tablist"><button role="tab" aria-selected="true">涨跌幅</button><button role="tab" aria-selected="false">成交额</button><button role="tab" aria-selected="false">换手率</button></div></div></div>
+      <div class="panel-b" style="padding:0">
+        <div class="tbl-pc" style="padding:0 16px"><table class="tbl std"><thead><tr><th>名称</th><th>代码</th><th class="r">现价</th><th class="r" aria-sort="descending"><button class="sort">涨跌幅</button></th><th class="r" aria-sort="none"><button class="sort">成交额（亿）</button></th><th class="r" aria-sort="none"><button class="sort">换手率</button></th><th class="r">日内</th></tr></thead><tbody id="rows"></tbody></table></div>
+        <div class="list-m" id="list"></div>
+        <button class="more-row" data-anno="展开全部行 .more-row">展开全部（共 <span class="num">128</span> 行）</button>
+      </div>
+    </section>
+    <p class="demo-flag">模板示例：股票代码和名称为虚构，数值为示例数据。</p>
+  </main>
+  <nav class="tabbar" aria-label="主导航" data-anno="底部标签栏 .tabbar"></nav>
+</div>
+<script src="tpl.js"></script>
+<script>
+shell("screener");
+const S = stocks(20, 3);
+document.getElementById("rows").innerHTML = S.map(s => `<tr><td>${s.n}</td><td class="num muted">${s.c}</td><td class="r ${dir(s.p)}">${s.px.toFixed(2)}</td><td class="r ${dir(s.p)}">${sign(s.p)}</td><td class="r">${s.amt.toFixed(2)}</td><td class="r">${s.turn.toFixed(2)}%</td><td class="r">${spark(s.vals, s.p >= 0)}</td></tr>`).join("");
+document.getElementById("list").innerHTML = S.map((s, i) => `<a class="li2" href="#" ${i === 0 ? 'data-anno="两行列表项 .li2"' : ""}><span class="t">${s.n}<span class="code">${s.c}</span></span><span class="v ${dir(s.p)}">${sign(s.p)}</span><span class="meta"><span>现价 <b class="num ${dir(s.p)}">${s.px.toFixed(2)}</b></span><span>成交 <b class="num">${s.amt.toFixed(2)}亿</b></span><span>换手 <b class="num">${s.turn.toFixed(2)}%</b></span></span></a>`).join("");
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>rQuant 设计资料</title>
+<link rel="stylesheet" href="system/tokens.css">
+<link rel="stylesheet" href="system/components.css">
+<style>
+  body { background: var(--c-surface); }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 56px 32px 80px; }
+  h1 { font: 600 30px/38px var(--font-sans); letter-spacing: -0.01em; }
+  .lede { font: 400 16px/26px var(--font-sans); color: var(--c-ink-2); margin-top: 10px; max-width: 36em; }
+  .primary-entry { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 16px 24px; margin-top: 32px; padding: 24px; background: var(--c-ground); border-radius: var(--r-md); }
+  .primary-entry h2 { font: 600 20px/28px var(--font-sans); }
+  .primary-entry p { font: 400 14px/22px var(--font-sans); color: var(--c-ink-2); margin-top: 4px; }
+  h2.sec { font: 600 15px/22px var(--font-sans); margin-top: 40px; padding-bottom: 8px; border-bottom: 1px solid var(--c-rule); }
+  .list { display: grid; }
+  .list a { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 4px 16px; padding: 12px 0; min-height: 44px; border-bottom: 1px solid var(--c-rule); color: var(--c-ink); }
+  .list a:hover { text-decoration: none; background: var(--c-surface-2); }
+  .list a b { font: 500 14px/22px var(--font-sans); color: var(--c-accent); }
+  .list a span { font: 400 13px/22px var(--font-sans); color: var(--c-ink-2); }
+  .foot { margin-top: 40px; font: var(--t-label); color: var(--c-muted); }
+  @media (max-width: 599px) {
+    .wrap { padding: 32px 16px 64px; }
+    h1 { font-size: 24px; line-height: 32px; }
+    .primary-entry { grid-template-columns: minmax(0, 1fr); padding: 18px; }
+    .list a { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <h1>rQuant 设计资料</h1>
+  <p class="lede">A 股行情和量化看盘工具 rQuant 的设计规范、组件库和页面示例。</p>
+
+  <section class="primary-entry" aria-labelledby="e-spec">
+    <div><h2 id="e-spec">设计规范 v1.0</h2><p>设计原则、基础、组件、交互模式、页面动效、页面模板、跨端和文案。做新页面从这里开始。</p></div>
+    <a class="btn primary" href="spec/index.html">打开设计规范</a>
+  </section>
+
+  <h2 class="sec">组件库</h2>
+  <nav class="list" aria-label="组件库">
+    <a href="spec/components.html"><b>组件说明</b><span>32 个组件的用途、结构、尺寸、状态</span></a>
+    <a href="system/index.html"><b>组件状态页（v0.1）</b><span>初版规范页，保留备查</span></a>
+    <a href="system/tokens.css"><b>tokens.css</b><span>设计变量，页面直接引用</span></a>
+    <a href="system/tokens.json"><b>tokens.json</b><span>同一份变量，给构建脚本</span></a>
+    <a href="system/components.css"><b>components.css</b><span>组件样式</span></a>
+    <a href="system/shell.css"><b>shell.css</b><span>外框样式：顶栏、左侧导航、底部标签栏</span></a>
+    <a href="system/usage.md"><b>组件使用清单</b><span>每个组件用在哪些页面</span></a>
+  </nav>
+
+  <h2 class="sec">高保真示例</h2>
+  <nav class="list" aria-label="高保真示例">
+    <a href="spec/templates.html"><b>页面模板</b><span>列表页、个股详情页、总览看板页，电脑和手机</span></a>
+    <a href="mockups/overview.html"><b>总览（改版示意）</b><span>v0.1 改版示意稿</span></a>
+    <a href="mockups/panorama.html"><b>市场全景（改版示意）</b><span>v0.1 改版示意稿</span></a>
+    <a href="mockups/stock.html"><b>个股档案（改版示意）</b><span>v0.1 改版示意稿</span></a>
+  </nav>
+
+  <h2 class="sec">附录</h2>
+  <nav class="list" aria-label="附录">
+    <a href="spec/appendix.html"><b>走查和改版说明</b><span>v0.1 走查记录、屏效前后对比、改版说明、产品决定</span></a>
+    <a href="selfcheck.md"><b>v0.1 自查表</b><span>初版的自查记录</span></a>
+  </nav>
+
+  <p class="foot num">规范 v1.0，2026-10-20。</p>
+</main>
+</body>
+</html>

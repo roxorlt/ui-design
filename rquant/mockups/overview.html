@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>总览（改后示意）· rQuant 设计规范初稿</title>
+<link rel="stylesheet" href="../system/tokens.css">
+<link rel="stylesheet" href="../system/components.css">
+<link rel="stylesheet" href="shell.css">
+<style>
+  .band { display: flex; background: var(--c-surface); border-radius: var(--r-md); min-height: var(--h-metric-strip-pc); align-items: stretch; }
+  .band .mstrip { background: none; flex: none; }
+  .pipe { display: flex; align-items: center; flex: 1; min-width: 0; border-left: 1px solid var(--c-rule); padding: 0 8px 0 16px; gap: 4px; }
+  .pipe-t { font: var(--t-label); color: var(--c-muted); white-space: nowrap; margin-right: 8px; }
+  .step { color: var(--c-ink); text-decoration: none !important; display: flex; flex-direction: column; gap: 3px; min-width: 0; flex: 1; padding: 6px 8px; border-radius: var(--r-sm); position: relative; }
+  .step:hover { background: var(--c-surface-2); }
+  .step b { font: 500 13px/16px var(--font-sans); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .step .st { font-size: 12px; }
+  .step + .step::before { content: ""; position: absolute; left: -6px; top: 50%; width: 8px; height: 1px; background: var(--c-rule-strong); }
+  .g2 { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 12px; }
+  .att li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 16px; border-top: 1px solid var(--c-surface-2); }
+  .att .what { font: var(--t-body); }
+  .att .id { font: var(--t-label); color: var(--c-muted); }
+  .pipe-phone { display: none; }
+  @media (min-width: 600px) and (max-width: 1023px) { .g2 { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 599px) {
+    .band { flex-direction: column; }
+    .band .mstrip { display: grid; grid-template-columns: repeat(4, 1fr); padding: 6px 2px; min-height: 0; }
+    .band .mstrip .m { min-width: 0; padding: 4px 10px; }
+    .band .mstrip .m + .m::before { top: 10px; bottom: 10px; }
+    .pipe { display: none; }
+    .pipe-phone { display: block; border-top: 1px solid var(--c-rule); }
+    .g2 { grid-template-columns: minmax(0, 1fr); }
+    .att li { padding: 10px 14px; }
+  }
+  .pipe-phone summary { list-style: none; display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 14px; cursor: pointer; font: var(--t-body); }
+  .pipe-phone summary::-webkit-details-marker { display: none; }
+  .pipe-phone summary .chev { margin-left: auto; color: var(--c-muted); font: var(--t-label); }
+  .pipe-phone ul li { display: grid; grid-template-columns: 7.5em auto minmax(0, 1fr); gap: 8px; align-items: center; min-height: 44px; padding: 0 14px; border-top: 1px solid var(--c-surface-2); font: var(--t-body); }
+  .pipe-phone ul li .id { font: var(--t-label); color: var(--c-muted); }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand"><div class="mark"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><path d="M3 2v10M7 4v6M11 2v10"/></svg></div><span>rQuant 投研</span></div>
+    <h1>总览</h1>
+    <span class="note num">交易日 2026-10-19</span>
+    <span class="grow"></span>
+    <button class="btn only-pc">刷新</button><button class="btn quiet only-phone">刷新</button>
+    <a class="btn primary only-pc" href="#">去盯盘</a>
+    <div class="search">代码 / 名称，如 999001 或 示例科技<kbd>/</kbd></div>
+    <button class="icon-btn only-phone" aria-label="搜索股票" data-icon="search"></button>
+  </header>
+  <nav class="rail" aria-label="页面导航"></nav>
+  <main class="main">
+    <section class="band" aria-label="今日关键数字与链路">
+      <div class="mstrip">
+        <div class="m"><span class="m-l">候选股</span><span class="m-v">0</span></div>
+        <div class="m"><span class="m-l">今日告警</span><span class="m-v">0</span></div>
+        <div class="m"><span class="m-l">服务异常</span><span class="m-v" style="color:var(--c-crit)">7</span></div>
+        <div class="m"><span class="m-l">自选股</span><span class="m-v">24</span></div>
+      </div>
+      <div class="pipe" aria-label="今日链路">
+        <span class="pipe-t">今日链路</span>
+        <a class="step" href="#" title="收盘数据采集仍在运行，未按时完成"><b>数据采集</b><span class="st crit">需处理</span></a>
+        <a class="step" href="#" title="近一个月数据已核对"><b>存储与审计</b><span class="st ok">正常</span></a>
+        <a class="step" href="#" title="最新数据 0.0 小时前发布"><b>数据发布</b><span class="st ok">正常</span></a>
+        <a class="step" href="#" title="盘后选股仍在运行，未按时完成；部分告警推送延迟"><b>信号与盯盘</b><span class="st crit">需处理</span></a>
+        <a class="step" href="#" title="最新产出 2026-10-19 19:37"><b>研究产出</b><span class="st ok">正常</span></a>
+        <a class="step" href="#" title="网页正常响应"><b>网页</b><span class="st ok">正常</span></a>
+      </div>
+      <details class="pipe-phone">
+        <summary><span>今日链路</span><span class="st crit">2 个环节需处理</span><span class="st ok">4 个正常</span><span class="chev">展开</span></summary>
+        <ul>
+          <li><span>数据采集</span><span class="st crit">需处理</span><span class="id ellipsis">收盘数据采集超时未完成</span></li>
+          <li><span>信号与盯盘</span><span class="st crit">需处理</span><span class="id ellipsis">部分告警推送延迟</span></li>
+        </ul>
+      </details>
+    </section>
+
+    <div class="g2">
+      <section class="panel">
+        <div class="panel-h"><h2>最新告警</h2><div class="tools"><a class="btn quiet" href="#">全部告警</a></div></div>
+        <div class="empty"><b>今天还没有告警</b><span>盯盘规则在运行，还没有被触发。想调整触发条件，去「盯盘与告警」改规则。</span><a class="btn" href="#">去改规则</a></div>
+      </section>
+      <section class="panel">
+        <div class="panel-h"><h2>需要关注</h2><span class="note num">2 项</span></div>
+        <ul class="att">
+          <li><span class="st crit">需处理</span><span><span class="what">数据采集异常</span><br><span class="id clamp-2">收盘数据采集运行中，已超过预定完成时间</span></span><a class="btn" href="#">看健康</a></li>
+          <li><span class="st crit">需处理</span><span><span class="what">信号与盯盘异常</span><br><span class="id clamp-2">盘后选股运行中，已超过预定完成时间</span></span><a class="btn" href="#">看健康</a></li>
+        </ul>
+      </section>
+    </div>
+    <section class="panel">
+      <div class="panel-h"><h2>最新信号</h2><span class="note num">0 条</span><div class="tools"><span class="note">收盘后产出，最新在上</span></div></div>
+      <div class="empty"><b>今天还没有信号</b><span>选股信号在收盘后生成，生成后会出现在这里。</span></div>
+    </section>
+    <p class="demo-flag">示意稿：数值为虚构示例；字段名与现有页面一致。</p>
+  </main>
+  <nav class="tabbar" aria-label="主导航"></nav>
+</div>
+<script src="mock.js"></script>
+<script>shell("overview");</script>
+</body>
+</html>

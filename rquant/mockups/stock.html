@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>个股档案（套用规范示意）· rQuant 设计规范初稿</title>
+<link rel="stylesheet" href="../system/tokens.css">
+<link rel="stylesheet" href="../system/components.css">
+<link rel="stylesheet" href="shell.css">
+<style>
+  .quote { display: grid; grid-template-columns: 210px minmax(0, 1fr); background: var(--c-surface); border-radius: var(--r-md); }
+  .px { padding: 12px 16px; display: flex; flex-direction: column; justify-content: center; gap: 4px; border-right: 1px solid var(--c-rule); }
+  .px .chg { font: 600 15px/1 var(--font-num); font-feature-settings: var(--num-features); display: flex; gap: 10px; }
+  .px .asof { font: var(--t-caption); color: var(--c-muted); }
+  .qg { display: grid; grid-template-columns: 44px repeat(8, minmax(0, 1fr)); padding: 6px 4px 6px 0; align-content: center; }
+  .qg .g { font: var(--t-caption); color: var(--c-muted); display: flex; align-items: center; padding-left: 14px; height: 26px; }
+  .qg .c { display: flex; justify-content: space-between; align-items: baseline; gap: 6px; height: 26px; padding: 0 10px; font: var(--t-body); min-width: 0; }
+  .qg .c .k { font: var(--t-label); color: var(--c-muted); white-space: nowrap; }
+  .qg .c .v { font-family: var(--font-num); font-feature-settings: var(--num-features); font-weight: 500; white-space: nowrap; }
+  .kpanel { flex: 1; min-height: 420px; }
+  .kchart { position: relative; flex: 1; min-height: 0; }
+  .kchart svg { width: 100%; height: 100%; display: block; }
+  .ohlc { font: var(--t-label); color: var(--c-muted); display: flex; gap: 12px; flex-wrap: wrap; }
+  .ohlc b { font-family: var(--font-num); font-weight: 500; color: var(--c-ink); }
+  .key3 { display: none; }
+  .more { display: none; }
+  /* 平板 600–1023px：现价块放上面，全部指标改 4 列两行（v1.0 补，修 768 宽横向滚动） */
+  @media (min-width: 600px) and (max-width: 1279px) { .qg { grid-template-columns: 44px repeat(4, minmax(0, 1fr)); } .qg .g { grid-row: span 2; } }
+  @media (min-width: 600px) and (max-width: 1023px) {
+    .quote { grid-template-columns: minmax(0, 1fr); }
+    .px { border-right: 0; border-bottom: 1px solid var(--c-rule); }
+    .top .note:not(.num), .ohlc { display: none; }
+  }
+  @media (max-width: 599px) {
+    .quote { grid-template-columns: 1fr; }
+    .px { border-right: 0; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: baseline; gap: 2px 12px; padding: 10px 14px 4px; }
+    .px .asof { grid-column: 1 / -1; grid-row: 2; }
+    .px .more-inline { grid-column: 3; grid-row: 1; align-self: center; }
+    .more-inline { border: 0; background: none; color: var(--c-accent); font: var(--t-body); min-height: 44px; min-width: 44px; padding: 0 2px 0 8px; margin: -12px 0; cursor: pointer; }
+    .qg { display: none; }
+    .quote.expanded .qg { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .key3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 0 2px 2px; }
+    .key3 .c { display: flex; flex-direction: column; gap: 1px; padding: 6px 12px; min-height: 44px; }
+    .key3 .k { font: var(--t-label); color: var(--c-muted); }
+    .key3 .v { font: 500 15px/20px var(--font-num); font-feature-settings: var(--num-features); }
+    .more { display: flex; align-items: center; justify-content: center; min-height: 44px; border-top: 1px solid var(--c-surface-2); font: var(--t-body); color: var(--c-accent); background: none; border-left: 0; border-right: 0; border-bottom: 0; width: 100%; cursor: pointer; }
+    .kpanel { min-height: 0; }
+    .ohlc { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand"><div class="mark"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><path d="M3 2v10M7 4v6M11 2v10"/></svg></div><span>rQuant 投研</span></div>
+    <h1>示例科技</h1>
+    <span class="note num" style="font-size:13px;color:var(--c-ink-2)">999001.SH</span>
+    <span class="note">电子　主板　上市 2010-06-18</span>
+    <span class="grow"></span>
+    <button class="btn only-pc">加入自选</button>
+    <div class="search">代码 / 名称，如 999001 或 示例科技<kbd>/</kbd></div>
+    <button class="icon-btn only-phone" aria-label="搜索股票" data-icon="search"></button>
+  </header>
+  <nav class="rail" aria-label="页面导航"></nav>
+  <main class="main">
+    <section class="quote" id="quote" aria-label="行情">
+      <div class="px">
+        <span class="hero up">24.86</span>
+        <span class="chg up"><span>+0.32</span><span>+1.30%</span></span>
+        <span class="asof num">截至 2026-10-19 15:00 收盘</span>
+        <button class="more-inline only-phone" id="more2" aria-expanded="false" aria-controls="qg">全部 29 项</button>
+      </div>
+      <div class="key3" id="key3"></div>
+      <div class="qg" id="qg"></div>
+      
+    </section>
+    <section class="panel kpanel">
+      <div class="panel-h"><h2>K 线</h2>
+        <div class="seg" role="tablist"><button role="tab" aria-selected="true">日K</button><button role="tab" aria-selected="false">分时</button><button role="tab" aria-selected="false">5日</button></div>
+        <span class="ohlc only-pc">开 <b class="up">24.71</b> 高 <b class="up">25.36</b> 低 <b class="down">24.40</b> 收 <b class="up">24.86</b> MA5 / MA20 / MA60</span>
+        <div class="tools only-pc"><button class="btn quiet">筹码分布</button><button class="btn quiet">BOLL</button></div></div>
+      <div class="panel-b" style="display:flex"><div class="kchart" id="k"></div></div>
+    </section>
+    <p class="demo-flag">示意稿：股票代码和名称为虚构，行情数值为示例，K 线为随机生成；指标名与现有「个股档案」页一致。</p>
+  </main>
+  <nav class="tabbar" aria-label="主导航"></nav>
+</div>
+<script src="mock.js"></script>
+<script>
+shell("");
+const G = [["行情",[["今开","24.71","up"],["最高","25.36","up"],["最低","24.40","down"],["昨收","24.54",""],["涨停","26.99","up"],["跌停","22.09","down"],["振幅","2.61%",""],["量比","1.12","up"]]],
+ ["成交",[["成交量","51.6万手",""],["成交额","12.80亿",""],["换手率","2.31%",""],["换手(自由)","3.05%",""],["外盘","27.1万手","up"],["内盘","24.5万手","down"],["外/内","1.11","up"]]],
+ ["估值",[["总市值","386.2亿",""],["流通市值","206.8亿",""],["PE(TTM)","18.4",""],["PB","2.36",""],["PS(TTM)","3.10",""],["股息率","1.85%",""],["ROE","—","",true]]],
+ ["区间",[["52周高","29.80",""],["52周低","19.62",""],["5日","+1.62%","up"],["20日","+4.18%","up"],["60日","+7.05%","up"],["250日","−3.26%","down"],["年初至今","+2.44%","up"]]]];
+const cell = ([k, v, t, na]) => `<div class="c"><span class="k">${k}</span><span class="v ${t}" ${na ? 'title="暂无数据：数据源未提供该指标"' : ""}>${v}</span></div>`;
+document.getElementById("qg").innerHTML = G.map(([g, cs]) => `<div class="g">${g}</div>` + cs.map(cell).join("") + (cs.length < 8 ? "<div></div>".repeat(8 - cs.length) : "")).join("");
+const all = Object.fromEntries(G.flatMap(g => g[1]).map(c => [c[0], c]));
+document.getElementById("key3").innerHTML = ["今开","最高","最低","成交额","换手率","总市值"].map(k => cell(all[k])).join("");
+document.getElementById("more2").onclick = (e) => { const q = document.getElementById("quote"); const on = q.classList.toggle("expanded"); e.target.setAttribute("aria-expanded", on); e.target.textContent = on ? "收起" : "全部 29 项"; drawK(); };
+function drawK() {
+  const el = document.getElementById("k"); const mob = matchMedia("(max-width: 599px)").matches;
+  if (mob) el.style.height = Math.max(260, innerHeight - el.getBoundingClientRect().top - 56 - 40) + "px"; else el.style.height = "";
+  const W = el.clientWidth, H = el.clientHeight || 420; const n = mob ? 60 : 120; const r = prng(5);
+  let c = 24; const bars = []; for (let i = 0; i < n; i++) { const o = c; c = Math.max(18, Math.min(30, c + (r() - 0.48) * 0.8)); const hi = Math.max(o, c) + r() * 0.35, lo = Math.min(o, c) - r() * 0.35; bars.push([o, hi, lo, c, 20 + r() * 60]); }
+  bars[n - 2][3] = 24.54; bars[n - 2][1] = Math.max(bars[n - 2][1], 24.6); bars[n - 1] = [24.71, 25.36, 24.40, 24.86, 40];
+  const lo = Math.min(...bars.map(b => b[2])) - 0.3, hi = Math.max(...bars.map(b => b[1])) + 0.3; const pw = W - 52, ph = H * 0.78, vh = H * 0.16; const bw = pw / n;
+  const y = v => 8 + (hi - v) / (hi - lo) * (ph - 8);
+  const ma = (k) => bars.map((b, i) => i < k - 1 ? null : bars.slice(i - k + 1, i + 1).reduce((a, x) => a + x[3], 0) / k);
+  const mline = (arr, col) => `<path d="${arr.map((v, i) => v == null ? "" : `${arr[i - 1] == null ? "M" : "L"}${(i + 0.5) * bw},${y(v)}`).join("")}" fill="none" stroke="${col}" stroke-width="1"/>`;
+  let s = "";
+  for (let t = 0; t <= 4; t++) { const v = lo + (hi - lo) * t / 4; s += `<line x1="0" x2="${pw}" y1="${y(v)}" y2="${y(v)}" stroke="var(--c-rule)"/><text x="${pw + 6}" y="${y(v) + 4}" style="font:11px var(--font-num);fill:var(--c-muted)">${v.toFixed(2)}</text>`; }
+  bars.forEach((b, i) => { const up = b[3] >= b[0]; const col = up ? "var(--c-up)" : "var(--c-down)"; const x = i * bw;
+    s += `<line x1="${x + bw / 2}" x2="${x + bw / 2}" y1="${y(b[1])}" y2="${y(b[2])}" stroke="${col}"/><rect x="${x + bw * 0.15}" y="${y(Math.max(b[0], b[3]))}" width="${bw * 0.7}" height="${Math.max(1, Math.abs(y(b[0]) - y(b[3])))}" fill="${up ? "var(--c-surface)" : col}" stroke="${col}"/>`;
+    s += `<rect x="${x + bw * 0.15}" y="${H - b[4] / 80 * vh}" width="${bw * 0.7}" height="${b[4] / 80 * vh}" fill="${col}" opacity="0.45"/>`; });
+  s += mline(ma(5), "var(--c-ink-2)") + mline(ma(20), "var(--c-accent)") + mline(ma(60), "#B26A00");
+  el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="日K线示例">${s}</svg>`;
+}
+drawK(); addEventListener("resize", drawK);
+</script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>交互模式｜rQuant 设计规范 v1.0</title>
+<link rel="stylesheet" href="../system/tokens.css">
+<link rel="stylesheet" href="../system/components.css">
+<link rel="stylesheet" href="spec.css">
+</head>
+<body data-page="patterns.html">
+<div class="doc">
+  <header class="mbar"><a href="index.html">rQuant 设计规范</a><span class="num">v1.0</span><button class="btn quiet" id="tocBtn" aria-expanded="false" aria-controls="toc">目录</button></header>
+  <nav class="toc" id="toc" aria-label="规范目录">
+    <div class="toc-brand"><a href="index.html">rQuant 设计规范</a><span class="num">v1.0</span></div>
+    <ol><li><a href="index.html"><span class="n"></span><span>概述</span></a></li><li><a href="principles.html"><span class="n">1</span><span>设计原则</span></a></li><li><a href="foundations.html"><span class="n">2</span><span>基础</span></a></li><li><a href="components.html"><span class="n">3</span><span>组件</span></a></li><li><a href="patterns.html" aria-current="page"><span class="n">4</span><span>交互模式</span></a><div class="sub"><a href="#nav">导航</a><a href="#filter">筛选和搜索</a><a href="#table">表格和列表</a><a href="#form">表单和校验</a><a href="#overlay">弹窗和抽屉</a><a href="#feedback">反馈提示</a><a href="#empty">空状态</a><a href="#loading">加载</a><a href="#error">错误和特殊时段</a><a href="#decisions">已定的产品规则</a></div></li><li><a href="motion.html"><span class="n">5</span><span>页面动效</span></a></li><li><a href="templates.html"><span class="n">6</span><span>页面模板</span></a></li><li><a href="guidelines.html"><span class="n">7</span><span>跨端、无障碍、文案</span></a></li><li><a href="appendix.html"><span class="n"></span><span>附录</span></a></li></ol>
+    <div class="toc-foot"><a href="../index.html">返回资料首页</a><a href="../system/index.html">组件库（v0.1 状态页）</a><a href="../system/tokens.css">tokens.css</a><a href="../system/tokens.json">tokens.json</a><a href="../system/components.css">components.css</a></div>
+  </nav>
+  <main class="content" id="main">
+<p class="chap">第 4 章</p>
+<h1>交互模式</h1>
+<p class="lede">组件怎么组合成一次完整的操作。下面的示例可以直接点。</p>
+
+<h2 id="nav">导航</h2>
+<div class="tscroll"><table class="dt">
+<thead><tr><th>层级</th><th>电脑</th><th>手机</th><th>规则</th></tr></thead>
+<tbody>
+<tr><td>全站</td><td>左侧导航 212px</td><td>底部标签栏 5 项</td><td>当前页高亮；手机第 5 项「更多」放其余页面</td></tr>
+<tr><td>页面标题</td><td>顶栏里</td><td>顶栏里</td><td>不另起标题区；二级页（个股）顶栏左侧加返回</td></tr>
+<tr><td>页内分区</td><td>标签页 <code>.tabs</code></td><td>标签页，放不下横滑</td><td>超过 3 屏的页面必须分区；切换后滚到顶部</td></tr>
+<tr><td>同块视图</td><td>分段控件 <code>.seg</code></td><td>同左</td><td>放面板标题行；切换不改变页面滚动位置</td></tr>
+<tr><td>进详情</td><td>整行可点进个股页；看全部字段用抽屉</td><td>整行可点；全部字段用底部弹层</td><td>新窗口打开用电脑的系统习惯（Ctrl/⌘ + 点击），不另放按钮</td></tr>
+</tbody></table></div>
+<p>浏览器返回键要能回到上一个状态：切换标签页、打开个股都写进地址栏。筛选条件也写进地址栏，分享链接能看到同样的结果。</p>
+
+<h2 id="filter">筛选和搜索</h2>
+<h3>指标兼作筛选</h3>
+<p>能代表一组股票的指标（涨停、跌停、炸板）做成可点的。点一下，下面的表只看这组；再点取消。选中的指标用主色浅底，表头说明写出当前筛选。</p>
+<div class="demo" data-demo="mfilter">
+  <div class="mstrip" role="group" aria-label="按指标筛选">
+    <button class="m" aria-pressed="false" data-f="up"><span class="m-l">上涨</span><span class="m-v up">4</span></button>
+    <button class="m" aria-pressed="false" data-f="down"><span class="m-l">下跌</span><span class="m-v down">3</span></button>
+    <button class="m" aria-pressed="false" data-f="limit"><span class="m-l">涨停</span><span class="m-v up">1</span></button>
+  </div>
+  <section class="panel"><div class="panel-h"><h2>示例股票</h2><span class="note" data-out>全部 7 只</span></div>
+  <div class="panel-b"><table class="tbl std"><thead><tr><th>名称</th><th class="r">涨跌幅</th></tr></thead><tbody data-rows></tbody></table></div></section>
+</div>
+<h3>搜索</h3>
+<div class="tscroll"><table class="dt">
+<thead><tr><th>情况</th><th>表现</th></tr></thead>
+<tbody>
+<tr><td>打开</td><td>电脑按「/」聚焦顶栏搜索框；手机点搜索图标进全屏搜索，键盘自动弹出</td></tr>
+<tr><td>输入</td><td>代码、名称、拼音首字母都能搜。输入 1 个字符后开始出结果，停顿 150ms 再请求</td></tr>
+<tr><td>结果</td><td>最多 8 条，每条：名称、代码、现价、涨跌幅；键盘上下选，回车进个股页</td></tr>
+<tr><td>无结果</td><td>「没有找到 999999。代码是 6 位数字，或换个名称试试。」</td></tr>
+<tr><td>表格内筛选</td><td>表格上方输入框，边输边筛，不需要按回车；表头说明写「命中 12 / 146 行」</td></tr>
+</tbody></table></div>
+
+<h2 id="table">表格和列表</h2>
+<h3>排序</h3>
+<p>点表头排序。第一次点降序（大的在上），再点升序。默认排序写在表头说明里。下面的表可以点「涨跌幅」和「成交额」。</p>
+<div class="demo" data-demo="sort">
+  <section class="panel"><div class="panel-h"><h2>示例股票</h2><span class="note" data-out>按涨跌幅从高到低</span></div>
+  <div class="panel-b"><table class="tbl std"><thead><tr><th>名称</th><th class="r" aria-sort="descending"><button class="sort" data-k="p">涨跌幅</button></th><th class="r" aria-sort="none"><button class="sort" data-k="a">成交额（亿）</button></th></tr></thead><tbody data-rows></tbody></table></div></section>
+</div>
+<h3>展开全部</h3>
+<p>超过 25 行的表默认只显示 20 行，表尾放「展开全部（共 N 行）」。不分页：展开后浏览器自带的页内搜索能找到全部内容。展开后表尾变成「收起，只看前 20 行」。</p>
+<div class="demo" data-demo="more">
+  <section class="panel"><div class="panel-h"><h2>宏观事件明细</h2><span class="note num" data-out>共 46 行，显示 20 行</span></div>
+  <div class="panel-b" style="padding:0"><div style="padding:0 16px"><table class="tbl"><thead><tr><th>日期</th><th>事件</th><th class="r">次日涨跌中位</th></tr></thead><tbody data-rows></tbody></table></div><button class="more-row" data-btn>展开全部（共 <span class="num">46</span> 行）</button></div></section>
+</div>
+<h3>手机上的列表</h3>
+<p>手机不用宽表，改成两行列表项。首屏至少露出 5 项。排序放在面板标题行的「排序」按钮里，点开是底部弹层。</p>
+
+<h2 id="form">表单和校验</h2>
+<div class="tscroll"><table class="dt">
+<thead><tr><th>时机</th><th>做什么</th></tr></thead>
+<tbody>
+<tr><td>输入中</td><td>不报错。格式限制直接拦住（代码框只能输数字）</td></tr>
+<tr><td>离开输入框</td><td>校验这一项，错误写在框下方，框变红边</td></tr>
+<tr><td>点保存</td><td>校验全部；焦点移到第一个错误项；按钮进加载态</td></tr>
+<tr><td>保存成功</td><td>轻提示「已保存方案」；不跳页</td></tr>
+<tr><td>保存失败</td><td>按钮恢复，下方一行失败原因；已填内容保留</td></tr>
+</tbody></table></div>
+<p>错误文案写成「怎么改」：「代码是 6 位数字，例如 999001」，不写「格式错误」。</p>
+<div class="demo" data-demo="form" style="max-width:460px">
+  <form class="panel" style="padding:16px;display:grid;gap:12px" novalidate>
+    <div class="field"><label for="f-code">股票代码</label><input class="input" id="f-code" inputmode="numeric" maxlength="6" placeholder="如 999001" aria-describedby="f-code-e"><span class="err" id="f-code-e" hidden>代码是 6 位数字，例如 999001</span></div>
+    <div class="field"><label for="f-name">规则名称</label><input class="input" id="f-name" placeholder="如 放量突破" aria-describedby="f-name-e"><span class="err" id="f-name-e" hidden>写一个名称，最多 20 个字</span></div>
+    <div style="display:flex;gap:8px"><button class="btn primary" type="submit">保存规则</button><button class="btn" type="reset">清空</button></div>
+  </form>
+</div>
+
+<h2 id="overlay">弹窗和抽屉</h2>
+<div class="tscroll"><table class="dt">
+<thead><tr><th>要做的事</th><th>用什么</th><th>电脑</th><th>手机</th></tr></thead>
+<tbody>
+<tr><td>确认不可撤销的操作</td><td>弹窗</td><td>居中 420px</td><td>居中，按钮竖排</td></tr>
+<tr><td>看一行的全部字段</td><td>抽屉</td><td>右侧 400px</td><td>底部弹层</td></tr>
+<tr><td>编辑规则、填条件</td><td>抽屉</td><td>右侧 400px</td><td>底部弹层，最高 85%</td></tr>
+<tr><td>一次操作的结果</td><td>轻提示</td><td>底部居中</td><td>底栏上方</td></tr>
+</tbody></table></div>
+<ul class="dash">
+<li>打开后焦点进入浮层，Tab 只在浮层内循环；关闭后焦点回到触发它的按钮。</li>
+<li>Esc 关闭。安卓返回键、iOS 左滑返回先关浮层，不离开页面。</li>
+<li>浮层打开时背景不滚动。</li>
+<li>浮层里不再开浮层。</li>
+</ul>
+<div class="demo row" data-demo="overlay">
+  <button class="btn" data-open="dialog">删除方案</button>
+  <button class="btn" data-open="drawer">看示例科技详情</button>
+  <button class="btn" data-open="toast">加入自选</button>
+</div>
+
+<h2 id="feedback">反馈提示</h2>
+<div class="tscroll"><table class="dt">
+<thead><tr><th>结果</th><th>用什么</th><th>停留</th><th>例子</th></tr></thead>
+<tbody>
+<tr><td>操作成功</td><td>轻提示 <code>.toast</code></td><td>4 秒，可撤销的 6 秒</td><td>已加入自选　撤销</td></tr>
+<tr><td>操作失败</td><td>按钮旁或字段下的一行字</td><td>直到下次操作</td><td>没保存上：网络断开，内容已保留</td></tr>
+<tr><td>一块内容的状态</td><td>提示条 <code>.notice</code></td><td>直到状态解除</td><td>行情 14:32:05 后没有更新</td></tr>
+<tr><td>需要你处理</td><td>琥珀提示条 <code>.notice.warn</code> 或 <code>.st.warn</code></td><td>直到处理</td><td>2 条盯盘规则引用的方案已删除</td></tr>
+<tr><td>系统状态</td><td>状态点 <code>.st</code></td><td>常驻</td><td>数据采集　需处理</td></tr>
+</tbody></table></div>
+<p>按钮叫什么，结果就叫什么：「加入自选」→「已加入自选」，「保存方案」→「已保存方案」。</p>
+
+<h2 id="empty">空状态</h2>
+<div class="tscroll"><table class="dt">
+<thead><tr><th>为什么空</th><th>标题</th><th>说明和操作</th></tr></thead>
+<tbody>
+<tr><td>还没开始用</td><td>还没有自选股</td><td>搜索股票，点「加入自选」。按钮：搜索股票</td></tr>
+<tr><td>今天还没发生</td><td>今天还没有告警</td><td>规则在运行，还没被触发。按钮：去改规则</td></tr>
+<tr><td>筛选后没有</td><td>没有符合条件的股票</td><td>当前 4 个条件。按钮：清除筛选</td></tr>
+<tr><td>还没到时间</td><td>收盘后生成</td><td>选股信号每天 15:30 后出现。不放按钮</td></tr>
+</tbody></table></div>
+<p>空表不画表头。不画插图，不只写「暂无数据」。</p>
+
+<h2 id="loading">加载</h2>
+<div class="tscroll"><table class="dt">
+<thead><tr><th>情况</th><th>表现</th></tr></thead>
+<tbody>
+<tr><td>首次打开</td><td>请求超过 300ms 才显示骨架；骨架尺寸同真实内容；页面外框（顶栏、导航）不等数据先出来</td></tr>
+<tr><td>切换筛选、排序</td><td>表格保留旧行，降低不透明度到 60%，顶部 2px 进度条；新数据到了直接替换</td></tr>
+<tr><td>点按钮触发</td><td>按钮进加载态 <code>aria-busy</code>，不可重复点</td></tr>
+<tr><td>行情刷新（盘中每 3 秒）</td><td>不清空、不显示骨架，原地换数；变化的数字按<a href="motion.html#quote">行情跳动</a>规则闪一下；顶栏「更新于 14:32:05」跟着变</td></tr>
+<tr><td>手动刷新</td><td>「刷新」按钮进加载态；完成后时间更新，不弹提示</td></tr>
+</tbody></table></div>
+<div class="demo">
+  <div class="mstrip"><div class="m"><span class="m-l">上证指数</span><span class="m-v skel">0000.00</span></div><div class="m"><span class="m-l">深证成指</span><span class="m-v skel">00000.00</span></div><div class="m"><span class="m-l">成交额</span><span class="m-v skel">0.00万亿</span></div></div>
+</div>
+
+<h2 id="error">错误和特殊时段</h2>
+<div class="tscroll"><table class="dt">
+<thead><tr><th>情况</th><th>算不算错</th><th>表现</th><th>文案</th></tr></thead>
+<tbody>
+<tr><td>行情来源中断（有旧数据）</td><td>算</td><td>保留旧值，数字改说明色；顶部红色提示条；自动重试</td><td>读不到行情：行情来源没有响应。页面显示 14:32:05 的数据，30 秒后自动重试。　现在重试</td></tr>
+<tr><td>行情延迟（超过 1 分钟没更新）</td><td>需要注意</td><td>时间改琥珀 <code>.st.warn</code></td><td>14:32:05　已 3 分钟没更新</td></tr>
+<tr><td>整块读取失败（没有旧数据）</td><td>算</td><td>错误状态 <code>.error</code></td><td>读不到行业数据：请求超时。　重试</td></tr>
+<tr><td>网络断开</td><td>算</td><td>顶栏下方一条提示条，恢复后自动消失</td><td>网络已断开，恢复后自动刷新</td></tr>
+<tr><td>午间休市 11:30–13:00</td><td>不算</td><td>中性，顶栏状态改「午间休市」，数字保持上午收盘值、不标灰</td><td>午间休市，13:00 继续</td></tr>
+<tr><td>收盘后、周末、节假日</td><td>不算</td><td>中性，顶栏写「已收盘」或「休市」，显示最近交易日数据</td><td>休市中，显示 10-16 收盘数据</td></tr>
+<tr><td>个股停牌</td><td>不算</td><td>现价显示停牌前收盘价，旁边一行说明色文字</td><td>停牌中，显示 10-16 收盘价</td></tr>
+<tr><td>单项没有数据</td><td>不算</td><td>「—」说明色，悬停说原因</td><td>数据源暂未提供该指标</td></tr>
+</tbody></table></div>
+<div class="demo">
+  <div class="notice crit">读不到行情：行情来源没有响应。页面显示 14:32:05 的数据，30 秒后自动重试。<a class="act" href="#error">现在重试</a></div>
+  <div class="mstrip" style="opacity:1"><div class="m"><span class="m-l">上证指数</span><span class="m-v muted">3,312.45</span></div><div class="m"><span class="m-l">涨跌幅</span><span class="m-v muted">−0.38%</span></div><div class="m"><span class="m-l">数据时间</span><span class="m-v"><span class="st crit">14:32:05 中断</span></span></div></div>
+  <div class="notice">休市中，显示 10-16 收盘数据。下一个交易日 10-19 09:15 开始集合竞价。</div>
+</div>
+
+<h2 id="decisions">已定的产品规则</h2>
+<div class="tscroll"><table class="dt">
+<thead><tr><th>场景</th><th>规则</th></tr></thead>
+<tbody>
+<tr><td>大数精确值</td><td>显示「1.45 万亿」；电脑鼠标悬停、手机点按显示原值「14,487.92 亿」（<a href="components.html#c-tip">专业词解释和精确值</a>）</td></tr>
+<tr><td>个股页手机首屏</td><td>6 项：今开、最高、最低、成交额、换手率、总市值。其余收进「全部 29 项」，点开两列展开</td></tr>
+<tr><td>宏观明细表</td><td>默认 20 行，表尾「展开全部（共 N 行）」，不分页</td></tr>
+<tr><td>总览下半屏</td><td>放「市场速览」：涨跌分布条，加上涨占比、涨跌中位数、成交额 3 个数；整块点进市场全景；不和总览顶部的数字重复</td></tr>
+</tbody></table></div>
+
+<nav class="pager" aria-label="翻页"><a class="prev" href="components.html"><span>上一章</span>3 组件</a><a class="next" href="motion.html"><span>下一章</span>5 页面动效</a></nav>
+  </main>
+</div>
+<script src="spec.js"></script>
+</body>
+</html>

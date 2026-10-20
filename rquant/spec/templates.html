@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>页面模板｜rQuant 设计规范 v1.0</title>
+<link rel="stylesheet" href="../system/tokens.css">
+<link rel="stylesheet" href="../system/components.css">
+<link rel="stylesheet" href="spec.css">
+</head>
+<body data-page="templates.html">
+<div class="doc">
+  <header class="mbar"><a href="index.html">rQuant 设计规范</a><span class="num">v1.0</span><button class="btn quiet" id="tocBtn" aria-expanded="false" aria-controls="toc">目录</button></header>
+  <nav class="toc" id="toc" aria-label="规范目录">
+    <div class="toc-brand"><a href="index.html">rQuant 设计规范</a><span class="num">v1.0</span></div>
+    <ol><li><a href="index.html"><span class="n"></span><span>概述</span></a></li><li><a href="principles.html"><span class="n">1</span><span>设计原则</span></a></li><li><a href="foundations.html"><span class="n">2</span><span>基础</span></a></li><li><a href="components.html"><span class="n">3</span><span>组件</span></a></li><li><a href="patterns.html"><span class="n">4</span><span>交互模式</span></a></li><li><a href="motion.html"><span class="n">5</span><span>页面动效</span></a></li><li><a href="templates.html" aria-current="page"><span class="n">6</span><span>页面模板</span></a><div class="sub"><a href="#list">列表页</a><a href="#detail">详情页（个股）</a><a href="#board">看板页（总览）</a><a href="#rules">套模板时的规则</a></div></li><li><a href="guidelines.html"><span class="n">7</span><span>跨端、无障碍、文案</span></a></li><li><a href="appendix.html"><span class="n"></span><span>附录</span></a></li></ol>
+    <div class="toc-foot"><a href="../index.html">返回资料首页</a><a href="../system/index.html">组件库（v0.1 状态页）</a><a href="../system/tokens.css">tokens.css</a><a href="../system/tokens.json">tokens.json</a><a href="../system/components.css">components.css</a></div>
+  </nav>
+  <main class="content" id="main">
+<p class="chap">第 6 章</p>
+<h1>页面模板</h1>
+<p class="lede">三类页面的标准搭法，全部用组件库拼成。新页面先找最像的模板，再换内容。框里是真实页面按比例缩小，虚线框标出组件名和实测尺寸；黑框是主内容，写了首屏可见高度和占比。</p>
+<div class="demo-bar" style="margin-top:16px"><label class="btn" style="gap:8px"><input type="checkbox" id="annoToggle" checked> 显示标注</label><span class="note">电脑按 1440×900、手机按 390×844 渲染</span></div>
+
+<h2 id="list">列表页</h2>
+<p>用于选股器结果、数据查询结果、行业成分股。一条可筛选指标，下面一张表；「在自选里」是页面内的筛选，不是导航项。</p>
+<div class="tpl">
+  <div><div class="shot" data-src="tpl/list.html?anno=1" data-w="1440" data-h="900" data-cw="1440" data-ch="900" role="img" aria-label="列表页电脑模板"></div>
+  <div class="tpl-links"><a class="btn quiet" href="tpl/list.html">打开电脑版</a><a class="btn quiet" href="tpl/list.html?anno=1">打开带标注版</a></div></div>
+  <div class="tscroll" style="margin-top:0"><table class="dt"><thead><tr><th>区块</th><th class="n">电脑</th></tr></thead><tbody>
+  <tr><td>顶栏 <code>.top</code></td><td class="n">52px</td></tr>
+  <tr><td>可筛选指标条 <code>button.m</code></td><td class="n">56px</td></tr>
+  <tr><td>表格 <code>.tbl.std</code></td><td class="n">行高 36px，首屏 19 行</td></tr>
+  <tr><td>展开全部 <code>.more-row</code></td><td class="n">40px</td></tr>
+  <tr><td>主内容占比</td><td class="n">≥ 85%</td></tr>
+  </tbody></table></div>
+</div>
+<div class="tpl tpl-m">
+  <div><div class="shot" data-src="tpl/list.html?anno=1" data-w="390" data-h="844" data-cw="390" data-ch="844" data-max="300" role="img" aria-label="列表页手机模板"></div></div>
+  <div class="tscroll" style="margin-top:0"><table class="dt"><thead><tr><th>区块</th><th class="n">手机</th></tr></thead><tbody>
+  <tr><td>顶栏</td><td class="n">48px</td></tr>
+  <tr><td>指标 3 列网格 <code>.mstrip.grid-m</code></td><td class="n">104px（上限 136）</td></tr>
+  <tr><td>两行列表项 <code>.li2</code></td><td class="n">56px 一项，首屏 ≥ 10 项</td></tr>
+  <tr><td>底部标签栏</td><td class="n">56px + 安全区</td></tr>
+  </tbody></table>
+  <ul class="dash"><li>宽表换成两行列表项；排序用分段控件。</li><li>指标格每格 ≥ 44px，点按即筛选。</li></ul></div>
+</div>
+
+<h2 id="detail">详情页（个股）</h2>
+<p>一只股票的全部信息。主数字是现价；29 项指标在电脑上和现价并排，手机上只放 6 项。</p>
+<div class="tpl">
+  <div><div class="shot" data-src="tpl/stock.html?anno=1" data-w="1440" data-h="900" data-cw="1440" data-ch="900" role="img" aria-label="个股详情页电脑模板"></div>
+  <div class="tpl-links"><a class="btn quiet" href="tpl/stock.html">打开电脑版</a><a class="btn quiet" href="tpl/stock.html?anno=1">打开带标注版</a></div></div>
+  <div class="tscroll" style="margin-top:0"><table class="dt"><thead><tr><th>区块</th><th class="n">电脑</th></tr></thead><tbody>
+  <tr><td>顶栏：名称、代码、<code>.meta</code></td><td class="n">52px</td></tr>
+  <tr><td>行情区：<code>.hero</code> + 29 项网格</td><td class="n">116px（4 行 × 26px）</td></tr>
+  <tr><td>K 线面板 <code>.panel</code> + <code>.seg</code></td><td class="n">吃满剩余高度</td></tr>
+  <tr><td>区间涨跌行</td><td class="n">50px</td></tr>
+  <tr><td>主内容占比</td><td class="n">≥ 75%</td></tr>
+  </tbody></table></div>
+</div>
+<div class="tpl tpl-m">
+  <div><div class="shot" data-src="tpl/stock.html?anno=1" data-w="390" data-h="844" data-cw="390" data-ch="844" data-max="300" role="img" aria-label="个股详情页手机模板"></div></div>
+  <div class="tscroll" style="margin-top:0"><table class="dt"><thead><tr><th>区块</th><th class="n">手机</th></tr></thead><tbody>
+  <tr><td>现价行 + 「全部 29 项」</td><td class="n">约 60px</td></tr>
+  <tr><td>6 项关键指标（3 × 2）</td><td class="n">约 104px</td></tr>
+  <tr><td>K 线面板</td><td class="n">首屏露出 ≥ 50%</td></tr>
+  </tbody></table>
+  <ul class="dash"><li>6 项固定：今开、最高、最低、成交额、换手率、总市值。</li><li>点「全部 29 项」两列展开，按钮变「收起」。</li><li>「加入自选」在手机上放进「更多」菜单。</li></ul></div>
+</div>
+
+<h2 id="board">看板页（总览）</h2>
+<p>打开应用的第一页。上面一条关键数字，中间是需要你看的告警和待处理事项，下面是「市场速览」，整块点进市场全景。</p>
+<div class="tpl">
+  <div><div class="shot" data-src="tpl/board.html?anno=1" data-w="1440" data-h="900" data-cw="1440" data-ch="900" role="img" aria-label="总览看板页电脑模板"></div>
+  <div class="tpl-links"><a class="btn quiet" href="tpl/board.html">打开电脑版</a><a class="btn quiet" href="tpl/board.html?anno=1">打开带标注版</a></div></div>
+  <div class="tscroll" style="margin-top:0"><table class="dt"><thead><tr><th>区块</th><th class="n">电脑</th></tr></thead><tbody>
+  <tr><td>指标条（首项上证指数为主数字）</td><td class="n">60px</td></tr>
+  <tr><td>最新告警 + 需要关注（7 : 5）</td><td class="n">按内容</td></tr>
+  <tr><td>市场速览 <code>.breadth</code> + 3 个数</td><td class="n">56px</td></tr>
+  <tr><td>最新信号（空状态）</td><td class="n">按内容</td></tr>
+  <tr><td>主内容占比</td><td class="n">≥ 80%</td></tr>
+  </tbody></table></div>
+</div>
+<div class="tpl tpl-m">
+  <div><div class="shot" data-src="tpl/board.html?anno=1" data-w="390" data-h="844" data-cw="390" data-ch="844" data-max="300" role="img" aria-label="总览看板页手机模板"></div></div>
+  <div class="tscroll" style="margin-top:0"><table class="dt"><thead><tr><th>区块</th><th class="n">手机</th></tr></thead><tbody>
+  <tr><td>指标 3 列网格</td><td class="n">104px</td></tr>
+  <tr><td>面板单列，间距 8px</td><td class="n">—</td></tr>
+  <tr><td>告警改两行列表项</td><td class="n">56px 一项</td></tr>
+  </tbody></table>
+  <ul class="dash"><li>「需处理」用琥珀状态点，点进对应页面处理。</li><li>市场速览的分布条占一整行，3 个数在下面。</li></ul></div>
+</div>
+
+<h2 id="rules">套模板时的规则</h2>
+<div class="tscroll"><table class="dt">
+<thead><tr><th>规则</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>先定主数字</td><td>每页一个；列表页可以是总数，详情页是现价，看板页是最能代表今天的数</td></tr>
+<tr><td>区块顺序不变</td><td>顶栏 → 指标区 → 主内容 → 次要内容；手机同顺序单列</td></tr>
+<tr><td>页面级 CSS 只管位置</td><td>栅格、区块宽高比；颜色、字号、间距全用组件和 token</td></tr>
+<tr><td>首屏自查</td><td>按<a href="foundations.html#density">屏效规则</a>在 1440×900、390×844 各量一次</td></tr>
+</tbody></table></div>
+
+<nav class="pager" aria-label="翻页"><a class="prev" href="motion.html"><span>上一章</span>5 页面动效</a><a class="next" href="guidelines.html"><span>下一章</span>7 跨端、无障碍、文案</a></nav>
+  </main>
+</div>
+<script src="spec.js"></script>
+</body>
+</html>

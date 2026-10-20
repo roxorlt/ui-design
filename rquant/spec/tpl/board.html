@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>看板页模板（总览）｜rQuant 设计规范</title>
+<link rel="stylesheet" href="../../system/tokens.css">
+<link rel="stylesheet" href="../../system/components.css">
+<link rel="stylesheet" href="../../system/shell.css">
+<link rel="stylesheet" href="tpl.css">
+</head>
+<body>
+<div class="app">
+  <header class="top" data-anno="全局顶栏 .top">
+    <div class="brand"><div class="mark"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><path d="M3 2v10M7 4v6M11 2v10"/></svg></div><span>rQuant</span></div>
+    <h1>总览</h1>
+    <span class="note num">交易中　更新于 14:32:05</span>
+    <span class="grow"></span>
+    <button class="btn only-pc">刷新</button>
+    <a class="btn primary only-pc" href="#">去盯盘</a>
+    <div class="search">代码或名称，如 999001<kbd>/</kbd></div>
+    <button class="icon-btn only-phone" aria-label="搜索股票" data-icon="search"></button>
+  </header>
+  <nav class="rail" aria-label="页面导航" data-anno="左侧导航 .rail"></nav>
+  <main class="main">
+    <div class="mstrip grid-m" data-anno="指标条 .mstrip（首项为主数字）">
+      <div class="m lead"><span class="m-l">上证指数</span><span class="m-v down">3,312.45<span class="d down">−0.38%</span></span></div>
+      <div class="m"><span class="m-l">深证成指</span><span class="m-v up">10,481.11</span></div>
+      <div class="m"><span class="m-l">创业板指</span><span class="m-v up">2,166.38</span></div>
+      <button class="m" aria-pressed="false"><span class="m-l">候选股</span><span class="m-v">12</span></button>
+      <button class="m" aria-pressed="false"><span class="m-l">今日告警</span><span class="m-v">3</span></button>
+      <button class="m" aria-pressed="false"><span class="m-l">需处理</span><span class="m-v"><span class="st warn">2 项</span></span></button>
+    </div>
+    <div data-main data-anno="主内容：面板 .panel × 4" style="display:flex;flex-direction:column;gap:inherit;flex:1">
+    <div class="g2">
+      <section class="panel">
+        <div class="panel-h"><h2>最新告警</h2><span class="note num">3 条</span><div class="tools"><a class="btn quiet" href="#">全部告警</a></div></div>
+        <div class="tbl-pc" style="padding:0 16px 8px"><table class="tbl std"><thead><tr><th>时间</th><th>股票</th><th>规则</th><th class="r">触发价</th><th class="r">涨跌幅</th></tr></thead><tbody>
+          <tr><td class="num">14:28:41</td><td>示例科技 <span class="muted num">999001</span></td><td>放量突破 20 日高点</td><td class="r up">24.80</td><td class="r up">+1.06%</td></tr>
+          <tr><td class="num">13:52:10</td><td>样本材料 <span class="muted num">999006</span></td><td>跌破 60 日均线</td><td class="r down">15.02</td><td class="r down">−2.15%</td></tr>
+          <tr><td class="num">10:05:33</td><td>模拟能源 <span class="muted num">999004</span></td><td>涨停</td><td class="r up">6.62</td><td class="r up">+10.00%</td></tr>
+        </tbody></table></div>
+        <div class="list-m">
+          <a class="li2" href="#"><span class="t">示例科技<span class="code">999001</span></span><span class="v up">+1.06%</span><span class="meta"><span class="num">14:28:41</span><span>放量突破 20 日高点</span></span></a>
+          <a class="li2" href="#"><span class="t">样本材料<span class="code">999006</span></span><span class="v down">−2.15%</span><span class="meta"><span class="num">13:52:10</span><span>跌破 60 日均线</span></span></a>
+          <a class="li2" href="#"><span class="t">模拟能源<span class="code">999004</span></span><span class="v up">+10.00%</span><span class="meta"><span class="num">10:05:33</span><span>涨停</span></span></a>
+        </div>
+      </section>
+      <section class="panel">
+        <div class="panel-h"><h2>需要关注</h2><span class="note num">2 项</span></div>
+        <ul class="att">
+          <li><span class="st warn">需处理</span><span><span class="what">收盘数据还没采集完</span><br><span class="m-l muted clamp-2">已超过预定完成时间 12 分钟，盘后选股会晚一点出结果</span></span><a class="btn" href="#">看数据状态</a></li>
+          <li><span class="st warn">需处理</span><span><span class="what">2 条盯盘规则引用的方案已删除</span><br><span class="m-l muted clamp-2">这两条规则已暂停，换一个方案就能恢复</span></span><a class="btn" href="#">去改规则</a></li>
+        </ul>
+      </section>
+    </div>
+    <a class="panel quick" href="#" aria-label="市场速览，点进市场全景" data-anno="市场速览：涨跌分布条 .breadth + 3 个数">
+      <div class="breadth"><div class="breadth-top"><span class="up">上涨<b>2,275</b></span><span class="muted">平<b>167</b></span><span class="down">下跌<b>3,129</b></span></div><div class="breadth-bar" role="img" aria-label="上涨 41%，平 3%，下跌 56%"><i class="u" style="width:41%"></i><i class="f" style="width:3%"></i><i class="dn" style="width:56%"></i></div></div>
+      <div class="m"><span class="m-l">上涨占比</span><span class="m-v">41%</span></div>
+      <div class="m"><span class="m-l">涨跌中位数</span><span class="m-v down">−0.38%</span></div>
+      <div class="m"><span class="m-l">成交额</span><span class="m-v">1.45<small>万亿</small></span></div>
+    </a>
+    <section class="panel" data-anno="面板 .panel：空状态 .empty">
+      <div class="panel-h"><h2>最新信号</h2><span class="note num">0 条</span></div>
+      <div class="empty"><b>收盘后生成</b><span>选股信号每天 15:30 后出现在这里。</span></div>
+    </section>
+    </div>
+    <p class="demo-flag">模板示例：股票代码和名称为虚构，数值为示例数据。</p>
+  </main>
+  <nav class="tabbar" aria-label="主导航" data-anno="底部标签栏 .tabbar"></nav>
+</div>
+<script src="tpl.js"></script>
+<script>shell("overview");</script>
+</body>
+</html>

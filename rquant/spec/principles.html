@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>设计原则｜rQuant 设计规范 v1.0</title>
+<link rel="stylesheet" href="../system/tokens.css">
+<link rel="stylesheet" href="../system/components.css">
+<link rel="stylesheet" href="spec.css">
+</head>
+<body data-page="principles.html">
+<div class="doc">
+  <header class="mbar"><a href="index.html">rQuant 设计规范</a><span class="num">v1.0</span><button class="btn quiet" id="tocBtn" aria-expanded="false" aria-controls="toc">目录</button></header>
+  <nav class="toc" id="toc" aria-label="规范目录">
+    <div class="toc-brand"><a href="index.html">rQuant 设计规范</a><span class="num">v1.0</span></div>
+    <ol><li><a href="index.html"><span class="n"></span><span>概述</span></a></li><li><a href="principles.html" aria-current="page"><span class="n">1</span><span>设计原则</span></a><div class="sub"><a href="#p1">主内容先占屏</a><a href="#p2">每页一个主数字</a><a href="#p3">同级的数字排成一条</a><a href="#p4">颜色只说涨跌和「需要你处理」</a><a href="#p5">说新手听得懂的话</a></div></li><li><a href="foundations.html"><span class="n">2</span><span>基础</span></a></li><li><a href="components.html"><span class="n">3</span><span>组件</span></a></li><li><a href="patterns.html"><span class="n">4</span><span>交互模式</span></a></li><li><a href="motion.html"><span class="n">5</span><span>页面动效</span></a></li><li><a href="templates.html"><span class="n">6</span><span>页面模板</span></a></li><li><a href="guidelines.html"><span class="n">7</span><span>跨端、无障碍、文案</span></a></li><li><a href="appendix.html"><span class="n"></span><span>附录</span></a></li></ol>
+    <div class="toc-foot"><a href="../index.html">返回资料首页</a><a href="../system/index.html">组件库（v0.1 状态页）</a><a href="../system/tokens.css">tokens.css</a><a href="../system/tokens.json">tokens.json</a><a href="../system/components.css">components.css</a></div>
+  </nav>
+  <main class="content" id="main">
+<p class="chap">第 1 章</p>
+<h1>设计原则</h1>
+<p class="lede">5 条原则，按优先级排。两条冲突时，排前面的赢。每条下面的对照都用组件库直接渲染。</p>
+
+<div class="tscroll"><table class="dt">
+<thead><tr><th>原则</th><th>一句话</th><th>落到哪条规则</th></tr></thead>
+<tbody>
+<tr><td><a href="#p1">主内容先占屏</a></td><td>首屏先给主图或主表，标题和指标让路</td><td>电脑主内容 ≥ 内容区 50%；指标条电脑 ≤ 108px、手机 ≤ 136px</td></tr>
+<tr><td><a href="#p2">每页一个主数字</a></td><td>只有一个数字可以大，其余同级同大</td><td>主数字用 <code>.hero</code>，全页只出现一次</td></tr>
+<tr><td><a href="#p3">同级的数字排成一条</a></td><td>不给每个数字单独一张卡</td><td>2–8 个数用指标条，9–40 个用指标网格</td></tr>
+<tr><td><a href="#p4">颜色只说涨跌和「需要你处理」</a></td><td>红绿只给相对昨收的数字；琥珀只表示要你动手</td><td>状态用圆点加文字；标题和装饰不用彩色</td></tr>
+<tr><td><a href="#p5">说新手听得懂的话</a></td><td>短数字、常见叫法、出错写清怎么办</td><td>大数用「万亿」，原值悬停或点按可查；不写内部名称</td></tr>
+</tbody></table></div>
+
+<h2 id="p1">主内容先占屏</h2>
+<p>每页先回答一个问题：市场今天怎样、这只股怎样、哪里需要我处理。回答它的图或表必须在首屏露出至少一半。标题进顶栏，指标收成一条。</p>
+<div class="dd">
+<figure class="yes"><div class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m3 8.5 3 3 7-7"/></svg>这样做</div>
+<div class="stage" style="height:300px">
+  <div class="mstrip"><div class="m"><span class="m-l">上涨</span><span class="m-v up">2,275</span></div><div class="m"><span class="m-l">下跌</span><span class="m-v down">3,129</span></div><div class="m"><span class="m-l">涨停</span><span class="m-v up">50</span></div><div class="m"><span class="m-l">成交额</span><span class="m-v">1.45<small>万亿</small></span></div></div>
+  <section class="panel"><div class="panel-h"><h2>行业</h2><span class="note">按涨跌中位数</span></div>
+  <div class="panel-b"><table class="tbl"><thead><tr><th>行业</th><th class="r">涨跌中位</th><th class="r">成交额（亿）</th></tr></thead><tbody>
+  <tr><td>半导体</td><td class="r down">−0.81%</td><td class="r">1812.96</td></tr><tr><td>通信设备</td><td class="r up">+0.26%</td><td class="r">1018.42</td></tr><tr><td>银行</td><td class="r up">+1.39%</td><td class="r">311.46</td></tr><tr><td>医药</td><td class="r down">−0.42%</td><td class="r">905.10</td></tr><tr><td>汽车</td><td class="r up">+0.73%</td><td class="r">688.27</td></tr></tbody></table></div></section>
+</div>
+<figcaption>指标收成 56px 一条，表格从第 70px 就开始，5 行全在框里。</figcaption></figure>
+<figure class="no"><div class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m4 4 8 8M12 4l-8 8"/></svg>不要这样</div>
+<div class="stage" style="height:300px">
+  <div style="display:grid;gap:2px"><span class="m-l">行情看板</span><b style="font:600 24px/32px var(--font-sans)">市场全景</b><span class="m-l">全市场实时快照与行业表现一览</span></div>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">
+    <div class="panel" style="padding:14px"><span class="m-l">上涨</span><span class="m-v up" style="font-size:28px;line-height:36px">2,275</span></div>
+    <div class="panel" style="padding:14px"><span class="m-l">下跌</span><span class="m-v down" style="font-size:28px;line-height:36px">3,129</span></div>
+  </div>
+  <section class="panel"><div class="panel-h"><h2>行业</h2></div><div class="panel-b"><table class="tbl"><thead><tr><th>行业</th><th class="r">涨跌中位</th></tr></thead><tbody><tr><td>半导体</td><td class="r down">−0.81%</td></tr></tbody></table></div></section>
+</div>
+<figcaption>三行标题加两张大卡，只放了 2 个数；同样高度里表格只露出 1 行。</figcaption></figure>
+</div>
+
+<h2 id="p2">每页一个主数字</h2>
+<p>个股页的主数字是现价，看板页是最能代表今天的那个数。主数字用 <code>.hero</code>（电脑 32px、手机 28px），其余数字统一 18px。主次靠位置和顺序，不靠放大。</p>
+<div class="dd">
+<figure class="yes"><div class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m3 8.5 3 3 7-7"/></svg>这样做</div>
+<div class="stage">
+  <div class="panel" style="padding:14px 16px;display:grid;gap:10px">
+    <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span class="hero down">24.86</span><span class="num down" style="font:600 15px/1 var(--font-num)">−0.32</span><span class="num down" style="font:600 15px/1 var(--font-num)">−1.27%</span><span class="m-l num">截至 15:00 收盘</span></div>
+    <div class="mgrid" style="padding:0;grid-template-columns:repeat(3,minmax(0,1fr))"><div style="padding:0 8px 0 0"><span class="k">今开</span><span class="v down">25.10</span></div><div style="padding:0 8px"><span class="k">最高</span><span class="v up">25.36</span></div><div style="padding:0 0 0 8px"><span class="k">最低</span><span class="v down">24.71</span></div></div>
+  </div>
+</div>
+<figcaption>现价是唯一的大字，涨跌和时间紧贴同一行。今开、最高、最低用同一个字号。</figcaption></figure>
+<figure class="no"><div class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m4 4 8 8M12 4l-8 8"/></svg>不要这样</div>
+<div class="stage">
+  <div class="panel" style="padding:14px 16px;display:grid;gap:8px">
+    <span class="hero down">24.86</span>
+    <span class="hero down" style="font-size:26px">−1.27%</span>
+    <div style="display:flex;gap:16px"><span class="hero" style="font-size:24px">25.10</span><span class="hero up" style="font-size:24px">25.36</span></div>
+  </div>
+</div>
+<figcaption>现价、涨跌幅、今开、最高都放大，眼睛不知道先看哪个，还多占了两行。</figcaption></figure>
+</div>
+
+<h2 id="p3">同级的数字排成一条</h2>
+<p>2–8 个同级数字用一条指标条，格间只用短竖线。9–40 个属性用键左值右的指标网格。大卡片只留给需要配图才说得清的唯一结论。</p>
+<div class="dd">
+<figure class="yes"><div class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m3 8.5 3 3 7-7"/></svg>这样做</div>
+<div class="stage">
+  <div class="mstrip"><div class="m"><span class="m-l">涨停</span><span class="m-v up">50</span></div><div class="m"><span class="m-l">炸板</span><span class="m-v">24<small>封板率 68%</small></span></div><div class="m"><span class="m-l">跌停</span><span class="m-v down">27</span></div></div>
+</div>
+<figcaption>3 个数加封板率，一条 56px，每个数约 4,800 px²。</figcaption></figure>
+<figure class="no"><div class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m4 4 8 8M12 4l-8 8"/></svg>不要这样</div>
+<div class="stage">
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px">
+    <div style="background:var(--c-surface);border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.1);padding:16px 14px;display:grid;gap:6px"><span class="m-l">涨停</span><span class="m-v up" style="font-size:24px">50</span></div>
+    <div style="background:var(--c-surface);border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.1);padding:16px 14px;display:grid;gap:6px"><span class="m-l">炸板</span><span class="m-v" style="font-size:24px">24</span></div>
+    <div style="background:var(--c-surface);border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.1);padding:16px 14px;display:grid;gap:6px"><span class="m-l">跌停</span><span class="m-v down" style="font-size:24px">27</span></div>
+  </div>
+</div>
+<figcaption>一个数一张带阴影的卡，同样 3 个数占 2 倍面积，还丢了封板率。</figcaption></figure>
+</div>
+
+<h2 id="p4">颜色只说涨跌和「需要你处理」</h2>
+<p>红涨绿跌只给相对昨收的数字，并且一定带「+」或「−」。琥珀只表示「需要你处理」。系统状态用圆点加文字，不靠颜色单独表达。标题、标签、背景一律不用彩色。</p>
+<div class="dd">
+<figure class="yes"><div class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m3 8.5 3 3 7-7"/></svg>这样做</div>
+<div class="stage">
+  <section class="panel"><div class="panel-h"><h2>自选</h2><span class="note num">3 只</span></div>
+  <div class="panel-b"><table class="tbl"><tbody>
+  <tr><td>示例科技 <span class="muted num">999001</span></td><td class="r up">+2.14%</td><td class="r">12.80<span class="muted">亿</span></td></tr>
+  <tr><td>样例电子 <span class="muted num">999002</span></td><td class="r down">−0.86%</td><td class="r">5.37<span class="muted">亿</span></td></tr>
+  <tr><td>演示医药 <span class="muted num">999003</span></td><td class="r flat">0.00%</td><td class="r">2.05<span class="muted">亿</span></td></tr>
+  </tbody></table></div></section>
+  <div class="notice warn">行情 14:32:05 后没有更新。<a class="act" href="#p4">去看系统健康</a></div>
+</div>
+<figcaption>涨跌幅带符号上色，成交额不上色。琥珀提示条只出现在需要你动手的时候。</figcaption></figure>
+<figure class="no"><div class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m4 4 8 8M12 4l-8 8"/></svg>不要这样</div>
+<div class="stage">
+  <section class="panel" style="background:linear-gradient(135deg,#EAEFFC,#FFFFFF)"><div class="panel-h"><h2 style="color:var(--c-accent)">自选</h2></div>
+  <div class="panel-b"><table class="tbl"><tbody>
+  <tr><td>示例科技</td><td class="r up">2.14%</td><td class="r up">12.80亿</td></tr>
+  <tr><td>样例电子</td><td class="r down">0.86%</td><td class="r" style="color:var(--c-ok)">已同步</td></tr>
+  <tr><td>演示医药</td><td class="r" style="color:var(--c-warn)">0.00%</td><td class="r down">2.05亿</td></tr>
+  </tbody></table></div></section>
+</div>
+<figcaption>涨跌幅没有正负号，色弱用户分不清；成交额也上了色；「已同步」的成功绿和下跌绿撞色；琥珀被拿来标平盘。</figcaption></figure>
+</div>
+
+<h2 id="p5">说新手听得懂的话</h2>
+<p>数字先给好读的短写法，原值放在悬停或点按里。指标名用常见叫法，专业词加虚线下划线解释。出错时写清哪里错、怎么办，不写内部名称和英文报错。</p>
+<div class="dd">
+<figure class="yes"><div class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m3 8.5 3 3 7-7"/></svg>这样做</div>
+<div class="stage">
+  <div class="mstrip"><div class="m"><span class="m-l">成交额</span><span class="m-v"><span class="tip" tabindex="0" data-tip="14,487.92 亿">1.45</span><small>万亿</small></span></div><div class="m"><span class="m-l"><span class="tip" tabindex="0" data-tip="开盘后涨停、收盘前又打开的股票">炸板</span></span><span class="m-v">24</span></div></div>
+  <div class="error"><b>暂时读不到行情</b><span>行情来源没有响应，页面显示的是 14:32:05 的数据。30 秒后自动重试。</span><button class="btn">现在重试</button></div>
+</div>
+<figcaption>「1.45 万亿」一眼读完，悬停看「14,487.92 亿」。错误写了原因、现在显示的是什么、下一步。</figcaption></figure>
+<figure class="no"><div class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m4 4 8 8M12 4l-8 8"/></svg>不要这样</div>
+<div class="stage">
+  <div class="mstrip"><div class="m"><span class="m-l">AMOUNT</span><span class="m-v">14487.92亿</span></div><div class="m"><span class="m-l">ZB_CNT</span><span class="m-v">24</span></div></div>
+  <div class="error"><b>出错了</b><span>Error: upstream timeout</span><button class="btn">确定</button></div>
+</div>
+<figcaption>字段名是英文缩写，数字太长要数位数；报错只有一句「出错了」和英文代码，按钮也不说做什么。</figcaption></figure>
+</div>
+
+<nav class="pager" aria-label="翻页"><a class="prev" href="index.html"><span>上一章</span>概述</a><a class="next" href="foundations.html"><span>下一章</span>2 基础</a></nav>
+  </main>
+</div>
+<script src="spec.js"></script>
+</body>
+</html>

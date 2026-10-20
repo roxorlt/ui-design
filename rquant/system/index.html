@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>rQuant 设计规范 初稿 v0.1</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css">
+<style>
+  body { background: var(--c-surface); }
+  .doc { display: grid; grid-template-columns: 200px minmax(0, 1fr); max-width: 1280px; margin: 0 auto; }
+  .toc { position: sticky; top: 0; height: 100vh; overflow: auto; padding: 28px 12px 28px 20px; border-right: 1px solid var(--c-rule); }
+  .toc b { display: block; font: 600 14px/20px var(--font-sans); margin-bottom: 12px; }
+  .toc a { display: block; color: var(--c-ink-2); font: 13px/30px var(--font-sans); padding: 0 8px; border-radius: var(--r-sm); }
+  .toc a:hover { background: var(--c-surface-2); text-decoration: none; }
+  .body { padding: 32px 48px 80px; min-width: 0; }
+  section.s { padding: 40px 0 8px; border-top: 1px solid var(--c-rule); margin-top: 40px; }
+  section.s:first-of-type { border-top: 0; margin-top: 0; padding-top: 0; }
+  h1.doc-t { font: 600 28px/36px var(--font-sans); letter-spacing: -0.01em; }
+  h2 { font: 600 22px/30px var(--font-sans); margin-bottom: 12px; }
+  h3 { font: 600 15px/22px var(--font-sans); margin: 28px 0 8px; }
+  p, li.p { font: 14px/23px var(--font-sans); color: var(--c-ink-2); max-width: 44em; }
+  p + p { margin-top: 8px; }
+  .lede { font-size: 16px; line-height: 26px; color: var(--c-ink); max-width: 40em; margin-top: 8px; }
+  ul.rules { display: grid; gap: 8px; margin: 8px 0; max-width: 46em; }
+  ul.rules li { font: 14px/23px var(--font-sans); color: var(--c-ink-2); padding-left: 16px; position: relative; }
+  ul.rules li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 5px; height: 5px; border-radius: 50%; background: var(--c-faint); }
+  ul.rules b { color: var(--c-ink); font-weight: 600; }
+  code { font: 12px/1 ui-monospace, "SF Mono", Menlo, Consolas, monospace; background: var(--c-surface-2); border-radius: 4px; padding: 2px 5px; color: var(--c-ink-2); }
+  .stage { background: var(--c-ground); border-radius: var(--r-md); padding: 20px; margin: 12px 0; overflow: auto; }
+  .stage.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .cap { font: var(--t-caption); color: var(--c-muted); margin-top: 6px; }
+  .cols2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .princ { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 28px 32px; margin-top: 20px; }
+  .princ h3 { margin: 0 0 6px; font-size: 16px; }
+  .doc-tbl { width: 100%; border-collapse: collapse; margin: 8px 0; font: 13px/20px var(--font-sans); }
+  .doc-tbl th { text-align: left; font: var(--t-label); color: var(--c-muted); border-bottom: 1px solid var(--c-rule); padding: 6px 10px 6px 0; white-space: nowrap; }
+  .doc-tbl td { padding: 7px 10px 7px 0; border-bottom: 1px solid var(--c-surface-2); vertical-align: top; }
+  .doc-tbl .r { text-align: right; }
+  .tblscroll { overflow-x: auto; }
+  /* 屏效尺 */
+  .ruler { display: flex; gap: 28px; align-items: flex-end; margin: 24px 0 8px; flex-wrap: wrap; }
+  .rcol { display: grid; gap: 8px; justify-items: start; }
+  .rcol figcaption { font: var(--t-label); color: var(--c-muted); }
+  .rbar { display: flex; flex-direction: column; width: 132px; border-radius: 6px; overflow: hidden; background: var(--c-sunken); }
+  .rbar.d { height: 300px; } .rbar.p { height: 281px; width: 92px; }
+  .rbar span { display: flex; align-items: center; justify-content: center; position: relative; min-height: 0; }
+  .rbar em { font: 500 11px/1.2 var(--font-num); font-style: normal; white-space: nowrap; text-align: center; padding: 0 2px; }
+  .seg-chrome { background: var(--c-rule); color: var(--c-muted); }
+  .seg-top { background: var(--c-up-weak); color: var(--c-up); }
+  .seg-main { background: var(--c-accent-weak); color: var(--c-accent); }
+  .rnum { font: 600 15px/20px var(--font-num); }
+  .ruler-note { max-width: 22em; font: 14px/23px var(--font-sans); color: var(--c-ink-2); align-self: center; }
+  .ruler-note strong { display: block; font: 600 34px/40px var(--font-num); color: var(--c-ink); }
+  /* swatches */
+  .sw { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 4px 20px; margin: 8px 0; }
+  .sw li { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto auto; gap: 10px; align-items: center; min-height: 40px; border-bottom: 1px solid var(--c-surface-2); }
+  .sw i { width: 28px; height: 28px; border-radius: 6px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); }
+  .sw b { display: block; font: 500 13px/18px var(--font-sans); }
+  .sw code { background: none; padding: 0; color: var(--c-muted); font-size: 11px; }
+  .sw .hex { font-size: 12px; color: var(--c-muted); }
+  .sw .cr { font: 500 12px/1 var(--font-num); color: var(--c-ok); }
+  .sw .cr.bad { color: var(--c-warn); }
+  .dark-stage { background: #101318; border-radius: var(--r-md); padding: 12px 16px; color: #E8EBF0; }
+  .dark-stage .sw li { border-color: #1C2129; } .dark-stage .sw i { box-shadow: inset 0 0 0 1px rgba(255,255,255,.14); } .dark-stage .sw b { color: #E8EBF0; } .dark-stage .sw code, .dark-stage .sw .hex { color: #97A0AF; }
+  .spacing { display: flex; gap: 14px; align-items: flex-end; flex-wrap: wrap; }
+  .spacing div { display: grid; gap: 4px; justify-items: center; font: var(--t-caption); color: var(--c-muted); }
+  .spacing i { display: block; background: var(--c-accent); border-radius: 2px; width: 12px; }
+  .radii { display: flex; gap: 20px; flex-wrap: wrap; }
+  .radii div { width: 96px; height: 64px; background: var(--c-surface); box-shadow: inset 0 0 0 1px var(--c-rule-strong); display: grid; place-items: center; font: var(--t-label); color: var(--c-muted); text-align: center; }
+  .state-grid { display: grid; grid-template-columns: 88px repeat(4, max-content); gap: 12px 16px; align-items: center; justify-items: start; }
+  .state-grid .lbl { font: var(--t-label); color: var(--c-muted); }
+  .dodont { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 12px 0; }
+  .dodont figure { background: var(--c-ground); border-radius: var(--r-md); padding: 16px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+  .dodont figcaption { font: 600 13px/18px var(--font-sans); }
+  .dodont .yes figcaption { color: var(--c-ok); } .dodont .no figcaption { color: var(--c-crit); }
+  .shot { width: 100%; border-radius: var(--r-sm); box-shadow: 0 0 0 1px var(--c-rule); display: block; }
+  .phone-toc { display: none; }
+  .demo-strip-wrap { max-width: 100%; }
+  .old-kpi { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--c-rule); border-radius: 8px; overflow: hidden; max-width: 420px; }
+  .old-kpi div { background: var(--c-surface); padding: 12px 16px; display: grid; gap: 2px; }
+  .old-kpi span { font: var(--t-label); color: var(--c-muted); } .old-kpi b { font: 600 28px/1.15 var(--font-num); }
+  .statuslist li { display: grid; grid-template-columns: 7em auto minmax(0, 1fr); gap: 10px; align-items: center; min-height: 44px; padding: 0 14px; border-top: 1px solid var(--c-surface-2); font: var(--t-body); background: var(--c-surface); }
+  .statuslist li:first-child { border-top: 0; }
+  .statuslist .id { font: var(--t-label); color: var(--c-muted); }
+  .listrow { background: var(--c-surface); border-radius: var(--r-md); }
+  .listrow li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; padding: 8px 14px; min-height: 56px; border-top: 1px solid var(--c-surface-2); }
+  .listrow li:first-child { border-top: 0; }
+  .listrow .n { font: 500 14px/20px var(--font-sans); }
+  .listrow .s { font: var(--t-label); color: var(--c-muted); }
+  .listrow .v { font: 600 15px/20px var(--font-num); font-feature-settings: var(--num-features); text-align: right; }
+  @media (max-width: 1023px) {
+    .doc { grid-template-columns: 1fr; }
+    .toc { display: none; }
+    .phone-toc { display: flex; gap: 6px; overflow-x: auto; position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--c-surface) 94%, transparent); backdrop-filter: blur(10px); padding: 8px 16px; border-bottom: 1px solid var(--c-rule); scrollbar-width: none; }
+    .phone-toc::-webkit-scrollbar { display: none; }
+    .phone-toc a { flex: none; min-height: 44px; display: inline-flex; align-items: center; padding: 0 12px; border-radius: 999px; background: var(--c-surface-2); color: var(--c-ink-2); font: 13px/1 var(--font-sans); }
+    .body { padding: 20px 16px 64px; }
+  }
+  @media (max-width: 599px) {
+    .cols2, .dodont { grid-template-columns: minmax(0, 1fr); }
+    h1.doc-t { font-size: 24px; line-height: 32px; }
+    h2 { font-size: 20px; line-height: 28px; }
+    .stage { padding: 12px; }
+    .state-grid { grid-template-columns: 1fr 1fr; }
+    .state-grid .lbl { grid-column: 1 / -1; margin-top: 6px; }
+    .ruler { gap: 16px; }
+    .rbar.d, .rbar.p { width: 72px; } .rbar.d { height: 220px; } .rbar.p { height: 206px; }
+    .rbar em { font-size: 12px; white-space: normal; line-height: 1.25; }
+    .ruler { gap: 12px; }
+  }
+</style>
+</head>
+<body>
+<nav class="phone-toc" aria-label="目录">
+  <a href="#principles">原则</a><a href="#density">密度</a><a href="#metrics">指标区</a><a href="#type">字阶</a><a href="#color">色板</a><a href="#space">间距</a><a href="#components">组件</a><a href="#text">文本与表格</a><a href="#responsive">跨端</a><a href="#quality">质量底线</a>
+</nav>
+<div class="doc">
+  <nav class="toc" aria-label="目录">
+    <b>rQuant 设计规范</b>
+    <a href="#top">屏效目标</a><a href="#principles">设计原则</a><a href="#density">信息密度</a><a href="#metrics">指标区写法</a><a href="#type">字阶</a><a href="#color">色板</a><a href="#space">间距、圆角、阴影</a><a href="#components">组件与状态</a><a href="#text">文本、表格、长页面</a><a href="#responsive">跨端规则</a><a href="#quality">质量底线</a><a href="#plan">设计方案与自查</a>
+    <a href="../index.html" style="margin-top:16px">回汇总页</a>
+  </nav>
+  <div class="body">
+    <section class="s" id="top">
+      <h1 class="doc-t">rQuant 设计规范　初稿 v0.1</h1>
+      <p class="lede">这份规范围绕一件事：把首屏让给主功能。数字要多，但要排得紧；标题、说明、装饰要少。讨论稿，未改动代码仓库。</p>
+      <div class="ruler" aria-label="市场全景首屏构成，改前与改后">
+        <figure class="rcol"><div class="rbar d"><span class="seg-chrome" style="height:6.22%"><em>顶栏 56</em></span><span class="seg-top" style="height:27.22%"><em>标题 + 指标 245</em></span><span class="seg-main" style="height:66.56%"><em>主功能 599</em></span></div><figcaption>电脑改前</figcaption></figure>
+        <figure class="rcol"><div class="rbar d"><span class="seg-chrome" style="height:5.78%"><em>顶栏 52</em></span><span class="seg-top" style="height:9.11%"><em>指标 82</em></span><span class="seg-main" style="height:85.11%"><em>主功能 766</em></span></div><figcaption>电脑改后</figcaption></figure>
+        <figure class="rcol"><div class="rbar p"><span class="seg-chrome" style="height:13.03%"><em>顶栏 110</em></span><span class="seg-top" style="height:45.02%"><em>标题 + 指标 380</em></span><span class="seg-main" style="height:35.19%"><em>主功能 297</em></span><span class="seg-chrome" style="height:6.75%"><em>导航</em></span></div><figcaption>手机改前</figcaption></figure>
+        <figure class="rcol"><div class="rbar p"><span class="seg-chrome" style="height:5.69%"><em>顶栏 48</em></span><span class="seg-top" style="height:20.26%"><em>指标 171</em></span><span class="seg-main" style="height:67.42%"><em>主功能 569</em></span><span class="seg-chrome" style="height:6.64%"><em>导航</em></span></div><figcaption>手机改后</figcaption></figure>
+        <p class="ruler-note"><strong class="num">599 → 766 px</strong>市场全景在 1440×900 首屏里，主功能区从 599px（67%）增加到 766px（85%）；手机 390×844 从 297px（35%）增加到 569px（67%）。改前、改后均为同尺寸首屏实测。</p>
+      </div>
+      <p class="cap">柱高按首屏像素等比画出。灰：全局顶栏与底部导航；红：页面标题和顶部数据区；蓝：主功能区。</p>
+    </section>
+
+    <section class="s" id="principles">
+      <h2>设计原则</h2>
+      <div class="princ">
+        <div><h3>首屏归主功能</h3><p>每页先回答一个问题：市场今天怎样、这只股怎样、系统有没有事。回答它的图或表必须在首屏露出至少一半高度，标题和指标让路。</p></div>
+        <div><h3>数字要多，面积要小</h3><p>同级的数字排成一条或一张紧凑网格，不给每个数字单独一张卡。个股档案的行情网格是全站样板：29 个指标只用 157px。</p></div>
+        <div><h3>一页只有一个大数字</h3><p>最关键的那一个可以大（个股现价）。其余数字统一用指标字号，用位置和顺序表达主次，不靠放大。</p></div>
+        <div><h3>颜色只说涨跌和状态</h3><p>红涨绿跌，灰色平盘；状态用圆点加文字。标题、标签、装饰一律不用彩色，这样一眼扫过去，红绿就是信号。</p></div>
+        <div><h3>说小白听得懂的话</h3><p>指标名用常见叫法，专业词加虚线下划线，悬停或点按看一句话解释。内部服务名不上首屏，放进详情。</p></div>
+      </div>
+    </section>
+
+    <section class="s" id="density">
+      <h2>信息密度规则</h2>
+      <h3>首屏目标</h3>
+      <table class="doc-tbl"><thead><tr><th>指标</th><th>电脑 1440×900</th><th>手机 390×844</th><th>怎么量</th></tr></thead><tbody>
+        <tr><td>主功能区占首屏</td><td class="num">≥ 75%</td><td class="num">≥ 60%</td><td>主图或主表在首屏内的可见高度 ÷ 视口高度（手机不含底部导航）</td></tr>
+        <tr><td>顶部数据区高度（汇总类页面）</td><td class="num">≤ 15% 内容区（≤ 127px）</td><td class="num">≤ 25% 可视区（≤ 185px）</td><td>从全局顶栏下沿到主功能区上沿</td></tr>
+        <tr><td>顶部数据区高度（详情类页面）</td><td class="num">≤ 20%（≤ 170px）</td><td class="num">≤ 30%（≤ 222px）</td><td>个股档案这类以一组属性为主的页面</td></tr>
+        <tr><td>每个指标占用面积</td><td class="num" colspan="2">≤ 7,000 px²</td><td>数据区面积 ÷ 指标个数；现状市场全景约 14,000，个股档案约 6,300</td></tr>
+        <tr><td>首屏信息量</td><td class="num">≥ 12 个关键数字 + 1 个主图或主表</td><td class="num">≥ 6 个关键数字 + 主图露出 ≥ 50%</td><td>只数对用户有意义的数字，不数时间戳</td></tr>
+      </tbody></table>
+      <h3>选哪种写法</h3>
+      <ul class="rules">
+        <li><b>2–8 个同级数字：指标条。</b>一行排完，电脑高 56px；手机折成 3 列、最多 2 行，或单行横滑。</li>
+        <li><b>9–40 个属性：指标网格。</b>键左值右，行高 26–28px，按主题分行（行情、成交、估值、区间），每行开头放组名。</li>
+        <li><b>1 个最关键的数字：大数字。</b>每页最多一个，旁边紧贴涨跌和时间，不另起一张卡。</li>
+        <li><b>大卡片只在两种情况用：</b>这个数字需要配一张小图才说得清（如资金流的涨跌条），或者它是整页的唯一结论。其余情况一律不用。</li>
+        <li><b>比例类数字优先画成条：</b>上涨 / 平 / 下跌三个数配一条按比例分段的条，比三张卡更好读，也更省面积。</li>
+      </ul>
+      <div class="dodont">
+        <figure class="no"><figcaption>不要：一个数字一张卡</figcaption>
+          <div class="old-kpi"><div><span>涨停</span><b class="up num">50</b></div><div><span>炸板</span><b class="num">24</b></div><div><span>跌停</span><b class="down num">27</b></div></div>
+          <p class="cap">现状写法：3 个数字占 420×80px，每个约 11,000 px²。</p></figure>
+        <figure class="yes"><figcaption>要：指标条</figcaption>
+          <div class="mstrip" style="min-height:48px"><div class="m"><span class="m-l">涨停</span><span class="m-v up">50</span></div><div class="m"><span class="m-l">炸板</span><span class="m-v">24<small>封板率 68%</small></span></div><div class="m"><span class="m-l">跌停</span><span class="m-v down">27</span></div></div>
+          <p class="cap">同样 3 个数字加封板率，约 300×48px，每个约 4,800 px²。</p></figure>
+      </div>
+    </section>
+
+    <section class="s" id="metrics">
+      <h2>数据卡和指标区写法</h2>
+      <h3>指标条</h3>
+      <p>结构固定为「标签 / 数值 / 涨跌」三段：标签 12px 说明色在上，数值 18px 半粗在下，涨跌跟在数值右边、小一号。单位缩小跟在数值后，不另起一行。条内用 1px 短竖线分隔，不画格子。</p>
+      <div class="stage demo-strip-wrap">
+        <section class="mstrip" aria-label="指标条示例">
+          <div class="breadth"><div class="breadth-top"><span class="up">上涨<b>2,275</b></span><span class="muted">平<b>167</b></span><span class="down">下跌<b>3,129</b></span></div><div class="breadth-bar" role="img" aria-label="上涨 41%，平 3%，下跌 56%"><i class="u" style="width:41%"></i><i class="f" style="width:3%"></i><i class="dn" style="width:56%"></i></div></div>
+          <div class="m lead"><span class="m-l"><span class="tip" title="上涨家数 ÷ 全部家数">上涨占比</span></span><span class="m-v down">41%</span></div>
+          <div class="m"><span class="m-l"><span class="tip" title="全部股票涨跌幅的中位数，比指数更能代表普通股票">涨跌中位数</span></span><span class="m-v down">−0.38%</span></div>
+          <div class="m"><span class="m-l">涨停</span><span class="m-v up">50</span></div>
+          <div class="m"><span class="m-l">跌停</span><span class="m-v down">27</span></div>
+          <div class="m"><span class="m-l">成交额</span><span class="m-v">1.45<small>万亿</small><span class="d down">−7.7%</span></span></div>
+        </section>
+        <p class="cap">示例数值；字段名与现有页面一致。这一条高 58px，现状是 84px 放 7 个数。</p>
+      </div>
+      <h3>指标网格</h3>
+      <p>用于个股档案这类「一组属性」。键左值右，值右对齐、用等宽数字，这样同一列的小数点能上下对齐。按主题分行，组名放在每行最左。</p>
+      <div class="stage">
+        <dl class="mgrid" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr))">
+          <div><dt>今开</dt><dd class="up">24.71</dd></div><div><dt>最高</dt><dd class="up">25.36</dd></div><div><dt>最低</dt><dd class="down">24.40</dd></div><div><dt>昨收</dt><dd>24.54</dd></div>
+          <div><dt>成交额</dt><dd>12.80亿</dd></div><div><dt>换手率</dt><dd>2.31%</dd></div><div><dt>总市值</dt><dd>386.2亿</dd></div><div><dt>PE(TTM)</dt><dd>18.4</dd></div>
+          <div><dt>股息率</dt><dd>1.85%</dd></div><div><dt>ROE</dt><dd class="muted" title="暂无数据：数据源未提供">—</dd></div><div><dt>5日</dt><dd class="up">+1.62%</dd></div><div><dt>250日</dt><dd class="down">−3.26%</dd></div>
+        </dl>
+        <p class="cap">示例数值，股票为虚构。</p>
+      </div>
+      <h3>大数字</h3>
+      <div class="stage row"><span class="hero up">24.86</span><span class="num up" style="font:600 15px/1 var(--font-num)">+0.32　+1.30%</span><span class="cap" style="margin:0">截至 2026-10-19 15:00 收盘</span></div>
+      <p>大数字电脑 32px、手机 28px，每页只有一个。涨跌和时间与它在同一行（手机放不下时时间换到下一行），不再把涨跌幅单独放一行。</p>
+      <h3>涨跌色</h3>
+      <ul class="rules">
+        <li><b>A 股红涨绿跌：</b>上涨 <span class="up">--c-up #C8232C</span>，下跌 <span class="down">--c-down #07773F</span>，平盘用说明色。暗色主题换成更亮的一档（#FF5C64 / #2FC27E）。</li>
+        <li><b>只给「相对昨收的变化」上色：</b>涨跌幅、涨跌额、现价，以及以昨收为参照的今开、最高、最低。成交额、市值、PE 这类没有方向的数不上色。</li>
+        <li><b>颜色之外必须有符号：</b>正数带「+」，负数用真正的减号「−」（U+2212，和「+」等宽），色弱用户也能分清。</li>
+        <li><b>故障色和上涨色要能分开：</b>故障一律是圆点加「需处理」等文字，不单靠红色；数据表里不用故障红标异常值。</li>
+      </ul>
+      <h3>数字、单位和小数位</h3>
+      <div class="tblscroll"><table class="doc-tbl"><thead><tr><th>类型</th><th>规则</th><th class="r">示例</th></tr></thead><tbody>
+        <tr><td>字体</td><td>数字统一用 IBM Plex Sans Condensed，打开 <code>tnum</code> 等宽数字；中文回落到系统字体。不用等宽编程字体。</td><td class="r num">1812.96</td></tr>
+        <tr><td>价格、指数</td><td>2 位小数（A 股最小价位 0.01）</td><td class="r num">24.86</td></tr>
+        <tr><td>涨跌幅</td><td>带符号，2 位小数；0 显示 0.00% 用平盘色</td><td class="r num"><span class="up">+0.26%</span>　<span class="down">−0.81%</span></td></tr>
+        <tr><td>占比、上涨占比</td><td>整数百分比；需要比较细微差别时（换手率、股息率）用 2 位</td><td class="r num">41%　0.32%</td></tr>
+        <tr><td>成交额、市值</td><td>不足 1 亿用「万」取整；1 亿到 1 万亿用「亿」2 位；超过 1 万亿用「万亿」2 位。有效数字不超过 5 位</td><td class="r num">8,560万　53.09亿　1.45万亿</td></tr>
+        <tr><td>成交量</td><td>「万手」2 位；超过 1 亿手用「亿手」</td><td class="r num">3.97万手</td></tr>
+        <tr><td>估值倍数</td><td>PE 1 位，PB、PS 2 位</td><td class="r num">18.4　2.36</td></tr>
+        <tr><td>家数、笔数</td><td>整数，千分位</td><td class="r num">2,275</td></tr>
+        <tr><td>表格里的单位</td><td>写进表头「成交额（亿）」，单元格只放数字，便于对齐和比较</td><td class="r num">1812.96</td></tr>
+        <tr><td>空值</td><td>见「文本、表格、长页面」里的空值规则</td><td class="r muted">—</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="s" id="type">
+      <h2>字阶</h2>
+      <p>电脑正文 13px，金融数据界面需要这个密度；最小 11px 只给时间戳。手机正文 14px，中文在小屏上低于 14px 读起来吃力；手机最小 12px。级差大致按 1.2 倍递进（12、15、18、20），大数字跳到 28–32px，层级靠字号、字重和留白，不靠色块。</p>
+      <div class="tblscroll"><table class="doc-tbl"><thead><tr><th>变量</th><th>样例（电脑）</th><th class="r">电脑 字号 / 行高</th><th class="r">手机</th><th class="r">字重</th><th>用途</th></tr></thead><tbody>
+        <tr><td><code>--t-hero</code></td><td style="font:600 32px/36px var(--font-num);white-space:nowrap">24.86</td><td class="r num">32 / 36</td><td class="r num">28 / 32</td><td class="r num">600</td><td>每页唯一的大数字（如个股现价）</td></tr>
+<tr><td><code>--t-title</code></td><td style="font:600 20px/28px var(--font-sans);white-space:nowrap">市场全景</td><td class="r num">20 / 28</td><td class="r num">17 / 24</td><td class="r num">600</td><td>页面标题（单行）</td></tr>
+<tr><td><code>--t-section</code></td><td style="font:600 15px/22px var(--font-sans);white-space:nowrap">行业热力图</td><td class="r num">15 / 22</td><td class="r num">15 / 22</td><td class="r num">600</td><td>面板标题</td></tr>
+<tr><td><code>--t-metric</code></td><td style="font:600 18px/22px var(--font-num);white-space:nowrap">−0.38%</td><td class="r num">18 / 22</td><td class="r num">18 / 22</td><td class="r num">600</td><td>指标条/指标网格里的数值</td></tr>
+<tr><td><code>--t-body</code></td><td style="font:400 13px/20px var(--font-sans);white-space:nowrap">全 A 股 3 秒快照，行业按数据源分类</td><td class="r num">13 / 20</td><td class="r num">14 / 21</td><td class="r num">400</td><td>正文、表格</td></tr>
+<tr><td><code>--t-label</code></td><td style="font:400 12px/16px var(--font-sans);white-space:nowrap">涨跌中位数</td><td class="r num">12 / 16</td><td class="r num">12 / 16</td><td class="r num">400</td><td>指标名、表头、说明</td></tr>
+<tr><td><code>--t-caption</code></td><td style="font:400 11px/14px var(--font-sans);white-space:nowrap">更新于 16:29:49</td><td class="r num">11 / 14</td><td class="r num">12 / 16</td><td class="r num">400</td><td>时间戳、脚注；最小字号</td></tr>
+      </tbody></table></div>
+      <ul class="rules">
+        <li><b>中文：</b>苹方、鸿蒙黑体、微软雅黑等系统字体，不加载中文网络字体。正文行高 1.5–1.6 倍。</li>
+        <li><b>数字：</b>IBM Plex Sans Condensed（现有代码已打包 Plex 家族的 Mono 和 Condensed 两款），实测同一串数字（1812.96 −0.38% 14487.92，18px）宽 208px，Plex Mono 是 253px、Plex Sans 是 227px，窄约 18% 和 8%，这是屏效的一部分。</li>
+        <li><b>标题不做花样：</b>不用全大写、不给单个词换色、不在标题上方加小标签。现状里「跟踪与告警」这类眉标和左侧导航重复，取消。</li>
+      </ul>
+    </section>
+
+    <section class="s" id="color">
+      <h2>色板</h2>
+      <p>冷灰底配靛蓝主色，和现有页面同一方向，只把对比度调到达标。数字右侧是该颜色放在白色面板上的对比度，正文要求 4.5:1 以上；「禁用 / 装饰」只用于禁用控件和分隔，不用于有信息的文字。</p>
+      <h3>浅色（默认）</h3>
+      <ul class="sw"><li><i style="background:#F3F5F7"></i><span><b>页面底</b><code>--c-ground</code></span><span class="num hex">#F3F5F7</span></li>
+<li><i style="background:#FFFFFF"></i><span><b>面板</b><code>--c-surface</code></span><span class="num hex">#FFFFFF</span></li>
+<li><i style="background:#F8F9FA"></i><span><b>悬停底</b><code>--c-surface-2</code></span><span class="num hex">#F8F9FA</span></li>
+<li><i style="background:#ECEFF2"></i><span><b>凹陷 / 骨架</b><code>--c-sunken</code></span><span class="num hex">#ECEFF2</span></li>
+<li><i style="background:#161A21"></i><span><b>主文字</b><code>--c-ink</code></span><span class="num hex">#161A21</span><span class="cr ">17.4:1</span></li>
+<li><i style="background:#3A4250"></i><span><b>次文字</b><code>--c-ink-2</code></span><span class="num hex">#3A4250</span><span class="cr ">10.1:1</span></li>
+<li><i style="background:#5E6776"></i><span><b>说明文字</b><code>--c-muted</code></span><span class="num hex">#5E6776</span><span class="cr ">5.7:1</span></li>
+<li><i style="background:#8A92A0"></i><span><b>禁用 / 装饰</b><code>--c-faint</code></span><span class="num hex">#8A92A0</span><span class="cr bad">3.1:1</span></li>
+<li><i style="background:#E3E7EC"></i><span><b>分隔线</b><code>--c-rule</code></span><span class="num hex">#E3E7EC</span></li>
+<li><i style="background:#CCD3DB"></i><span><b>控件描边</b><code>--c-rule-strong</code></span><span class="num hex">#CCD3DB</span></li>
+<li><i style="background:#2448D0"></i><span><b>主色（链接、主按钮、焦点）</b><code>--c-accent</code></span><span class="num hex">#2448D0</span><span class="cr ">7.2:1</span></li>
+<li><i style="background:#C8232C"></i><span><b>上涨（红）</b><code>--c-up</code></span><span class="num hex">#C8232C</span><span class="cr ">5.6:1</span></li>
+<li><i style="background:#07773F"></i><span><b>下跌（绿）</b><code>--c-down</code></span><span class="num hex">#07773F</span><span class="cr ">5.7:1</span></li>
+<li><i style="background:#5E6776"></i><span><b>平盘</b><code>--c-flat</code></span><span class="num hex">#5E6776</span></li>
+<li><i style="background:#8F5B00"></i><span><b>提醒</b><code>--c-warn</code></span><span class="num hex">#8F5B00</span><span class="cr ">5.7:1</span></li>
+<li><i style="background:#B4232B"></i><span><b>故障</b><code>--c-crit</code></span><span class="num hex">#B4232B</span><span class="cr ">6.5:1</span></li>
+<li><i style="background:#07773F"></i><span><b>正常</b><code>--c-ok</code></span><span class="num hex">#07773F</span></li></ul>
+      <h3>深色</h3>
+      <div class="dark-stage"><ul class="sw"><li><i style="background:#101318"></i><span><b>页面底</b><code>--c-ground</code></span><span class="num hex">#101318</span></li>
+<li><i style="background:#171B21"></i><span><b>面板</b><code>--c-surface</code></span><span class="num hex">#171B21</span></li>
+<li><i style="background:#1C2129"></i><span><b>悬停底</b><code>--c-surface-2</code></span><span class="num hex">#1C2129</span></li>
+<li><i style="background:#0C0F13"></i><span><b>凹陷 / 骨架</b><code>--c-sunken</code></span><span class="num hex">#0C0F13</span></li>
+<li><i style="background:#E8EBF0"></i><span><b>主文字</b><code>--c-ink</code></span><span class="num hex">#E8EBF0</span><span class="cr ">14.5:1</span></li>
+<li><i style="background:#C5CBD5"></i><span><b>次文字</b><code>--c-ink-2</code></span><span class="num hex">#C5CBD5</span><span class="cr ">10.6:1</span></li>
+<li><i style="background:#97A0AF"></i><span><b>说明文字</b><code>--c-muted</code></span><span class="num hex">#97A0AF</span><span class="cr ">6.5:1</span></li>
+<li><i style="background:#6F7887"></i><span><b>禁用 / 装饰</b><code>--c-faint</code></span><span class="num hex">#6F7887</span><span class="cr bad">3.9:1</span></li>
+<li><i style="background:#272D36"></i><span><b>分隔线</b><code>--c-rule</code></span><span class="num hex">#272D36</span></li>
+<li><i style="background:#37404C"></i><span><b>控件描边</b><code>--c-rule-strong</code></span><span class="num hex">#37404C</span></li>
+<li><i style="background:#7C98FF"></i><span><b>主色（链接、主按钮、焦点）</b><code>--c-accent</code></span><span class="num hex">#7C98FF</span><span class="cr ">6.4:1</span></li>
+<li><i style="background:#FF5C64"></i><span><b>上涨（红）</b><code>--c-up</code></span><span class="num hex">#FF5C64</span><span class="cr ">5.7:1</span></li>
+<li><i style="background:#2FC27E"></i><span><b>下跌（绿）</b><code>--c-down</code></span><span class="num hex">#2FC27E</span><span class="cr ">7.5:1</span></li>
+<li><i style="background:#97A0AF"></i><span><b>平盘</b><code>--c-flat</code></span><span class="num hex">#97A0AF</span></li>
+<li><i style="background:#E6AE45"></i><span><b>提醒</b><code>--c-warn</code></span><span class="num hex">#E6AE45</span><span class="cr ">8.6:1</span></li>
+<li><i style="background:#FF7A80"></i><span><b>故障</b><code>--c-crit</code></span><span class="num hex">#FF7A80</span><span class="cr ">6.9:1</span></li>
+<li><i style="background:#2FC27E"></i><span><b>正常</b><code>--c-ok</code></span><span class="num hex">#2FC27E</span></li></ul></div>
+      <p class="cap">深色主题的对比度按深色面板 #171B21 计算。完整数值见 tokens.json。</p>
+    </section>
+
+    <section class="s" id="space">
+      <h2>间距、圆角、阴影</h2>
+      <h3>间距：4 的倍数</h3>
+      <div class="stage"><div class="spacing">
+        <div><i style="height:2px"></i>2</div><div><i style="height:4px"></i>4</div><div><i style="height:8px"></i>8</div><div><i style="height:12px"></i>12</div><div><i style="height:16px"></i>16</div><div><i style="height:24px"></i>24</div><div><i style="height:32px"></i>32</div><div><i style="height:48px"></i>48</div>
+      </div></div>
+      <ul class="rules">
+        <li><b>面板之间 12px，</b>面板内边距电脑 16px、手机 14px；同一面板内的分组之间 8px。</li>
+        <li><b>行高三档：</b>紧凑 28px（电脑表格、指标网格）、标准 36px（需要更多呼吸的列表）、触控 44px（手机所有可点行）。</li>
+        <li><b>控件高度：</b>电脑 32px，手机 44px。</li>
+        <li><b>全局顶栏：</b>电脑 52px，手机 48px 单行（现状手机 110px 三行）。页面标题放进顶栏，不再单独占一行。</li>
+      </ul>
+      <h3>圆角：容器越大圆角越大</h3>
+      <div class="stage"><div class="radii"><div style="border-radius:4px">4px<br>标签、分段按钮内块</div><div style="border-radius:6px">6px<br>按钮、输入框</div><div style="border-radius:10px">10px<br>面板、弹层</div></div></div>
+      <h3>阴影：默认没有</h3>
+      <p>面板靠白色面板压在浅灰页面底上区分，不加阴影也不加描边。只有浮在内容之上的东西有阴影：下拉菜单、提示气泡、手机底部弹层（<code>--shadow-pop</code>）。</p>
+    </section>
+
+    <section class="s" id="components">
+      <h2>基础组件及状态</h2>
+      <h3>按钮</h3>
+      <div class="stage"><div class="state-grid">
+        <span class="lbl">主要</span><button class="btn primary">去盯盘</button><button class="btn primary" style="background:var(--c-accent-hover)">悬停</button><button class="btn primary" disabled>禁用</button><button class="btn primary" aria-busy="true">加载中</button>
+        <span class="lbl">次要</span><button class="btn">刷新</button><button class="btn" style="background:var(--c-surface-2);border-color:var(--c-faint)">悬停</button><button class="btn" style="background:var(--c-sunken)">按下</button><button class="btn" disabled>禁用</button>
+        <span class="lbl">文字</span><button class="btn quiet">全部告警</button><button class="btn quiet" style="background:var(--c-accent-weak)">悬停</button><button class="btn quiet" style="outline:2px solid var(--c-focus);outline-offset:2px">键盘焦点</button><button class="btn quiet" disabled>禁用</button>
+      </div></div>
+      <p>按钮文字是动作本身：「保存方案」「去盯盘」「导出 CSV」，后面不加箭头。一个区域最多一个主要按钮。</p>
+      <h3>标签页与分段</h3>
+      <div class="stage row">
+        <div class="seg" role="tablist" aria-label="K 线周期"><button role="tab" aria-selected="true">日K</button><button role="tab" aria-selected="false">分时</button><button role="tab" aria-selected="false">5日</button><button role="tab" aria-selected="false" disabled>周K</button></div>
+        <div class="tabs" role="tablist" style="flex:1;min-width:260px"><button role="tab" aria-selected="true">概览</button><button role="tab" aria-selected="false">财务</button><button role="tab" aria-selected="false">资金</button><button role="tab" aria-selected="false">公告</button></div>
+      </div>
+      <p>分段控件用于同一块内容的切换（周期、口径），放在面板标题行内，不单独占一条。下划线标签页用于切换整块页面内容。</p>
+      <h3>表格（紧凑档）</h3>
+      <div class="stage" style="padding:0;background:var(--c-surface);box-shadow:0 0 0 1px var(--c-rule)">
+        <table class="tbl" aria-label="行业表示例"><thead><tr><th style="padding-left:16px">行业</th><th class="r">涨跌中位</th><th class="r">上涨占比</th><th class="r" aria-sort="descending">成交额（亿）</th><th class="r">日内</th></tr></thead>
+        <tbody>
+          <tr><td style="padding-left:16px">半导体</td><td class="r down">−0.81%</td><td class="r">35%</td><td class="r">1812.96</td><td class="r"><svg class="spark down" viewBox="0 0 64 20" preserveAspectRatio="none"><path class="base" d="M0,8H64"/><path class="line" d="M0,8L8,6L16,9L24,7L32,11L40,10L48,13L56,12L64,14"/></svg></td></tr>
+          <tr aria-selected="true"><td style="padding-left:16px">通信设备</td><td class="r up">+0.26%</td><td class="r">56%</td><td class="r">1018.42</td><td class="r"><svg class="spark up" viewBox="0 0 64 20" preserveAspectRatio="none"><path class="base" d="M0,12H64"/><path class="line" d="M0,12L8,13L16,10L24,11L32,8L40,9L48,6L56,7L64,5"/></svg></td></tr>
+          <tr><td style="padding-left:16px">银行</td><td class="r up">+1.39%</td><td class="r">100%</td><td class="r">311.46</td><td class="r"><svg class="spark up" viewBox="0 0 64 20" preserveAspectRatio="none"><path class="base" d="M0,14H64"/><path class="line" d="M0,14L8,12L16,12L24,9L32,8L40,6L48,6L56,4L64,3"/></svg></td></tr>
+          <tr><td style="padding-left:16px"><span class="skel">加载中占位</span></td><td class="r"><span class="skel">−0.00%</span></td><td class="r"><span class="skel">00%</span></td><td class="r"><span class="skel">0000.00</span></td><td class="r"><span class="skel">——————</span></td></tr>
+        </tbody></table>
+        <p class="cap" style="padding:0 16px 10px">行高 28px；第二行为选中态，第四行为加载骨架。数字列右对齐，单位在表头。</p>
+      </div>
+      <h3>指标条的状态</h3>
+      <div class="stage" style="display:grid;gap:10px">
+        <section class="mstrip" aria-label="加载中"><div class="m"><span class="m-l">上涨占比</span><span class="m-v skel">00%</span></div><div class="m"><span class="m-l">涨跌中位数</span><span class="m-v skel">−0.00%</span></div><div class="m"><span class="m-l">成交额</span><span class="m-v skel">0.00万亿</span></div></section>
+        <section class="mstrip" aria-label="部分无数据"><div class="m"><span class="m-l">上涨占比</span><span class="m-v down">41%</span></div><div class="m"><span class="m-l">涨跌中位数</span><span class="m-v muted" title="暂无数据：快照尚未计算">—</span></div><div class="m"><span class="m-l">成交额</span><span class="m-v">1.45<small>万亿</small></span></div><div class="m"><span class="m-l">数据时间</span><span class="m-v" style="color:var(--c-warn);font-size:15px">09:12 已过期 18 分钟</span></div></section>
+        <div class="notice crit"><span>读不到市场快照：数据源没有响应。指标保留上一次的数值并标灰，30 秒后自动重试。</span><a class="act" href="#">重试</a></div>
+        <p class="cap">加载用骨架占位，保持高度不跳；单项无数据显示「—」并在悬停时说明原因；整体失败时保留旧值标灰，提示写清原因和下一步。</p>
+      </div>
+      <h3>迷你走势</h3>
+      <div class="stage row"><svg class="spark up" viewBox="0 0 64 20" preserveAspectRatio="none" role="img" aria-label="日内上涨"><path class="base" d="M0,14H64"/><path class="line" d="M0,14L8,12L16,13L24,9L32,10L40,7L48,6L56,5L64,3"/></svg><svg class="spark down" viewBox="0 0 64 20" preserveAspectRatio="none" role="img" aria-label="日内下跌"><path class="base" d="M0,6H64"/><path class="line" d="M0,6L8,7L16,6L24,9L32,10L40,9L48,13L56,14L64,15"/></svg><span class="cap" style="margin:0">64×20px，虚线为昨收，颜色按收盘相对昨收；只放在表格行尾或指标条内，不加坐标轴。</span></div>
+      <h3>输入</h3>
+      <div class="stage cols2">
+        <div class="field"><label for="i1">方案名称</label><input class="input" id="i1" placeholder="命名当前条件"></div>
+        <div class="field"><label for="i2">股票代码</label><input class="input" id="i2" value="99900" aria-invalid="true" aria-describedby="e2"><span class="err" id="e2">代码是 6 位数字，例如 999001</span></div>
+        <div class="field"><label for="i3">已锁定的参数</label><input class="input" id="i3" value="v1 冻结" disabled></div>
+        <div class="field"><label for="i4">搜索</label><input class="input" id="i4" placeholder="代码 / 名称，如 999001 或 示例科技"></div>
+      </div>
+      <h3>提示</h3>
+      <div class="stage" style="display:grid;gap:8px">
+        <div class="notice">今天还没有快照：行情 09:15 开始更新，开盘后出图。</div>
+        <div class="notice warn"><span>研究结果仍是「探索性」：数据和成交口径还没有全部闭环。</span><a class="act" href="#">看说明</a></div>
+        <div class="notice crit"><span>数据采集需处理：收盘数据采集运行超时。</span><a class="act" href="#">看健康</a></div>
+        <p>专业词：<span class="tip" tabindex="0" title="炸板：盘中封过涨停、收盘没封住。封板率 = 收盘仍封住的 ÷ 盘中封过的。">炸板</span>（虚线下划线，悬停或点按看解释）。</p>
+      </div>
+      <h3>空状态与错误状态</h3>
+      <div class="stage cols2">
+        <div class="panel"><div class="empty"><b>今天还没有告警</b><span>盯盘规则在运行，还没有被触发。想调整触发条件，去「盯盘与告警」改规则。</span><a class="btn" href="#">去改规则</a></div></div>
+        <div class="panel"><div class="error"><b>读不到这只股票</b><span>代码 99900 不是 6 位数字。请输入完整代码，例如 999001。</span><button class="btn">重试</button></div></div>
+      </div>
+      <p>空状态说明「为什么空」和「下一步做什么」；错误写清哪里错、怎么修，不道歉、不说「出错了」。</p>
+    </section>
+
+    <section class="s" id="text">
+      <h2>文本、表格、长页面</h2>
+      <h3>长文本截断与换行</h3>
+      <ul class="rules">
+        <li><b>数字永不换行</b>（<code>white-space: nowrap</code>），宁可缩短单位（14487.92亿 写成 1.45万亿）。</li>
+        <li><b>页面标题永不换行，也不被挤压：</b>标题 <code>flex: none</code>，副标题和说明可以省略号截断；放不下的步骤条、按钮移到第二行或「更多」菜单。中文页面标题不超过 8 个字。选股器标题被挤成「选股 / 器」属于违规。</li>
+        <li><b>内部标识（服务名、文件名）：</b>允许任意位置断行（<code>overflow-wrap: anywhere</code>），最多 2 行，超出用省略号，全文放在悬停提示或详情里。长名称溢出到隔壁卡，就是缺这条规则。</li>
+        <li><b>说明文字：</b>正常换行，每行不超过 40 个汉字左右；超过 2 行的规则说明默认折叠成一行加「说明」入口。</li>
+        <li><b>卡片和格子里的文字必须有 <code>min-width: 0</code>，</b>否则 flex / grid 子项会被内容撑破。</li>
+      </ul>
+      <h3>状态卡在手机上的排列</h3>
+      <div class="cols2">
+        <div><p>电脑：6 个环节排成一条带连接线的单行，每格只放「名称 + 状态」，详情在悬停提示里。</p>
+          <p>手机：不横排。改成一行摘要「2 个环节需处理，4 个正常」，点开后每个环节一行（44px）：名称、状态、一行截断的说明。需处理的排在前面，正常的默认收起。</p></div>
+        <div class="stage" style="padding:12px"><ul class="statuslist" style="border-radius:var(--r-md);overflow:hidden">
+          <li><span>数据采集</span><span class="st crit">需处理</span><span class="id ellipsis">收盘数据采集超时未完成</span></li>
+          <li><span>信号与盯盘</span><span class="st crit">需处理</span><span class="id ellipsis">告警推送部分降级</span></li>
+          <li><span>存储与审计</span><span class="st ok">正常</span><span class="id ellipsis">8 个数据集</span></li>
+        </ul></div>
+      </div>
+      <h3>表格跨端规则</h3>
+      <ul class="rules">
+        <li><b>电脑（≥ 1024px）：</b>表格不能撑出页面横向滚动。列太多时先隐藏次要列（列选择器里可加回），再允许表格容器自身横滑，并冻结第一列。回测表在 1440 宽下多出 23px、宏观页多出 85px，都属于违规。</li>
+        <li><b>手机（&lt; 600px）：</b>默认不用宽表。每行改成两行列表项：第一行名称（加代码），第二行 2–3 个关键数字；右侧放最关键的一个数。点一行打开详情弹层看全部列。</li>
+        <li><b>确实需要横滑的表（如数据查询结果）：</b>首列冻结，右侧边缘加渐隐提示还有内容，表头写出总列数。</li>
+        <li><b>空表不画表头：</b>没有数据时直接显示一行空状态，不要先画一排需要横滑的表头。</li>
+      </ul>
+      <div class="cols2">
+        <div class="stage" style="padding:12px"><ul class="listrow">
+          <li><span class="n ellipsis">示例科技 999001</span><span class="v up">+1.30%</span><span class="s num">现价 24.86　成交 12.80亿</span><span class="s" style="text-align:right">涨跌幅</span></li>
+          <li><span class="n ellipsis">样例电子 999002</span><span class="v down">−0.86%</span><span class="s num">现价 8.12　成交 5.37亿</span><span class="s" style="text-align:right">涨跌幅</span></li>
+        </ul><p class="cap">手机列表示意，股票代码、名称和数值均为虚构。</p></div>
+        <div><p>宽表在手机上只看得到「名称」一列。改成列表项后，一屏能看到约 10 行各自最关键的数。</p></div>
+      </div>
+      <h3>长页面分区与折叠</h3>
+      <ul class="rules">
+        <li><b>超过 3 屏的页面必须分区：</b>顶部放页内分段（如宏观：总览 / 资金 / 情绪 / 事件研究），一次只展开一个分区，或用锚点导航。</li>
+        <li><b>明细表默认 20 行，</b>配筛选、排序和「展开全部（共 N 行）」或分页。宏观页底部的事件研究表从约 6,700px 一直铺到 25,600px，应默认收起。</li>
+        <li><b>次要说明默认折叠，</b>首屏只留一句话。</li>
+      </ul>
+      <h3>空值与无数据</h3>
+      <table class="doc-tbl"><thead><tr><th>情况</th><th>显示</th><th>说明</th></tr></thead><tbody>
+        <tr><td>值为 0</td><td class="num">0　0.00%</td><td>0 是真实的值，正常显示，平盘色</td></tr>
+        <tr><td>单个指标无数据</td><td class="muted">—</td><td>说明色的长横线，悬停提示原因（数据源未提供 / 尚未计算 / 停牌）</td></tr>
+        <tr><td>整列都是「—」</td><td>隐藏该列，或整块显示空状态</td><td>系统健康「数据新鲜度」整列为「—」是接口问题，但界面上也不该出现一整列横线；应显示「新鲜度暂时读不到」加重试</td></tr>
+        <tr><td>加载中</td><td><span class="skel">0000.00</span></td><td>骨架占位，尺寸与真实内容一致，不出现跳动</td></tr>
+        <tr><td>数据过期</td><td style="color:var(--c-warn)">09:12 已过期 18 分钟</td><td>保留旧值，时间改提醒色</td></tr>
+        <tr><td>请求失败</td><td>保留旧值标灰 + 提示条</td><td>提示写清原因和下一步，带「重试」</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="s" id="responsive">
+      <h2>跨端规则</h2>
+      <table class="doc-tbl"><thead><tr><th>断点</th><th>宽度</th><th>布局</th></tr></thead><tbody>
+        <tr><td>手机</td><td class="num">&lt; 600px</td><td>单列；顶栏 48px（Logo、页面标题、搜索图标）；底部 5 个标签；表格转列表</td></tr>
+        <tr><td>平板</td><td class="num">600–1023px</td><td>保留左侧 212px 文字导航（599px 及以下才换成底部标签栏 + 「更多」）；指标条可横滑；面板两列变一列</td></tr>
+        <tr><td>电脑</td><td class="num">1024–1439px</td><td>左侧导航 212px；主区两列（7:5）</td></tr>
+        <tr><td>宽屏</td><td class="num">≥ 1440px</td><td>同电脑，主图和表格吃满宽度；不设最大宽度，但单列正文不超过 44em</td></tr>
+      </tbody></table>
+      <h3>指标区在手机上</h3>
+      <ul class="rules">
+        <li><b>不超过 6 个：</b>3 列网格，最多 2 行，每格 44px 高（标签在上、数值在下）。比例类数字放在网格上方，画成涨跌分布条。</li>
+        <li><b>7–12 个：</b>单行横滑指标条，最重要的 3 个排在最前并保证首屏可见，右侧露出半个格子提示可以滑。</li>
+        <li><b>超过 12 个（个股档案）：</b>首屏只放 6 个关键指标，其余收进「全部 29 项」，点开后两列展开。不允许两列直接铺满 15 行。</li>
+        <li><b>不出现空格子：</b>网格最后一行凑不满时，让最后一项横跨剩余列，或减少一项。</li>
+      </ul>
+      <h3>触控</h3>
+      <ul class="rules">
+        <li>所有可点元素的点按区域不小于 44×44px，视觉尺寸可以更小，靠内边距补足。</li>
+        <li>相邻可点元素之间至少 8px。</li>
+        <li>悬停才出现的信息（专业词解释、图表数值），在手机上改为点按出现，再点或点空白处关闭。</li>
+        <li>底部标签栏避开 iPhone 底部安全区（<code>env(safe-area-inset-bottom)</code>）。</li>
+      </ul>
+    </section>
+
+    <section class="s" id="quality">
+      <h2>质量底线</h2>
+      <ul class="rules">
+        <li><b>键盘焦点可见：</b>所有可聚焦元素用 2px 主色描边、外偏 2px（<code>:focus-visible</code>），不允许 <code>outline: none</code> 而不给替代。可以按 Tab 键从这一页走一遍试试。</li>
+        <li><b>减少动态效果：</b>系统打开「减少动态效果」时，骨架闪烁、加载转圈、展开动画全部停掉（<code>prefers-reduced-motion</code>）。非用户触发的动画只用于数据更新提示，一页最多一处。</li>
+        <li><b>对比度：</b>正文和数字 ≥ 4.5:1，大字（≥ 18px 半粗）和图形元素 ≥ 3:1。色板里每个文字色都标了实测值。</li>
+        <li><b>不只靠颜色：</b>涨跌带符号，状态带文字，图表有文字标签或 <code>aria-label</code>。</li>
+        <li><b>手机输入框字号 ≥ 16px，</b>避免 iOS 聚焦时页面自动放大。</li>
+      </ul>
+    </section>
+
+    <section class="s" id="plan">
+      <h2>设计方案与自查</h2>
+      <p>按「先出方案、对照需求自查、再写页面」两遍法做的，下面是第一遍的方案和自查后改掉的地方。</p>
+      <h3>方案</h3>
+      <ul class="rules">
+        <li><b>颜色：</b>页面底 #F3F5F7，面板 #FFFFFF，主文字 #161A21，说明 #5E6776，主色靛蓝 #2448D0，涨 #C8232C，跌 #07773F。</li>
+        <li><b>字体：</b>中文系统黑体；数字 IBM Plex Sans Condensed 等宽数字。</li>
+        <li><b>布局：</b>一条顶栏（含页面标题）+ 一条指标带 + 主区。主区左宽右窄（7:5），左边图和表，右边热力图吃满剩余高度。全部左对齐，数字右对齐。</li>
+        <li><b>唯一的强调：</b>涨跌分布条，它是市场全景首屏最先被看到的东西，也替代了三张卡。</li>
+      </ul>
+      <h3>自查后改掉的</h3>
+      <ul class="rules">
+        <li><b>数字字体：</b>初稿沿用现有的 IBM Plex Mono。等宽编程字体是「数据标签用等宽字」的俗套，而且同一串数字比窄体宽约 22%（253px 对 208px），和屏效目标冲突。改为 Plex Sans Condensed 加 <code>tnum</code>，照样上下对齐。</li>
+        <li><b>指标条的格子线：</b>初稿每个指标一个描边格子（现状写法），读起来就是「一排小卡片」。改为整条一个面板，格间只用短竖线。</li>
+        <li><b>页面标题：</b>初稿保留「眉标 + 大标题 + 副标题」三行。这是模板化的标题区，且眉标和左侧导航重复。改为标题进顶栏，副标题缩成一行说明。</li>
+        <li><b>暗色作为默认：</b>考虑过「深底 + 荧光绿」的交易终端风格，但这是另一种俗套，金融小白在白天看也吃力。默认浅色，深色作为跟随系统的备选。</li>
+        <li><b>圆角统一：</b>初稿所有东西 8px。改为 4 / 6 / 10 三档，按容器层级递增。</li>
+      </ul>
+    </section>
+    <p class="cap" style="margin-top:40px">变量文件：<a href="tokens.css">tokens.css</a>、<a href="tokens.json">tokens.json</a>；组件样式：<a href="components.css">components.css</a>。初稿 v0.1，2026-10-20。</p>
+  </div>
+</div>
+</body>
+</html>
