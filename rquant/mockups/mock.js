@@ -24,7 +24,7 @@ const ICON = {
   search: '<circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/>'
 };
 const svgI = (k) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[k] || ""}</svg>`;
-// 手机底部标签栏 v1.1（产品负责人 2026-10-20 定，依据 10-17 设计草稿）：全景 / 资金流 / 池子 / 更多
+// 手机底部标签栏：全景 / 资金流 / 池子 / 更多
 const TABS = [["panorama", "全景"], ["sectorflow", "资金流"], ["pools", "池子"]];
 const HLABEL = { ok: "正常", warn: "注意", crit: "异常" };
 // 示例状态，可用 ?unread=0|3|120 &health=ok|warn|crit &more=1 预览

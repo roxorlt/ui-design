@@ -25,7 +25,7 @@ const ICON = {
   search: '<circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/>'
 };
 const svgI = (k) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[k] || ""}</svg>`;
-// 手机底部标签栏 v1.1（产品负责人 2026-10-20 定，依据 10-17 设计草稿）：全景 / 资金流 / 池子 / 更多
+// 手机底部标签栏：全景 / 资金流 / 池子 / 更多
 const TABS = [["panorama", "全景"], ["sectorflow", "资金流"], ["pools", "池子"]];
 const HLABEL = { ok: "正常", warn: "注意", crit: "异常" };
 // 示例状态，可用 ?unread=0|3|120 &health=ok|warn|crit &more=1 预览
@@ -66,7 +66,7 @@ function shell(page) {
 const sign = (p) => (p > 0 ? "+" : p < 0 ? "−" : "") + Math.abs(p).toFixed(2) + "%";
 const dir = (p) => (p > 0 ? "up" : p < 0 ? "down" : "flat");
 function prng(seed) { let s = seed >>> 0; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); }
-const NAMES = ["示例科技", "样例电子", "演示医药", "模拟能源", "示范银行", "样本材料", "示意汽车", "范例软件", "示例食品", "样例化工", "演示传媒", "模拟机械", "示范地产", "样本通信", "示意光伏", "范例证券", "示例家电", "样例物流", "演示农业", "模拟军工", "示范环保", "样本建材", "示意保险", "范例旅游"];
+const NAMES = ["示例科技", "样例电子", "演示医药", "模拟能源", "示范银行", "样本材料", "远岫汽车", "范例软件", "示例食品", "样例化工", "演示传媒", "模拟机械", "示范地产", "样本通信", "澈阳光伏", "范例证券", "示例家电", "样例物流", "演示农业", "模拟军工", "示范环保", "样本建材", "砚安保险", "范例旅游"];
 function stocks(n, seed) { const r = prng(seed); return Array.from({ length: n }, (_, i) => { const pre = +(4 + r() * 60).toFixed(2); const p = +((r() - 0.45) * 8).toFixed(2); return { n: NAMES[i % NAMES.length] + (i >= NAMES.length ? " " + String.fromCharCode(65 + Math.floor(i / NAMES.length)) : ""), c: String(999001 + i), px: +(pre * (1 + p / 100)).toFixed(2), p, amt: +(1 + r() * 30).toFixed(2), turn: +(r() * 6).toFixed(2), vals: Array.from({ length: 24 }, () => r()) }; }).sort((a, b) => b.p - a.p); }
 function spark(v, up) { const lo = Math.min(...v), hi = Math.max(...v); const d = v.map((x, i) => `${i ? "L" : "M"}${(i / (v.length - 1) * 64).toFixed(1)},${(20 - (x - lo) / (hi - lo || 1) * 20).toFixed(1)}`).join(""); return `<svg class="spark ${up ? "up" : "down"}" viewBox="0 0 64 20" preserveAspectRatio="none" aria-hidden="true"><path class="base" d="M0,${(20 - (v[0] - lo) / (hi - lo || 1) * 20).toFixed(1)}H64"/><path class="line" d="${d}"/></svg>`; }
 function drawK(el, n) {
@@ -75,7 +75,7 @@ function drawK(el, n) {
   const lo = Math.min(...bars.map((b) => b[2])) - 0.3, hi = Math.max(...bars.map((b) => b[1])) + 0.3; const pw = W - 44, ph = H * 0.78, vh = H * 0.16, bw = pw / n; const y = (v) => 6 + (hi - v) / (hi - lo) * (ph - 6);
   let s = ""; for (let t = 0; t <= 4; t++) { const v = lo + (hi - lo) * t / 4; s += `<line x1="0" x2="${pw}" y1="${y(v)}" y2="${y(v)}" stroke="var(--c-rule)"/><text x="${pw + 6}" y="${y(v) + 4}" style="font:11px var(--font-num);fill:var(--c-muted)">${v.toFixed(2)}</text>`; }
   bars.forEach((b, i) => { const up = b[3] >= b[0], col = up ? "var(--c-up)" : "var(--c-down)", x = i * bw; s += `<line x1="${x + bw / 2}" x2="${x + bw / 2}" y1="${y(b[1])}" y2="${y(b[2])}" stroke="${col}"/><rect x="${x + bw * 0.15}" y="${y(Math.max(b[0], b[3]))}" width="${bw * 0.7}" height="${Math.max(1, Math.abs(y(b[0]) - y(b[3])))}" fill="${up ? "var(--c-surface)" : col}" stroke="${col}"/><rect x="${x + bw * 0.15}" y="${H - b[4] / 80 * vh}" width="${bw * 0.7}" height="${b[4] / 80 * vh}" fill="${col}" opacity="0.45"/>`; });
-  el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="日 K 线示例，随机生成">${s}</svg>`;
+  el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="日 K 线">${s}</svg>`;
 }
 // 标注：给 [data-anno] 画框，写组件名和实测尺寸；[data-main] 另算主内容占内容区的比例
 function annotate() {

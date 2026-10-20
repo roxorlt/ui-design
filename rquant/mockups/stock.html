@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>个股档案（套用规范示意）· rQuant 设计规范初稿</title>
+<title>个股 · rQuant</title>
 <link rel="stylesheet" href="../system/tokens.css">
 <link rel="stylesheet" href="../system/components.css">
 <link rel="stylesheet" href="shell.css">
@@ -81,7 +81,6 @@
         <div class="tools only-pc"><button class="btn quiet">筹码分布</button><button class="btn quiet">BOLL</button></div></div>
       <div class="panel-b" style="display:flex"><div class="kchart" id="k"></div></div>
     </section>
-    <p class="demo-flag">示意稿：股票代码和名称为虚构，行情数值为示例，K 线为随机生成；指标名与现有「个股档案」页一致。</p>
   </main>
   <nav class="tabbar" aria-label="主导航"></nav>
 </div>
@@ -113,7 +112,7 @@ function drawK() {
     s += `<line x1="${x + bw / 2}" x2="${x + bw / 2}" y1="${y(b[1])}" y2="${y(b[2])}" stroke="${col}"/><rect x="${x + bw * 0.15}" y="${y(Math.max(b[0], b[3]))}" width="${bw * 0.7}" height="${Math.max(1, Math.abs(y(b[0]) - y(b[3])))}" fill="${up ? "var(--c-surface)" : col}" stroke="${col}"/>`;
     s += `<rect x="${x + bw * 0.15}" y="${H - b[4] / 80 * vh}" width="${bw * 0.7}" height="${b[4] / 80 * vh}" fill="${col}" opacity="0.45"/>`; });
   s += mline(ma(5), "var(--c-ink-2)") + mline(ma(20), "var(--c-accent)") + mline(ma(60), "#B26A00");
-  el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="日K线示例">${s}</svg>`;
+  el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="日K线">${s}</svg>`;
 }
 drawK(); addEventListener("resize", drawK);
 </script>
