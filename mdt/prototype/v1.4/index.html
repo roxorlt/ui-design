@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="data:,">
+<title>门店通 v1.4 基础管理 · 低保真原型</title>
+<style>
+:root{--bg:#f4f4f5;--pn:#fff;--ln:#d4d4d8;--t1:#18181b;--t2:#52525b;--t3:#71717a;--ac:#18181b;--warn:#a16207;--bad:#b91c1c;--ok:#15803d}
+*{box-sizing:border-box}body{margin:0;font:14px/1.5 -apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans SC",sans-serif;background:var(--bg);color:var(--t1)}
+a{color:inherit}button{font:inherit}
+.lofi-bar{position:sticky;top:0;z-index:40;height:calc(28px + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) 8px 0;display:flex;align-items:center;justify-content:center;background:#fef3c7;color:#78350f;border-bottom:1px solid #f59e0b;font-size:12px;line-height:28px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top{position:sticky;top:calc(28px + env(safe-area-inset-top,0px));z-index:5;background:var(--pn);border-bottom:1px solid var(--ln);display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:8px 12px}
+.top b{font-size:15px}.top .sp{flex:1}
+.top select{min-height:36px;border:1px solid var(--ln);border-radius:6px;background:#fff;padding:0 6px}
+.bell{position:relative;min-width:44px;min-height:36px;border:1px solid var(--ln);border-radius:6px;background:#fff;cursor:pointer}
+.bell i{position:absolute;top:-6px;right:-6px;background:var(--bad);color:#fff;font-style:normal;font-size:11px;border-radius:9px;padding:0 5px}
+.lofi{font-size:12px;color:var(--t3);border:1px dashed var(--ln);padding:2px 6px;border-radius:4px}
+.wrap{max-width:960px;margin:0 auto;padding:12px}
+.nav{display:flex;gap:6px;overflow-x:auto;padding:8px 12px;background:#fafafa;border-bottom:1px solid var(--ln)}
+.nav a{white-space:nowrap;text-decoration:none;padding:8px 10px;border-radius:6px;border:1px solid transparent;min-height:36px}
+.nav a.on{border-color:var(--t1);font-weight:600}
+h1{font-size:18px;margin:4px 0 12px}h2{font-size:15px;margin:16px 0 8px}
+.card{background:var(--pn);border:1px solid var(--ln);border-radius:8px;padding:12px;margin-bottom:12px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{min-height:40px;padding:0 14px;border:1px solid var(--t1);border-radius:6px;background:#fff;cursor:pointer}
+.btn.p{background:var(--t1);color:#fff}.btn.s{min-height:32px;padding:0 10px;font-size:13px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--ln);margin-bottom:12px;overflow-x:auto}
+.tabs a{padding:10px 12px;text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent}
+.tabs a.on{border-color:var(--t1);font-weight:600}
+table{width:100%;border-collapse:collapse;background:#fff}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--ln);vertical-align:top}
+th{font-size:12px;color:var(--t3);font-weight:500}
+.tw{overflow-x:auto}
+.tag{display:inline-block;font-size:12px;border:1px solid var(--ln);border-radius:4px;padding:0 6px;color:var(--t2);white-space:nowrap}
+.tag.warn{border-color:var(--warn);color:var(--warn)}.tag.bad{border-color:var(--bad);color:var(--bad)}.tag.ok{border-color:var(--ok);color:var(--ok)}.tag.mute{color:var(--t3);background:#f4f4f5}
+.mu{color:var(--t3);font-size:12px}
+.note{font-size:12px;color:var(--t2);background:#fafafa;border-left:3px solid var(--ln);padding:6px 10px;margin:8px 0}
+.err{color:var(--bad);font-size:12px;min-height:18px}
+label.f{display:block;margin:8px 0}label.f span{display:block;font-size:12px;color:var(--t2);margin-bottom:4px}
+input,select.in,textarea{width:100%;min-height:40px;border:1px solid var(--ln);border-radius:6px;padding:6px 8px;font:inherit;background:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{min-height:40px;padding:0 12px;border:1px solid var(--ln);border-radius:20px;background:#fff;cursor:pointer}.chip.on{border-color:var(--t1);font-weight:600}
+.mask{position:fixed;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:flex-end;justify-content:center;z-index:20}
+.modal{background:#fff;width:100%;max-width:480px;max-height:90vh;overflow:auto;border-radius:12px 12px 0 0;padding:16px}
+@media(min-width:640px){.mask{align-items:center}.modal{border-radius:12px}}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--t1);color:#fff;padding:8px 14px;border-radius:6px;z-index:30;max-width:90vw}
+.phone{max-width:390px;margin:0 auto;background:#fff;border:1px solid var(--ln);border-radius:16px;padding:20px;min-height:560px}
+.qr{width:140px;height:140px;border:1px dashed var(--t3);display:flex;align-items:center;justify-content:center;color:var(--t3);margin:8px auto}
+.list a{display:block;text-decoration:none;padding:12px;border-bottom:1px solid var(--ln)}
+.msg{padding:10px 0;border-bottom:1px solid var(--ln)}.msg.un::before{content:"● ";color:var(--bad)}
+.hl{outline:2px solid var(--t1);outline-offset:-2px}
+.flow li{margin:6px 0}
+</style>
+</head>
+<body>
+<div class="lofi-bar" role="note">低保真原型，只看流程，视觉以设计规范为准</div>
+<div id="top"></div><div id="nav"></div><div class="wrap" id="app"></div><div id="ov"></div>
+<script>
+/* 门店通 v1.4 低保真原型：只覆盖新增页面和关键流程。数据都在内存里，刷新即回到初始状态。
+   演示数据均为虚构（西湖店 7 个账号、销售顾问A–F 各 4 条线索）。 */
+const ROLES={hq:{n:"总部管理员",who:"总部管理员",acc:"xingchi_hq_admin"},region:{n:"大区经理",who:"华东大区经理",acc:"east_region_mgr"},store:{n:"门店店长",who:"杭州星驰西湖店店长",acc:"hz_xihu_manager"},sales:{n:"销售顾问",who:"杭州星驰西湖店，销售顾问A",acc:"hz_xihu_sales_a"}};
+const EAST=["上海星驰浦东店","上海星驰闵行店","杭州星驰西湖店","杭州星驰滨江店","宁波星驰鄞州店","南京星驰河西店","苏州星驰园区店","无锡星驰太湖店","合肥星驰政务区店","福州星驰仓山店","温州星驰瓯海店","常州星驰武进店"];
+const EAST_SALES=[7,4,6,4,4,7,7,3,5,6,6,5]; // 演示数据：华东各店销售顾问数，合计 64
+let S;
+function seed(){
+ S={role:"store",seq:1,msgs:[],logs:[],apps:[],invites:[],jn:1,an:1,sid:49,en:1,
+ stores:EAST.map((n,i)=>({id:11+i,name:n,region:"华东",city:n.slice(0,2),status:"正常",seed:true,addr:"",tel:""})),
+ staff:[{id:"S13-M",name:"店长",role:"店长",store:13,status:"正常",acc:"hz_xihu_manager"}].concat("ABCDEF".split("").map(c=>({id:"S13-"+c,name:"销售顾问"+c,role:"销售顾问",store:13,status:"正常",acc:"hz_xihu_sales_"+c.toLowerCase()}))),
+ accounts:[["杭州星驰西湖官方","快手","门店号","","正常"],["杭州星驰西湖销售顾问A","快手","个人号","S13-A","即将过期"],["杭州星驰西湖销售顾问B","抖音","个人号","S13-B","正常"],["杭州星驰西湖展厅直播","快手","门店号","","正常"],["杭州星驰西湖新车速递","抖音","门店号","S13-B","正常"],["杭州星驰西湖售后小助手","抖音","门店号","","已过期"],["杭州星驰西湖车主俱乐部","小红书","门店号","","正常"]].map((a,i)=>({id:"AC"+(i+1),name:a[0],plat:a[1],type:a[2],owner:a[3],status:a[4],store:13,warned:{}})),
+ leads:[]};
+ const L={A:[["XS26102000","张先生","待跟进",1],["XS26102246","赵女士","待跟进",0],["XS26102492","客户","跟进中",0],["XS26102738","客户","已到店",0]],B:[["XS26102041","李女士","待跟进",1],["XS26102287","黄先生","待跟进",0],["XS26102533","朱先生","跟进中",0],["XS26102779","罗先生","已成交",0]]};
+ "CDEF".split("").forEach((c,k)=>L[c]=[0,1,2,3].map(j=>["XS-"+c+j,"客户",j==0?"待跟进":["跟进中","已到店","已成交"][j-1],0]));
+ Object.entries(L).forEach(([c,arr])=>arr.forEach(x=>S.leads.push({id:x[0],name:x[1],status:x[2],od:!!x[3],owner:"S13-"+c,tag:"",tl:[]})));
+}
+seed();
+const $=s=>document.querySelector(s);
+const me=()=>({hq:null,region:null,store:"S13-M",sales:"S13-A"}[S.role]);
+const inbox=r=>S.msgs.filter(m=>m.to==r);
+const unread=()=>inbox(S.role).filter(m=>!m.read).length;
+const stName=id=>(S.stores.find(s=>s.id==id)||{}).name||"";
+const emp=id=>S.staff.find(e=>e.id==id);
+const empName=id=>id?(emp(id)||{}).name:"店长";
+function send(to,type,title,go,from){S.msgs.unshift({id:S.seq++,to,type,title,go,from:from||"系统",read:false})}
+function log(obj,act,chg){S.logs.unshift({id:"L-1014-"+String(S.logs.length+1).padStart(4,"0"),who:ROLES[S.role].who,obj,act,chg,store:13})}
+function toast(t){const d=document.createElement("div");d.className="toast";d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2600)}
+function modal(h){$("#ov").innerHTML=`<div class="mask" onclick="if(event.target==this)closeM()"><div class="modal">${h}</div></div>`}
+function closeM(){$("#ov").innerHTML=""}
+function go(h){location.hash=h}
+function setRole(r){S.role=r;closeM();const p=location.hash;render()}
+function drawTop(){
+ $("#top").innerHTML=`<b>门店通</b><span class="lofi">v1.4 低保真原型</span><span class="sp"></span>
+ <button class="bell" aria-label="消息，${unread()} 条未读" onclick="go('#/messages')">铃${unread()?`<i>${unread()>99?"99+":unread()}</i>`:""}</button>
+ <label class="mu">演示角色 <select onchange="setRole(this.value)">${Object.entries(ROLES).map(([k,r])=>`<option value="${k}" ${k==S.role?"selected":""}>${r.n}</option>`).join("")}</select></label>
+ <button class="btn s" onclick="if(confirm('重置原型数据？'))seed(),render(),toast('已重置原型数据')">重置</button>`;
+ const items=[["#/","流程导航"]];
+ if(S.role!="sales")items.push(["#/staff","员工与账号"],["#/stores","门店"],["#/logs","操作日志"]);
+ items.push(["#/me","我的"],["#/me/accounts","我的绑定账号"],["#/messages","消息"]);
+ if(S.role=="hq")items.push(["#/company","企业与套餐"]);
+ const h=location.hash||"#/";
+ $("#nav").innerHTML=`<div class="nav">${items.map(([u,t])=>`<a href="${u}" class="${h.split("?")[0]==u?"on":""}">${t}</a>`).join("")}</div>`;
+}
+/* ---------- 页面 ---------- */
+const P={};
+P.home=()=>`<h1>v1.4 基础管理 · 低保真原型</h1>
+<div class="note">只覆盖新增页面和关键流程。顶栏切「演示角色」看不同视角；数据在内存里，刷新回到初始状态。</div>
+<div class="card"><h2>关键流程（按顺序点）</h2><ol class="flow">
+<li><b>员工邀请（直接生效）</b> B-02 / B-04：店长 → <a href="#/staff">员工与账号</a> →「添加员工」→ 模拟短信 →「以被邀请人身份打开」→ 激活</li>
+<li><b>员工申请 → 店长审批</b> B-03：店长 →「邀请二维码」→「以申请人身份打开」→ 提交 → 铃铛 → 待审批 → 通过 / 拒绝 → 回申请状态页</li>
+<li><b>离职交接</b> B-06–B-08：店长 → <a href="#/staff/S13-B">销售顾问B</a> →「停用」→ 线索转店长 → 交接页再分配给 A；门店号转交、个人号解绑 → 切销售顾问看消息和<a href="#/me/accounts">我的绑定账号</a></li>
+<li><b>门店 / 多店切换</b> B-01、B-10–B-13、B-20：切到总部或大区 → <a href="#/staff">员工与账号</a> 顶部门店切换；<a href="#/stores">门店</a> →「添加门店」→ 指定店长 → 调大区 / 停用</li>
+<li><b>套餐信息页</b> B-26（只写 PRD，本期 demo 不做）：切到总部 → <a href="#/company">企业与套餐</a></li>
+<li><b>抖音账号绑定类型</b> B-14–B-17、B-22：销售顾问 → <a href="#/me/accounts">我的绑定账号</a> →「绑定账号」第 3 步选门店号 / 个人号；店长 → <a href="#/store/13?tab=acc">门店账号</a> 解绑、换绑、重新授权、提醒员工</li>
+<li><b>停用后登录</b> B-06、B-13：<a href="#/login?as=S13-B">以销售顾问B 身份登录</a></li></ol></div>`;
+
+function scopeStores(){return S.role=="hq"||S.role=="region"?S.stores:S.stores.filter(s=>s.id==13)}
+function switcher(cur){if(S.role=="store"||S.role=="sales")return"";
+ return `<div class="card row"><span class="mu">门店切换</span><select class="in" style="max-width:280px" onchange="go('#/staff?store='+this.value)">
+ <option value="">${S.role=="hq"?"全部（总部 + 5 大区 + 48 店）":"华东全部 12 店"}</option>${S.role=="hq"?`<option value="hq" ${cur=="hq"?"selected":""}>总部（3 人）</option>`:""}
+ ${S.stores.map(s=>`<option value="${s.id}" ${cur==s.id?"selected":""}>${s.name}${s.status!="正常"?"（"+s.status+"）":""}</option>`).join("")}</select>
+ <span class="mu">${S.role=="hq"?"原型只列华东门店；总部、大区人员可管理多家店":"大区可管理本区多家门店"}</span></div>`}
+const stTag=s=>`<span class="tag ${s=="正常"?"ok":s.startsWith("已停用")?"mute":s=="待审批"?"warn":""}">${s}</span>`;
+P.staff=(q)=>{if(S.role=="sales")return denied();
+ const cur=q.store||(S.role=="store"?13:"");const tab=q.tab||"all";
+ let rows=S.staff.filter(e=>cur?e.store==+cur:true);
+ const apps=S.apps.filter(a=>a.status=="待审批"&&(cur?a.store==+cur:true));
+ const head=`<h1>员工与账号</h1>${switcher(cur)}
+ <div class="row" style="margin-bottom:8px">${cur&&cur!="hq"?`<span class="mu">${stName(cur)}，${rows.length} 人</span>`:`<span class="mu">${S.role=="hq"?"种子共 284 人（原型只展开西湖店）":"种子共 76 人（原型只展开西湖店）"}</span>`}<span style="flex:1"></span>
+ <button class="btn" onclick="addStaff(${cur&&cur!='hq'?cur:"''"})">添加员工</button><button class="btn" onclick="qrInvite(${cur&&cur!='hq'?cur:13})">邀请二维码</button></div>
+ <div class="tabs">${[["all","全部"],["apr","待审批 "+apps.length],["off","已停用"],["data","员工数据"]].map(([k,t])=>`<a href="#/staff?store=${cur}&tab=${k}" class="${tab==k?"on":""}">${t}</a>`).join("")}</div>`;
+ if(!cur&&tab!="all")return head+`<div class="card mu">先选一家门店</div>`;
+ if(tab=="apr")return head+(apps.length?`<div class="tw"><table><tr><th>申请人</th><th>手机号</th><th>申请门店</th><th>操作</th></tr>${apps.map(a=>`<tr><td>${a.name}</td><td>${mask(a.tel)}</td><td>${stName(a.store)}</td><td>${canApprove(a.store)?`<button class="btn s p" onclick="approve('${a.id}')">通过</button> <button class="btn s" onclick="reject('${a.id}')">拒绝</button>`:`<span class="mu">由店长审批</span>`}</td></tr>`).join("")}</table></div>`:`<div class="card">没有待审批的申请<div class="mu">员工扫码申请加入后会出现在这里。</div></div>`);
+ if(tab=="data"){const r=S.staff.filter(e=>e.store==+cur&&e.role!="店长");const c=e=>{const l=S.leads.filter(x=>x.owner==e.id);return[l.length,l.filter(x=>x.status=="待跟进").length,l.filter(x=>x.status=="待跟进"&&x.od).length]};const tot=[0,0,0];
+  return head+`<div class="tw"><table><tr><th>销售顾问</th><th>线索</th><th>待跟进</th><th>超 2 小时未跟进</th></tr>${r.map(e=>{const v=c(e);v.forEach((x,i)=>tot[i]+=x);return`<tr><td>${e.name} ${e.status!="正常"?stTag(e.status):""}</td><td>${v[0]}</td><td>${v[1]}</td><td>${v[2]}</td></tr>`}).join("")}
+  ${(()=>{const l=S.leads.filter(x=>x.owner=="");return l.length?`<tr><td>店长（待再分配）</td><td>${l.length}</td><td>${l.filter(x=>x.status=="待跟进").length}</td><td>${l.filter(x=>x.status=="待跟进"&&x.od).length}</td></tr>`:""})()}
+  ${(()=>{const l=S.leads;return`<tr><th>合计</th><th>${l.length}</th><th>${l.filter(x=>x.status=="待跟进").length}</th><th>${l.filter(x=>x.status=="待跟进"&&x.od).length}</th></tr>`})()}</table></div><div class="mu">数字从西湖店线索样本算，合计等于店长线索页 KPI。${S.role!="store"?"总部、大区只读。":""}</div>`}
+ if(tab=="off")rows=rows.filter(e=>e.status.startsWith("已停用"));
+ if(cur=="hq")return head+`<div class="tw"><table><tr><th>姓名</th><th>角色</th><th>管理范围</th></tr>${["总部管理员","内容运营","数据分析"].map(n=>`<tr><td>${n}</td><td>总部管理员</td><td>全国 48 店</td></tr>`).join("")}</table></div>`;
+ if(!cur)return head+`<div class="tw"><table><tr><th>门店</th><th>店长</th><th>销售顾问</th><th></th></tr>${S.stores.map((s,i)=>`<tr><td>${s.name} ${s.status!="正常"?stTag(s.status):""}</td><td>${S.staff.some(e=>e.store==s.id&&e.role=="店长")||s.seed?"1":"0"}</td><td>${s.id==13?S.staff.filter(e=>e.store==13&&e.role=="销售顾问").length:s.seed?EAST_SALES[i]:S.staff.filter(e=>e.store==s.id&&e.role=="销售顾问").length}</td><td><a href="#/staff?store=${s.id}">查看</a></td></tr>`).join("")}</table></div>`;
+ return head+(rows.length?`<div class="tw"><table><tr><th>姓名</th><th>角色</th><th>手机号</th><th>状态</th><th>线索</th><th>账号</th><th></th></tr>${rows.map(e=>`<tr><td>${e.name}</td><td>${e.role}</td><td>${mask(e.tel)}</td><td>${stTag(e.status)}</td><td>${S.leads.filter(l=>l.owner==e.id).length}</td><td>${S.accounts.filter(a=>a.owner==e.id&&a.status!="已解绑").length}</td><td><a href="#/staff/${e.id}">查看</a>${e.status=="待激活"&&e.code?` · <a href="#/join/${e.code}">以被邀请人身份打开</a>`:""}</td></tr>`).join("")}</table></div>`:`<div class="card mu">${tab=="off"?"没有已停用的员工":"本店还没有员工"}</div>`);
+};
+const mask=t=>t?t.slice(0,3)+"****"+t.slice(-4):"—";
+const canApprove=st=>S.role=="store"&&st==13||S.role=="region"&&!S.staff.some(e=>e.store==st&&e.role=="店长"&&e.status=="正常");
+function addStaff(st){const fixed=S.role=="store";const opts=fixed?`<option value="13">杭州星驰西湖店</option>`:S.stores.filter(s=>s.status!="已停用").map(s=>`<option value="${s.id}" ${st==s.id?"selected":""}>${s.name}</option>`).join("");
+ modal(`<h2>添加员工</h2><div class="mu">管理员添加的员工不需要审批，直接生效；对方设密码后即可登录。店员只属一家门店。</div>
+ <label class="f"><span>姓名（10 字以内）</span><input id="fn" oninput="vAdd()"></label><label class="f"><span>手机号</span><input id="ft" inputmode="numeric" oninput="vAdd()"></label>
+ <label class="f"><span>角色</span><select class="in" id="fr">${(fixed?["销售顾问","试驾专员（自定义）"]:["销售顾问","店长","试驾专员（自定义）"]).map(r=>`<option>${r}</option>`).join("")}</select></label>
+ <label class="f"><span>所属门店（单选）</span><select class="in" id="fs" ${fixed?"disabled":""}>${opts}</select></label>
+ <div class="err" id="fe"></div><div class="row"><button class="btn" onclick="closeM()">取消</button><button class="btn p" id="fok" disabled onclick="doAdd()">确认添加</button></div>`)}
+function vAdd(){const n=$("#fn").value.trim(),t=$("#ft").value.trim();let e="";if(n.length>10)e="姓名不能超过 10 个字";else if(t&&!/^\d{11}$/.test(t))e="手机号是 11 位数字";else if(S.staff.some(x=>x.tel==t)||S.apps.some(a=>a.tel==t&&a.status!="未通过"))e="这个手机号已在本企业";$("#fe").textContent=e;$("#fok").disabled=!!e||!n||!t}
+function doAdd(){const st=+$("#fs").value,role=$("#fr").value.replace("（自定义）","");const code="J-1014-"+String(S.jn++).padStart(2,"0");const e={id:"S"+st+"-N"+String(S.en++).padStart(2,"0"),name:$("#fn").value.trim(),tel:$("#ft").value.trim(),role,store:st,status:"待激活",code,by:S.role};
+ S.staff.push(e);S.invites.push({code,emp:e.id,status:"待激活"});log("员工 "+e.name,"添加员工","—→ 待激活");
+ modal(`<h2>模拟短信</h2><div class="card">【门店通】${stName(st)}${S.role=="store"?"店长":ROLES[S.role].who}邀请你加入门店通，点击链接设置密码：#/join/${code}</div><div class="mu">演示不发真短信。</div>
+ <div class="row"><button class="btn" onclick="closeM();render()">关闭</button><button class="btn p" onclick="closeM();go('#/join/${code}')">以被邀请人身份打开</button></div>`);render()}
+function qrInvite(st){modal(`<h2>邀请二维码</h2><div class="mu">员工扫码申请加入 ${stName(st)}，需要店长审批${S.staff.some(e=>e.store==st&&e.role=="店长")?"":"（本店还没有店长，由所属大区经理审批）"}。</div><div class="qr">二维码占位</div><div class="card mu">#/join/Q${st}</div>
+ <div class="row"><button class="btn" onclick="closeM()">关闭</button><button class="btn" onclick="toast('已复制链接')">复制链接</button><button class="btn p" onclick="closeM();go('#/join/Q${st}')">以申请人身份打开</button></div>`)}
+function approve(id){const a=S.apps.find(x=>x.id==id);modal(`<h2>通过申请</h2><div>${a.name}，${stName(a.store)}</div><label class="f"><span>角色</span><select class="in" id="ar"><option>销售顾问</option><option>试驾专员</option></select></label><div class="row"><button class="btn" onclick="closeM()">取消</button><button class="btn p" onclick="doApprove('${id}')">确认通过</button></div>`)}
+function doApprove(id){const a=S.apps.find(x=>x.id==id);a.status="已通过";const e={id:"S"+a.store+"-N"+String(S.en++).padStart(2,"0"),name:a.name,tel:a.tel,role:$("#ar").value,store:a.store,status:"待激活",code:"Q"+a.store+"/"+a.id,by:"apply"};S.staff.push(e);a.emp=e.id;log("员工 "+a.name,"审批通过","待审批 → 待激活");closeM();toast("已通过，等待"+a.name+"设置密码");render()}
+function reject(id){modal(`<h2>拒绝申请</h2><label class="f"><span>原因（必填，30 字以内）</span><input id="rr" maxlength="30" oninput="$('#rok').disabled=!this.value.trim()"></label><div class="row"><button class="btn" onclick="closeM()">取消</button><button class="btn p" id="rok" disabled onclick="doReject('${id}')">确认拒绝</button></div>`)}
+function doReject(id){const a=S.apps.find(x=>x.id==id);a.status="未通过";a.reason=$("#rr").value.trim();log("申请 "+a.name,"审批拒绝",a.reason);closeM();toast("已拒绝");render()}
+
+P.join=(q,code)=>{ // 激活页 / 申请页（没有账号的人唯一的接收页面）
+ let body="";const [c0,apId]=code.split("/");
+ if(c0.startsWith("Q")){const st=+c0.slice(1);const store=S.stores.find(s=>s.id==st);
+  if(!store||store.status=="已停用")body=`<h2>链接已失效</h2><p class="mu">请联系门店管理员。</p>`;
+  else if(!apId)body=`<h2>申请加入 ${store.name}</h2><div class="mu">提交后需要${S.staff.some(e=>e.store==st&&e.role=="店长")?"店长":"大区经理"}审批。</div><label class="f"><span>姓名</span><input id="jn"></label><label class="f"><span>手机号</span><input id="jt" inputmode="numeric"></label><div class="err" id="je"></div><button class="btn p" style="width:100%" onclick="apply(${st})">提交申请</button>`;
+  else{const a=S.apps.find(x=>x.id==apId);const e=a&&a.emp&&emp(a.emp);
+   if(!a)body=`<h2>链接已失效</h2>`;
+   else if(a.status=="待审批")body=`<h2>已提交，等待审批</h2><p>申请单 ${a.id}，${store.name}</p><div class="note">审批结果会显示在这个页面，请保存本页链接。</div>`;
+   else if(a.status=="未通过")body=`<h2>申请未通过</h2><p>原因：${a.reason}</p><button class="btn" onclick="go('#/join/Q${st}')">重新申请</button>`;
+   else body=e&&e.status=="待激活"?`<h2>店长已通过你的申请</h2>${pwForm(e.id)}`:`<h2>已激活</h2><button class="btn" onclick="go('#/login?as=${e.id}')">去登录</button>`}}
+ else{const inv=S.invites.find(i=>i.code==c0);const e=inv&&emp(inv.emp);const store=e&&S.stores.find(s=>s.id==e.store);
+  if(!inv||inv.status=="已撤回"||!e||store.status=="已停用")body=`<h2>链接已失效</h2><p class="mu">请联系门店管理员。</p>`;
+  else if(e.status=="待激活")body=`<h2>加入门店通</h2><p>${store.name}，${e.role}</p><p class="mu">邀请人：${e.by=="store"?"杭州星驰西湖店店长":ROLES[e.by].who}</p>${pwForm(e.id)}`;
+  else body=`<h2>已激活</h2><button class="btn" onclick="go('#/login?as=${e.id}')">去登录</button>`}
+ return `<div class="phone"><div class="mu">门店通 · 手机页面（激活 / 申请）</div>${body}<p style="margin-top:24px"><a href="#/staff">返回员工列表（演示）</a></p></div>`};
+const pwForm=id=>`<label class="f"><span>设置密码（6–20 位）</span><input type="password" id="p1"></label><label class="f"><span>再输一次</span><input type="password" id="p2"></label><div class="err" id="pe"></div><button class="btn p" style="width:100%" onclick="activate('${id}')">完成激活</button>`;
+function apply(st){const n=$("#jn").value.trim(),t=$("#jt").value.trim();if(!n||!/^\d{11}$/.test(t)){$("#je").textContent="请填姓名和 11 位手机号";return}
+ if(S.staff.some(x=>x.tel==t)){$("#je").textContent="这个手机号已在本企业";return}
+ const id="A-1014-"+String(S.an++).padStart(2,"0");S.apps.push({id,name:n,tel:t,store:st,status:"待审批"});
+ const hasMgr=S.staff.some(e=>e.store==st&&e.role=="店长"&&e.status=="正常");
+ if(st==13)send("store","员工申请",`员工申请：${n} 申请加入本店`,`#/staff?store=13&tab=apr`);else if(!hasMgr)send("region","员工申请",`员工申请：${n} 申请加入${stName(st)}`,`#/staff?store=${st}&tab=apr`);else send("other","员工申请","…","");
+ go(`#/join/Q${st}/${id}`)}
+function activate(id){const a=$("#p1").value,b=$("#p2").value;if(a.length<6||a.length>20){$("#pe").textContent="密码 6–20 位";return}if(a!=b){$("#pe").textContent="两次输入的密码不一致";return}
+ const e=emp(id);e.status="正常";const st=S.stores.find(s=>s.id==e.store);if(e.role=="店长"&&st.status=="待开通")st.status="正常";log("员工 "+e.name,"激活","待激活 → 正常");
+ if(e.store==13)send("store","员工加入",`员工加入：${e.name} 已激活`,`#/staff/${e.id}`);
+ if(e.by=="region"||e.by=="hq")send(e.by,"员工加入",`员工加入：${e.name} 已激活`,`#/staff/${e.id}`);
+ if(e.by=="apply"&&e.store!=13&&!S.staff.some(x=>x.store==e.store&&x.role=="店长"&&x.id!=e.id))send("region","员工加入",`员工加入：${e.name} 已激活`,`#/staff/${e.id}`);
+ $("#app").innerHTML=`<div class="phone"><h2>激活成功</h2><p class="mu">演示里新账号不能切入。</p><button class="btn p" onclick="go('#/staff?store=${e.store}')">返回员工列表</button></div>`;drawTop()}
+
+P.emp=(q,id)=>{const e=emp(id);if(!e)return`<div class="card">没有这个员工</div>`;const self=me()==id;const isMgr=e.role=="店长";
+ const canMng=(S.role=="store"&&e.store==13&&!isMgr&&!self)||S.role=="region"||S.role=="hq";
+ const leads=S.leads.filter(l=>l.owner==id).length,accs=S.accounts.filter(a=>a.owner==id&&a.status!="已解绑").length;
+ return `<p><a href="#/staff?store=${e.store}">← 员工与账号</a></p><h1>${e.name} ${stTag(e.status)}</h1>
+ <div class="card"><div>角色：${e.role}</div><div>所属门店：${stName(e.store)}（店员只属一家门店）</div><div>手机号：${mask(e.tel)}</div><div>名下线索 ${leads} 条，名下账号 ${accs} 个</div></div>
+ <div class="row">${canMng&&!self?`<button class="btn" onclick="chRole('${id}')">改角色</button>`:""}
+ ${canMng&&e.status=="正常"?(isMgr?`<button class="btn" disabled title="先指定新店长">停用（先指定新店长）</button>`:`<button class="btn" onclick="stopEmp('${id}')">停用</button>`):""}
+ ${canMng&&e.status.startsWith("已停用")?`<button class="btn" onclick="enable('${id}')">启用</button>`:""}
+ ${e.status.startsWith("已停用")||S.leads.some(l=>l.from==id&&l.owner=="")?`<a class="btn" style="display:inline-flex;align-items:center;text-decoration:none" href="#/handover/${id}">去交接</a>`:""}
+ <a class="btn" style="display:inline-flex;align-items:center;text-decoration:none" href="#/login?as=${id}">以该员工身份登录（演示）</a></div>
+ ${self?`<div class="mu" style="margin-top:8px">不能改自己的角色，也不能停用自己。</div>`:""}`};
+function chRole(id){modal(`<h2>改角色</h2><select class="in" id="cr"><option>销售顾问</option><option>试驾专员</option></select><div class="row" style="margin-top:12px"><button class="btn" onclick="closeM()">取消</button><button class="btn p" onclick="doCh('${id}')">确认</button></div>`)}
+function doCh(id){const e=emp(id),r=$("#cr").value;const old=e.role;e.role=r;log("员工 "+e.name,"改角色",old+" → "+r);if(id=="S13-A")send("sales","权限变更",`权限变更：你的角色改为 ${r}`,"#/me",ROLES[S.role].who);closeM();toast(`已把${e.name}的角色改为 ${r}`);render()}
+function stopEmp(id){const e=emp(id);const n=S.leads.filter(l=>l.owner==id).length,m=S.accounts.filter(a=>a.owner==id&&a.status!="已解绑").length;
+ modal(`<h2>停用 ${e.name}？</h2><p>${e.name} 名下有 ${n} 条线索、${m} 个账号。停用后立即不能登录；名下线索自动转给店长，由店长再分配；名下账号需要在交接页处理。</p>
+ <div class="row"><button class="btn" onclick="closeM()">取消</button><button class="btn" onclick="doStop('${id}',0)">只停用</button><button class="btn p" onclick="doStop('${id}',1)">停用并去交接</button></div>`)}
+function doStop(id,goH){const e=emp(id);const n=S.leads.filter(l=>l.owner==id);n.forEach(l=>{l.owner="";l.from=id;l.tl.push("系统 离职交接给 店长｜10-14 14:00")});
+ const m=S.accounts.filter(a=>a.owner==id&&a.status!="已解绑").length;e.status=m?"已停用，待交接":"已停用";log("员工 "+e.name,"停用员工","正常 → 已停用；"+n.length+" 条线索转店长");
+ if(S.role!="store"&&e.store==13)send("store","账号停用",`账号停用：${ROLES[S.role].who}停用了 ${e.name}，名下 ${n.length} 条线索已转给你`,`#/handover/${id}`,ROLES[S.role].who);
+ closeM();toast("已停用 "+e.name);goH&&S.role=="store"?go("#/handover/"+id):render()}
+function enable(id){const e=emp(id);e.status="正常";log("员工 "+e.name,"启用","已停用 → 正常");toast("已启用，已转走的线索和账号不回来");render()}
+
+P.handover=(q,id)=>{const e=emp(id);const tab=q.tab||"lead";const ls=S.leads.filter(l=>l.from==id&&l.owner=="");const as=S.accounts.filter(a=>a.owner==id&&a.status!="已解绑");const ro=S.role!="store";
+ return `<p><a href="#/staff/${id}">← ${e.name}</a></p><h1>离职交接：${e.name}</h1>${ro?`<div class="note">总部、大区只能查看，线索由店长再分配。</div>`:""}
+ <div class="tabs"><a href="#/handover/${id}?tab=lead" class="${tab=="lead"?"on":""}">线索 ${ls.length}</a><a href="#/handover/${id}?tab=acc" class="${tab=="acc"?"on":""}">账号 ${as.length}</a></div>`+
+ (tab=="lead"?(ls.length?`<div class="note">员工离职后线索已归店长，由店长再分配。</div><div class="tw"><table><tr><th><input type="checkbox" checked onclick="document.querySelectorAll('.lk').forEach(x=>x.checked=this.checked)" style="width:auto;min-height:0"></th><th>线索</th><th>客户</th><th>状态</th></tr>${ls.map(l=>`<tr><td><input class="lk" type="checkbox" checked value="${l.id}" style="width:auto;min-height:0"></td><td>${l.id}</td><td>${l.name}</td><td>${l.status}${l.od?' <span class="tag bad">超 2 小时</span>':""}</td></tr>`).join("")}</table></div>${ro?"":`<button class="btn p" style="margin-top:8px" onclick="pick('${id}')">分配给</button>`}`:`<div class="card">没有待分配的线索</div>`)
+ :(as.length?`<div class="note">门店号：转给其他员工或收回到门店；个人号：只能解绑。</div>${as.map(a=>`<div class="card row"><div style="flex:1"><b>${a.name}</b><div class="mu">${a.plat}，<span class="tag">${a.type}</span></div></div>${ro?"":a.type=="门店号"?`<button class="btn s" onclick="xfer('${a.id}')">转给</button><button class="btn s" onclick="takeBack('${a.id}')">收回到门店</button>`:`<button class="btn s" onclick="unbind('${a.id}')">解绑</button>`}</div>`).join("")}`:`<div class="card">名下账号都已处理</div>`))};
+function staffOpts(ex){return S.staff.filter(x=>x.store==13&&x.role!="店长"&&x.status=="正常"&&x.id!=ex)}
+function pick(from){const ids=[...document.querySelectorAll(".lk:checked")].map(x=>x.value);if(!ids.length)return toast("先勾选线索");
+ modal(`<h2>分配给</h2><div class="mu">只列本店「正常」的销售顾问。</div>${staffOpts(from).map(x=>`<label class="f" style="display:flex;gap:8px;align-items:center"><input type="radio" name="pk" value="${x.id}" style="width:auto;min-height:0" onchange="$('#pok').disabled=false"> ${x.name} <span class="mu">待跟进 ${S.leads.filter(l=>l.owner==x.id&&l.status=="待跟进").length} 条</span></label>`).join("")}
+ <div class="row"><button class="btn" onclick="closeM()">取消</button><button class="btn p" id="pok" disabled onclick="doPick('${from}','${ids.join(",")}')">确认分配</button></div>`)}
+function doPick(from,ids){const to=document.querySelector("input[name=pk]:checked").value;const L=ids.split(",");S.leads.filter(l=>L.includes(l.id)).forEach(l=>{l.owner=to;l.tag="交接来自 "+empName(from);l.tl.push(`店长 交接给 ${empName(to)}（离职交接）｜10-14 14:00`)});
+ log("线索 "+L.length+" 条","交接线索",empName(from)+" → "+empName(to));send(to=="S13-A"?"sales":"other","线索交接",`线索交接：${empName(from)} 的 ${L.length} 条线索交给你`,"#/leads?from=handover","杭州星驰西湖店｜店长");
+ S.msgs.find(m=>m.type=="线索交接").sent="交接线索给"+empName(to);closeM();toast(`已把 ${L.length} 条线索交给${empName(to)}`);render()}
+function xfer(aid){const a=S.accounts.find(x=>x.id==aid);modal(`<h2>转给</h2><div>${a.name}（${a.plat}，门店号）</div><select class="in" id="xt">${staffOpts(a.owner).map(x=>`<option value="${x.id}">${x.name}</option>`).join("")}</select><div class="mu">门店号转交后是否要重新授权：取决于平台授权主体规则，待确认；demo 不要求。</div><div class="row" style="margin-top:12px"><button class="btn" onclick="closeM()">取消</button><button class="btn p" onclick="doXfer('${aid}')">确认</button></div>`)}
+function doXfer(aid){const a=S.accounts.find(x=>x.id==aid),to=$("#xt").value,from=a.owner;a.owner=to;log("账号 "+a.name,"交接账号",empName(from)+" → "+empName(to));send(to=="S13-A"?"sales":"other","账号交接",`账号交接：${a.name}（${a.plat}）交给你负责`,"#/me/accounts","店长");afterAcc(from);closeM();toast("已转交");render()}
+function takeBack(aid){const a=S.accounts.find(x=>x.id==aid),from=a.owner;a.owner="";log("账号 "+a.name,"收回到门店",empName(from)+" → 店长");afterAcc(from);toast("已收回到门店");render()}
+function afterAcc(eid){const e=emp(eid);if(e&&e.status=="已停用，待交接"&&!S.accounts.some(a=>a.owner==eid&&a.status!="已解绑"))e.status="已停用"}
+function unbind(aid){const a=S.accounts.find(x=>x.id==aid);modal(`<h2>解绑 ${a.name}？</h2><p>解绑后不再同步数据，也不能被选来发布；历史数据保留。</p><div class="row"><button class="btn" onclick="closeM()">取消</button><button class="btn p" onclick="doUnbind('${aid}')">解绑</button></div>`)}
+function doUnbind(aid){const a=S.accounts.find(x=>x.id==aid);const o=a.owner;a.status="已解绑";log("账号 "+a.name,"解绑","→ 已解绑");
+ if(S.role=="sales")send("store","账号解绑",`账号解绑：销售顾问A解绑了 ${a.name}（${a.plat}）`,"#/store/13?tab=acc","销售顾问A");else if(o=="S13-A")send("sales","账号解绑",`账号解绑：店长解绑了 ${a.name}（${a.plat}）`,"#/me/accounts","店长");
+ afterAcc(o);closeM();toast("已解绑");render()}
+
+P.stores=()=>{if(S.role=="sales")return denied();const list=scopeStores();
+ return `<h1>门店</h1>${S.role=="hq"?`<div class="row" style="margin-bottom:8px"><span class="mu">原型只列华东门店</span><span style="flex:1"></span><button class="btn" onclick="addStore()">添加门店</button></div>`:""}
+ <div class="card"><b>组织树</b><div class="mu">${S.role=="hq"?"总部（3 人）› 5 大区 › ":S.role=="region"?"华东大区 › ":""}门店 › 「员工」「账号」两组</div></div>
+ <div class="tw"><table><tr><th>门店</th><th>大区</th><th>状态</th><th>员工</th><th>账号</th><th></th></tr>${list.map(s=>`<tr><td>${s.name}</td><td>${s.region}</td><td>${stTag(s.status)}</td><td>${s.id==13?S.staff.filter(e=>e.store==13).length:s.seed?"—":S.staff.filter(e=>e.store==s.id).length}</td><td>${s.id==13?S.accounts.filter(a=>a.store==13&&a.status!="已解绑").length:s.seed?"—":0}</td><td><a href="#/store/${s.id}">查看</a></td></tr>`).join("")}</table></div>`};
+function addStore(){modal(`<h2>添加门店</h2><label class="f"><span>门店名称（20 字以内）</span><input id="sn" oninput="vS()"></label><label class="f"><span>所属大区</span><select class="in" id="sr">${["华北","华东","华南","西南","华中"].map(r=>`<option ${r=="华东"?"selected":""}>${r}</option>`).join("")}</select></label><label class="f"><span>城市</span><input id="sc" oninput="vS()"></label><label class="f"><span>地址（选填）</span><input id="sa"></label><div class="err" id="se"></div><div class="mu">新建门店状态「待开通」，demo 不计入驾驶舱、任务、PK、发布等汇总。</div><div class="row"><button class="btn" onclick="closeM()">取消</button><button class="btn p" id="sok" disabled onclick="doStore()">确认</button></div>`)}
+function vS(){const n=$("#sn").value.trim();const e=S.stores.some(s=>s.name==n)?"已有同名门店":n.length>20?"名称不能超过 20 个字":"";$("#se").textContent=e;$("#sok").disabled=!!e||!n||!$("#sc").value.trim()}
+function doStore(){const s={id:S.sid++,name:$("#sn").value.trim(),region:$("#sr").value,city:$("#sc").value.trim(),status:"待开通",seed:false,addr:$("#sa").value,tel:""};S.stores.push(s);log("门店 "+s.name,"添加门店","—→ 待开通");if(s.region=="华东")send("region","门店变更",`门店变更：总部新增门店 ${s.name}`,`#/store/${s.id}`,"总部管理员");closeM();toast("已添加门店 "+s.name);render()}
+P.store=(q,id)=>{id=+id;const s=S.stores.find(x=>x.id==id);
+ if(!s||(S.role=="region"&&s.region!="华东"))return s&&s.movedFrom=="华东"?`<div class="card"><h2>${s.name} 已于 10-14 14:00 调至${s.region}大区，你已不能查看这家门店</h2><a class="btn" style="display:inline-flex;align-items:center;text-decoration:none" href="#/stores">返回门店列表</a></div>`:denied();
+ const tab=q.tab||"info";const mgr=S.staff.find(e=>e.store==id&&e.role=="店长");const isHQ=S.role=="hq",canEdit=isHQ||S.role=="region";
+ const off=s.status=="已停用";
+ const info=`${off?`<div class="note">本店已于 10-14 14:00 停用，以下为历史数据。</div>`:""}<div class="card"><div>大区：${s.region}</div><div>城市：${s.city}</div><div>地址：${s.addr||"—"}</div><div>电话：${s.tel||"—"}</div><div>店长：${id==13?"店长（演示角色账号）":mgr?mgr.name+"（"+mgr.status+"）":"未指定"}</div></div>
+ ${off?"":`<div class="row">${canEdit?`<button class="btn" onclick="editStore(${id})">编辑</button>`:""}
+ ${canEdit?(id==13?`<button class="btn" disabled>更换店长（演示角色账号不能更换）</button>`:`<button class="btn" onclick="setMgr(${id})">${mgr?"更换店长":"指定店长"}</button>`):""}
+ ${isHQ?(s.seed?`<button class="btn" disabled>调整大区（演示种子门店不能调）</button><button class="btn" disabled>停用门店（演示种子门店不能停用）</button>`:`<button class="btn" onclick="moveStore(${id})">调整大区</button><button class="btn" onclick="stopStore(${id})">停用门店</button>`):""}</div>`}`;
+ return `<p><a href="#/stores">← 门店</a></p><h1>${s.name} ${stTag(s.status)}</h1><div class="tabs"><a href="#/store/${id}?tab=info" class="${tab=="info"?"on":""}">门店信息</a><a href="#/store/${id}?tab=acc" class="${tab=="acc"?"on":""}">账号</a></div>`+(tab=="info"?info:accTable(id,q))};
+function editStore(id){const s=S.stores.find(x=>x.id==id);modal(`<h2>编辑门店</h2><label class="f"><span>名称</span><input id="en" value="${s.name}" ${s.seed?"disabled":""}></label>${s.seed?`<div class="mu">演示种子门店不改名称</div>`:""}<label class="f"><span>地址</span><input id="ea" value="${s.addr}"></label><label class="f"><span>电话</span><input id="et" value="${s.tel}"></label><div class="row"><button class="btn" onclick="closeM()">取消</button><button class="btn p" onclick="doEdit(${id})">保存</button></div>`)}
+function doEdit(id){const s=S.stores.find(x=>x.id==id);const old=s.tel;if(!s.seed)s.name=$("#en").value.trim()||s.name;s.addr=$("#ea").value;s.tel=$("#et").value;log("门店 "+s.name,"修改门店信息","电话 "+(old||"空")+" → "+(s.tel||"空"));closeM();toast("已保存");render()}
+function setMgr(id){const cands=S.staff.filter(e=>e.store==id&&e.status=="正常"&&e.role!="店长");const mgr=S.staff.find(e=>e.store==id&&e.role=="店长");
+ modal(`<h2>${mgr?"更换店长":"指定店长"}</h2><label class="f"><span>选本店员工</span><select class="in" id="mc"><option value="">新邀请</option>${cands.map(e=>`<option value="${e.id}">${e.name}</option>`).join("")}</select></label>
+ <label class="f"><span>新邀请：姓名</span><input id="mn"></label><label class="f"><span>新邀请：手机号</span><input id="mt" inputmode="numeric"></label>
+ ${mgr?`<label class="f"><span>原店长去向（必选）</span><select class="in" id="mo"><option>改为销售顾问</option><option>停用并交接</option></select></label>`:""}
+ <div class="row"><button class="btn" onclick="closeM()">取消</button><button class="btn p" onclick="doMgr(${id})">确认</button></div>`)}
+function doMgr(id){const s=S.stores.find(x=>x.id==id);const old=S.staff.find(e=>e.store==id&&e.role=="店长");const c=$("#mc").value;
+ if(old){if($("#mo").value=="改为销售顾问")old.role="销售顾问";else old.status="已停用"}
+ if(S.role=="hq"&&s.region=="华东")send("region","门店变更",`门店变更：总部${old?"更换了":"指定了"} ${s.name} 的店长`,`#/store/${id}`,"总部管理员");
+ if(c){const e=emp(c);e.role="店长";log("门店 "+s.name,old?"更换店长":"指定店长","→ "+e.name);closeM();toast("已指定");return render()}
+ const n=$("#mn").value.trim(),t=$("#mt").value.trim();if(!n||!/^\d{11}$/.test(t))return toast("请填姓名和 11 位手机号");
+ const code="J-1014-"+String(S.jn++).padStart(2,"0");const e={id:"S"+id+"-N"+String(S.en++).padStart(2,"0"),name:n,tel:t,role:"店长",store:id,status:"待激活",code,by:S.role};S.staff.push(e);S.invites.push({code,emp:e.id,status:"待激活"});log("门店 "+s.name,old?"更换店长":"指定店长","→ "+n+"（待激活）");
+ modal(`<h2>模拟短信</h2><div class="card">【门店通】${ROLES[S.role].who}邀请你担任 ${s.name} 店长，点击链接设置密码：#/join/${code}</div><div class="row"><button class="btn" onclick="closeM();render()">关闭</button><button class="btn p" onclick="closeM();go('#/join/${code}')">以被邀请人身份打开</button></div>`)}
+function moveStore(id){modal(`<h2>调整大区</h2><select class="in" id="mr">${["华北","华东","华南","西南","华中"].map(r=>`<option>${r}</option>`).join("")}</select><div class="row" style="margin-top:12px"><button class="btn" onclick="closeM()">取消</button><button class="btn p" onclick="doMove(${id})">确认</button></div>`)}
+function doMove(id){const s=S.stores.find(x=>x.id==id),to=$("#mr").value,from=s.region;if(to==from)return closeM();s.region=to;s.movedFrom=from;log("门店 "+s.name,"调整大区",from+" → "+to);if(from=="华东"||to=="华东")send("region","门店变更",`门店变更：总部把 ${s.name} 从${from}调至${to}`,`#/store/${id}`,"总部管理员");closeM();toast("已调整");render()}
+function stopStore(id){const s=S.stores.find(x=>x.id==id);modal(`<h2>停用 ${s.name}？</h2><p>本店全部员工将不能登录，本店账号停止同步、不能被选来发布；历史数据保留。能否恢复待确认，demo 不做恢复。</p><label class="f"><span>输入门店名确认</span><input id="sx" oninput="$('#sxok').disabled=this.value!='${s.name}'"></label><div class="row"><button class="btn" onclick="closeM()">取消</button><button class="btn p" id="sxok" disabled onclick="doStopStore(${id})">确认停用</button></div>`)}
+function doStopStore(id){const s=S.stores.find(x=>x.id==id);s.status="已停用";S.staff.filter(e=>e.store==id).forEach(e=>e.storeOff=true);log("门店 "+s.name,"停用门店","→ 已停用");if(s.region=="华东")send("region","门店变更",`门店变更：总部停用了 ${s.name}`,`#/store/${id}`,"总部管理员");closeM();toast("已停用");render()}
+
+const accTag=s=>`<span class="tag ${s=="正常"?"ok":s=="即将过期"?"warn":s=="已过期"?"bad":"mute"}">${s}</span>`;
+function accTable(id,q){if(id!=13)return`<div class="card mu">原型只展开西湖店账号。</div>`;const f=q.filter;const hl=q.acc;let list=S.accounts.filter(a=>a.store==13);if(f=="bad")list=list.filter(a=>a.status=="即将过期"||a.status=="已过期");
+ const canOp=S.role=="store"||S.role=="hq";
+ return `<div class="row" style="margin-bottom:8px"><a class="chip ${f!="bad"?"on":""}" style="display:inline-flex;align-items:center;text-decoration:none" href="#/store/13?tab=acc">全部</a><a class="chip ${f=="bad"?"on":""}" style="display:inline-flex;align-items:center;text-decoration:none" href="#/store/13?tab=acc&filter=bad">授权异常</a><span style="flex:1"></span>
+ ${canOp?`<button class="btn" onclick="bind(13)">绑定账号</button>`:""}${S.role=="hq"?`<button class="btn" onclick="sim()">模拟授权到期检查 <span class="tag">演示专用模块</span></button>`:""}</div>
+ <div class="tw"><table><tr><th>账号</th><th>平台</th><th>类型</th><th>负责人</th><th>授权状态</th><th>操作</th></tr>${list.map(a=>`<tr class="${hl==a.id?"hl":""}"><td>${a.name}</td><td>${a.plat}</td><td><span class="tag">${a.type}</span></td><td>${a.owner?empName(a.owner):"店长管"}</td><td>${accTag(a.status)}</td><td>${canOp&&a.status!="已解绑"?accOps(a):a.status=="已解绑"&&canOp?`<button class="btn s" onclick="bind(13)">重新绑定</button>`:""}</td></tr>`).join("")}</table></div>
+ ${S.role=="region"?`<div class="mu">大区只看不绑。</div>`:""}<div class="mu">个人号只能解绑，不能换绑或转交；门店号可换绑。</div>`}
+const accOps=a=>`${a.status=="即将过期"||a.status=="已过期"?`<button class="btn s" onclick="reauth('${a.id}')">重新授权</button> `:""}${S.role=="store"&&a.owner&&(a.status=="即将过期"||a.status=="已过期")?`<button class="btn s" onclick="remind('${a.id}')">提醒员工</button> `:""}${a.type=="门店号"?`<button class="btn s" onclick="rebind('${a.id}')">换绑</button> `:""}<button class="btn s" onclick="unbind('${a.id}')">解绑</button>`;
+function reauth(aid){const a=S.accounts.find(x=>x.id==aid);modal(`<h2>重新授权</h2><div>${a.name}（${a.plat}）</div><div class="qr">扫码占位</div><button class="btn p" style="width:100%" onclick="doReauth('${aid}')">模拟扫码成功</button>`)}
+function doReauth(aid){const a=S.accounts.find(x=>x.id==aid);a.status="正常";a.warned={};log("账号 "+a.name,"重新授权","→ 正常");closeM();toast("已重新授权");render()}
+function remind(aid){const a=S.accounts.find(x=>x.id==aid);if(a.owner=="S13-A")send("sales","授权失效",`授权失效：${a.name}（${a.plat}）${a.status}，请重新授权`,"#/me/accounts","店长");S.msgs[0].sent="提醒"+empName(a.owner)+"重新授权";toast("已提醒"+empName(a.owner));render()}
+function sim(){let n=0;S.accounts.filter(a=>a.store==13&&(a.status=="即将过期"||a.status=="已过期")&&!a.warned[a.status]).forEach(a=>{a.warned[a.status]=1;send("store","授权失效",`授权失效：${a.name}（${a.plat}）${a.status}`,"#/store/13?tab=acc&filter=bad");n++;if(a.owner){send(a.owner=="S13-A"?"sales":"other","授权失效",`授权失效：${a.name}（${a.plat}）${a.status}`,"#/me/accounts");n++}});toast(n?`已发送 ${n} 条授权提醒`:"没有新的授权异常");render()}
+function rebind(aid){const a=S.accounts.find(x=>x.id==aid);modal(`<h2>换绑 ${a.name}</h2>${S.role=="hq"?`<label class="f"><span>换到门店（跨店后负责人清空）</span><select class="in" id="rs"><option value="13">杭州星驰西湖店（本店内换负责人）</option>${S.stores.filter(s=>s.id!=13&&s.status!="已停用").map(s=>`<option value="${s.id}">${s.name}</option>`).join("")}</select></label>`:""}<label class="f"><span>新负责人</span><select class="in" id="ro"><option value="">店长管</option>${staffOpts(a.owner).map(x=>`<option value="${x.id}">${x.name}</option>`).join("")}</select></label><div class="row"><button class="btn" onclick="closeM()">取消</button><button class="btn p" onclick="doRebind('${aid}')">确认</button></div>`)}
+function doRebind(aid){const a=S.accounts.find(x=>x.id==aid);const st=$("#rs")?+$("#rs").value:13;const o=a.owner;
+ if(st!=13){a.store=st;a.owner="";log("账号 "+a.name,"换绑","杭州星驰西湖店 → "+stName(st));send("store","账号换绑",`账号换绑：${a.name}（${a.plat}）已转出`,"#/logs?obj="+a.id,"总部管理员");if(o=="S13-A")send("sales","账号换绑",`账号换绑：${a.name}（${a.plat}）已转出`,"#/logs?obj="+a.id,"总部管理员")}
+ else{a.owner=$("#ro").value;log("账号 "+a.name,"换绑",empName(o)+" → "+empName(a.owner));if(a.owner=="S13-A")send("sales","账号换绑",`账号换绑：${a.name}（${a.plat}）交给你负责`,"#/me/accounts",ROLES[S.role].who);if(o=="S13-A")send("sales","账号换绑",`账号换绑：${a.name}（${a.plat}）已转出`,"#/logs?obj="+a.id,ROLES[S.role].who)}
+ closeM();toast("已换绑");render()}
+
+let B={};
+function bind(st){B={step:1,plat:"抖音",store:S.role=="hq"?"":13,type:"",owner:S.role=="sales"?"S13-A":"",name:""};bindStep()}
+function bindStep(){const st=B.step;let h=`<h2>绑定账号 <span class="mu">第 ${st} / 3 步</span></h2>`;
+ if(st==1)h+=`<div class="chips">${["抖音","快手","小红书"].map(p=>`<button class="chip ${B.plat==p?"on":""}" onclick="B.plat='${p}';bindStep()">${p}</button>`).join("")}</div><div class="row" style="margin-top:12px"><button class="btn" onclick="closeM()">取消</button><button class="btn p" onclick="B.step=2;bindStep()">下一步</button></div>`;
+ if(st==2)h+=`<div class="qr">${B.plat}扫码占位</div><label class="f"><span>账号名称（演示手填，正式产品从平台带回）</span><input id="bn" value="${B.name}" oninput="B.name=this.value"></label><div class="row"><button class="btn" onclick="B.step=1;bindStep()">上一步</button><button class="btn p" onclick="if(!B.name.trim())return toast('请填账号名称');B.step=3;bindStep()">模拟扫码成功</button></div>`;
+ if(st==3){const typeOk=!!B.type,ownOk=B.type!="个人号"||!!B.owner,stOk=!!B.store;
+  h+=`<label class="f"><span>归属门店</span><select class="in" ${S.role=="hq"?"":"disabled"} onchange="B.store=this.value;bindStep()"><option value="">请选择</option>${S.stores.filter(s=>s.status!="已停用").map(s=>`<option value="${s.id}" ${B.store==s.id?"selected":""}>${s.name}</option>`).join("")}</select></label>
+  <div class="f"><span class="mu">账号类型（必选）</span><div class="chips">${["门店号","个人号"].map(t=>`<button class="chip ${B.type==t?"on":""}" onclick="B.type='${t}';bindStep()">${t}</button>`).join("")}</div></div>
+  <div class="note">门店号：离职时转交给其他员工；个人号：离职时只能解绑。</div>
+  <label class="f"><span>负责人${B.type=="个人号"?"（个人号必填）":"（门店号可空，空 = 店长管）"}</span><select class="in" ${S.role=="sales"?"disabled":""} onchange="B.owner=this.value;bindStep()"><option value="">${B.type=="个人号"?"请选择":"店长管"}</option>${S.staff.filter(e=>e.store==(+B.store||13)&&e.status=="正常"&&e.role!="店长").map(e=>`<option value="${e.id}" ${B.owner==e.id?"selected":""}>${e.name}</option>`).join("")}</select></label>
+  <div class="row"><button class="btn" onclick="B.step=2;bindStep()">上一步</button><button class="btn p" ${typeOk&&ownOk&&stOk?"":"disabled"} onclick="doBind()">完成绑定</button></div>`}
+ modal(h)}
+function doBind(){const a={id:"AC"+(S.accounts.length+1),name:B.name.trim(),plat:B.plat,type:B.type,owner:B.owner,status:"正常",store:+B.store,warned:{}};S.accounts.push(a);log("账号 "+a.name,"绑定",`→ ${stName(a.store)}，${a.type}`);
+ if(S.role=="sales")send("store","账号绑定",`账号绑定：销售顾问A 绑定了 ${a.name}（${a.plat}，${a.type}）`,"#/store/13?tab=acc","销售顾问A");else if(a.owner=="S13-A")send("sales","账号绑定",`账号绑定：店长为你绑定了 ${a.name}（${a.plat}，${a.type}）`,"#/me/accounts","店长");
+ closeM();toast("已绑定");render()}
+
+P.me=()=>{const id=me();const e=id&&emp(id);const n=S.accounts.filter(a=>a.owner==id&&a.status!="已解绑").length;
+ return `<h1>我的</h1><div class="card"><div>姓名：${e?e.name:ROLES[S.role].who}</div><div>账号：${ROLES[S.role].acc}</div><div>角色：${e?e.role:ROLES[S.role].n}</div><div>${S.role=="hq"?"管理范围：全国 48 店":S.role=="region"?"管理范围：华东 12 店":"所属门店：杭州星驰西湖店"}</div><div>手机号：—</div></div>
+ <div class="list card" style="padding:0"><a href="#/me/accounts">我的绑定账号 ${n} ›</a></div><div class="mu">只能改姓名（10 字以内）。改密码、换手机号只写 PRD（B-38）。</div>`};
+P.myacc=()=>{const id=me();const list=S.accounts.filter(a=>a.owner==id);
+ return `<h1>我的绑定账号</h1>${S.role=="store"||S.role=="sales"?`<button class="btn" style="margin-bottom:8px" onclick="bind(13)">绑定账号</button>`:""}`+(list.length?list.map(a=>`<div class="card row"><div style="flex:1"><b>${a.name}</b><div class="mu">${a.plat}，<span class="tag">${a.type}</span>，${stName(a.store)}</div></div>${accTag(a.status)}${a.status=="已解绑"?`<button class="btn s" onclick="bind(13)">重新绑定</button>`:`${a.status=="即将过期"||a.status=="已过期"?`<button class="btn s" onclick="reauth('${a.id}')">重新授权</button>`:""}${a.type=="个人号"?`<button class="btn s" onclick="unbind('${a.id}')">解绑</button>`:""}`}</div>`).join(""):`<div class="card">你名下没有平台账号<div class="mu">门店的官方号由店长统一管理，可以在门店详情的账号页签查看。</div></div>`)};
+P.messages=(q)=>{const t=q.t||"all";let list=inbox(S.role);const sent=S.msgs.filter(m=>m.sent&&((S.role=="store"&&m.from!="系统")));if(t=="mgmt")list=list;
+ return `<h1>消息中心</h1><div class="tabs"><a href="#/messages" class="${t!="sent"?"on":""}">全部 ${list.length}</a>${S.role!="sales"?`<a href="#/messages?t=sent" class="${t=="sent"?"on":""}">我发出的</a>`:""}</div><div class="mu">原型只列 v1.4 新增的「管理」类消息，其他类型消息不在本原型展示。</div>`+
+ (t=="sent"?(sent.length?sent.map(m=>`<div class="msg">${m.sent}，已读 ${m.read?1:0} / 1<div class="mu">${m.title}</div></div>`).join(""):`<div class="card">还没有发出过消息</div>`):
+ (list.length?list.map(m=>`<div class="msg ${m.read?"":"un"}"><span class="tag">${m.type}</span> ${m.title}<div class="row mu" style="justify-content:space-between"><span>${m.from}，10-14 14:00</span><button class="btn s" onclick="openMsg(${m.id})">去处理</button></div></div>`).join(""):`<div class="card">没有新消息</div>`))};
+function openMsg(id){const m=S.msgs.find(x=>x.id==id);m.read=true;go(m.go)}
+P.leads=(q)=>`<h1>线索（示意）</h1><div class="mu">v1.3 页面，这里只示意交接后的结果。</div>${S.leads.filter(l=>S.role=="sales"?l.owner=="S13-A":true).filter(l=>q.from=="handover"?l.tag:true).map(l=>`<div class="card"><b>${l.id} ${l.name}</b> <span class="tag">${l.status}</span> ${l.tag?`<span class="tag warn">${l.tag}</span>`:""}<div class="mu">跟进人：${l.owner?empName(l.owner):"店长（待再分配）"}</div>${l.tl.map(x=>`<div class="mu">· ${x}</div>`).join("")}</div>`).join("")}`;
+P.logs=(q)=>{if(S.role=="sales")return denied();const list=q.obj?S.logs.filter(l=>l.obj.includes((S.accounts.find(a=>a.id==q.obj)||{}).name||"~")):S.logs;
+ return `<h1>操作日志</h1><div class="mu">${S.role=="hq"?"全部":S.role=="region"?"本区":"本店"}；只记 v1.4 新增的管理动作。保留多久待确认。</div>`+(list.length?`<div class="tw"><table><tr><th>时间</th><th>操作人</th><th>对象</th><th>动作</th><th>变化</th></tr>${list.map(l=>`<tr><td>10-14 14:00</td><td>${l.who}</td><td>${l.obj}</td><td>${l.act}</td><td>${l.chg}</td></tr>`).join("")}</table></div>`:`<div class="card">没有符合条件的记录</div>`)};
+P.company=()=>S.role!="hq"?denied():`<h1>企业与套餐</h1><div class="note">B-26 / B-28：只写 PRD，本期 demo 不做。套餐只显示套餐名和到期时间，不做计费。</div>
+ <div class="card"><h2>企业信息</h2><div>企业名称：星驰汽车（演示）</div><div>Logo：—</div><div>主体：待补充</div><div>联系人：待补充</div><button class="btn s" style="margin-top:8px" onclick="toast('只写 PRD，原型不做编辑')">编辑</button></div>
+ <div class="card"><h2>套餐</h2><div>套餐名：{套餐名}<span class="mu">（取值待确认）</span></div><div>到期时间：{到期日}<span class="mu">（待确认）</span></div><div class="mu" style="margin-top:8px">不显示价格、用量和续费按钮。到期提醒发 hq「套餐到期」消息，去处理落到本页；提前多久待确认。</div></div>`;
+P.login=(q)=>{const e=q.as&&emp(q.as);return `<div class="phone"><h2>登录门店通</h2><label class="f"><span>账号</span><input value="${e?e.acc||e.name:""}"></label><label class="f"><span>密码</span><input type="password" value="••••••"></label><div class="err" id="le"></div>
+ <button class="btn p" style="width:100%" onclick="doLogin('${q.as||""}')">登录</button><p class="mu">演示：以 ${e?e.name:"—"} 身份登录</p></div>`};
+function doLogin(id){const e=emp(id);if(!e)return go("#/");if(e.storeOff)return $("#le").textContent="门店已停用，请联系总部";if(e.status.startsWith("已停用"))return $("#le").textContent="账号已停用，请联系门店管理员";if(e.status=="待激活")return $("#le").textContent="账号还没激活，请用邀请链接设置密码";toast("登录成功（演示，不切换角色）")}
+const denied=()=>`<div class="card"><h2>「${ROLES[S.role].n}」没有此页面的访问权限</h2><a href="#/">返回</a></div>`;
+function render(){const h=(location.hash||"#/").slice(1);const [p,qs]=h.split("?");const q=Object.fromEntries(new URLSearchParams(qs||""));const seg=p.split("/").filter(Boolean);let html;
+ if(!seg.length)html=P.home();else if(seg[0]=="staff"&&seg[1])html=P.emp(q,seg[1]);else if(seg[0]=="staff")html=P.staff(q);else if(seg[0]=="handover")html=P.handover(q,seg[1]);
+ else if(seg[0]=="join")html=P.join(q,seg.slice(1).join("/"));else if(seg[0]=="stores")html=P.stores();else if(seg[0]=="store")html=P.store(q,seg[1]);
+ else if(seg[0]=="me"&&seg[1]=="accounts")html=P.myacc();else if(seg[0]=="me")html=P.me();else if(seg[0]=="messages")html=P.messages(q);else if(seg[0]=="leads")html=P.leads(q);
+ else if(seg[0]=="logs")html=P.logs(q);else if(seg[0]=="company")html=P.company();else if(seg[0]=="login")html=P.login(q);else html=P.home();
+ drawTop();$("#app").innerHTML=html;window.scrollTo(0,0)}
+window.addEventListener("hashchange",render);render();
+</script>
+</body>
+</html>
