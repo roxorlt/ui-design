@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>rQuant 组件库状态页 v1.3</title>
+<title>rQuant 组件库状态页 v1.3.1</title>
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="components.css">
 <style>
@@ -128,7 +128,7 @@
   </nav>
   <div class="body">
     <section class="s" id="top">
-      <h1 class="doc-t">rQuant 组件库状态页　v1.3</h1>
+      <h1 class="doc-t">rQuant 组件库状态页　v1.3.1</h1>
       <p class="lede">这份规范围绕一件事：把首屏让给主功能。数字要多，但要排得紧；标题、说明、装饰要少。</p>
       <p>完整规则见<a href="../spec/index.html">rQuant 设计规范</a>；这一页集中展示组件和各状态的样子。</p>
     </section>
@@ -203,7 +203,7 @@
       <h3>涨跌色</h3>
       <ul class="rules">
         <li><b>A 股红涨绿跌：</b>上涨 <span class="up">--c-up #C8232C</span>，下跌 <span class="down">--c-down #07773F</span>，平盘用说明色。暗色主题换成更亮的一档（#FF5C64 / #2FC27E）。</li>
-        <li><b>只给「相对昨收的变化」上色：</b>涨跌幅、涨跌额、现价，以及以昨收为参照的今开、最高、最低。成交额、市值、PE 这类没有方向的数不上色。</li>
+        <li><b>只给「相对昨收的变化」上色：</b>涨跌幅、涨跌额、现价，以及以昨收为参照的今开、最高、最低。成交额、市值、PE 这类没有方向的数不上色。资金净额例外见规范组件<a href="../spec/components.html#c-numcolor">「数字和涨跌色」</a>。</li>
         <li><b>颜色之外必须有符号：</b>正数带「+」，负数用真正的减号「−」（U+2212，和「+」等宽），色弱用户也能分清。</li>
         <li><b>故障色和上涨色要能分开：</b>故障一律是圆点加「需处理」等文字，不单靠红色；数据表里不用故障红标异常值。</li>
       </ul>
@@ -492,7 +492,7 @@
         <li><b>输入框和下拉选择字号：</b>电脑 14px；手机和触屏 16px，避免 iOS 聚焦时页面自动放大。</li>
       </ul>
     </section>
-    <p class="cap" style="margin-top:40px">变量文件：<a href="tokens.css">tokens.css</a>、<a href="tokens.json">tokens.json</a>；组件样式：<a href="components.css">components.css</a>。v1.3，2026-10-21。</p>
+    <p class="cap" style="margin-top:40px">变量文件：<a href="tokens.css">tokens.css</a>、<a href="tokens.json">tokens.json</a>；组件样式：<a href="components.css">components.css</a>。v1.3.1，2026-10-21。</p>
   </div>
 </div>
 </body>

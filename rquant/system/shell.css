@@ -1,4 +1,4 @@
-/* rQuant 外框组件，设计规范 v1.3（2026-10-21）：全局顶栏（含页面标题）、左侧导航、手机底部标签栏（4 项）、「更多」弹层、顶栏告警铃铛、顶栏健康状态点、搜索框。 */
+/* rQuant 外框组件，设计规范 v1.3.1（2026-10-21）：全局顶栏（含页面标题）、左侧导航、手机底部标签栏（4 项）、「更多」弹层、顶栏告警铃铛、顶栏健康状态点、搜索框。 */
 .app { display: grid; grid-template-columns: 212px 1fr; grid-template-rows: var(--h-header-pc) 1fr; min-height: 100vh; }
 .top { grid-column: 1 / -1; display: flex; align-items: center; gap: 16px; padding: 0 16px 0 14px; background: var(--c-surface); border-bottom: 1px solid var(--c-rule); position: sticky; top: 0; z-index: 4; }
 .brand { display: flex; align-items: center; gap: 8px; width: 186px; font: 600 14px/1 var(--font-sans); }

@@ -1,4 +1,4 @@
-/* rQuant 设计变量 v1.3（2026-10-21）。与 tokens.json 同一份数据。v1.0 新增动效变量 --dur-* / --ease-*；v1.2 新增等宽字体 --font-mono（只给日志块 .logview）；v1.3 新增下拉选择 --select-* 和输入框 --input-*。 */
+/* rQuant 设计变量 v1.3.1（2026-10-21）。与 tokens.json 同一份数据。v1.0 新增动效变量 --dur-* / --ease-*；v1.2 新增等宽字体 --font-mono（只给日志块 .logview）；v1.3 新增下拉选择 --select-* 和输入框 --input-*；v1.3.1 不改变量，补资金净额用涨跌色的规则。 */
 :root {
   --c-ground: #F3F5F7;
   --c-surface: #FFFFFF;

@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>rQuant 设计规范 v1.3</title>
+<title>rQuant 设计规范 v1.3.1</title>
 <link rel="stylesheet" href="../system/tokens.css">
 <link rel="stylesheet" href="../system/components.css">
 <link rel="stylesheet" href="spec.css">
 </head>
 <body data-page="index.html">
 <div class="doc">
-  <header class="mbar"><a href="index.html">rQuant 设计规范</a><span class="num">v1.3</span><button class="btn quiet" id="tocBtn" aria-expanded="false" aria-controls="toc">目录</button></header>
+  <header class="mbar"><a href="index.html">rQuant 设计规范</a><span class="num">v1.3.1</span><button class="btn quiet" id="tocBtn" aria-expanded="false" aria-controls="toc">目录</button></header>
   <nav class="toc" id="toc" aria-label="规范目录">
-    <div class="toc-brand"><a href="index.html">rQuant 设计规范</a><span class="num">v1.3</span></div>
+    <div class="toc-brand"><a href="index.html">rQuant 设计规范</a><span class="num">v1.3.1</span></div>
     <ol><li><a href="index.html" aria-current="page"><span class="n"></span><span>概述</span></a><div class="sub"><a href="#owners">负责人</a><a href="#changelog">更新记录</a><a href="#start">做一个新页面</a><a href="#chapters">章节</a><a href="#change">新增或修改组件的流程</a></div></li><li><a href="principles.html"><span class="n">1</span><span>设计原则</span></a></li><li><a href="foundations.html"><span class="n">2</span><span>基础</span></a></li><li><a href="components.html"><span class="n">3</span><span>组件</span></a></li><li><a href="patterns.html"><span class="n">4</span><span>交互模式</span></a></li><li><a href="motion.html"><span class="n">5</span><span>页面动效</span></a></li><li><a href="templates.html"><span class="n">6</span><span>页面模板</span></a></li><li><a href="guidelines.html"><span class="n">7</span><span>跨端、无障碍、文案</span></a></li><li><a href="appendix.html"><span class="n"></span><span>附录</span></a></li></ol>
     <div class="toc-foot"><a href="../index.html">返回资料首页</a><a href="../system/index.html">组件库状态页</a><a href="../system/tokens.css">tokens.css</a><a href="../system/tokens.json">tokens.json</a><a href="../system/components.css">components.css</a></div>
   </nav>
@@ -22,7 +22,7 @@
 
 <div class="tscroll"><table class="dt" style="max-width:640px">
 <tbody>
-<tr><td>版本</td><td><span class="num">v1.3</span></td></tr>
+<tr><td>版本</td><td><span class="num">v1.3.1</span></td></tr>
 <tr><td>日期</td><td><span class="num">2026-10-21</span></td></tr>
 <tr><td>适用范围</td><td>rQuant 全部页面，电脑浏览器和手机浏览器（含 iOS、安卓）</td></tr>
 <tr><td>变量和样式</td><td><a href="../system/tokens.css">tokens.css</a>、<a href="../system/tokens.json">tokens.json</a>、<a href="../system/components.css">components.css</a>。页面只引用这三个文件，不写死色值和像素</td></tr>
@@ -41,6 +41,7 @@
 <div class="tscroll"><table class="dt stack">
 <thead><tr><th>版本</th><th>日期</th><th>改了什么</th><th>影响哪些组件</th></tr></thead>
 <tbody>
+<tr><td class="nw"><span class="num">v1.3.1</span></td><td class="n" data-l="日期">2026-10-21</td><td data-l="改了什么">补资金净额例外：带「+」「−」的资金净额数字本身可以用 <code>--c-up</code> / <code>--c-down</code>；净额旁的板块名、标题里的净额用 <code>--c-ink-2</code>，占比用 <code>--c-muted</code>。不改 token 的值</td><td data-l="影响哪些组件">数字和涨跌色；板块资金流的曲线末端标签、板块标题、领先股列表、流出前三</td></tr>
 <tr><td class="nw"><span class="num">v1.3</span></td><td class="n" data-l="日期">2026-10-21</td><td data-l="改了什么">新增组件「下拉选择」<code>.select</code>：浏览器原生 select，电脑 32px 高、14px，手机和触屏 44px 高、16px，右侧 chevron，五种状态，放在面板标题行右侧；新增变量 <code>--select-*</code>、<code>--input-*</code>。电脑端所有可点元素 ≥ 32px 高、图标按钮 32×32px：分段选项 26 → 32px，可排序表头 28 → 32px，提示条操作 ≥ 32px。输入框字号电脑 13 → 14px、手机和触屏 16px，左内边距 10 → 12px、手机 16px，焦点改用全站焦点环。面板标题行工具间距 4 → 8px。写明禁用控件不要求 4.5:1 对比度</td><td data-l="影响哪些组件">下拉选择（新）、分段控件、表头排序、输入框和表单字段、提示条操作、面板标题行工具；tokens.css、tokens.json、components.css</td></tr>
 <tr><td class="nw"><span class="num">v1.2</span></td><td class="n" data-l="日期">2026-10-21</td><td data-l="改了什么">新增组件「日志块」<code>.logview</code>（等宽 12px/18px，浅底，长行折行，不自己滚动）和变量 <code>--font-mono</code>；抽屉补底部弹层把手 <code>.drawer-grab</code>（手机，36×4px 横条，和标题行一起组成 72px 下滑区），写清下滑关闭的距离和速度；抽屉内容区加 <code>overscroll-behavior: contain</code>；轻提示撤销按钮补深底浅色焦点框、悬停底色，触屏（含平板）点按区 44px，写清连续操作只留最新一条；禁用按钮悬停、按下不再变色，文字按钮禁用时不加底色</td><td data-l="影响哪些组件">抽屉和底部弹层、轻提示、日志块（新）、按钮禁用态；tokens.css、tokens.json、components.css</td></tr>
 <tr><td class="nw"><span class="num">v1.1</span></td><td class="n" data-l="日期">2026-10-20</td><td data-l="改了什么">手机底部标签栏改为 4 项：全景、资金流、池子、更多。新增 3 个外框组件：「更多」弹层（只列不在底栏的页面，总览置顶）、顶栏告警铃铛（未读数：无 / 1–99 / 99+）、顶栏健康状态点（正常 / 注意 / 异常，形状不同）。告警角标只数最近一个交易日未确认的告警，点「确认」才减少，15 秒刷新；健康某层未知或整体读取失败都按「注意」显示。手机默认打开池子，平板和电脑默认打开总览。</td><td data-l="影响哪些组件">手机底部标签栏、「更多」弹层、顶栏告警铃铛、顶栏健康状态点、全局顶栏（手机右侧）；system/shell.css、mockups/mock.js、spec/tpl/tpl.js</td></tr>

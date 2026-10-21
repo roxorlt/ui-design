@@ -1,4 +1,4 @@
-/* rQuant 组件样式 v1.3（2026-10-21）：只依赖 tokens.css。v0.1 部分原样保留，v1.0 / v1.2 / v1.3 新增组件在文件末尾。
+/* rQuant 组件样式 v1.3.1（2026-10-21）：只依赖 tokens.css。v0.1 部分原样保留，v1.0 / v1.2 / v1.3 新增组件在文件末尾。
    v1.3：新增下拉选择 .select；电脑端可点元素 ≥ 32px 高（分段选项、可排序表头、提示条操作）；输入框字号电脑 14px、手机 16px，左内边距 12px / 16px，焦点用全站焦点环；面板标题行工具间距 8px。 */
 @import url("https://cdn.jsdelivr.net/npm/@fontsource/ibm-plex-sans-condensed@5/latin-400.css");
 @import url("https://cdn.jsdelivr.net/npm/@fontsource/ibm-plex-sans-condensed@5/latin-500.css");

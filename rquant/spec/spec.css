@@ -1,4 +1,4 @@
-/* rQuant 设计规范 v1.3 文档排版。只管规范页自己的版式；组件样式全部来自 ../system/components.css。 */
+/* rQuant 设计规范 v1.3.1 文档排版。只管规范页自己的版式；组件样式全部来自 ../system/components.css。 */
 body { background: var(--c-surface); }
 .doc { display: grid; grid-template-columns: 248px minmax(0, 1fr); min-height: 100vh; }
 
