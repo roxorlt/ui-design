@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>美国早期创投监控</title>
+<style>
+:root{--bg:#f4f5f7;--card:#fff;--ink:#1d2129;--sub:#646a73;--line:#e5e6eb;--ai:#1f6feb;--ai-bg:#e8f0fe;--so:#8a3ffc;--so-bg:#f1e9ff;--no:#646a73;--no-bg:#eef0f3;--pe:#b25e00;--pe-bg:#fff3e0;--bad:#d93026;--bad-bg:#fdecea;--ok:#188038;--ok-bg:#e6f4ea}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--ai);text-decoration:none}
+.app{max-width:520px;margin:0 auto;min-height:100vh;padding-bottom:72px}
+header{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);padding:12px 16px 10px}
+header h1{font-size:17px;margin:0}
+header .sub{font-size:12px;color:var(--sub)}
+.back{display:inline-block;margin-bottom:4px;font-size:14px;cursor:pointer;color:var(--ai)}
+main{padding:12px}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom)}
+nav .in{display:flex;max-width:520px;width:100%}
+nav a{flex:1;text-align:center;padding:10px 0 12px;color:var(--sub);font-size:13px}
+nav a.on{color:var(--ai);font-weight:600}
+.seg{display:flex;background:#e9eaee;border-radius:10px;padding:3px;margin-bottom:12px}
+.seg button{flex:1;border:0;background:transparent;padding:7px 4px;border-radius:8px;font-size:13px;color:var(--sub);cursor:pointer}
+.seg button.on{background:#fff;color:var(--ink);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.msg{display:flex;gap:10px;align-items:flex-start}
+.avatar{flex:none;width:36px;height:36px;border-radius:50%;background:var(--ai);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+.bubble{flex:1;min-width:0;background:#fff;border-radius:4px 14px 14px 14px;padding:12px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.who{font-size:12px;color:var(--sub);margin-bottom:4px}
+.h{font-weight:700;font-size:16px}
+.lead{margin:4px 0 8px;color:var(--ink)}
+.alert{background:var(--bad-bg);color:var(--bad);border-radius:8px;padding:8px 10px;margin:6px 0 10px;font-size:14px}
+.grp{margin-top:12px}
+.grp-t{font-size:13px;font-weight:700;color:var(--sub);margin-bottom:6px}
+.c{border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:8px;background:#fff;cursor:pointer}
+.c .n{font-weight:700}
+.c .r{font-size:13px;color:var(--ink);margin-top:2px}
+.c .d{font-size:13px;color:var(--sub);margin-top:2px}
+.c .f{display:flex;justify-content:space-between;align-items:center;margin-top:6px;gap:6px;flex-wrap:wrap}
+.tag{display:inline-block;font-size:12px;border-radius:6px;padding:1px 7px;margin-right:4px}
+.t-ai{background:var(--ai-bg);color:var(--ai)}
+.t-social{background:var(--so-bg);color:var(--so)}
+.t-none{background:var(--no-bg);color:var(--no)}
+.t-pend{background:var(--pe-bg);color:var(--pe)}
+.src{font-size:12px}
+.mini{font-size:13px;padding:7px 0;border-top:1px dashed var(--line);cursor:pointer}
+.mini:first-child{border-top:0}
+.mini .why{color:var(--pe)}
+.more{display:block;width:100%;border:0;background:#f2f3f5;border-radius:8px;padding:8px;font-size:13px;color:var(--ai);cursor:pointer;margin-top:2px}
+.foot{margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;color:var(--sub)}
+.btn{display:inline-block;border:1px solid var(--ai);color:var(--ai);background:#fff;border-radius:8px;padding:6px 12px;font-size:13px;cursor:pointer;margin:8px 8px 0 0}
+.btn.pri{background:var(--ai);color:#fff}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:8px;-webkit-overflow-scrolling:touch}
+.chips .lab{flex:none;font-size:12px;color:var(--sub);padding-top:5px;width:30px}
+.chip{flex:none;border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 11px;font-size:13px;cursor:pointer;color:var(--ink)}
+.chip.on{border-color:var(--ai);background:var(--ai-bg);color:var(--ai);font-weight:600}
+.cnt{font-size:13px;color:var(--sub);margin:4px 2px 8px}
+.day{font-size:13px;font-weight:700;color:var(--sub);margin:14px 2px 6px}
+.badge{font-size:12px;border-radius:6px;padding:1px 6px;background:var(--pe-bg);color:var(--pe);margin-left:6px;font-weight:400}
+.sec{background:#fff;border-radius:12px;padding:12px;margin-bottom:10px}
+.sec h3{margin:0 0 8px;font-size:14px;color:var(--sub)}
+.kv{display:grid;grid-template-columns:76px 1fr;gap:6px 8px;font-size:14px}
+.kv .k{color:var(--sub)}
+.tl{border-left:2px solid var(--line);margin-left:6px;padding-left:12px}
+.tl .it{position:relative;margin-bottom:10px;font-size:14px}
+.tl .it:before{content:"";position:absolute;left:-18px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--ai)}
+.tl .dt{font-size:12px;color:var(--sub)}
+.sl .it{padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+.sl .it:first-child{border-top:0}
+.sl .m{font-size:12px;color:var(--sub)}
+.diff{background:var(--pe-bg);border-radius:8px;padding:8px 10px;font-size:13px;color:#7a4100;margin-top:6px}
+.row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.dot{flex:none;width:10px;height:10px;border-radius:50%;margin-top:6px;background:var(--ok)}
+.dot.bad{background:var(--bad)}
+.row .nm{font-weight:600;font-size:14px}
+.row .m{font-size:12px;color:var(--sub)}
+.st{font-size:12px;border-radius:6px;padding:0 6px;margin-left:6px}
+.st.ok{background:var(--ok-bg);color:var(--ok)}
+.st.bad{background:var(--bad-bg);color:var(--bad)}
+.mask{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:20;display:none}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:21;background:#fff;border-radius:16px 16px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom));max-width:520px;margin:0 auto;display:none}
+.sheet h4{margin:0 0 4px;font-size:16px}
+.sheet .tip{font-size:13px;color:var(--sub);margin-bottom:10px}
+.opt{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:15px;cursor:pointer}
+.opt input{width:18px;height:18px}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:rgba(29,33,41,.92);color:#fff;font-size:13px;padding:8px 14px;border-radius:8px;z-index:30;display:none;max-width:86%}
+.empty{text-align:center;color:var(--sub);padding:30px 0}
+@media (min-width:700px){main{padding:16px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header id="hd"></header>
+<main id="mn"></main>
+</div>
+<nav><div class="in">
+<a href="#today" data-nav="today">今日推送</a>
+<a href="#list" data-nav="list">回看</a>
+<a href="#sources" data-nav="sources">信源状态</a>
+</div></nav>
+<div class="mask" id="mask"></div>
+<div class="sheet" id="sheet"></div>
+<div class="toast" id="toast"></div>
+<script>
+var C = [
+{id:"terse",name:"Terse",site:"useterse.ai",url:"https://www.useterse.ai/",zh:"给 AI 智能体用的持久化状态层，开源，可替代 Durable Objects",en:"Durable state for AI agents",hq:"美国 · 纽约",hqBy:"YC 公司目录",round:"种子轮",roundRaw:"YC Fall 2026 批次",amount:"未披露",lead:["Y Combinator"],others:[],date:"10-30",tags:["ai"],tagWhy:"一句话里有 AI agents；YC 标签含 AI",status:"ok",src:[{n:"YC Launches",d:"10-30 03:30",t:"Durable Actors: The perfect primitive for Multiplayer AI and Agent Coordination",u:"https://www.ycombinator.com/launches/WbG-durable-actors-the-perfect-primitive-for-multiplayer-ai-and-agent-coordination"},{n:"YC 公司目录",d:"10-30",t:"Terse · Fall 2026 · New York City, NY, USA",u:"https://www.ycombinator.com/companies/useterse"}],hist:[{d:"2026 秋",t:"进入 YC Fall 2026 批次，种子轮，金额未披露"}]},
+{id:"hue",name:"Hue",site:"hue.run",url:"https://hue.run/",zh:"用生产环境的真实使用数据搭出仿真环境，测试 AI 智能体",en:"Test agents in realistic worlds built from production usage",hq:"美国 · 旧金山",hqBy:"YC 公司目录",round:"种子轮",roundRaw:"YC Fall 2026 批次",amount:"未披露",lead:["Y Combinator"],others:[],date:"10-30",tags:["ai"],tagWhy:"发布标题是 Simulations for AI agents；YC 标签含 AI",status:"ok",src:[{n:"YC Launches",d:"10-30 01:30",t:"Hue: Simulations for AI agents",u:"https://www.ycombinator.com/launches/WWw-hue-simulations-for-ai-agents"},{n:"YC 公司目录",d:"10-30",t:"Hue · Fall 2026 · San Francisco, CA, USA",u:"https://www.ycombinator.com/companies/hue"}],hist:[{d:"2026 秋",t:"进入 YC Fall 2026 批次，种子轮，金额未披露"}]},
+{id:"capveon",name:"Capveon",site:"capveon.ai",url:"https://capveon.ai",zh:"用 AI 帮制造商找到、读懂并拿下政府订单",en:"AI for finding, understanding, and winning government work",hq:"美国 · 旧金山",hqBy:"YC 公司目录",round:"种子轮",roundRaw:"YC Fall 2026 批次",amount:"未披露",lead:["Y Combinator"],others:[],date:"10-30",tags:["ai"],tagWhy:"发布标题以 AI for 开头，AI 是产品本身",status:"ok",src:[{n:"YC Launches",d:"10-30 02:30",t:"Capveon — AI for finding, understanding, and winning government work",u:"https://www.ycombinator.com/launches/WZJ-capveon-ai-for-finding-understanding-and-winning-government-work"},{n:"YC 公司目录",d:"10-30",t:"Capveon · Fall 2026 · San Francisco, CA, USA",u:"https://www.ycombinator.com/companies/capveon"}],hist:[{d:"2026 秋",t:"进入 YC Fall 2026 批次，种子轮，金额未披露"}]},
+{id:"talos",name:"Talos",site:"talos-us.com",url:"https://www.talos-us.com/",zh:"电网设施的预测性维护，在故障变成事故前预警",en:"Predictive maintenance for power infrastructure",hq:"美国 · 巴尔的摩",hqBy:"YC 公司目录",round:"种子轮",roundRaw:"YC Fall 2026 批次",amount:"未披露",lead:["Y Combinator"],others:[],date:"10-30",tags:["ai"],tagWhy:"YC 标签含 Deep Learning 和 AI，预警靠模型",status:"ok",src:[{n:"YC Launches",d:"10-30 00:30",t:"Talos: Early-warning system for power grid infrastructure",u:"https://www.ycombinator.com/launches/WCf-talos-early-warning-system-for-power-grid-infrastructure"},{n:"YC 公司目录",d:"10-30",t:"Talos · Fall 2026 · Baltimore, MD, USA",u:"https://www.ycombinator.com/companies/talos-us"}],hist:[{d:"2026 秋",t:"进入 YC Fall 2026 批次，种子轮，金额未披露"}]},
+{id:"faraday",name:"Faraday",site:"faradaycompute.com",url:"https://faradaycompute.com",zh:"制造业的工业 AI，协调工人、智能体和机器",en:"Industrial AI coordinating humans, agents, and machines",hq:"美国 · 旧金山",hqBy:"YC 公司目录",round:"种子轮",roundRaw:"YC Fall 2026 批次",amount:"未披露",lead:["Y Combinator"],others:[],date:"10-29",tags:["ai"],tagWhy:"一句话里有 Industrial AI、agents",status:"ok",src:[{n:"YC Launches",d:"10-29 08:21",t:"Faraday: company-specific AI and infrastructure that run manufacturing workflows end to end",u:"https://www.ycombinator.com/launches/WdH-faraday-company-specific-ai-and-infrastructure-that-run-manufacturing-workflows-end-to-end-from-the-back-office-to-the-shop-floor"},{n:"YC 公司目录",d:"10-30",t:"Faraday · Fall 2026 · San Francisco, CA, USA",u:"https://www.ycombinator.com/companies/faraday"}],hist:[{d:"2026 秋",t:"进入 YC Fall 2026 批次，种子轮，金额未披露"}]},
+{id:"aviern",name:"Aviern",site:"aviern.com",url:"https://aviern.com/",zh:"无人驾驶货运飞机，做区域空运和国防物流",en:"Unmanned cargo airplanes",hq:"美国 · 洛杉矶",hqBy:"YC 公司目录",round:"种子轮",roundRaw:"YC Fall 2026 批次",amount:"未披露",lead:["Y Combinator"],others:[],date:"10-30",tags:["none"],tagWhy:"描述和 YC 标签里都没有 AI，也不是社交产品",status:"ok",src:[{n:"YC Launches",d:"10-30 07:00",t:"Aviern: Unmanned cargo airplanes for autonomous airports",u:"https://www.ycombinator.com/launches/WdT-aviern-unmanned-cargo-airplanes-for-autonomous-airports"},{n:"YC 公司目录",d:"10-30",t:"Aviern · Fall 2026 · Los Angeles, CA, USA",u:"https://www.ycombinator.com/companies/aviern"}],hist:[{d:"2026 秋",t:"进入 YC Fall 2026 批次，种子轮，金额未披露"}]},
+{id:"dream",name:"Dream",site:"dreamhq.com",url:"https://www.dreamhq.com",zh:"给建筑业做 AI 世界模型，按真实物理和建筑规范设计",en:"Built world models",hq:"未知",hqBy:"报道里没写总部，官网首页也没写",round:"种子轮",roundRaw:"seed funding",amount:"$17M",lead:["Andreessen Horowitz"],others:["SV Angel","XYZ","Zigg Capital"],date:"10-30",tags:["ai"],tagWhy:"报道标题写 AI world models",status:"pend",why:"总部未知",src:[{n:"TechCrunch",d:"10-30 00:21",t:"Ex-Palantir execs launch Dream with $17M from a16z to build AI world models for construction",u:"https://techcrunch.com/2026/10/29/ex-palantir-execs-launch-dream-with-17m-from-a16z-to-build-ai-world-models-for-construction/"}],hist:[{d:"10-29",t:"种子轮 $17M，Andreessen Horowitz 领投"}]},
+{id:"mintive",name:"Mintive",site:"mintive.com",url:"https://www.mintive.com",zh:"给企业 AI 智能体管身份、权限和管控",en:"Identity, permissions and controls for enterprise AI agents",hq:"未知",hqBy:"TechCrunch 没写总部；X 帖子只写 North America，不算依据",round:"种子轮",roundRaw:"seed",amount:"$7M",lead:["Cowboy Ventures"],others:["Coatue","Jeff Dean（天使）","Andrej Karpathy（天使）"],date:"10-30",tags:["ai"],tagWhy:"产品是给 AI agents 用的身份和权限层",status:"pend",why:"总部未知",src:[{n:"TechCrunch",d:"10-29 23:00",t:"Agent identity startup Mintive lands Cowboy Ventures, Coatue, angels Jeff Dean, Andrej Karpathy",u:"https://techcrunch.com/2026/10/29/agent-identity-startup-mintive-lands-cowboy-ventures-coatue-angels-jeff-dean-andrej-karpathy/"},{n:"X @SR_Researcher_",d:"10-30 10:04",t:"Mintive raised US$7 million in a Seed round led by CowboyVC, bringing total funding to US$11 million",u:"https://x.com/SR_Researcher_/status/2115988087415136766"}],hist:[{d:"10-29",t:"种子轮 $7M，Cowboy Ventures 领投；累计融资 $11M"}],diff:["两个来源金额一致：本轮 $7M，累计 $11M"]},
+{id:"viraj",name:"Viraj Aero",site:"viraj-aero.com",url:"https://www.viraj-aero.com/",zh:"给数据中心供电和制冷的燃气轮机",en:"Next generation gas turbines for data centers & aviation",hq:"未知",hqBy:"YC 公司目录里地点为空",round:"种子轮",roundRaw:"YC Fall 2026 批次",amount:"未披露",lead:["Y Combinator"],others:[],date:"10-29",tags:["pend"],tagWhy:"YC 标签含 AI，但产品是给 AI 数据中心供电的硬件，本身不是 AI",status:"pend",why:"总部未知，标签拿不准",src:[{n:"YC Launches",d:"10-29 23:00",t:"Viraj Aero: The gas turbine that powers and cools data centers",u:"https://www.ycombinator.com/launches/WTh-viraj-aero-the-gas-turbine-that-powers-and-cools-data-centers"}],hist:[{d:"2026 秋",t:"进入 YC Fall 2026 批次，种子轮，金额未披露"}]},
+{id:"superme",next:true,name:"SuperMe AI",site:"",url:"",zh:"由 AI 专家档案组成的网络，找人问、被人找",en:"Network of AI expert profiles",hq:"未知",hqBy:"X 帖子只写 North America，不算依据",round:"A 轮",roundRaw:"Series A",amount:"$20M",lead:["Forerunner Ventures"],others:["Greylock"],date:"10-30",tags:["ai","social"],tagWhy:"AI 专家档案是产品本身；它是人和人之间找专家的网络",status:"pend",why:"总部未知",src:[{n:"X @SR_Researcher_",d:"10-30 10:08",t:"SuperMeAI raised US$20 million in a Series A led by Forerunner, with Greylock participating",u:"https://x.com/SR_Researcher_/status/2115989206980014497"}],hist:[{d:"10-30",t:"A 轮 $20M，Forerunner Ventures 领投"}]},
+{id:"sava",next:true,name:"Sava Trust Company",site:"savatrustcompany.com",url:"https://www.savatrustcompany.com",zh:"AI 原生的信托公司，在内华达州拿到信托牌照",en:"Building the future of trusts",hq:"美国 · 纽约",hqBy:"YC 公司目录",round:"种子轮",roundRaw:"seed round",amount:"$10M",lead:["Gradient Ventures"],others:["Y Combinator","SV Angel"],yc:"Fall 2025",date:"10-30",tags:["ai"],tagWhy:"X 帖子写 AI-native trust company；YC 一句话里没提 AI，只有一个来源支持",status:"ok",src:[{n:"X @thestartpod",d:"10-30 10:30",t:"savatrust raises a $10M seed round led by GradientVC, with ycombinator and svangel",u:"https://x.com/thestartpod/status/2115994599382507993"},{n:"YC 公司目录",d:"10-30",t:"Sava Trust Company · Fall 2025 · New York City, NY, USA",u:"https://www.ycombinator.com/companies/sava-trust-company"}],hist:[{d:"2025 秋",t:"进入 YC Fall 2025 批次"},{d:"10-30",t:"种子轮 $10M，Gradient 领投"}],diff:["AI 标签只有 X 帖子一个依据，YC 目录没写 AI"]},
+{id:"dalet",next:true,name:"Dalet Labs",site:"",url:"",zh:"按你的口味生成内容的购物应用，看到就能下单",en:"Generates media just for you; buy everything in-app",hq:"未知",hqBy:"帖子没写总部",round:"种子轮",roundRaw:"pre-seed",amount:"$7M",lead:["Lightspeed"],others:["天使投资人"],date:"10-30",tags:["ai"],tagWhy:"内容由模型按个人口味生成；不是人和人互动的产品",status:"pend",why:"总部未知",src:[{n:"X @thestartpod",d:"10-30 10:15",t:"daletlabs raised a $7M pre-seed, backed by lightspeedvp",u:"https://x.com/thestartpod/status/2115990824035168506"},{n:"X @omerbartal",d:"10-28 23:05",t:"We raised a $7M pre-seed to make shopping fun again.",u:"https://x.com/omerbartal/status/2115460068762058970"}],hist:[{d:"10-28",t:"Pre-seed $7M，Lightspeed 投资"}]},
+{id:"confetti",name:"Confetti",site:"confetti.build",url:"https://confetti.build",zh:"用一段对话开始设计硬件",en:"Build hardware projects using plain-English prompts",hq:"美国 · 旧金山",hqBy:"YC 公司目录",round:"种子轮",roundRaw:"YC Fall 2026 批次",amount:"未披露",lead:["Y Combinator"],others:[],date:"10-29",tags:["ai"],tagWhy:"用自然语言提示生成设计；YC 标签含 AI",status:"ok",src:[{n:"YC Launches",d:"10-29 04:30",t:"Confetti: Build hardware projects using plain-English prompts",u:"https://www.ycombinator.com/launches/Wb2-confetti-build-hardware-projects-using-plain-english-prompts"}],hist:[{d:"2026 秋",t:"进入 YC Fall 2026 批次，种子轮，金额未披露"}]},
+{id:"truemile",name:"TrueMile",site:"truemile.ai",url:"https://TrueMile.AI/",zh:"AI 原生的卡车货运公司，排车、订货、派司机都由 AI 跑",en:"AI-native trucking company",hq:"美国 · 旧金山",hqBy:"YC 公司目录",round:"种子轮",roundRaw:"YC Fall 2026 批次",amount:"未披露",lead:["Y Combinator"],others:[],date:"10-29",tags:["ai"],tagWhy:"一句话写 AI-native",status:"ok",src:[{n:"YC Launches",d:"10-29 03:30",t:"TrueMile: The AI-native trucking company",u:"https://www.ycombinator.com/launches/Waf-truemile-the-ai-native-trucking-company"}],hist:[{d:"2026 秋",t:"进入 YC Fall 2026 批次，种子轮，金额未披露"}]},
+{id:"verdun",name:"Verdun",site:"verdun.ai",url:"https://verdun.ai",zh:"AI 视频安防监控，配人工值守",en:"AI video monitoring with human operators",hq:"美国 · 洛杉矶",hqBy:"YC 公司目录",round:"种子轮",roundRaw:"YC Fall 2026 批次",amount:"未披露",lead:["Y Combinator"],others:[],date:"10-29",tags:["ai"],tagWhy:"发布标题写 AI video monitoring",status:"ok",src:[{n:"YC Launches",d:"10-29 02:30",t:"Verdun: AI video monitoring with human operators",u:"https://www.ycombinator.com/launches/Waw-verdun-ai-video-monitoring-with-human-operators"}],hist:[{d:"2026 秋",t:"进入 YC Fall 2026 批次，种子轮，金额未披露"}]},
+{id:"ploid",name:"Ploid",site:"ploid.com",url:"https://ploid.com",zh:"给 AI 智能体和软件用的人员数据接口",en:"People data infrastructure for AI agents and software",hq:"美国 · 旧金山",hqBy:"YC 公司目录",round:"种子轮",roundRaw:"YC Fall 2026 批次",amount:"未披露",lead:["Y Combinator"],others:[],date:"10-29",tags:["ai"],tagWhy:"服务对象是 AI agents；有 people 字样但不是社交产品",status:"ok",src:[{n:"YC Launches",d:"10-29 01:30",t:"Ploid | People data infrastructure for AI agents and software",u:"https://www.ycombinator.com/launches/Wak-ploid-people-data-infrastructure-for-ai-agents-and-software"}],hist:[{d:"2026 秋",t:"进入 YC Fall 2026 批次，种子轮，金额未披露"}]},
+{id:"lantern",name:"Lantern AI",site:"lantern.md",url:"https://lantern.md",zh:"用智能体做招聘：找人、筛选、协调面试",en:"Agentic recruiting platform",hq:"美国 · 旧金山",hqBy:"YC 公司目录",round:"种子轮",roundRaw:"YC Fall 2026 批次",amount:"未披露",lead:["Y Combinator"],others:[],date:"10-29",tags:["ai"],tagWhy:"发布标题写 Agentic Recruiting",status:"ok",src:[{n:"YC Launches",d:"10-29 00:30",t:"Lantern: Agentic Recruiting Platform for the Future",u:"https://www.ycombinator.com/launches/WZB-lantern-agentic-recruiting-platform-for-the-future"}],hist:[{d:"2026 秋",t:"进入 YC Fall 2026 批次，种子轮，金额未披露"}]},
+{id:"aikido",name:"Aikido Technologies",site:"aikidotechnologies.com",url:"https://www.aikidotechnologies.com",zh:"在海上部署清洁能源的 AI 数据中心",en:"Clean marine AI datacenters",hq:"美国 · 旧金山",hqBy:"YC 公司目录（另写 Remote）",round:"种子轮",roundRaw:"YC Fall 2026 批次",amount:"未披露",lead:["Y Combinator"],others:[],date:"10-29",tags:["pend"],tagWhy:"做的是给 AI 用的数据中心，产品本身是不是 AI 拿不准",status:"pend",why:"标签拿不准",src:[{n:"YC Launches",d:"10-29 06:30",t:"Aikido Technologies: GW-scale datacenters at sea",u:"https://www.ycombinator.com/launches/Wa5-aikido-technologies-gw-scale-datacenters-at-sea"}],hist:[{d:"2026 秋",t:"进入 YC Fall 2026 批次，种子轮，金额未披露"}]},
+{id:"helios",name:"Helios Intelligence",site:"myhelios.com",url:"https://www.myhelios.com/",zh:"居家分子检测，一滴血测 1000 多项生物标志物",en:"At-home molecular body test",hq:"美国 · 波士顿",hqBy:"YC 公司目录",round:"种子轮",roundRaw:"YC Fall 2026 批次",amount:"未披露",lead:["Y Combinator"],others:[],date:"10-28",tags:["none"],tagWhy:"名字里有 Intelligence，但描述是血液检测，没有 AI 功能",status:"ok",src:[{n:"YC 公司目录",d:"10-28",t:"Helios Intelligence · Fall 2026 · Boston, MA, USA",u:"https://www.ycombinator.com/companies/helios-intelligence"}],hist:[{d:"2026 秋",t:"进入 YC Fall 2026 批次，种子轮，金额未披露"}]},
+{id:"numeracle",name:"Numeracle",site:"",url:"",zh:"核验企业身份并绑定号码，让正规商业电话不被标成骚扰",en:"Verifies businesses and links their identities to phone numbers",hq:"美国 · 弗吉尼亚州 McLean",hqBy:"Crunchbase News 报道",round:"未披露",roundRaw:"报道没写轮次",amount:"$28M",lead:["Edison Partners"],others:[],date:"10-28",tags:["pend"],tagWhy:"来源栏目标了人工智能，但产品描述里看不出 AI 功能",status:"pend",why:"轮次未披露，标签拿不准",src:[{n:"Crunchbase News",d:"10-28 20:00",t:"Exclusive: Numeracle Raises $28M To Keep Legitimate Business Calls From Spam Label",u:"https://news.crunchbase.com/venture/numeracle-raise-edison-ai-spam-communications-johnson/"}],hist:[{d:"2023-12",t:"A 轮 $6.8M"},{d:"10-28",t:"$28M，轮次未披露，Edison Partners 独家投资"}]},
+{id:"overwatch",name:"Overwatch",site:"overwatchdata.ai",url:"http://www.overwatchdata.ai",zh:"给企业做风险和网络诈骗情报的软件",en:"Enterprise software for enterprise risk and cyber fraud intelligence",hq:"美国 · 纽约",hqBy:"YC 公司目录；Fortune 报道写 New York-based",round:"A 轮",roundRaw:"Series A",amount:"$15M",lead:["Mouro Capital"],others:["Visa Ventures","Capital One Ventures","PruVen Capital","New Era Capital Partners","Y Combinator"],yc:"Summer 2022",date:"10-26",tags:["pend"],tagWhy:"报道讲的是对抗 AI 诈骗，产品本身用不用 AI 没写清",status:"pend",why:"标签拿不准",src:[{n:"Fortune Term Sheet",d:"10-26 20:21",t:"AI is giving cybercrime a makeover, and this startup just raised $15 million to fight back",u:"https://fortune.com/2026/10/26/ai-giving-cybercrime-makeover-startup-raised-15-million-to-fight-back-overwatch/"},{n:"YC 公司目录",d:"10-30",t:"Overwatch · Summer 2022 · New York City, NY, USA",u:"https://www.ycombinator.com/companies/overwatch"}],hist:[{d:"2022 夏",t:"进入 YC Summer 2022 批次"},{d:"10-26",t:"A 轮 $15M，Mouro Capital 领投"}]},
+{id:"slingshot",name:"Slingshot Insurance",site:"",url:"",zh:"做结账时顺带卖的小额保单的保险公司",en:"Insurer for small policies sold at checkout",hq:"美国 · 明尼阿波利斯",hqBy:"Crunchbase News 报道",round:"种子轮",roundRaw:"Seed Funding",amount:"$27M",lead:["Rally Ventures","Skyward Group"],others:["Jim Hays 等保险业人士"],date:"10-22",tags:["pend"],tagWhy:"报道说 AI 能改变小额保单的成本，但产品是保险公司，AI 是不是核心拿不准",status:"pend",why:"标签拿不准",src:[{n:"Crunchbase News",d:"10-22 21:00",t:"Exclusive: Slingshot Raises $27M In Seed Funding To Build An Insurer For Those Small Policies Sold At Checkout",u:"https://news.crunchbase.com/fintech-ecommerce/insuretech/startup-slingshot-insurance-seed-funding-genteman/"}],hist:[{d:"10-22",t:"种子轮 $27M，Rally Ventures 和 Skyward Group 共同领投"}]},
+{id:"mach9",name:"Mach9",site:"mach9.ai",url:"https://www.mach9.ai",zh:"给土木工程用的 AI CAD 软件",en:"AI CAD software for civil engineering",hq:"未知",hqBy:"报道里没写总部，官网首页也没写",round:"A 轮",roundRaw:"Series A",amount:"$34M",lead:["First Round Capital","Bessemer Venture Partners"],others:["Prudence","Quiet Capital"],date:"10-21",tags:["ai"],tagWhy:"报道标题写 AI CAD software",status:"pend",why:"总部未知",src:[{n:"TechCrunch",d:"10-21 21:00",t:"Mach9 raises $34M after pivoting to AI CAD software",u:"https://techcrunch.com/2026/10/21/mach9-raises-34m-after-pivoting-to-ai-cad-software/"}],hist:[{d:"10-21",t:"A 轮 $34M，First Round Capital 和 Bessemer 共同领投"}]},
+{id:"yam",name:"Yam",site:"hiyam.ai",url:"https://hiyam.ai/",zh:"给女性玩的 AI 恋爱模拟游戏",en:"AI-powered dating sims for women",hq:"美国 · 旧金山",hqBy:"YC 公司目录",round:"种子轮",roundRaw:"YC Fall 2026 批次",amount:"未披露",lead:["Y Combinator"],others:[],date:"10-20",tags:["ai"],tagWhy:"AI 驱动；虽然是恋爱题材，但是和虚拟角色互动，不连接真人，不算社交",status:"ok",src:[{n:"YC 公司目录",d:"10-20",t:"Yam · Fall 2026 · San Francisco, CA, USA",u:"https://www.ycombinator.com/companies/yam"}],hist:[{d:"2026 秋",t:"进入 YC Fall 2026 批次，种子轮，金额未披露"}]},
+{id:"keres",name:"Keres",site:"keresaero.com",url:"https://www.keresaero.com/",zh:"可重复使用的无人拦截机，用来打无人机",en:"Reusable unmanned interceptors",hq:"美国 · 丹佛",hqBy:"YC 公司目录",round:"种子轮",roundRaw:"YC Fall 2026 批次",amount:"未披露",lead:["Y Combinator"],others:[],date:"10-05",tags:["none"],tagWhy:"国防硬件，描述里没有 AI，也不是社交",status:"ok",src:[{n:"YC 公司目录",d:"10-05",t:"Keres · Fall 2026 · Denver, CO, USA",u:"https://www.ycombinator.com/companies/keres"}],hist:[{d:"2026 秋",t:"进入 YC Fall 2026 批次，种子轮，金额未披露"}]},
+{id:"quippy",name:"Quippy",site:"quippyapp.com",url:"https://quippyapp.com",zh:"每天练一练，提升社交能力",en:"Helps build social skills through daily practice",hq:"美国 · 旧金山",hqBy:"YC 公司目录",round:"种子轮",roundRaw:"YC Fall 2026 批次",amount:"未披露",lead:["Y Combinator"],others:[],date:"08-27",tags:["none"],tagWhy:"有 social 字样，但是自己练习的工具，不连接真人，不算社交；描述里没写 AI",status:"ok",src:[{n:"YC 公司目录",d:"08-27",t:"Quippy · Fall 2026 · San Francisco, CA, USA",u:"https://www.ycombinator.com/companies/quippy"}],hist:[{d:"2026 秋",t:"进入 YC Fall 2026 批次，种子轮，金额未披露"}]},
+{id:"grocalo",name:"Grocalo",site:"grocalo.com",url:"https://grocalo.com/",zh:"给创作者用的 AI，替他们运营社交媒体内容",en:"AI brain for creators that runs their social content",hq:"美国 · 洛杉矶",hqBy:"YC 公司目录",round:"种子轮",roundRaw:"YC Summer 2026 批次",amount:"未披露",lead:["Y Combinator"],others:[],date:"08-18",tags:["ai"],tagWhy:"AI 是产品本身；它是发内容的运营工具，不是人和人互动的地方，不算社交",status:"ok",src:[{n:"YC 公司目录",d:"08-18",t:"Grocalo · Summer 2026 · Los Angeles, CA, USA",u:"https://www.ycombinator.com/companies/grocalo"}],hist:[{d:"2026 夏",t:"进入 YC Summer 2026 批次，种子轮，金额未披露"}]},
+{id:"mochi",name:"Mochi",site:"mochi.tv",url:"https://www.mochi.tv/",zh:"看动漫，也自己做动漫",en:"Watch and create anime",hq:"美国 · 洛杉矶",hqBy:"YC 公司目录",round:"种子轮",roundRaw:"YC Summer 2026 批次",amount:"未披露",lead:["Y Combinator"],others:[],date:"08-13",tags:["pend"],tagWhy:"可能是用户创作内容的社区，一句话里看不出有没有互动",status:"pend",why:"标签拿不准",src:[{n:"YC 公司目录",d:"08-13",t:"Mochi · Summer 2026 · Los Angeles, CA, USA",u:"https://www.ycombinator.com/companies/mochi"}],hist:[{d:"2026 夏",t:"进入 YC Summer 2026 批次，种子轮，金额未披露"}]},
+{id:"trynearby",name:"TryNearby",site:"trynearby.com",url:"https://trynearby.com",zh:"帮本地商家找到本地创作者",en:"Local creators for local businesses",hq:"美国 · 洛杉矶",hqBy:"YC 公司目录",round:"种子轮",roundRaw:"YC Summer 2026 批次",amount:"未披露",lead:["Y Combinator"],others:[],date:"08-12",tags:["pend"],tagWhy:"撮合商家和创作者，偏营销服务，算不算社群拿不准",status:"pend",why:"标签拿不准",src:[{n:"YC 公司目录",d:"08-12",t:"TryNearby · Summer 2026 · Los Angeles, CA, USA",u:"https://www.ycombinator.com/companies/trynearby"}],hist:[{d:"2026 夏",t:"进入 YC Summer 2026 批次，种子轮，金额未披露"}]},
+{id:"pops",name:"Pops",site:"pops.fyi",url:"https://pops.fyi",zh:"和朋友一起创作、一起玩 AI 小游戏",en:"Create & play AI games with friends",hq:"美国 · 纽约",hqBy:"YC 公司目录",round:"种子轮",roundRaw:"YC Spring 2026 批次",amount:"未披露",lead:["Y Combinator"],others:[],date:"05-06",tags:["ai","social"],tagWhy:"AI 生成游戏；和朋友一起玩，是人和人互动",status:"ok",src:[{n:"YC 公司目录",d:"05-06",t:"Pops · Spring 2026 · New York City, NY, USA",u:"https://www.ycombinator.com/companies/pops"}],hist:[{d:"2026 春",t:"进入 YC Spring 2026 批次，种子轮，金额未披露"}]},
+{id:"beesafe",name:"BeeSafe AI",site:"beesafe.ai",url:"https://beesafe.ai/",zh:"用 AI 防御社会工程攻击",en:"Frontier AI Defenses for Social Engineering Attacks",hq:"美国 · 旧金山",hqBy:"YC 公司目录",round:"种子轮",roundRaw:"YC Winter 2026 批次",amount:"未披露",lead:["Y Combinator"],others:[],date:"02-06",tags:["ai"],tagWhy:"AI 安全产品；social engineering 是攻击手法，不是社交",status:"ok",src:[{n:"YC 公司目录",d:"02-06",t:"BeeSafe AI · Winter 2026 · San Francisco, CA, USA",u:"https://www.ycombinator.com/companies/beesafe-ai"}],hist:[{d:"2026 冬",t:"进入 YC Winter 2026 批次，种子轮，金额未披露"}]},
+{id:"bubble",name:"Bubble Lab",site:"bubblelab.ai",url:"https://bubblelab.ai/",zh:"给社群和活动用的智能层",en:"The intelligence layer for communities and events",hq:"美国 · 旧金山",hqBy:"YC 公司目录",round:"种子轮",roundRaw:"YC Winter 2026 批次",amount:"未披露",lead:["Y Combinator"],others:[],date:"2025-12-05",tags:["ai","social"],tagWhy:"服务对象是社群和活动，算社群相关；intelligence layer 指 AI",status:"ok",src:[{n:"YC 公司目录",d:"2025-12-05",t:"Bubble Lab · Winter 2026 · San Francisco, CA, USA",u:"https://www.ycombinator.com/companies/bubble-lab"}],hist:[{d:"2026 冬",t:"进入 YC Winter 2026 批次，种子轮，金额未披露"}]}
+];
+var TODAY = {main:["terse","hue","capveon","talos","faraday","aviern"],pend:["dream","mintive","viraj"],filtered:[["RouterPlus","总部在印度班加罗尔"],["GrayPass","总部在加拿大多伦多"],["Simantic","总部在加拿大滑铁卢"],["Zalos","总部在英国伦敦"],["Imagine AI","YC 批次超过 12 个月，按产品发布处理"]]};
+var SRC = [
+{n:"TechCrunch Venture",k:"RSS",t:"10-30 15:51",code:"200",cnt:"18 条",last:"10-30 03:56"},
+{n:"TechCrunch Startups",k:"RSS",t:"10-30 15:51",code:"200",cnt:"20 条",last:"10-30 00:21"},
+{n:"Crunchbase News 种子轮栏目",k:"RSS",t:"10-30 15:52",code:"200",cnt:"10 条",last:"10-29 19:00"},
+{n:"Crunchbase News 创投栏目",k:"RSS",t:"10-30 15:52",code:"200",cnt:"10 条",last:"10-29 19:00"},
+{n:"YC Launches",k:"接口",t:"10-30 15:51",code:"200",cnt:"20 条",last:"10-30 09:00"},
+{n:"YC 公司目录",k:"接口",t:"10-30 16:02",code:"200",cnt:"当期批次 193 家",last:"Fall 2026"},
+{n:"Launch HN",k:"接口",t:"10-30 15:51",code:"200",cnt:"50 条",last:"10-29 23:56"},
+{n:"VentureBeat",k:"RSS",t:"10-30 15:53",code:"200",cnt:"7 条",last:"10-30 00:10",bad:{t:"10-30 15:51",code:"429",msg:"请求过多，被网站限流"}},
+{n:"Fortune Term Sheet",k:"网页",t:"10-30 15:52",code:"200",cnt:"标签页 1 页",last:"10-29"},
+{n:"X 账号与搜索",k:"X",t:"10-30 15:54",code:"成功",cnt:"25 条",last:"10-30 15:50"}
+];
+var OFF = [
+["Crunchbase 数据库","要付费订阅，公司页面拒绝访问"],
+["PitchBook","要付费订阅"],
+["Dealroom","要付费订阅，网站拒绝访问"],
+["Tracxn","要付费订阅"],
+["The Information","正文要付费，只能看到标题"],
+["Axios Pro Rata","页面拒绝访问，交易清单在付费版"],
+["StrictlyVC","网页 2020 年后不再更新，只发邮件"],
+["Product Hunt","要开发者授权，且没有融资信息"],
+["Wellfound","拒绝访问"],
+["Inside","已停刊"]
+];
+var TAGN = {ai:"AI相关",social:"社交/社群相关",none:"都不是",pend:"标签待人工"};
+var S = {push:"new",f:{d:"all",t:"all",r:"all",s:"all"},log:{}};
+function $(id){return document.getElementById(id)}
+function by(id){for(var i=0;i<C.length;i++){if(C[i].id===id)return C[i]}return null}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]})}
+function tagHtml(c){return c.tags.map(function(t){return '<span class="tag t-'+t+'">'+TAGN[t]+'</span>'}).join("")}
+function roundLine(c){var a=c.round; a+=" · "+(c.amount==="未披露"?"金额未披露":c.amount); if(c.lead.length){a+=" · "+c.lead.join("、")+(c.lead[0]==="Y Combinator"?"":(c.lead.length>1?" 共同领投":" 领投"))} return a}
+function card(c){var s=c.src[0]; return '<div class="c" data-go="'+c.id+'"><div class="n">'+esc(c.name)+'</div><div class="r">'+esc(roundLine(c))+'</div><div class="d">'+esc(c.zh)+'</div><div class="f"><span>'+tagHtml(c)+'</span><a class="src" href="'+esc(s.u)+'" target="_blank" rel="noopener" data-stop="1">'+esc(s.n)+' ↗</a></div></div>'}
+function groupOf(c){var t=c.tags; if(t.indexOf("ai")>=0&&t.indexOf("social")>=0)return "both"; if(t.indexOf("social")>=0)return "social"; if(t.indexOf("ai")>=0)return "ai"; return "none"}
+var GN = {both:"AI相关 + 社交/社群相关",social:"社交/社群相关",ai:"AI相关",none:"都不是"};
+function header(t,sub,back){$("hd").innerHTML=(back?'<a class="back" data-back="1">‹ 返回</a>':'')+'<h1>'+t+'</h1>'+(sub?'<div class="sub">'+sub+'</div>':'')}
+function okCount(){return S.push==="bad"?SRC.length-1:SRC.length}
+function renderToday(){
+header("美国早期创投监控","每个工作日 08:00 推送 · 美国天使轮、种子轮、A 轮");
+var h='<div class="seg">'+[["new","有新增"],["none","没有新增"],["bad","信源出错"]].map(function(x){return '<button data-push="'+x[0]+'" class="'+(S.push===x[0]?"on":"")+'">'+x[1]+'</button>'}).join("")+'</div>';
+h+='<div class="msg"><div class="avatar">创</div><div class="bubble"><div class="who">早期创投监控 · 10-30 周五 08:00</div>';
+if(S.push==="none"){
+h+='<div class="h">10-30 周五 · 美国早期融资</div><div class="lead">今天没有新增的美国天使轮、种子轮、A 轮公司。</div>';
+h+='<div class="foot">已接入信源 '+SRC.length+' 个，全部正常，每个都抓到了内容：<br>'+SRC.map(function(s){return esc(s.n)+' '+esc(s.cnt)}).join(" · ")+'</div>';
+h+='<div class="foot">上次有新增：10-29 周四，6 家</div><a class="btn" href="#list" data-setd="7">看最近 7 天</a><a class="btn" href="#sources">信源状态</a>';
+}else{
+var main=TODAY.main.map(by), pend=TODAY.pend.map(by);
+var cnt={both:0,social:0,ai:0,none:0}; main.forEach(function(c){cnt[groupOf(c)]++});
+var parts=[]; ["both","social","ai","none"].forEach(function(g){if(cnt[g])parts.push(GN[g]+" "+cnt[g])});
+h+='<div class="h">10-30 周五 · 美国早期融资</div>';
+if(S.push==="bad"){h+='<div class="alert">1 个信源没抓到：VentureBeat，返回 429（请求过多）。今天的结果可能不全，不代表没有新增。已通知维护人员，恢复后会自动补抓。</div>'}
+h+='<div class="lead">新增 '+main.length+' 家（'+parts.join(" · ")+'），另有 '+pend.length+' 家待人工</div>';
+["both","social","ai","none"].forEach(function(g){var list=main.filter(function(c){return groupOf(c)===g}); if(!list.length)return;
+h+='<div class="grp"><div class="grp-t">'+GN[g]+' · '+list.length+'</div>';
+list.forEach(function(c,i){h+=(i===5?'<div class="fold" style="display:none">':'')+card(c)});
+if(list.length>5){h+='</div><button class="more" data-fold="1">再看 '+(list.length-5)+' 家</button>'}
+h+='</div>'});
+h+='<div class="grp"><div class="grp-t">待人工 · '+pend.length+'</div><div class="c" style="cursor:default">'+pend.map(function(c){return '<div class="mini" data-go="'+c.id+'"><b>'+esc(c.name)+'</b> · '+esc(c.round)+' '+esc(c.amount==="未披露"?"":c.amount)+' <span class="why">· '+esc(c.why)+'</span></div>'}).join("")+'</div></div>';
+h+='<div class="grp"><div class="grp-t">已过滤 · '+TODAY.filtered.length+'</div><button class="more" data-fold="1">看过滤了哪些</button><div class="fold c" style="display:none;cursor:default">'+TODAY.filtered.map(function(x){return '<div class="mini" style="cursor:default"><b>'+esc(x[0])+'</b> · '+esc(x[1])+'</div>'}).join("")+'</div></div>';
+h+='<div class="foot">已接入信源 '+SRC.length+' 个，'+(S.push==="bad"?okCount()+' 个正常，1 个出错':'全部正常')+'</div>';
+h+='<a class="btn pri" href="#list" data-setd="1">看今天全部</a><a class="btn" href="#sources">信源状态</a>';
+}
+h+='</div></div>';
+$("mn").innerHTML=h;
+}
+function dayNum(d){var x=d.length>5?d:"2026-"+d; return Math.round((Date.parse(x+"T00:00:00Z")-Date.parse("2026-10-30T00:00:00Z"))/864e5)}
+function inToday(c){return TODAY.main.indexOf(c.id)>=0||TODAY.pend.indexOf(c.id)>=0}
+function inRange(c){if(S.f.d==="all")return true; if(S.f.d==="1")return inToday(c); var lim={"7":-6,"30":-29}[S.f.d]; return dayNum(c.date)>=lim}
+function match(c){if(!inRange(c))return false; if(S.f.t!=="all"&&c.tags.indexOf(S.f.t)<0)return false; if(S.f.r!=="all"&&c.round!==S.f.r)return false; if(S.f.s!=="all"&&c.status!==S.f.s)return false; return true}
+function chips(key,lab,opts){return '<div class="chips"><span class="lab">'+lab+'</span>'+opts.map(function(o){return '<button class="chip'+(S.f[key]===o[0]?" on":"")+'" data-f="'+key+'" data-v="'+o[0]+'">'+o[1]+'</button>'}).join("")+'</div>'}
+function renderList(){
+header("回看","按日期、标签、轮次筛选");
+var h=chips("d","日期",[["1","今天推送"],["7","近 7 天"],["30","近 30 天"],["all","全部"]]);
+h+=chips("t","标签",[["all","全部"],["ai","AI相关"],["social","社交/社群相关"],["none","都不是"],["pend","标签待人工"]]);
+h+=chips("r","轮次",[["all","全部"],["天使轮","天使轮"],["种子轮","种子轮"],["A 轮","A 轮"],["未披露","未披露"]]);
+h+=chips("s","状态",[["all","全部"],["ok","已纳入"],["pend","待人工"]]);
+var list=C.filter(match).sort(function(a,b){return dayNum(b.date)-dayNum(a.date)});
+h+='<div class="cnt">共 '+list.length+' 家</div>';
+if(!list.length){h+='<div class="empty">没有符合条件的公司，换个筛选试试</div>'}
+var cur="";
+list.forEach(function(c){if(c.date!==cur){cur=c.date; h+='<div class="day">'+esc(c.date)+'</div>'}
+h+='<div class="c" data-go="'+c.id+'"><div class="n">'+esc(c.name)+(c.status==="pend"?'<span class="badge">待人工 · '+esc(c.why)+'</span>':'')+(c.next?'<span class="badge" style="background:var(--ai-bg);color:var(--ai)">下次推送</span>':'')+'</div><div class="r">'+esc(roundLine(c))+'</div><div class="d">'+esc(c.zh)+'</div><div class="f"><span>'+tagHtml(c)+'</span><span class="src" style="color:var(--sub)">'+c.src.length+' 个来源</span></div></div>'});
+$("mn").innerHTML=h;
+}
+function renderDetail(id){
+var c=by(id); if(!c){location.hash="#list";return}
+header(esc(c.name),c.site?'<a href="'+esc(c.url)+'" target="_blank" rel="noopener">'+esc(c.site)+' ↗</a>':'官网未找到',true);
+var h='';
+if(c.next){h+='<div class="alert" style="background:var(--ai-bg);color:var(--ai)">今天 08:00 推送之后才发现，会出现在下一次推送里。</div>'}
+if(c.status==="pend"){h+='<div class="alert" style="background:var(--pe-bg);color:var(--pe)">待人工：'+esc(c.why)+'。没有进入推送的正式卡片，只在待人工里列出。</div>'}
+h+='<div class="sec"><h3>做什么</h3><div>'+esc(c.zh)+'</div><div class="sub" style="font-size:13px;color:var(--sub);margin-top:4px">原文：'+esc(c.en)+'</div></div>';
+h+='<div class="sec"><h3>本轮融资</h3><div class="kv"><span class="k">轮次</span><span>'+esc(c.round)+'（原文：'+esc(c.roundRaw)+'）</span><span class="k">金额</span><span>'+esc(c.amount)+'</span><span class="k">领投</span><span>'+esc(c.lead.join("、")||"未披露")+'</span><span class="k">跟投</span><span>'+esc(c.others.join("、")||"未披露")+'</span><span class="k">总部</span><span>'+esc(c.hq)+'<br><span style="font-size:12px;color:var(--sub)">依据：'+esc(c.hqBy)+'</span></span>'+(c.yc?'<span class="k">YC 批次</span><span>'+esc(c.yc)+'</span>':'')+'<span class="k">日期</span><span>'+esc(c.date)+'</span></div>';
+if(c.diff){c.diff.forEach(function(x){h+='<div class="diff">'+esc(x)+'</div>'})}
+h+='</div>';
+h+='<div class="sec"><h3>标签</h3><div>'+tagHtml(c)+'</div><div style="font-size:13px;color:var(--sub);margin-top:6px">'+(S.log[c.id]?'你改过：'+esc(S.log[c.id].at):'判定依据：'+esc(c.tagWhy))+'</div><a class="btn" data-edit="'+c.id+'">改标签</a>';
+if(S.log[c.id]){h+='<div style="font-size:12px;color:var(--sub);margin-top:8px">标签历史：'+S.log[c.id].hist.map(esc).join("；")+'</div>'}
+h+='</div>';
+h+='<div class="sec"><h3>融资历史</h3><div class="tl">'+c.hist.map(function(x){return '<div class="it"><div class="dt">'+esc(x.d)+'</div>'+esc(x.t)+'</div>'}).join("")+'</div></div>';
+h+='<div class="sec sl"><h3>来源 · '+c.src.length+'</h3>'+c.src.map(function(s){return '<div class="it"><a href="'+esc(s.u)+'" target="_blank" rel="noopener">'+esc(s.t)+' ↗</a><div class="m">'+esc(s.n)+' · '+esc(s.d)+'</div></div>'}).join("")+'</div>';
+$("mn").innerHTML=h;
+}
+function renderSources(){
+var bad=S.push==="bad";
+header("信源状态","最近一次抓取的时间和结果");
+var h='<div class="sec"><div style="font-size:14px">已接入 '+SRC.length+' 个 · <span style="color:var(--ok)">正常 '+okCount()+'</span>'+(bad?' · <span style="color:var(--bad)">出错 1</span>':'')+'</div><div style="font-size:12px;color:var(--sub);margin-top:4px">抓到 0 条、页面被拦截、内容太久没更新，都算出错，不算「没有新增」。</div></div>';
+h+='<div class="sec"><h3>已接入</h3>'+SRC.map(function(s){var b=bad&&s.bad; return '<div class="row"><span class="dot'+(b?" bad":"")+'"></span><div style="flex:1;min-width:0"><div class="nm">'+esc(s.n)+'<span class="st '+(b?"bad":"ok")+'">'+(b?"出错":"正常")+'</span></div><div class="m">'+esc(s.k)+' · 最近抓取 '+esc(b?s.bad.t:s.t)+' · 返回 '+esc(b?s.bad.code:s.code)+(b?' · '+esc(s.bad.msg):' · '+esc(s.cnt)+' · 最新一条 '+esc(s.last))+'</div>'+(b?'<div class="m" style="color:var(--bad)">已连续出错 1 次，已通知维护人员</div>':'')+'</div></div>'}).join("")+'</div>';
+h+='<div class="sec"><h3>没接入</h3>'+OFF.map(function(o){return '<div class="row"><span class="dot" style="background:#c9cdd4"></span><div><div class="nm">'+esc(o[0])+'</div><div class="m">'+esc(o[1])+'</div></div></div>'}).join("")+'</div>';
+$("mn").innerHTML=h;
+}
+function openEdit(id){
+var c=by(id); var has=function(t){return c.tags.indexOf(t)>=0};
+$("sheet").innerHTML='<h4>改标签 · '+esc(c.name)+'</h4><div class="tip">可多选。保存后，回看和之后的推送都按新标签显示。</div>'+
+'<label class="opt"><input type="checkbox" id="o-ai"'+(has("ai")?" checked":"")+'>AI相关</label>'+
+'<label class="opt"><input type="checkbox" id="o-social"'+(has("social")?" checked":"")+'>社交/社群相关</label>'+
+'<label class="opt"><input type="checkbox" id="o-none"'+(has("none")?" checked":"")+'>都不是</label>'+
+'<a class="btn pri" data-save="'+id+'">保存</a><a class="btn" data-close="1">取消</a>';
+$("mask").style.display="block"; $("sheet").style.display="block";
+$("o-none").onchange=function(){if(this.checked){$("o-ai").checked=false;$("o-social").checked=false}};
+$("o-ai").onchange=$("o-social").onchange=function(){if(this.checked)$("o-none").checked=false};
+}
+function closeEdit(){$("mask").style.display="none";$("sheet").style.display="none"}
+function now(){var d=new Date(Date.now()+8*3600e3); var p=function(n){return (n<10?"0":"")+n}; return p(d.getUTCMonth()+1)+"-"+p(d.getUTCDate())+" "+p(d.getUTCHours())+":"+p(d.getUTCMinutes())}
+function save(id){
+var c=by(id); var t=[]; if($("o-ai").checked)t.push("ai"); if($("o-social").checked)t.push("social"); if($("o-none").checked)t=["none"];
+if(!t.length){toast("至少选一项");return}
+var before=c.tags.map(function(x){return TAGN[x]}).join("+"); c.tags=t; if(c.status==="pend"&&c.why){var w=c.why.split("，").filter(function(x){return x!=="标签拿不准"}).join("，"); c.why=w; if(!w)c.status="ok"}
+var after=t.map(function(x){return TAGN[x]}).join("+"); var at=now();
+var lg=S.log[id]||{hist:[]}; lg.at=at; lg.hist.push(at+" 从「"+before+"」改为「"+after+"」"); S.log[id]=lg;
+closeEdit(); route(); toast("已保存。回看和之后的推送都按新标签显示。");
+}
+function toast(t){var e=$("toast"); e.textContent=t; e.style.display="block"; clearTimeout(e._t); e._t=setTimeout(function(){e.style.display="none"},2600)}
+function route(){
+var hs=location.hash||"#today"; var nav=hs.indexOf("#c/")===0?"list":hs.slice(1);
+document.querySelectorAll("nav a").forEach(function(a){a.classList.toggle("on",a.getAttribute("data-nav")===nav)});
+if(hs.indexOf("#c/")===0)renderDetail(hs.slice(3)); else if(hs==="#list")renderList(); else if(hs==="#sources")renderSources(); else renderToday();
+window.scrollTo(0,0);
+}
+document.addEventListener("click",function(e){
+var el=e.target.closest("[data-stop],[data-go],[data-push],[data-fold],[data-f],[data-edit],[data-save],[data-close],[data-back],[data-setd]");
+if(!el)return;
+if(el.hasAttribute("data-stop"))return;
+if(el.hasAttribute("data-setd")){S.f={d:el.getAttribute("data-setd"),t:"all",r:"all",s:"all"};return}
+if(el.hasAttribute("data-go")){location.hash="#c/"+el.getAttribute("data-go");return}
+if(el.hasAttribute("data-push")){S.push=el.getAttribute("data-push");renderToday();return}
+if(el.hasAttribute("data-fold")){var f=el.parentNode.querySelector(".fold"); var show=f.style.display==="none"; f.style.display=show?"block":"none"; el.style.display=show&&el.textContent.indexOf("再看")===0?"none":"block"; return}
+if(el.hasAttribute("data-f")){S.f[el.getAttribute("data-f")]=el.getAttribute("data-v");renderList();return}
+if(el.hasAttribute("data-edit")){openEdit(el.getAttribute("data-edit"));return}
+if(el.hasAttribute("data-save")){save(el.getAttribute("data-save"));return}
+if(el.hasAttribute("data-close")){closeEdit();return}
+if(el.hasAttribute("data-back")){if(history.length>1)history.back(); else location.hash="#list";return}
+});
+$("mask").onclick=closeEdit;
+window.addEventListener("hashchange",route);
+route();
+</script>
+</body>
+</html>
